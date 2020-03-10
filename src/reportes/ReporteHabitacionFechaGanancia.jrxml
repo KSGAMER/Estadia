@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b23e7f07-c91b-4890-8d41-d60e1a8c931a">
+	<property name="ireport.zoom" value="1.1000000000000028"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="344"/>
+	<parameter name="FechaFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT h.Nombre, COUNT(h.Nombre) as Reservaciones, SUM(c.Monto) as Ganancias FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, $P{FechaInicial}, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, $P{FechaFinal}, 103) GROUP BY h.Nombre]]>
+	</queryString>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="Reservaciones" class="java.lang.Integer"/>
+	<field name="Ganancias" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="49" y="11" width="419" height="54" uuid="99c46d04-24b4-4da7-b8df-234f9c985e45"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Reporte de Hotel Paraíso Inn]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="29" width="419" height="22" uuid="db59ce51-c983-4d7e-bff2-03bba44f92cc"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Tabla de Ganancias por Rango de Fechas]]></text>
+			</staticText>
+			<textField pattern="EEEEEE dd &apos;de&apos; MMMMM &apos;del&apos; yyyy HH:mm:ss aaa">
+				<reportElement x="359" y="9" width="184" height="20" uuid="6769f17f-08a5-47a6-b579-a6ba785c7733"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement x="15" y="19" width="300" height="1" uuid="2cab2fa4-6d84-4f7d-b60e-0468a6eb8c34"/>
+			</line>
+			<staticText>
+				<reportElement x="16" y="0" width="100" height="20" uuid="e6b44b80-9e09-4b92-a838-2fb884d4c960"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="0" width="100" height="20" uuid="30bfef90-f546-46cb-b53f-6c6a6eeea6d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reservaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="0" width="100" height="20" uuid="c8b2dbea-2588-43c0-b373-e869196f55e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ganancias]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="1" width="100" height="20" uuid="3c03f9c1-374f-4add-9fbf-626f10a13ff0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="1" width="100" height="20" uuid="777959df-d8c4-4c16-8ec4-07ea102cced2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Reservaciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="1" width="100" height="20" uuid="e087d8ba-e58e-4de6-b014-1e54b80ae5a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Ganancias}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="218" y="0" width="1" height="21" uuid="8798d37b-f4de-4c42-a16d-79a098bb3ffc"/>
+			</line>
+			<line>
+				<reportElement x="116" y="0" width="1" height="21" uuid="3466eb69-b16c-42f8-92ae-8512775a03c5"/>
+			</line>
+			<line>
+				<reportElement x="15" y="20" width="300" height="1" uuid="9b56e96b-07da-4cce-ae4d-2bd79fb21ee4"/>
+			</line>
+			<staticText>
+				<reportElement x="220" y="-1" width="10" height="21" uuid="49a0d1bf-fb5e-4c68-9340-eb9fcad4afe1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="218" y="15" width="80" height="20" uuid="075cc71b-5afe-4503-8be4-360738b021f6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="298" y="15" width="40" height="20" uuid="250e2758-9577-4072-842a-ccf8adccf0e9"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="480" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="11" y="44" width="532" height="195" uuid="1f1ed587-822d-4c1b-b2f2-fbe79c0e08e8"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{Nombre}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Nombre}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{Reservaciones}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<barChart>
+				<chart>
+					<reportElement x="11" y="267" width="532" height="198" uuid="d2702e82-c009-4c6b-bb6f-75a426b267aa"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{Nombre}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Nombre}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{Ganancias}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<staticText>
+				<reportElement x="11" y="24" width="249" height="20" uuid="fca1d53a-9b4a-42f2-9011-da65034bf7a0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Gráfica de Reservaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="247" width="267" height="20" uuid="762de246-9618-4ec1-95c6-e742468d79eb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Gráfica de Ganancias]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

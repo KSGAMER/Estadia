@@ -1,0 +1,4 @@
+Paso 1 : Agregar sqljdbc_auth.dll y sqljdbc_xa.dll a la raíz del proyecto.
+
+Paso 2: Agregr sqljdbc42 desde netbeans en Libraries.
+
