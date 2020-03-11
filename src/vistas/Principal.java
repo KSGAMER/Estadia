@@ -48,7 +48,9 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     //necesario para validar permisos
     ControladorPermisos cperm = new ControladorPermisos();
     ControladorModulos cmod = new ControladorModulos();
-    private String User = "SEBAS";//sesion.Username;
+    ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
+    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
+    public static String User = "SEBAS";//sesion.Username;
     MenuItem Administrador;
     MenuItem Configuracion;
 
@@ -69,6 +71,8 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         Bienvenida.setText("Bienvenido " + User);
         execute();
         cperm.tablaPermisos();
+        cmod.tablaModulos();
+        eperm.tablaEstatusPermisos();
         comparadorPrivilegios();
         mostrarFecha();
         mostrarHora();
@@ -660,7 +664,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         // Thread current= Thread.currentThread();
         for (int i = 1; i > 0; i++) {
             if (i > 0) {
-                validarPermisos();
+              //  validarPermisos();
                 hora();
                 lb_hora.setText(hora + ":" + minutos + ":" + segundos);
             }
@@ -697,19 +701,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         hilo.start();
     }
 
-    public void validarPermisos() {
-        for (ObjetoPermiso permiso : cperm.selectPermiso()) {
-            for (ObjetoModulo modulo : cmod.selectModulo()) {
-                if (modulo.getIdModulo() == permiso.getIdModulo()) {
-                    System.out.println("hola");
-                    /*if (permiso.getUsermane().equals("SEBAS") && modulo.getNombre().equals("Categorias")) {
-                        System.out.println("hola");
-                     }*/
-                }
-            }
 
-        }
-    }
 
     /**
      * @param args the command line arguments

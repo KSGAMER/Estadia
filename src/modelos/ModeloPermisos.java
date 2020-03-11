@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import ds.desktop.notify.DesktopNotify;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,8 +103,12 @@ public class ModeloPermisos extends BD{
             }
             this.st.execute();
             conectar().close();
+            DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido agregados con éxito.", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+              DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar insertar los datos del privilegio", DesktopNotify.ERROR);
+        
         }
     }
     
@@ -135,8 +140,12 @@ public class ModeloPermisos extends BD{
             this.st.setInt(7, id);
             this.st.executeUpdate();
             conectar().close();
+            DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido actualizados con éxito.", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+      //      Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar actualizar los datos del privilegio", DesktopNotify.ERROR);
+        
         }
     }
     
@@ -144,8 +153,12 @@ public class ModeloPermisos extends BD{
         try {
             this.st = conectar().prepareStatement("DELETE FROM Permiso WHERE IdPermiso = ?");
             this.st.setInt(1, id);
+                DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido eliminados con éxito.", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar eliminar los datos del privilegio", DesktopNotify.ERROR);
+        
         }
     }
 }

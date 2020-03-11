@@ -830,9 +830,9 @@ Frame Principal;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private principal.MaterialButton btn_Eliminar;
-    private principal.MaterialButton btn_Ingresar;
-    private principal.MaterialButton btn_Modificar;
+    public static principal.MaterialButton btn_Eliminar;
+    public static principal.MaterialButton btn_Ingresar;
+    public static principal.MaterialButton btn_Modificar;
     private javax.swing.JComboBox<String> cb_Categoria;
     private javax.swing.JComboBox<String> cb_piso;
     private javax.swing.JComboBox<String> cb_status;
@@ -856,7 +856,7 @@ Frame Principal;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTextField jt_Buscar;
+    public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_habitaciones;
     private javax.swing.JTextField jt_nombre;
     private javax.swing.JTextField jt_precio;

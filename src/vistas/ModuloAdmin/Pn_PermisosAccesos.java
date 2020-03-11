@@ -10,18 +10,26 @@ import javax.swing.DefaultComboBoxModel;
 import objetos.*;
 import controladores.*;
 import ds.desktop.notify.DesktopNotify;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
-
+import vistas.*;
 /**
  *
  * @author fenix
  */
 public class Pn_PermisosAccesos extends javax.swing.JPanel {
-   ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
-   ControladorPermisos cperm = new ControladorPermisos();
-   ControladorUsuarios cuser = new ControladorUsuarios();
-   ControladorModulos cmod = new ControladorModulos();
- DefaultTableModel NewTable = new DefaultTableModel();
+
+    ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
+    ControladorPermisos cperm = new ControladorPermisos();
+    ControladorUsuarios cuser = new ControladorUsuarios();
+    ControladorModulos cmod = new ControladorModulos();
+    DefaultTableModel NewTable = new DefaultTableModel();
+    //variable que guarda el id del la fila del los privilegios de algun modulo
+    private int idModUserPriv=0;
+    Frame Principal;
+
     /**
      * Creates new form NuevoEmpleado1
      */
@@ -41,12 +49,22 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     }
 
-   
+    public void datosIniciales() {
+        idModUserPriv=0;
+        cb_usuario.setSelectedIndex(0);
+        cb_modulo.setSelectedIndex(0);
+        cb_consultar.setSelectedIndex(0);
+        cb_agregar.setSelectedIndex(0);
+        cb_actualizar.setSelectedIndex(0);
+        cb_eliminar.setSelectedIndex(0);
+    }
+
     public void cTabla() {
         jt_Privilegios.setModel(cperm.tablaPermisos());
-     
+
     }
-       public void cargarUsuarios() {
+
+    public void cargarUsuarios() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Usuario");
@@ -74,7 +92,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
-        cb_buscar.setModel(cb);
+        cb_consultar.setModel(cb);
      
     }
      public void cargarAgregar() {
@@ -120,7 +138,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -138,7 +155,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         cb_modulo = new javax.swing.JComboBox<>();
-        cb_buscar = new javax.swing.JComboBox<>();
+        cb_consultar = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_Privilegios = new javax.swing.JTable();
         cb_eliminar = new javax.swing.JComboBox<>();
@@ -146,6 +163,9 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_agregar = new javax.swing.JComboBox<>();
         cb_actualizar = new javax.swing.JComboBox<>();
         btn_Ingresar = new principal.MaterialButton();
+        btn_Modificar1 = new principal.MaterialButton();
+        jLabel5 = new javax.swing.JLabel();
+        btn_Eliminar = new principal.MaterialButton();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -153,13 +173,8 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel15.setText("Usuario");
+        jLabel15.setText("Eliminar");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 190, -1));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Total de registros ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 530, 100, 20));
 
         jPanel2.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -236,29 +251,29 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel17.setText("Usuario");
+        jLabel17.setText("Modulo");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 190, -1));
 
         jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel18.setText("Usuario");
+        jLabel18.setText("Consultar");
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 190, -1));
 
         jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel19.setText("Usuario");
+        jLabel19.setText("Agregar");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, 190, -1));
 
         jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("Usuario");
+        jLabel20.setText("Modificar");
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, 190, -1));
 
         cb_modulo.setBackground(new java.awt.Color(84, 110, 122));
-        cb_modulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
+        cb_modulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Modulo" }));
         cb_modulo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_moduloItemStateChanged(evt);
@@ -266,14 +281,14 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         });
         jPanel1.add(cb_modulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 190, -1));
 
-        cb_buscar.setBackground(new java.awt.Color(84, 110, 122));
-        cb_buscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
-        cb_buscar.addItemListener(new java.awt.event.ItemListener() {
+        cb_consultar.setBackground(new java.awt.Color(84, 110, 122));
+        cb_consultar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
+        cb_consultar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_buscarItemStateChanged(evt);
+                cb_consultarItemStateChanged(evt);
             }
         });
-        jPanel1.add(cb_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 190, -1));
+        jPanel1.add(cb_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 190, -1));
 
         jt_Privilegios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -286,12 +301,17 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jt_Privilegios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_PrivilegiosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jt_Privilegios);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 960, 220));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 960, 220));
 
         cb_eliminar.setBackground(new java.awt.Color(84, 110, 122));
-        cb_eliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
+        cb_eliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
         cb_eliminar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_eliminarItemStateChanged(evt);
@@ -314,7 +334,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jPanel1.add(cb_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 190, -1));
 
         cb_agregar.setBackground(new java.awt.Color(84, 110, 122));
-        cb_agregar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
+        cb_agregar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
         cb_agregar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_agregarItemStateChanged(evt);
@@ -323,7 +343,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jPanel1.add(cb_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, 190, -1));
 
         cb_actualizar.setBackground(new java.awt.Color(84, 110, 122));
-        cb_actualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
+        cb_actualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
         cb_actualizar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_actualizarItemStateChanged(evt);
@@ -342,6 +362,39 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 140, 40));
+
+        btn_Modificar1.setBackground(new java.awt.Color(255, 153, 0));
+        btn_Modificar1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Modificar1.setText("Modificar");
+        btn_Modificar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Modificar1.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Modificar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Modificar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_Modificar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 550, 140, 40));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, -1, -1));
+
+        btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
+        btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Eliminar.setText("Eliminar");
+        btn_Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Eliminar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_EliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 550, 140, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -366,9 +419,9 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         //  System.out.println(cb_piso.getSelectedItem());
     }//GEN-LAST:event_cb_moduloItemStateChanged
 
-    private void cb_buscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_buscarItemStateChanged
+    private void cb_consultarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_consultarItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_cb_buscarItemStateChanged
+    }//GEN-LAST:event_cb_consultarItemStateChanged
 
     private void cb_eliminarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_eliminarItemStateChanged
         // TODO add your handling code here:
@@ -392,27 +445,87 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         try {
-          
-            cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_buscar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
+       
+            cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
             NewTable = new DefaultTableModel();
             cTabla();
-
-
-
         } catch (Exception e) {
-
-           DesktopNotify.showDesktopMessage("Error", "algo paso", DesktopNotify.ERROR);
+            //DesktopNotify.showDesktopMessage("Error", "algo paso", DesktopNotify.ERROR);
         }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
+    private void btn_Modificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Modificar1ActionPerformed
+        try {
+            cperm.updatePermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()), idModUserPriv);
+            NewTable = new DefaultTableModel();
+            cTabla();
+            datosIniciales();
+
+        } catch (Exception e) {
+            // DesktopNotify.showDesktopMessage("Error", "algo paso", DesktopNotify.ERROR);
+        }
+
+
+    }//GEN-LAST:event_btn_Modificar1ActionPerformed
+
+    private void jt_PrivilegiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_PrivilegiosMouseClicked
+        int seleccion = jt_Privilegios.rowAtPoint(evt.getPoint());
+        //variable que guarda el id del la fila del los privilegios de algun modulo
+        idModUserPriv = Integer.parseInt(String.valueOf(jt_Privilegios.getValueAt(seleccion, 0)));
+        cb_usuario.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 1));
+        cb_modulo.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 2));
+        cb_consultar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 3));
+        cb_agregar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 4));
+        cb_actualizar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 5));
+        cb_eliminar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 6));
+    }//GEN-LAST:event_jt_PrivilegiosMouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        datosIniciales();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
+
+        try {
+            if (idModUserPriv==0) {
+
+                DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
+
+            } else {
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                     cperm.deletePermiso(idModUserPriv);
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        datosIniciales();
+
+                    }
+                });
+                ale.setVisible(true);
+            }
+
+        } catch (Exception e) {
+
+    
+        }
+
+      
+    }//GEN-LAST:event_btn_EliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private principal.MaterialButton btn_Eliminar;
     private principal.MaterialButton btn_Ingresar;
+    private principal.MaterialButton btn_Modificar1;
     private javax.swing.JComboBox<String> cb_actualizar;
     private javax.swing.JComboBox<String> cb_agregar;
-    private javax.swing.JComboBox<String> cb_buscar;
+    private javax.swing.JComboBox<String> cb_consultar;
     private javax.swing.JComboBox<String> cb_eliminar;
     private javax.swing.JComboBox<String> cb_modulo;
     private javax.swing.JComboBox<String> cb_usuario;
@@ -425,7 +538,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

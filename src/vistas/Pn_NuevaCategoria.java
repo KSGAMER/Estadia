@@ -5,9 +5,13 @@
  */
 package vistas;
 
+import controladores.ControladorAnalisisPrivilegios;
 import controladores.ControladorCategorias;
 import controladores.ControladorEscritura;
+import controladores.ControladorEstatusPermisos;
 import controladores.ControladorFormularioTab;
+import controladores.ControladorModulos;
+import controladores.ControladorPermisos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -38,12 +42,19 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
     ControladorEscritura ce = new ControladorEscritura();
     DefaultTableModel NewTable = new DefaultTableModel();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-Frame Principal;
+    ControladorAnalisisPrivilegios analisis = new ControladorAnalisisPrivilegios();
+    ControladorPermisos cperm = new ControladorPermisos();
+    ControladorModulos cmod = new ControladorModulos();
+    ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
+
+    Frame Principal;
+
     /**
      * Creates new form Pn_NuevaCategoria
      */
     public Pn_NuevaCategoria() {
         initComponents();
+        analisis.validarPermisos();
         datosIniciales();
         RowHeaderApariencia();
         RowApariencia();
@@ -51,7 +62,7 @@ Frame Principal;
         tamañoTabla();
         //para ajustar el tecto al tamaño del jtextarea
         jta_observaciones.setLineWrap(true);
-
+      
     }
 
     public void tamañoTabla() {
@@ -582,9 +593,9 @@ Frame Principal;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private principal.MaterialButton btn_Eliminar;
+    public static principal.MaterialButton btn_Eliminar;
     public static principal.MaterialButton btn_Ingresar;
-    private principal.MaterialButton btn_Modificar;
+    public static principal.MaterialButton btn_Modificar;
     private javax.swing.JCheckBox chk_mostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
@@ -600,7 +611,7 @@ Frame Principal;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jt_Buscar;
+    public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_categorias;
     private javax.swing.JTextField jt_nombre;
     private javax.swing.JTextField jt_t_registros;
