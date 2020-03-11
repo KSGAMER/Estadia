@@ -3,8 +3,7 @@ package vistas;
 import controladores.*;
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
@@ -12,6 +11,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
+import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.RingPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -29,14 +29,13 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     private ControladorReportes reportes = new ControladorReportes();
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     boolean flag = false;
-    int i = 0;
 
     /**
      * Creates new form pnlHome
      */
     public Pn_NuevoReportes() {
         initComponents();
-        ListenJCalendar();
+        mouseOnClick();
         rangoFechas();
         estadisticas();
         configScroll();
@@ -46,7 +45,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         ScrollEstadisticas.getVerticalScrollBar().setUnitIncrement(20);
         ScrollReportes.getVerticalScrollBar().setUnitIncrement(20);
     }
-    
+
     public void rangoFechas() {
         Calendar fecha = Calendar.getInstance();
         cFinalGananciasFechas.setDate(fecha.getTime());
@@ -176,7 +175,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         IndiceReservaciones.add(panel);
         panel.setBounds(0, 60, 460, 325);
     }
-    
+
     public void gananciasFechas() {
         tbGananciasFechas.setModel(reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime())));
         DefaultCategoryDataset grafica = new DefaultCategoryDataset();
@@ -210,32 +209,36 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         chart.getPlot().setBackgroundPaint(Color.WHITE);
         ChartPanel panel = new ChartPanel(chart);
         panel.setOpaque(false);
+        if(flag == true) {
+            GananciasFechas.remove(7);
+        }
         GananciasFechas.add(panel);
+        GananciasFechas.validate();
         panel.setBounds(0, 60, 440, 250);
     }
-    
+
     public void porcentajeGanancias() {
-        lbGananciaHoy.setText("$"+Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString())+"0");
-        double porcentaje = Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString())*100/Double.parseDouble(reportes.porcentajeGanancias().getValueAt(1, 1).toString());
-        lbPorcentajeGanancias.setText(String.valueOf(porcentaje).substring(0, 5)+"%");
-        if(porcentaje >= 100) {
-            lbPorcentajeGanancias.setForeground(new Color(0,191,95));
+        lbGananciaHoy.setText("$" + Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) + "0");
+        double porcentaje = Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeGanancias().getValueAt(1, 1).toString());
+        lbPorcentajeGanancias.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
+        if (porcentaje >= 100) {
+            lbPorcentajeGanancias.setForeground(new Color(0, 191, 95));
             lbPorcentajeGanancias.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
         } else {
-            lbPorcentajeGanancias.setForeground(new Color(229,16,16));
+            lbPorcentajeGanancias.setForeground(new Color(229, 16, 16));
             lbPorcentajeGanancias.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186411-16.png")));
         }
     }
-    
+
     public void porcentajeReservacion() {
         lbReservacionesHoy.setText(String.valueOf(Integer.parseInt(reportes.porcentajeReservacion().getValueAt(0, 1).toString())));
-        double porcentaje = Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString())*100/Double.parseDouble(reportes.porcentajeReservacion().getValueAt(1, 1).toString());
-        lbPorcentajeReservaciones.setText(String.valueOf(porcentaje).substring(0, 5)+"%");
-        if(porcentaje >= 100) {
-            lbPorcentajeReservaciones.setForeground(new Color(0,191,95));
+        double porcentaje = Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeReservacion().getValueAt(1, 1).toString());
+        lbPorcentajeReservaciones.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
+        if (porcentaje >= 100) {
+            lbPorcentajeReservaciones.setForeground(new Color(0, 191, 95));
             lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
         } else {
-            lbPorcentajeReservaciones.setForeground(new Color(0,191,95));
+            lbPorcentajeReservaciones.setForeground(new Color(0, 191, 95));
             lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
         }
     }
@@ -249,11 +252,26 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         montoTotal();
         popularHabitacion();
     }
-    
-    public void ListenJCalendar() {
-        cInicialGananciasFechas.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
-            public void propertyChange(PropertyChangeEvent evt) {
-                System.out.println("hola");
+
+    public void mouseOnClick() {
+        cInicialGananciasFechas.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flag = true;
+            }
+        });
+        cInicialGananciasFechas.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flag = true;
+            }
+        });
+        cFinalGananciasFechas.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flag = true;
+            }
+        });
+        cFinalGananciasFechas.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flag = true;
             }
         });
     }
@@ -597,6 +615,12 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         GananciasFechas.setBackground(new java.awt.Color(255, 255, 255));
         GananciasFechas.setPreferredSize(new java.awt.Dimension(450, 300));
         GananciasFechas.setLayout(null);
+
+        cInicialGananciasFechas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cInicialGananciasFechasPropertyChange(evt);
+            }
+        });
         GananciasFechas.add(cInicialGananciasFechas);
         cInicialGananciasFechas.setBounds(100, 320, 120, 20);
 
@@ -604,6 +628,12 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jLabel21.setText("Fecha Inicial:");
         GananciasFechas.add(jLabel21);
         jLabel21.setBounds(20, 320, 80, 20);
+
+        cFinalGananciasFechas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cFinalGananciasFechasPropertyChange(evt);
+            }
+        });
         GananciasFechas.add(cFinalGananciasFechas);
         cFinalGananciasFechas.setBounds(300, 320, 120, 20);
 
@@ -710,6 +740,18 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cInicialGananciasFechasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cInicialGananciasFechasPropertyChange
+        if (flag == true) {
+            gananciasFechas();
+        }
+    }//GEN-LAST:event_cInicialGananciasFechasPropertyChange
+
+    private void cFinalGananciasFechasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cFinalGananciasFechasPropertyChange
+        if (flag == true) {
+            gananciasFechas();
+        }
+    }//GEN-LAST:event_cFinalGananciasFechasPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
