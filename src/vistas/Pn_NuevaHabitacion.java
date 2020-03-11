@@ -10,6 +10,9 @@ import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -39,7 +42,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
     DefaultTableModel NewTable;
     private int idPiso, idCategoria, idStatus;
-
+Frame Principal;
     /**
      * Creates new form Pn_NuevaHabitaion
      */
@@ -755,13 +758,24 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
             if (lb_Id.getText().equals("*")) {
                 DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
             } else {
-                ch.deleteHabitacion(Integer.valueOf(lb_Id.getText()));
-                tamañoTabla();
+       
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        ch.deleteHabitacion(Integer.valueOf(lb_Id.getText()));
+                        tamañoTabla();
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        datosIniciales();
+
+                    }
+                });
+                ale.setVisible(true);
+
             }
-            NewTable = new DefaultTableModel();
-            cTabla();
-            datosIniciales();
-            tamañoTabla();
+
         } catch (Exception e) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar los datos de la Habitacion " + jt_nombre.getText()
                     + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);

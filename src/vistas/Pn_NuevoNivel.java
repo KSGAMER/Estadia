@@ -12,6 +12,9 @@ import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JTable;
@@ -30,6 +33,7 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
     ControladorEscritura ce = new ControladorEscritura();
     DefaultTableModel NewTable;
     private ControladorFormularioTab cft = new ControladorFormularioTab();
+    Frame Principal;
 
     /**
      * Creates new form Pn_NuevoNivel
@@ -438,9 +442,23 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
 
             } else {
 
-                cc.deletePiso(Integer.valueOf(lb_Id.getText()));
-                //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
 
+                        cc.deletePiso(Integer.valueOf(lb_Id.getText()));
+                        //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
+
+                        tamañoTabla();
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        datosIniciales();
+
+                    }
+                });
+                ale.setVisible(true);
             }
 
         } catch (Exception e) {

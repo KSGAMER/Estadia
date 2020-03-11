@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultCaret;
 import ds.desktop.notify.DesktopNotify;
 import ds.desktop.notify.NotifyTheme;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -37,7 +38,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
     ControladorEscritura ce = new ControladorEscritura();
     DefaultTableModel NewTable = new DefaultTableModel();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-
+Frame Principal;
     /**
      * Creates new form Pn_NuevaCategoria
      */
@@ -492,13 +493,21 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
                 DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
 
             } else {
-           
-                ccat.deleteCategoria(Integer.valueOf(lb_Id.getText()));
-                //DesktopNotify.showDesktopMessage("Exito", "Datos de la categoria " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
-                tamañoTabla();
-                NewTable = new DefaultTableModel();
-                cTabla();
-                datosIniciales();
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        ccat.deleteCategoria(Integer.valueOf(lb_Id.getText()));
+                        //DesktopNotify.showDesktopMessage("Exito", "Datos de la categoria " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
+                        tamañoTabla();
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        datosIniciales();
+
+                    }
+                });
+                ale.setVisible(true);
             }
 
         } catch (Exception e) {
@@ -574,7 +583,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private principal.MaterialButton btn_Eliminar;
-    private principal.MaterialButton btn_Ingresar;
+    public static principal.MaterialButton btn_Ingresar;
     private principal.MaterialButton btn_Modificar;
     private javax.swing.JCheckBox chk_mostrar;
     private javax.swing.JLabel jLabel1;
