@@ -27,7 +27,7 @@ import ds.desktop.notify.NotifyTheme;
 import java.awt.Graphics;
 import javafx.scene.layout.Priority;
 import vistas.ModuloAdmin.*;
-
+import objetos.*;
 /**
  *
  * @
@@ -45,7 +45,10 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     ControladorHabitaciones ch = new ControladorHabitaciones();
     ControladorPisos cp = new ControladorPisos();
     ControladorReservaciones cr = new ControladorReservaciones();
-    private String User = sesion.Username;
+    //necesario para validar permisos
+    ControladorPermisos cperm = new ControladorPermisos();
+    ControladorModulos cmod = new ControladorModulos();
+    private String User = "SEBAS";//sesion.Username;
     MenuItem Administrador;
     MenuItem Configuracion;
 
@@ -65,6 +68,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         ajustesDeScroll();
         Bienvenida.setText("Bienvenido " + User);
         execute();
+        cperm.tablaPermisos();
         comparadorPrivilegios();
         mostrarFecha();
         mostrarHora();
@@ -109,6 +113,10 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         Bienvenida = new javax.swing.JLabel();
         jl_Icon_User = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,8 +225,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(135, 135, 135)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)
@@ -231,7 +238,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                                 .addComponent(jLabel10)
                                 .addGap(40, 40, 40)
                                 .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel9)
@@ -247,7 +254,6 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                         .addComponent(lb_Configs, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lb_min, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lb_close, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -351,7 +357,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(jl_Icon_User)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Bienvenida))
@@ -361,15 +367,66 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Navegacion");
 
+        jPanel6.setBackground(new java.awt.Color(28, 37, 47));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(58, 159, 171));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("VERSION 1.0");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(58, 159, 171));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("© DERECHOS RESERVADOS 2020");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(58, 159, 171));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("SISTEMA DE CONTROL HOTELERO");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jLabel17)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel16)
+                .addContainerGap())
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                    .addContainerGap(42, Short.MAX_VALUE)
+                    .addComponent(jLabel18)
+                    .addGap(34, 34, 34)))
+        );
+
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
         panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(scroll_Menu)
             .addGroup(panelMenuLayout.createSequentialGroup()
                 .addComponent(jLabel8)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(scroll_Menu)
+            .addGroup(panelMenuLayout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,7 +435,10 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addGap(4, 4, 4)
-                .addComponent(scroll_Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(scroll_Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98))
         );
 
         getContentPane().add(panelMenu, java.awt.BorderLayout.LINE_START);
@@ -513,6 +573,13 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 new CambiaPanel(pnlPrincipal, new Pn_ConfServer());
             }
         });
+               MenuItem Permisos = new MenuItem(subMenus, "Permisos", 10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                new CambiaPanel(pnlPrincipal, new Pn_PermisosAccesos());
+            }
+        });
 //APARTADO DE TODOS LOS MENUS
         MenuItem CalendarioReservas = new MenuItem(iconRecepcion, "Calendario", 35, new ActionListener() {
             @Override
@@ -534,7 +601,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         Configuracion = new MenuItem(iconConfiguracion, "Configuración", 35, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
         MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);
         MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
-        Administrador = new MenuItem(iconReportes, "Administrador", 35, null, NuevoEmpleado,ConfiguraciónServidor);
+        Administrador = new MenuItem(iconReportes, "Administrador", 35, null, NuevoEmpleado,ConfiguraciónServidor,Permisos);
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
         addMenu(CalendarioReservas, Reservaciones, Recepcion, Clientes, Configuracion, Facturas, Reportes, Administrador); //Configuracion);
     }
@@ -554,6 +621,9 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     public void ajustesDeScroll() {
         //scroll_Menu es el nombre del jscrollpane que contiene el panel del menu
         scroll_Menu.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+  //incrementa a velocidad de scroleo
+        scroll_Menu.getVerticalScrollBar().setUnitIncrement(20);
+        //elimina el scrollBar vertical 
 
         //ELIMINA LA POSIBILIDAD DE REALIZAR SCROLL HORIZONTALMENTE
         scrollPane_pnPrncipal.setHorizontalScrollBarPolicy(scrollPane_pnPrncipal.HORIZONTAL_SCROLLBAR_NEVER);
@@ -590,6 +660,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         // Thread current= Thread.currentThread();
         for (int i = 1; i > 0; i++) {
             if (i > 0) {
+                validarPermisos();
                 hora();
                 lb_hora.setText(hora + ":" + minutos + ":" + segundos);
             }
@@ -624,6 +695,20 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         setVisible(true);
         hilo = new Thread(hilos);
         hilo.start();
+    }
+
+    public void validarPermisos() {
+        for (ObjetoPermiso permiso : cperm.selectPermiso()) {
+            for (ObjetoModulo modulo : cmod.selectModulo()) {
+                if (modulo.getIdModulo() == permiso.getIdModulo()) {
+                    System.out.println("hola");
+                    /*if (permiso.getUsermane().equals("SEBAS") && modulo.getNombre().equals("Categorias")) {
+                        System.out.println("hola");
+                     }*/
+                }
+            }
+
+        }
     }
 
     /**
@@ -665,12 +750,24 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jl_Icon_User;
     private javax.swing.JLabel lb_AcercaDe;

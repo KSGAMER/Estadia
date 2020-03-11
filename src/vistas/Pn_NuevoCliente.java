@@ -5,6 +5,9 @@ import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +27,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
     DefaultTableModel NewTable;
     private int seleccion;
     private int idCfdi = 0;
-
+Frame Principal;
     /**
      * Creates new form pnlHome
      */
@@ -802,12 +805,24 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
             } else {
 
-                mc.deleteCliente(Integer.valueOf(lb_Id.getText()));
-                //DesktopNotify.showDesktopMessage("Exito", "Datos del cliente " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
-                NewTable = new DefaultTableModel();
-                tamañoTabla();
-                cTabla();
-                datosIniciales();
+            
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        mc.deleteCliente(Integer.valueOf(lb_Id.getText()));
+                        //DesktopNotify.showDesktopMessage("Exito", "Datos del cliente " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
+
+                        tamañoTabla();
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        datosIniciales();
+
+                    }
+                });
+                ale.setVisible(true);
+
             }
 
         } catch (Exception e) {

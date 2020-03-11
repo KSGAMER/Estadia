@@ -12,10 +12,12 @@ package controladores;
 public class ControladorHilo extends Thread {
 
     private ControladorRecepciones recepciones = new ControladorRecepciones();
+  //  private ControladorAnalisisPrivilegios analisis = new ControladorAnalisisPrivilegios();
 
     public void run() {
         while(true) {
             recepciones.actualizarEstatus();
+         //   analisis.validarPermisos();
         }
     }
 }
