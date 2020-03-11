@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -179,6 +180,18 @@ public class ModeloReportes extends BD{
         try {
             JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("src\\reportes\\"+report+".jasper");
             JasperPrint imprimir = JasperFillManager.fillReport(reporte, null, conectar());
+            JasperViewer vista = new JasperViewer(imprimir, false);
+            vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            vista.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    protected void generarReporte(String report, HashMap parametros) {
+        try {
+            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("src\\reportes\\"+report+".jasper");
+            JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametros, conectar());
             JasperViewer vista = new JasperViewer(imprimir, false);
             vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             vista.setVisible(true);

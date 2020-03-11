@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b23e7f07-c91b-4890-8d41-d60e1a8c931a">
 	<property name="ireport.zoom" value="1.1000000000000028"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="344"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="FechaFinal" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -39,7 +39,7 @@
 				<text><![CDATA[Tabla de Ganancias por Rango de Fechas]]></text>
 			</staticText>
 			<textField pattern="EEEEEE dd &apos;de&apos; MMMMM &apos;del&apos; yyyy HH:mm:ss aaa">
-				<reportElement x="359" y="9" width="184" height="20" uuid="6769f17f-08a5-47a6-b579-a6ba785c7733"/>
+				<reportElement x="338" y="9" width="205" height="20" uuid="6769f17f-08a5-47a6-b579-a6ba785c7733"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>

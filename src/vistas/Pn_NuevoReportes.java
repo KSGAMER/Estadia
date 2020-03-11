@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -35,7 +36,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
      */
     public Pn_NuevoReportes() {
         initComponents();
-        mouseOnClick();
+        mouseOnClickGananciasFechas();
         rangoFechas();
         estadisticas();
         configScroll();
@@ -253,7 +254,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         popularHabitacion();
     }
 
-    public void mouseOnClick() {
+    public void mouseOnClickGananciasFechas() {
         cInicialGananciasFechas.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 flag = true;
@@ -662,6 +663,11 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jPanel5.add(GananciasFechas);
         GananciasFechas.setBounds(20, 10, 450, 350);
 
+        tbGananciasFechas = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         tbGananciasFechas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -676,6 +682,8 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         tbGananciasFechas.setMaximumSize(new java.awt.Dimension(450, 300));
         tbGananciasFechas.setMinimumSize(new java.awt.Dimension(450, 300));
         tbGananciasFechas.setPreferredSize(new java.awt.Dimension(480, 272));
+        tbGananciasFechas.getTableHeader().setResizingAllowed(false);
+        tbGananciasFechas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbGananciasFechas);
 
         jPanel5.add(jScrollPane1);
@@ -685,6 +693,11 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         materialButton1.setForeground(new java.awt.Color(255, 255, 255));
         materialButton1.setText("Exportar A PDF");
         materialButton1.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        materialButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                materialButton1ActionPerformed(evt);
+            }
+        });
         jPanel5.add(materialButton1);
         materialButton1.setBounds(660, 320, 160, 40);
 
@@ -692,6 +705,11 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         materialButton2.setForeground(new java.awt.Color(255, 255, 255));
         materialButton2.setText("Exportar A Excel");
         materialButton2.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        materialButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                materialButton2ActionPerformed(evt);
+            }
+        });
         jPanel5.add(materialButton2);
         materialButton2.setBounds(490, 320, 160, 40);
 
@@ -752,6 +770,17 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             gananciasFechas();
         }
     }//GEN-LAST:event_cFinalGananciasFechasPropertyChange
+
+    private void materialButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton2ActionPerformed
+        reportes.exportExcel(tbGananciasFechas);
+    }//GEN-LAST:event_materialButton2ActionPerformed
+
+    private void materialButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton1ActionPerformed
+        HashMap parametros = new HashMap();
+        parametros.put("FechaInicial", formato.format(cInicialGananciasFechas.getDate().getTime()));
+        parametros.put("FechaFinal", formato.format(cFinalGananciasFechas.getDate().getTime()));
+        reportes.reporteGenerar("ReporteHabitacionFechaGanancia", parametros);
+    }//GEN-LAST:event_materialButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

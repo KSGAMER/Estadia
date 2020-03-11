@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import java.util.HashMap;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelos.ModeloReportes;
@@ -49,5 +50,9 @@ public class ControladorReportes extends ModeloReportes{
     
     public void reporteGenerar(String archivo) {
         generarReporte(archivo);
+    }
+    
+    public void reporteGenerar(String archivo, HashMap parametros) {
+        generarReporte(archivo, parametros);
     }
 }
