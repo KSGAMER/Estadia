@@ -5,7 +5,7 @@
  */
 package vistas;
 
-import controladores.ControladorAnalisisPrivilegios;
+import controladores.ValidadorDePrivilegios.*;
 import controladores.ControladorCategorias;
 import controladores.ControladorEscritura;
 import controladores.ControladorEstatusPermisos;
@@ -38,31 +38,48 @@ import javax.swing.table.TableRowSorter;
  */
 public class Pn_NuevaCategoria extends javax.swing.JPanel {
 
+//NECESARIO PARA FUNCIONES DE ESTE MODULO 
     ControladorCategorias ccat = new ControladorCategorias();
     ControladorEscritura ce = new ControladorEscritura();
     DefaultTableModel NewTable = new DefaultTableModel();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-    ControladorAnalisisPrivilegios analisis = new ControladorAnalisisPrivilegios();
-    ControladorPermisos cperm = new ControladorPermisos();
-    ControladorModulos cmod = new ControladorModulos();
-    ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
+    ////FIN
 
+    //NECESARIO PARA EXTRAER LOS PRIVILEGIOS DENTRO DE ESTE MODULO, EN FUNCION AL USUARIO ACTUAL 
+    ControladorPrivilegiosCategorias analisis = new ControladorPrivilegiosCategorias();
+    //FIN
+//NECESARIO PARA HACER LA COMPRACION Y EXTRACCION DE LOS PRIVILEGIOS DE ESTE MODULO
+    private String NombreModulo = "Categorias";
+    //FIN
+
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
+//FIN
 
     /**
      * Creates new form Pn_NuevaCategoria
      */
     public Pn_NuevaCategoria() {
         initComponents();
-        analisis.validarPermisos();
+        //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
+        analisis.validarPermisos(NombreModulo);
+        //FIN
+        //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
+        //FIN
+        //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
+        //FIN
+        //CARGA LOS VALORES EN LA TABLA
         cTabla();
+        //FIN
+        //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
         tamañoTabla();
+        //FIN
         //para ajustar el tecto al tamaño del jtextarea
         jta_observaciones.setLineWrap(true);
-      
+        //FIN
     }
 
     public void tamañoTabla() {
@@ -527,7 +544,6 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
                     + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
 
         }
-      
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_EliminarActionPerformed

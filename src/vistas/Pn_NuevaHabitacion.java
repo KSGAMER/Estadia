@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import controladores.ValidadorDePrivilegios.*;
 import controladores.*;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
@@ -32,6 +33,7 @@ import objetos.ObjetoEstadoHabitacion;
  * @author fenix
  */
 public class Pn_NuevaHabitacion extends javax.swing.JPanel {
+//NECESARIO PARA FUNCIONES DE ESTE MODULO 
 
     ControladorHabitaciones ch = new ControladorHabitaciones();
     ControladorPisos cp = new ControladorPisos();
@@ -39,27 +41,59 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     ControladorEstatusHabitaciones ceh = new ControladorEstatusHabitaciones();
     ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-
     DefaultTableModel NewTable;
+    //FIN
+    /*
     private int idPiso, idCategoria, idStatus;
-Frame Principal;
+     */
+    //FIN
+
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    Frame Principal;
+//FIN
+
+    //NECESARIO PARA EXTRAER LOS PRIVILEGIOS DENTRO DE ESTE MODULO, EN FUNCION AL USUARIO ACTUAL 
+    ControladorPrivilegiosHabitaciones analisis = new ControladorPrivilegiosHabitaciones();
+    //FIN
+//NECESARIO PARA HACER LA COMPRACION Y EXTRACCION DE LOS PRIVILEGIOS DE ESTE MODULO
+    private String NombreModulo = "Habitaciones";
+
+    //FIN
     /**
      * Creates new form Pn_NuevaHabitaion
      */
     public Pn_NuevaHabitacion() {
 
         initComponents();
+        //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
+        analisis.validarPermisos(NombreModulo);
+        //FIN
+        //APARIENCIA DE LA TABLA
         RowApariencia();
         RowHeaderApariencia();
+        //FIN
+        //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
+        //FIN
+        //CARGA LOS VALORES EN LA TABLA
         cTabla();
+        //FIN
+        //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
         tamañoTabla();
+        //FIN
+        //NECESARIOS PARA CARGAR LOS DATOS DE LOS METODOS CARGARPISO, CATEGORIA, STATUS
         ccat.tablaCategorias();
         cp.tablaPisos();
         ceh.tablaEstadoHabiaciones();
+        //FIN
+        //CARGAN LOS DATOS DENTRO DE LOS COMBOBOX
         cargarPisos();
         cargarCategorias();
         cargarStatus();
+        //FIN
+        //para ajustar el tecto al tamaño del jtextarea
+        jta_observaciones.setLineWrap(true);
+        //FIN
     }
 
     public void cTabla() {
@@ -183,7 +217,7 @@ Frame Principal;
         lb_errorStatus.setForeground(new Color(84, 110, 122));
         jt_nombre.setText("Ingresar Nombre");
         jt_precio.setText("Ingresar Precio");
-        jta_caracteristicas.setText("Ingresar Caracteristicas");
+        jta_observaciones.setText("Ingresar Caracteristicas");
         cb_piso.setSelectedIndex(0);
         cb_status.setSelectedIndex(0);
         cb_Categoria.setSelectedIndex(0);
@@ -207,7 +241,7 @@ Frame Principal;
             val = false;
         }
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
-        if (!(jta_caracteristicas.getText().equals("Ingresar Caracteristicas")) && !(jta_caracteristicas.getText().equals(""))) {
+        if (!(jta_observaciones.getText().equals("Ingresar Caracteristicas")) && !(jta_observaciones.getText().equals(""))) {
             lb_errorCaracteristicas.setForeground(new Color(84, 110, 122));
         } else {
             lb_errorCaracteristicas.setForeground(Color.RED);
@@ -279,7 +313,7 @@ Frame Principal;
         jSeparator4 = new javax.swing.JSeparator();
         jt_precio = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
-        jta_caracteristicas = new javax.swing.JTextArea();
+        jta_observaciones = new javax.swing.JTextArea();
         cb_piso = new javax.swing.JComboBox<>();
         cb_status = new javax.swing.JComboBox<>();
         btn_Ingresar = new principal.MaterialButton();
@@ -446,29 +480,29 @@ Frame Principal;
         jSeparator7.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 150, 10));
 
-        jta_caracteristicas.setColumns(20);
-        jta_caracteristicas.setForeground(new java.awt.Color(153, 153, 153));
-        jta_caracteristicas.setRows(5);
-        jta_caracteristicas.setText("Ingresar Caracteristicas");
-        jta_caracteristicas.addFocusListener(new java.awt.event.FocusAdapter() {
+        jta_observaciones.setColumns(20);
+        jta_observaciones.setForeground(new java.awt.Color(153, 153, 153));
+        jta_observaciones.setRows(5);
+        jta_observaciones.setText("Ingresar Caracteristicas");
+        jta_observaciones.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jta_caracteristicasFocusGained(evt);
+                jta_observacionesFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jta_caracteristicasFocusLost(evt);
+                jta_observacionesFocusLost(evt);
             }
         });
-        jta_caracteristicas.addMouseListener(new java.awt.event.MouseAdapter() {
+        jta_observaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jta_caracteristicasMouseClicked(evt);
+                jta_observacionesMouseClicked(evt);
             }
         });
-        jta_caracteristicas.addKeyListener(new java.awt.event.KeyAdapter() {
+        jta_observaciones.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jta_caracteristicasKeyPressed(evt);
+                jta_observacionesKeyPressed(evt);
             }
         });
-        jPanel1.add(jta_caracteristicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 310, 140));
+        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 310, 140));
 
         cb_piso.setBackground(new java.awt.Color(84, 110, 122));
         cb_piso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
@@ -673,18 +707,18 @@ Frame Principal;
         ce.typedMoney(evt, jt_precio);
     }//GEN-LAST:event_jt_precioKeyTyped
 
-    private void jta_caracteristicasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_caracteristicasFocusLost
-        cft.formFocusLostJTextArea(jta_caracteristicas, "Ingresar Caracteristicas");
-    }//GEN-LAST:event_jta_caracteristicasFocusLost
+    private void jta_observacionesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusLost
+        cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Caracteristicas");
+    }//GEN-LAST:event_jta_observacionesFocusLost
 
-    private void jta_caracteristicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jta_caracteristicasMouseClicked
-        cft.formFocusGainJTextArea(jta_caracteristicas);
-    }//GEN-LAST:event_jta_caracteristicasMouseClicked
+    private void jta_observacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jta_observacionesMouseClicked
+        cft.formFocusGainJTextArea(jta_observaciones);
+    }//GEN-LAST:event_jta_observacionesMouseClicked
 
     private void cb_pisoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_pisoItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
+        /*  if (evt.getStateChange() == ItemEvent.SELECTED) {
             this.idPiso = cb_piso.getSelectedIndex();
-        }
+        }*/
         //  System.out.println(cb_piso.getSelectedItem());   
     }//GEN-LAST:event_cb_pisoItemStateChanged
 
@@ -693,7 +727,7 @@ Frame Principal;
             if (!validarEscritura() == true && !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
-                ch.insertHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precio.getText()), jta_caracteristicas.getText(), String.valueOf(cb_status.getSelectedItem()));
+                ch.insertHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precio.getText()), jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
@@ -712,7 +746,7 @@ Frame Principal;
         cb_piso.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 2));
         cb_Categoria.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 3));
         jt_precio.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 4)));
-        jta_caracteristicas.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 5)));
+        jta_observaciones.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 5)));
         cb_status.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 6));
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_habitacionesMouseClicked
@@ -723,17 +757,17 @@ Frame Principal;
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void cb_CategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_CategoriaItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
+        /*        if (evt.getStateChange() == ItemEvent.SELECTED) {
             this.idCategoria = cb_Categoria.getSelectedIndex();
-        }
-        // TODO add your handling code here:
+        }*/
+
     }//GEN-LAST:event_cb_CategoriaItemStateChanged
 
     private void cb_statusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_statusItemStateChanged
 
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
+        /* if (evt.getStateChange() == ItemEvent.SELECTED) {
             this.idStatus = cb_status.getSelectedIndex();
-        }
+        }*/
     }//GEN-LAST:event_cb_statusItemStateChanged
 
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
@@ -741,7 +775,7 @@ Frame Principal;
             if (!validarEscritura() == true && !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
-                ch.updateHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precio.getText()), jta_caracteristicas.getText(), String.valueOf(cb_status.getSelectedItem()), Integer.valueOf(lb_Id.getText()));
+                ch.updateHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precio.getText()), jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()), Integer.valueOf(lb_Id.getText()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
@@ -758,7 +792,7 @@ Frame Principal;
             if (lb_Id.getText().equals("*")) {
                 DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
             } else {
-       
+
                 Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
                 ale.jb_aceptar.addActionListener(new ActionListener() {
@@ -816,17 +850,17 @@ Frame Principal;
         cft.formFocusGain(jt_precio);
     }//GEN-LAST:event_jt_precioFocusGained
 
-    private void jta_caracteristicasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_caracteristicasFocusGained
-        cft.formFocusGainJTextArea(jta_caracteristicas);
-    }//GEN-LAST:event_jta_caracteristicasFocusGained
+    private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
+        cft.formFocusGainJTextArea(jta_observaciones);
+    }//GEN-LAST:event_jta_observacionesFocusGained
 
     private void jt_BuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_BuscarFocusGained
         cft.formFocusGain(jt_Buscar);
     }//GEN-LAST:event_jt_BuscarFocusGained
 
-    private void jta_caracteristicasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jta_caracteristicasKeyPressed
+    private void jta_observacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jta_observacionesKeyPressed
         cft.formTab(evt, jt_Buscar);
-    }//GEN-LAST:event_jta_caracteristicasKeyPressed
+    }//GEN-LAST:event_jta_observacionesKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -861,7 +895,7 @@ Frame Principal;
     private javax.swing.JTextField jt_nombre;
     private javax.swing.JTextField jt_precio;
     private javax.swing.JTextField jt_t_registros;
-    private javax.swing.JTextArea jta_caracteristicas;
+    private javax.swing.JTextArea jta_observaciones;
     private javax.swing.JLabel lb_Id;
     private javax.swing.JLabel lb_errorCaracteristicas;
     private javax.swing.JLabel lb_errorCategoria;

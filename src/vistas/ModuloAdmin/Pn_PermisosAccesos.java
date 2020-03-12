@@ -77,7 +77,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         public void cargarModulo() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Módulo");
         for (ObjetoModulo campos : cmod.selectModulo()) {
             cb.addElement(campos.getNombre());
         }
@@ -88,7 +88,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     public void cargarConsultar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
@@ -98,7 +98,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
      public void cargarAgregar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
@@ -109,7 +109,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
       public void cargarActualizar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
@@ -120,7 +120,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
        public void cargarEliminar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }

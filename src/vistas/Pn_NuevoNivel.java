@@ -8,6 +8,7 @@ package vistas;
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
 import controladores.ControladorPisos;
+import controladores.ValidadorDePrivilegios.*;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,25 +29,46 @@ import javax.swing.table.TableRowSorter;
  * @author fenix
  */
 public class Pn_NuevoNivel extends javax.swing.JPanel {
-
+//NECESARIO PARA FUNCIONES DE ESTE MODULO 
     ControladorPisos cc = new ControladorPisos();
     ControladorEscritura ce = new ControladorEscritura();
     DefaultTableModel NewTable;
     private ControladorFormularioTab cft = new ControladorFormularioTab();
+    //FIN
+    //NECESARIO PARA EXTRAER LOS PRIVILEGIOS DENTRO DE ESTE MODULO, EN FUNCION AL USUARIO ACTUAL 
+    ControladorPrivilegiosPisos analisis = new ControladorPrivilegiosPisos();
+    //FIN
+    //NECESARIO PARA HACER LA COMPRACION Y EXTRACCION DE LOS PRIVILEGIOS DE ESTE MODULO
+    private String NombreModulo = "Pisos";
+    //FIN
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
+//FIN
 
     /**
      * Creates new form Pn_NuevoNivel
      */
     public Pn_NuevoNivel() {
         initComponents();
-
+        //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
+        analisis.validarPermisos(NombreModulo);
+        //FIN
+        //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
+        //FIN
+        //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
+        //FIN
+        //CARGA LOS VALORES EN LA TABLA
         cTabla();
-
+        //FIN
+        //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
         tamañoTabla();
+        //FIN
+        //para ajustar el tecto al tamaño del jtextarea
+        jta_observaciones.setLineWrap(true);
+        //FIN
     }
 
     public void cTabla() {
@@ -159,7 +181,7 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
         jta_observaciones = new javax.swing.JTextArea();
         jSeparator4 = new javax.swing.JSeparator();
         btn_Ingresar = new principal.MaterialButton();
-        btn_Actualizar = new principal.MaterialButton();
+        btn_Modificar = new principal.MaterialButton();
         btn_Eliminar = new principal.MaterialButton();
         jLabel5 = new javax.swing.JLabel();
         lb_Id = new javax.swing.JLabel();
@@ -276,17 +298,17 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
         });
         jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 140, 40));
 
-        btn_Actualizar.setBackground(new java.awt.Color(255, 153, 0));
-        btn_Actualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Actualizar.setText("Modificar");
-        btn_Actualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_Actualizar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        btn_Actualizar.addActionListener(new java.awt.event.ActionListener() {
+        btn_Modificar.setBackground(new java.awt.Color(255, 153, 0));
+        btn_Modificar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Modificar.setText("Modificar");
+        btn_Modificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Modificar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ActualizarActionPerformed(evt);
+                btn_ModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 140, 40));
+        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 140, 40));
 
         btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
         btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -472,7 +494,7 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
         datosIniciales();        // TODO add your handling code here:
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
-    private void btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ActualizarActionPerformed
+    private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
         try {
             if (!validarEscritura() == true) {
 
@@ -496,7 +518,7 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
         }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_ActualizarActionPerformed
+    }//GEN-LAST:event_btn_ModificarActionPerformed
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         try {
@@ -573,9 +595,9 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private principal.MaterialButton btn_Actualizar;
-    private principal.MaterialButton btn_Eliminar;
-    private principal.MaterialButton btn_Ingresar;
+    public static principal.MaterialButton btn_Eliminar;
+    public static principal.MaterialButton btn_Ingresar;
+    public static principal.MaterialButton btn_Modificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -590,7 +612,7 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jt_Buscar;
+    public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTextField jt_nombre;
     private javax.swing.JTable jt_pisos;
     private javax.swing.JTextField jt_t_registros;

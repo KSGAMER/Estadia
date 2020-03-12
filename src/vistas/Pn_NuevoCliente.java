@@ -1,6 +1,7 @@
 package vistas;
 
 import controladores.*;
+import controladores.ValidadorDePrivilegios.*;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,28 +20,52 @@ import objetos.ObjetoCFDI;
  * @author RojeruSan
  */
 public class Pn_NuevoCliente extends javax.swing.JPanel {
-
+//NECESARIO PARA FUNCIONES DE ESTE MODULO 
     ControladorClientes mc = new ControladorClientes();
     ControladorCFDI cf = new ControladorCFDI();
     ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
+   
     DefaultTableModel NewTable;
     private int seleccion;
-    private int idCfdi = 0;
-Frame Principal;
+    //FIN
+  
+   //NECESARIO PARA EXTRAER LOS PRIVILEGIOS DENTRO DE ESTE MODULO, EN FUNCION AL USUARIO ACTUAL 
+    ControladorPrivilegiosCliente analisis = new ControladorPrivilegiosCliente();
+    //FIN
+    //NECESARIO PARA HACER LA COMPRACION Y EXTRACCION DE LOS PRIVILEGIOS DE ESTE MODULO
+    private String NombreModulo = "Clientes";
+    //FIN
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    Frame Principal;
+//FIN
     /**
      * Creates new form pnlHome
      */
     public Pn_NuevoCliente() {
 
         initComponents();
+        //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
+        analisis.validarPermisos(NombreModulo);
+        //FIN
+         //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
+        //FIN
+         //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
-        cf.tablaCFDI();
+        //FIN
+        //CARGA LOS VALORES EN LA TABLA
         cTabla();
+        //FIN
+          //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
         tamañoTabla();
+        //FIN
+        //NECESARIO PARA CARGAR LOS VALORES EN EL COMBOBOX DEL CFDI
+        cf.tablaCFDI();
         cargarCFDI();
+        //FIN
+        //RECORDATORIO 
         DesktopNotify.showDesktopMessage("Recordatorio", "La dirección fiscal debe contener los siguientes datos \n"
                 + "Calle , Num Int y/o Ext, Colonia, Codigo Postal, Ciudad, Municipio, Estado  ", DesktopNotify.TIP);
     }
@@ -724,9 +749,9 @@ Frame Principal;
     }//GEN-LAST:event_jt_emailKeyTyped
 
     private void cb_cfdiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_cfdiItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
+      /*  if (evt.getStateChange() == ItemEvent.SELECTED) {
             this.idCfdi = cb_cfdi.getSelectedIndex();
-        }
+        }*/
     }//GEN-LAST:event_cb_cfdiItemStateChanged
 
     private void jt_ClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ClientesMouseClicked
@@ -889,9 +914,9 @@ Frame Principal;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Celular1;
     private javax.swing.JLabel Celular2;
-    private principal.MaterialButton btn_Eliminar;
-    private principal.MaterialButton btn_Ingresar;
-    private principal.MaterialButton btn_Modificar;
+    public static principal.MaterialButton btn_Eliminar;
+    public static principal.MaterialButton btn_Ingresar;
+    public static principal.MaterialButton btn_Modificar;
     private javax.swing.JComboBox<String> cb_cfdi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
@@ -913,7 +938,7 @@ Frame Principal;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jt_Buscar;
+    public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_Clientes;
     private javax.swing.JTextField jt_direccion;
     private javax.swing.JTextField jt_email;

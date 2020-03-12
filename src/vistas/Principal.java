@@ -49,7 +49,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     ControladorPermisos cperm = new ControladorPermisos();
     ControladorModulos cmod = new ControladorModulos();
     ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
-    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
+//    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
     public static String User = "SEBAS";//sesion.Username;
     MenuItem Administrador;
     MenuItem Configuracion;
