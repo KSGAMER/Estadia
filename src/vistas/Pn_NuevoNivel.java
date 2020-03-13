@@ -354,8 +354,8 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
         jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel27.setText("Buscar Piso:");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, -1, 20));
+        jLabel27.setText("Buscar :");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, -1, 20));
 
         jt_Buscar.setBackground(new java.awt.Color(84, 110, 122));
         jt_Buscar.setForeground(new java.awt.Color(204, 204, 204));
@@ -485,9 +485,7 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar los datos del nuevo piso " + jt_nombre.getText()
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+   
         }
         NewTable = new DefaultTableModel();
         cTabla();

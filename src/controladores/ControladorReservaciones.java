@@ -7,6 +7,7 @@ package controladores;
 
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelos.ModeloReservaciones;
 import objetos.ObjetoReservacion;
@@ -17,6 +18,9 @@ import objetos.ObjetoReservacion;
  */
 public class ControladorReservaciones extends ModeloReservaciones{
     
+     public DefaultTableModel tablaReservaciones(JTextField texto) {
+        return cargarTabla(texto.getText());
+    }
     public DefaultTableModel tablaReservaciones() {
         return cargarTabla();
     }

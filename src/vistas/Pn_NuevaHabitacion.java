@@ -629,8 +629,8 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel27.setText("Buscar Habitación:");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, -1, -1));
+        jLabel27.setText("Buscar :");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, -1, -1));
 
         jt_Buscar.setBackground(new java.awt.Color(84, 110, 122));
         jt_Buscar.setForeground(new java.awt.Color(204, 204, 204));

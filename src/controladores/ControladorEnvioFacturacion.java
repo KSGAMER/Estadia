@@ -18,6 +18,10 @@ public class ControladorEnvioFacturacion extends ModeloEnvioFacturacion{
     public DefaultTableModel tablaEnvioFacturacion() {
         return cargarTabla();
     }
+      public DefaultTableModel RangoFechaCobroFacturacion(String fechaCobro) {
+        return cargarTabla(fechaCobro);
+    }
+    
     
     public ArrayList<objetoEnvioFacturacion> selectEnvioFacturacion() {
         return selectEnvioFacturaciones();

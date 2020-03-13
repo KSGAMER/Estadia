@@ -148,17 +148,17 @@ public class ModeloPermisos extends BD{
         
         }
     }
-    
+
     protected void deletePermisos(int id) {
         try {
             this.st = conectar().prepareStatement("DELETE FROM Permiso WHERE IdPermiso = ?");
             this.st.setInt(1, id);
-                DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido eliminados con éxito.", DesktopNotify.SUCCESS);
+            DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido eliminados con éxito.", DesktopNotify.SUCCESS);
 
         } catch (SQLException ex) {
-           // Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
-             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar eliminar los datos del privilegio", DesktopNotify.ERROR);
-        
+            // Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar eliminar los datos del privilegio", DesktopNotify.ERROR);
+
         }
     }
 }

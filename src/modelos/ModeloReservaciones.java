@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import ds.desktop.notify.DesktopNotify;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +28,39 @@ public class ModeloReservaciones extends BD {
     private PreparedStatement st;
 
     private ArrayList<ObjetoReservacion> listReservations = new ArrayList<>();
+ 
+    protected DefaultTableModel cargarTabla(String buscar) {
+        mc.cargarTabla();
+        mh.cargarTabla();
+
+        String[] titulos = {"#", "Cliente", "Habitacion", "Fecha de Ingreso", "Fecha de Salida"};
+        DefaultTableModel tb = new DefaultTableModel(null, titulos);
+        Object[] fila = new Object[5];
+
+        try {
+            this.st = conectar().prepareStatement("SELECT * FROM Reservacion WHERE Cliente like CONCAT('%',?,'#')");
+            this.st.setString(1, buscar);
+            this.rs = st.executeQuery();
+
+            while (rs.next()) {
+                fila[0] = rs.getInt("IdReservacion");
+                fila[1] = rs.getString("Nombre");
+                for (int i = 0; i < mh.selectHabitaciones().size(); i++) {
+                    if (rs.getInt("IdHabitacion") == mh.selectHabitaciones().get(i).getIdHabitacion()) {
+                        fila[2] = mh.selectHabitaciones().get(i).getNombre();
+                    }
+                }
+                fila[3] = rs.getString("FechaIngreso");
+                fila[4] = rs.getString("FechaSalida");
+                tb.addRow(fila);
+                this.listReservations.add(new ObjetoReservacion(rs.getInt("IdReservacion"), rs.getString("Nombre"), rs.getInt("IdHabitacion"), rs.getString("FechaIngreso"), rs.getString("FechaSalida")));
+            }
+            conectar().close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloReservaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tb;
+    }
 
     protected DefaultTableModel cargarTabla() {
         mc.cargarTabla();
@@ -78,9 +112,13 @@ public class ModeloReservaciones extends BD {
             this.st.setString(4, fechaSalida);
             this.st.execute();
             conectar().close();
+            DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion agregados con éxito.", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloReservaciones.class.getName()).log(Level.SEVERE, null, ex);
-        }
+     
+            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar ingresar los datos de la nueva reservación,"
+                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
+ }
     }
 
     protected void updateReservaciones(String nombre, String habitacion, String fechaIngreso, String fechaSalida, int id) {
@@ -98,9 +136,12 @@ public class ModeloReservaciones extends BD {
             this.st.setInt(5, id);
             this.st.executeUpdate();
             conectar().close();
+               DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion actualizados con éxito.", DesktopNotify.SUCCESS);
+               
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloReservaciones.class.getName()).log(Level.SEVERE, null, ex);
-        }
+             DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar actualizar los datos de la reservación,"
+                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
+ }
     }
     
     protected void deleteReservaciones(int id) {
@@ -109,8 +150,11 @@ public class ModeloReservaciones extends BD {
             this.st.setInt(1, id);
             this.st.execute();
             conectar().close();
+               DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion eliminados con éxito.", DesktopNotify.SUCCESS);
+              
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloReservaciones.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                    DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar  los datos de la reservación,"
+                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
+}
     }
 }

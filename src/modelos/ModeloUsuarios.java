@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import ds.desktop.notify.DesktopNotify;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,8 +77,11 @@ public class ModeloUsuarios extends BD{
             }
             this.st.execute();
             conectar().close();
+               DesktopNotify.showDesktopMessage("Exito", "Datos del empleado agregados con éxito.", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar agregar los datos del nuevo empleado,"
+                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
         }
     }
     
@@ -97,8 +101,10 @@ public class ModeloUsuarios extends BD{
             this.st.setString(6, username);
             this.st.executeUpdate();
             conectar().close();
+            DesktopNotify.showDesktopMessage("Exito", "Datos del empleado actualizados con éxito.", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar actualizar los datos del empleado por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
         }
     }
     
@@ -109,8 +115,10 @@ public class ModeloUsuarios extends BD{
             this.st.setString(1, username);
             this.st.execute();
             conectar().close();
+            DesktopNotify.showDesktopMessage("Exito", "Datos del empleado eliminados con éxito.", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar los datos del empleado por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
         }
     }
 }
