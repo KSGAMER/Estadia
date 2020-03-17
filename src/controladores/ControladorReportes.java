@@ -40,8 +40,16 @@ public class ControladorReportes extends ModeloReportes{
         return porcentajeReservaciones();
     }
     
-    public DefaultTableModel fechasGanancias(String fechaInicial, String fechaFinal) {
-        return gananciasFechas(fechaInicial, fechaFinal);
+    public DefaultTableModel fechasGanancias(String fechaInicial, String fechaFinal, String modo) {
+        return gananciasFechas(fechaInicial, fechaFinal, modo);
+    }
+    
+    public DefaultTableModel gananciasHabitacion(String habitacion, String modo) {
+        if(habitacion.equals("Todas las habitaciones")) {
+            return gananciasHabitaciones("", modo);
+        } else {
+            return gananciasHabitaciones(habitacion, modo);
+        }
     }
     
     public void exportExcel(JTable table) {

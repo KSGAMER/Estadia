@@ -27,7 +27,7 @@ public class BD extends ObjetoConfiguracion{
         try {
             //Variable que contiene la cadena de conexión a Base de Datos
             //Se extraen los valores apartir de un JSON alojado dentro de la aplicación en la carpeta configuraciones
-            // ObjConfig.getServer() == "10.10.6.12" IP usada en el desarrollo de la aplicación
+            //ObjConfig.getServer() == "10.10.6.12" IP usada en el desarrollo de la aplicación
             //ObjConfig.getInstance() == "KSGAMER17" El nombre de la instancia de SQL Server
             //ObjConfig.getPort() == "1433" El puerto donde se conecta SQL a la aplicación de Java
             //ObjConfig.getDataBase() == "Estadia" Nombre de la Base de Datos utilizada

@@ -1,25 +1,14 @@
 package vistas;
 
+import Utilerias.ComponenteGrafica;
 import controladores.*;
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.StandardChartTheme;
-import org.jfree.chart.plot.Plot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.RingPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.StandardBarPainter;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.ui.RectangleInsets;
+import objetos.ObjetoHabitacion;
 
 /**
  *
@@ -28,18 +17,29 @@ import org.jfree.ui.RectangleInsets;
 public class Pn_NuevoReportes extends javax.swing.JPanel {
 
     private ControladorReportes reportes = new ControladorReportes();
+    private ControladorHabitaciones habitaciones = new ControladorHabitaciones();
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    boolean flag = false;
+    private boolean flag = false;
 
     /**
      * Creates new form pnlHome
      */
     public Pn_NuevoReportes() {
         initComponents();
+        habitaciones.tablaHabitaciones();
         mouseOnClickGananciasFechas();
+        comboHabitacion();
         rangoFechas();
         estadisticas();
         configScroll();
+    }
+
+    public void comboHabitacion() {
+        cbHabitacion.removeAllItems();
+        cbHabitacion.addItem("Todas las habitaciones");
+        for (ObjetoHabitacion objetoHabitacion : habitaciones.selectHabitacion()) {
+            cbHabitacion.addItem(objetoHabitacion.getNombre());
+        }
     }
 
     public void configScroll() {
@@ -55,167 +55,74 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     }
 
     public void popularHabitacion() {
-        DefaultPieDataset grafica = new DefaultPieDataset();
         int total = 0;
         for (int i = 0; i < reportes.habitacionPopular().getRowCount(); i++) {
-            grafica.setValue(reportes.habitacionPopular().getValueAt(i, 0).toString(), Integer.parseInt(reportes.habitacionPopular().getValueAt(i, 1).toString()));
             total = total + Integer.parseInt(reportes.habitacionPopular().getValueAt(i, 1).toString());
         }
         lbTotalReservacionesGrafica.setText(String.valueOf(total));
         lbTotalReservaciones.setText(String.valueOf(total));
-        JFreeChart chart = ChartFactory.createRingChart("", grafica, false, true, false);
-        RingPlot pie = (RingPlot) chart.getPlot();
-        pie.setOutlineVisible(false);
-        pie.setShadowPaint(null);
-        pie.setLabelShadowPaint(null);
-        pie.setSectionDepth(0.30);
-        pie.setSectionOutlinesVisible(false);
-        pie.setSeparatorsVisible(false);
-        chart.getPlot().setBackgroundPaint(null);
-        chart.getPlot().setOutlinePaint(null);
-        ChartPanel panel = new ChartPanel(chart);
-        panel.setOpaque(false);
-        popularidad.add(panel);
-        panel.setBounds(0, 60, 320, 225);
+        contenedorPopularidad.removeAll();
+        contenedorPopularidad.add(new ComponenteGrafica().componenteGrafica("Anillo", reportes.habitacionPopular(), "", "", 320, 225));
+        contenedorPopularidad.setOpaque(false);
     }
 
     public void montoTotal() {
-        DefaultCategoryDataset grafica = new DefaultCategoryDataset();
         double total = 0;
         for (int i = 0; i < reportes.ganancias().getRowCount(); i++) {
-            grafica.setValue(Integer.parseInt(reportes.ganancias().getValueAt(i, 1).toString()), reportes.ganancias().getValueAt(i, 0).toString(), reportes.ganancias().getValueAt(i, 0).toString());
-            total = total + Double.parseDouble(reportes.ganancias().getValueAt(i, 1).toString());
+            total = total + Double.parseDouble(reportes.ganancias().getValueAt(i, 0).toString());
         }
         lbGanancias.setText("$" + total + "0");
-        JFreeChart chart = ChartFactory.createBarChart("", "Fechas", "Ganancias Brutas", grafica, PlotOrientation.VERTICAL, true, true, false);
-        StandardChartTheme theme = (StandardChartTheme) org.jfree.chart.StandardChartTheme.createJFreeTheme();
-        theme.setRangeGridlinePaint(Color.decode("#C0C0C0"));
-        theme.setAxisOffset(new RectangleInsets(0, 0, 0, 0));
-        theme.setBarPainter(new StandardBarPainter());
-        theme.apply(chart);
-        chart.getCategoryPlot().setOutlineVisible(false);
-        chart.getCategoryPlot().getRangeAxis().setAxisLineVisible(false);
-        chart.getCategoryPlot().getRangeAxis().setTickMarksVisible(false);
-        chart.getCategoryPlot().setRangeGridlineStroke(new BasicStroke());
-        chart.getCategoryPlot().getRangeAxis().setTickLabelPaint(Color.decode("#666666"));
-        chart.getCategoryPlot().getDomainAxis().setTickLabelPaint(Color.decode("#666666"));
-        chart.setTextAntiAlias(true);
-        chart.setAntiAlias(true);
-        chart.getCategoryPlot().getRenderer().setSeriesPaint(0, Color.decode("#4572a7"));
-        BarRenderer rend = (BarRenderer) chart.getCategoryPlot().getRenderer();
-        rend.setShadowVisible(true);
-        rend.setShadowXOffset(2);
-        rend.setShadowYOffset(0);
-        rend.setShadowPaint(Color.decode("#C0C0C0"));
-        rend.setMaximumBarWidth(0.1);
-        chart.getPlot().setBackgroundPaint(null);
-        ChartPanel panel = new ChartPanel(chart);
-        panel.setOpaque(false);
-        montoTotal.add(panel);
-        panel.setBounds(0, 60, 500, 325);
+        contenedorGananciasTotales.removeAll();
+        contenedorGananciasTotales.add(new ComponenteGrafica().componenteGrafica("Barras", reportes.ganancias(), "Fechas", "Ganancias Brutas", 500, 325));
+        contenedorGananciasTotales.setOpaque(false);
     }
 
     public void indiceFacturacion() {
-        DefaultPieDataset grafica = new DefaultPieDataset();
         int total = 0;
         for (int i = 0; i < reportes.facturacionIndice().getRowCount(); i++) {
-            grafica.setValue(reportes.facturacionIndice().getValueAt(i, 0).toString(), Integer.parseInt(reportes.facturacionIndice().getValueAt(i, 1).toString()));
             total = total + Integer.parseInt(reportes.facturacionIndice().getValueAt(i, 1).toString());
         }
         lbTotalIndiceFacturacion.setText(String.valueOf(total));
         lbConFacturacion.setText(reportes.facturacionIndice().getValueAt(0, 1).toString());
         lbSinFacturacion.setText(reportes.facturacionIndice().getValueAt(1, 1).toString());
-        JFreeChart chart = ChartFactory.createRingChart("", grafica, true, true, false);
-        RingPlot pie = (RingPlot) chart.getPlot();
-        pie.setOutlineVisible(false);
-        pie.setShadowPaint(null);
-        pie.setLabelShadowPaint(null);
-        pie.setSectionDepth(0.30);
-        pie.setSectionOutlinesVisible(false);
-        pie.setSeparatorsVisible(false);
-        chart.getPlot().setBackgroundPaint(null);
-        chart.getPlot().setOutlinePaint(null);
-        ChartPanel panel = new ChartPanel(chart);
-        panel.setOpaque(false);
-        indiceFacturacion.add(panel);
-        panel.setBounds(20, 80, 300, 196);
+        contenedorIndiceFacturacion.removeAll();
+        contenedorIndiceFacturacion.add(new ComponenteGrafica().componenteGrafica("Anillo", reportes.facturacionIndice(), "", "", 300, 196));
+        contenedorIndiceFacturacion.setOpaque(false);
     }
 
     public void indiceReservacion() {
-        DefaultCategoryDataset grafica = new DefaultCategoryDataset();
         int total = 0;
         for (int i = 0; i < reportes.ReservacionesIndice().getRowCount(); i++) {
-            grafica.setValue(Integer.parseInt(reportes.ReservacionesIndice().getValueAt(i, 1).toString()), reportes.ReservacionesIndice().getValueAt(i, 0).toString(), reportes.ReservacionesIndice().getValueAt(i, 0).toString());
-            total = total + Integer.parseInt(reportes.ReservacionesIndice().getValueAt(i, 1).toString());
+            total = total + Integer.parseInt(reportes.ReservacionesIndice().getValueAt(i, 0).toString());
         }
         lbTotalReservacionesFechas.setText(String.valueOf(total));
-        JFreeChart chart = ChartFactory.createBarChart("", "Fecha", "Total", grafica, PlotOrientation.VERTICAL, true, true, false);
-        StandardChartTheme theme = (StandardChartTheme) org.jfree.chart.StandardChartTheme.createJFreeTheme();
-        theme.setRangeGridlinePaint(Color.decode("#C0C0C0"));
-        theme.setAxisOffset(new RectangleInsets(0, 0, 0, 0));
-        theme.setBarPainter(new StandardBarPainter());
-        theme.apply(chart);
-        chart.getCategoryPlot().setOutlineVisible(false);
-        chart.getCategoryPlot().getRangeAxis().setAxisLineVisible(false);
-        chart.getCategoryPlot().getRangeAxis().setTickMarksVisible(false);
-        chart.getCategoryPlot().setRangeGridlineStroke(new BasicStroke());
-        chart.getCategoryPlot().getRangeAxis().setTickLabelPaint(Color.decode("#666666"));
-        chart.getCategoryPlot().getDomainAxis().setTickLabelPaint(Color.decode("#666666"));
-        chart.setTextAntiAlias(true);
-        chart.setAntiAlias(true);
-        chart.getCategoryPlot().getRenderer().setSeriesPaint(0, Color.decode("#4572a7"));
-        BarRenderer rend = (BarRenderer) chart.getCategoryPlot().getRenderer();
-        rend.setShadowVisible(true);
-        rend.setShadowXOffset(2);
-        rend.setShadowYOffset(0);
-        rend.setShadowPaint(Color.decode("#C0C0C0"));
-        rend.setMaximumBarWidth(0.1);
-        chart.getPlot().setBackgroundPaint(Color.WHITE);
-        ChartPanel panel = new ChartPanel(chart);
-        panel.setOpaque(false);
-        IndiceReservaciones.add(panel);
-        panel.setBounds(0, 60, 460, 325);
+        contenedorIndiceReservaciones.removeAll();
+        contenedorIndiceReservaciones.add(new ComponenteGrafica().componenteGrafica("Barras", reportes.ReservacionesIndice(), "Fechas", "Total", 460, 325));
+        contenedorIndiceReservaciones.setOpaque(false);
     }
 
     public void gananciasFechas() {
-        tbGananciasFechas.setModel(reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime())));
-        DefaultCategoryDataset grafica = new DefaultCategoryDataset();
+        tbGananciasFechas.setModel(reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime()), "Tabla"));
         double total = 0;
-        for (int i = 0; i < reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime())).getRowCount(); i++) {
-            grafica.setValue(Integer.parseInt(reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime())).getValueAt(i, 2).toString()), reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime())).getValueAt(i, 0).toString(), reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime())).getValueAt(i, 1).toString());
-            total = total + Integer.parseInt(reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime())).getValueAt(i, 2).toString());
+        for (int i = 0; i < reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime()), "Grafica").getRowCount(); i++) {
+            total = total + Integer.parseInt(reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime()), "Grafica").getValueAt(i, 0).toString());
         }
         lbGananciasFechas.setText("$" + total + "0");
-        JFreeChart chart = ChartFactory.createBarChart("", "Reservaciones", "Ganancias", grafica, PlotOrientation.VERTICAL, true, true, false);
-        StandardChartTheme theme = (StandardChartTheme) org.jfree.chart.StandardChartTheme.createJFreeTheme();
-        theme.setRangeGridlinePaint(Color.decode("#C0C0C0"));
-        theme.setAxisOffset(new RectangleInsets(0, 0, 0, 0));
-        theme.setBarPainter(new StandardBarPainter());
-        theme.apply(chart);
-        chart.getCategoryPlot().setOutlineVisible(false);
-        chart.getCategoryPlot().getRangeAxis().setAxisLineVisible(false);
-        chart.getCategoryPlot().getRangeAxis().setTickMarksVisible(false);
-        chart.getCategoryPlot().setRangeGridlineStroke(new BasicStroke());
-        chart.getCategoryPlot().getRangeAxis().setTickLabelPaint(Color.decode("#666666"));
-        chart.getCategoryPlot().getDomainAxis().setTickLabelPaint(Color.decode("#666666"));
-        chart.setTextAntiAlias(true);
-        chart.setAntiAlias(true);
-        chart.getCategoryPlot().getRenderer().setSeriesPaint(0, Color.decode("#4572a7"));
-        BarRenderer rend = (BarRenderer) chart.getCategoryPlot().getRenderer();
-        rend.setShadowVisible(true);
-        rend.setShadowXOffset(2);
-        rend.setShadowYOffset(0);
-        rend.setShadowPaint(Color.decode("#C0C0C0"));
-        rend.setMaximumBarWidth(0.1);
-        chart.getPlot().setBackgroundPaint(Color.WHITE);
-        ChartPanel panel = new ChartPanel(chart);
-        panel.setOpaque(false);
-        if(flag == true) {
-            GananciasFechas.remove(7);
+        contenedorGananciasFechasHabitacion.removeAll();
+        contenedorGananciasFechasHabitacion.add(new ComponenteGrafica().componenteGrafica("Barras", reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime()), "Grafica"), "Reservaciones", "Ganancias", 440, 250));
+        contenedorGananciasFechasHabitacion.setOpaque(false);
+    }
+
+    public void gananciasHabitacion() {
+        tbGananciasHabitacion.setModel(reportes.gananciasHabitacion(cbHabitacion.getSelectedItem().toString(), "Tabla"));
+        double total = 0;
+        for (int i = 0; i < reportes.gananciasHabitacion(cbHabitacion.getSelectedItem().toString(), "Grafica").getRowCount(); i++) {
+            total = total + Double.parseDouble(reportes.gananciasHabitacion(cbHabitacion.getSelectedItem().toString(), "Grafica").getValueAt(i, 0).toString());
         }
-        GananciasFechas.add(panel);
-        GananciasFechas.validate();
-        panel.setBounds(0, 60, 440, 250);
+        lbGananciasHabitacion.setText("$" + total + "0");
+        contenedorGananciasHabitacion.removeAll();
+        contenedorGananciasHabitacion.add(new ComponenteGrafica().componenteGrafica("Barras", reportes.gananciasHabitacion(cbHabitacion.getSelectedItem().toString(), "Grafica"), "Fecha", "Total", 440, 270));
+        contenedorGananciasHabitacion.setOpaque(false);
     }
 
     public void porcentajeGanancias() {
@@ -245,6 +152,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     }
 
     public void estadisticas() {
+        gananciasHabitacion();
         gananciasFechas();
         porcentajeReservacion();
         porcentajeGanancias();
@@ -290,13 +198,14 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         ScrollEstadisticas = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
-        popularidad = new javax.swing.JPanel();
+        JPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         lbTotalReservaciones = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         lbTotalReservacionesGrafica = new javax.swing.JLabel();
-        indiceFacturacion = new javax.swing.JPanel();
+        contenedorPopularidad = new javax.swing.JPanel();
+        JPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -304,16 +213,19 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         lbSinFacturacion = new javax.swing.JLabel();
         lbConFacturacion = new javax.swing.JLabel();
         lbTotalIndiceFacturacion = new javax.swing.JLabel();
-        montoTotal = new javax.swing.JPanel();
+        contenedorIndiceFacturacion = new javax.swing.JPanel();
+        JPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lbGanancias = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        IndiceReservaciones = new javax.swing.JPanel();
+        contenedorGananciasTotales = new javax.swing.JPanel();
+        JPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         lbTotalReservacionesFechas = new javax.swing.JLabel();
+        contenedorIndiceReservaciones = new javax.swing.JPanel();
         indiceFacturacion1 = new javax.swing.JPanel();
         PorcentajeGanancias = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
@@ -329,7 +241,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         ScrollReportes = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
-        GananciasFechas = new javax.swing.JPanel();
+        JPanel6 = new javax.swing.JPanel();
         cInicialGananciasFechas = new com.toedter.calendar.JDateChooser();
         jLabel21 = new javax.swing.JLabel();
         cFinalGananciasFechas = new com.toedter.calendar.JDateChooser();
@@ -337,10 +249,22 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jLabel23 = new javax.swing.JLabel();
         lbGananciasFechas = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
+        contenedorGananciasFechasHabitacion = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbGananciasFechas = new javax.swing.JTable();
         materialButton1 = new principal.MaterialButton();
         materialButton2 = new principal.MaterialButton();
+        JPanel7 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        cbHabitacion = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        lbGananciasHabitacion = new javax.swing.JLabel();
+        contenedorGananciasHabitacion = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbGananciasHabitacion = new javax.swing.JTable();
+        materialButton3 = new principal.MaterialButton();
+        materialButton4 = new principal.MaterialButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lb_Id = new javax.swing.JLabel();
@@ -365,110 +289,142 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jPanel4.setPreferredSize(new java.awt.Dimension(1090, 800));
         jPanel4.setLayout(null);
 
-        popularidad.setBackground(new java.awt.Color(255, 255, 255));
-        popularidad.setLayout(null);
+        JPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        JPanel1.setLayout(null);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4171938-24.png"))); // NOI18N
         jLabel3.setText("Habitaciones más Reservadas");
-        popularidad.add(jLabel3);
+        JPanel1.add(jLabel3);
         jLabel3.setBounds(10, 10, 300, 32);
 
         lbTotalReservaciones.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbTotalReservaciones.setForeground(new java.awt.Color(51, 153, 255));
         lbTotalReservaciones.setText("jLabel4");
-        popularidad.add(lbTotalReservaciones);
+        JPanel1.add(lbTotalReservaciones);
         lbTotalReservaciones.setBounds(110, 50, 44, 15);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Reservaciones:");
-        popularidad.add(jLabel5);
+        JPanel1.add(jLabel5);
         jLabel5.setBounds(10, 50, 90, 15);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(153, 153, 153));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Total");
-        popularidad.add(jLabel13);
+        JPanel1.add(jLabel13);
         jLabel13.setBounds(90, 140, 140, 20);
 
         lbTotalReservacionesGrafica.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         lbTotalReservacionesGrafica.setForeground(new java.awt.Color(102, 102, 102));
         lbTotalReservacionesGrafica.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTotalReservacionesGrafica.setText("jLabel11");
-        popularidad.add(lbTotalReservacionesGrafica);
+        JPanel1.add(lbTotalReservacionesGrafica);
         lbTotalReservacionesGrafica.setBounds(90, 160, 140, 30);
 
-        jPanel4.add(popularidad);
-        popularidad.setBounds(10, 11, 320, 300);
+        contenedorPopularidad.setBackground(new java.awt.Color(255, 255, 255));
 
-        indiceFacturacion.setBackground(new java.awt.Color(255, 255, 255));
-        indiceFacturacion.setPreferredSize(new java.awt.Dimension(300, 300));
-        indiceFacturacion.setLayout(null);
+        javax.swing.GroupLayout contenedorPopularidadLayout = new javax.swing.GroupLayout(contenedorPopularidad);
+        contenedorPopularidad.setLayout(contenedorPopularidadLayout);
+        contenedorPopularidadLayout.setHorizontalGroup(
+            contenedorPopularidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
+        );
+        contenedorPopularidadLayout.setVerticalGroup(
+            contenedorPopularidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
+        );
+
+        JPanel1.add(contenedorPopularidad);
+        contenedorPopularidad.setBounds(0, 60, 320, 240);
+
+        jPanel4.add(JPanel1);
+        JPanel1.setBounds(10, 11, 320, 300);
+
+        JPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        JPanel4.setPreferredSize(new java.awt.Dimension(300, 300));
+        JPanel4.setLayout(null);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Total");
-        indiceFacturacion.add(jLabel10);
+        JPanel4.add(jLabel10);
         jLabel10.setBounds(100, 140, 140, 20);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4172166-32.png"))); // NOI18N
         jLabel7.setText(" Indice de Facturación");
-        indiceFacturacion.add(jLabel7);
+        JPanel4.add(jLabel7);
         jLabel7.setBounds(10, 11, 250, 32);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Sin Facturación:");
-        indiceFacturacion.add(jLabel8);
+        JPanel4.add(jLabel8);
         jLabel8.setBounds(10, 50, 97, 15);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Con Facturación:");
-        indiceFacturacion.add(jLabel9);
+        JPanel4.add(jLabel9);
         jLabel9.setBounds(10, 70, 102, 15);
 
         lbSinFacturacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbSinFacturacion.setForeground(new java.awt.Color(51, 153, 255));
         lbSinFacturacion.setText("jLabel10");
-        indiceFacturacion.add(lbSinFacturacion);
+        JPanel4.add(lbSinFacturacion);
         lbSinFacturacion.setBounds(130, 50, 52, 15);
 
         lbConFacturacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbConFacturacion.setForeground(new java.awt.Color(51, 153, 255));
         lbConFacturacion.setText("jLabel10");
-        indiceFacturacion.add(lbConFacturacion);
+        JPanel4.add(lbConFacturacion);
         lbConFacturacion.setBounds(130, 70, 52, 15);
 
         lbTotalIndiceFacturacion.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lbTotalIndiceFacturacion.setForeground(new java.awt.Color(102, 102, 102));
         lbTotalIndiceFacturacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTotalIndiceFacturacion.setText("jLabel11");
-        indiceFacturacion.add(lbTotalIndiceFacturacion);
+        JPanel4.add(lbTotalIndiceFacturacion);
         lbTotalIndiceFacturacion.setBounds(100, 150, 140, 40);
 
-        jPanel4.add(indiceFacturacion);
-        indiceFacturacion.setBounds(340, 10, 340, 300);
+        contenedorIndiceFacturacion.setBackground(new java.awt.Color(255, 255, 255));
 
-        montoTotal.setBackground(new java.awt.Color(255, 255, 255));
-        montoTotal.setLayout(null);
+        javax.swing.GroupLayout contenedorIndiceFacturacionLayout = new javax.swing.GroupLayout(contenedorIndiceFacturacion);
+        contenedorIndiceFacturacion.setLayout(contenedorIndiceFacturacionLayout);
+        contenedorIndiceFacturacionLayout.setHorizontalGroup(
+            contenedorIndiceFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
+        );
+        contenedorIndiceFacturacionLayout.setVerticalGroup(
+            contenedorIndiceFacturacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+        );
+
+        JPanel4.add(contenedorIndiceFacturacion);
+        contenedorIndiceFacturacion.setBounds(20, 70, 320, 220);
+
+        jPanel4.add(JPanel4);
+        JPanel4.setBounds(340, 10, 340, 300);
+
+        JPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        JPanel3.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/134157-32.png"))); // NOI18N
         jLabel2.setText(" Ganancias Totales");
-        montoTotal.add(jLabel2);
+        JPanel3.add(jLabel2);
         jLabel2.setBounds(10, 11, 210, 32);
 
         lbGanancias.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbGanancias.setForeground(new java.awt.Color(51, 153, 255));
         lbGanancias.setText("jLabel3");
-        montoTotal.add(lbGanancias);
+        JPanel3.add(lbGanancias);
         lbGanancias.setBounds(50, 50, 130, 15);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Total:");
-        montoTotal.add(jLabel4);
+        JPanel3.add(jLabel4);
         jLabel4.setBounds(10, 50, 35, 15);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -476,19 +432,35 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_star_1930255.png"))); // NOI18N
         jLabel18.setText("Ultimos 7 Días");
         jLabel18.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        montoTotal.add(jLabel18);
+        JPanel3.add(jLabel18);
         jLabel18.setBounds(420, 20, 100, 20);
 
-        jPanel4.add(montoTotal);
-        montoTotal.setBounds(10, 329, 540, 389);
+        contenedorGananciasTotales.setBackground(new java.awt.Color(255, 255, 255));
 
-        IndiceReservaciones.setBackground(new java.awt.Color(255, 255, 255));
-        IndiceReservaciones.setLayout(null);
+        javax.swing.GroupLayout contenedorGananciasTotalesLayout = new javax.swing.GroupLayout(contenedorGananciasTotales);
+        contenedorGananciasTotales.setLayout(contenedorGananciasTotalesLayout);
+        contenedorGananciasTotalesLayout.setHorizontalGroup(
+            contenedorGananciasTotalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 540, Short.MAX_VALUE)
+        );
+        contenedorGananciasTotalesLayout.setVerticalGroup(
+            contenedorGananciasTotalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 330, Short.MAX_VALUE)
+        );
+
+        JPanel3.add(contenedorGananciasTotales);
+        contenedorGananciasTotales.setBounds(0, 60, 540, 330);
+
+        jPanel4.add(JPanel3);
+        JPanel3.setBounds(10, 329, 540, 389);
+
+        JPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        JPanel5.setLayout(null);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/465050-32.png"))); // NOI18N
         jLabel6.setText(" Reservaciones por Fechas");
-        IndiceReservaciones.add(jLabel6);
+        JPanel5.add(jLabel6);
         jLabel6.setBounds(10, 11, 280, 32);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -496,22 +468,38 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_star_1930255.png"))); // NOI18N
         jLabel11.setText("Ultimos 15 Días");
         jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        IndiceReservaciones.add(jLabel11);
+        JPanel5.add(jLabel11);
         jLabel11.setBounds(330, 20, 110, 20);
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setText("Reservaciones:");
-        IndiceReservaciones.add(jLabel20);
+        JPanel5.add(jLabel20);
         jLabel20.setBounds(10, 50, 90, 15);
 
         lbTotalReservacionesFechas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbTotalReservacionesFechas.setForeground(new java.awt.Color(51, 153, 255));
         lbTotalReservacionesFechas.setText("jLabel21");
-        IndiceReservaciones.add(lbTotalReservacionesFechas);
+        JPanel5.add(lbTotalReservacionesFechas);
         lbTotalReservacionesFechas.setBounds(110, 50, 70, 15);
 
-        jPanel4.add(IndiceReservaciones);
-        IndiceReservaciones.setBounds(560, 330, 460, 389);
+        contenedorIndiceReservaciones.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout contenedorIndiceReservacionesLayout = new javax.swing.GroupLayout(contenedorIndiceReservaciones);
+        contenedorIndiceReservaciones.setLayout(contenedorIndiceReservacionesLayout);
+        contenedorIndiceReservacionesLayout.setHorizontalGroup(
+            contenedorIndiceReservacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 460, Short.MAX_VALUE)
+        );
+        contenedorIndiceReservacionesLayout.setVerticalGroup(
+            contenedorIndiceReservacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 330, Short.MAX_VALUE)
+        );
+
+        JPanel5.add(contenedorIndiceReservaciones);
+        contenedorIndiceReservaciones.setBounds(0, 60, 460, 330);
+
+        jPanel4.add(JPanel5);
+        JPanel5.setBounds(560, 330, 460, 389);
 
         indiceFacturacion1.setBackground(new java.awt.Color(245, 245, 245));
         indiceFacturacion1.setPreferredSize(new java.awt.Dimension(300, 300));
@@ -609,25 +597,25 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         ScrollReportes.setPreferredSize(new java.awt.Dimension(1090, 710));
 
         jPanel5.setBackground(new java.awt.Color(245, 245, 245));
-        jPanel5.setMaximumSize(new java.awt.Dimension(1090, 800));
-        jPanel5.setPreferredSize(new java.awt.Dimension(1090, 800));
+        jPanel5.setMaximumSize(new java.awt.Dimension(1090, 900));
+        jPanel5.setPreferredSize(new java.awt.Dimension(1090, 900));
         jPanel5.setLayout(null);
 
-        GananciasFechas.setBackground(new java.awt.Color(255, 255, 255));
-        GananciasFechas.setPreferredSize(new java.awt.Dimension(450, 300));
-        GananciasFechas.setLayout(null);
+        JPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        JPanel6.setPreferredSize(new java.awt.Dimension(450, 300));
+        JPanel6.setLayout(null);
 
         cInicialGananciasFechas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 cInicialGananciasFechasPropertyChange(evt);
             }
         });
-        GananciasFechas.add(cInicialGananciasFechas);
+        JPanel6.add(cInicialGananciasFechas);
         cInicialGananciasFechas.setBounds(100, 320, 120, 20);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel21.setText("Fecha Inicial:");
-        GananciasFechas.add(jLabel21);
+        JPanel6.add(jLabel21);
         jLabel21.setBounds(20, 320, 80, 20);
 
         cFinalGananciasFechas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -635,33 +623,49 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
                 cFinalGananciasFechasPropertyChange(evt);
             }
         });
-        GananciasFechas.add(cFinalGananciasFechas);
+        JPanel6.add(cFinalGananciasFechas);
         cFinalGananciasFechas.setBounds(300, 320, 120, 20);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel22.setText("Fecha Final:");
-        GananciasFechas.add(jLabel22);
+        JPanel6.add(jLabel22);
         jLabel22.setBounds(230, 320, 70, 20);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/134157-32.png"))); // NOI18N
         jLabel23.setText(" Ganancias por Rango de Fechas");
-        GananciasFechas.add(jLabel23);
+        JPanel6.add(jLabel23);
         jLabel23.setBounds(10, 10, 420, 40);
 
         lbGananciasFechas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbGananciasFechas.setForeground(new java.awt.Color(51, 153, 255));
         lbGananciasFechas.setText("jLabel24");
-        GananciasFechas.add(lbGananciasFechas);
+        JPanel6.add(lbGananciasFechas);
         lbGananciasFechas.setBounds(60, 50, 70, 15);
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel25.setText("Total:");
-        GananciasFechas.add(jLabel25);
+        JPanel6.add(jLabel25);
         jLabel25.setBounds(10, 50, 35, 15);
 
-        jPanel5.add(GananciasFechas);
-        GananciasFechas.setBounds(20, 10, 450, 350);
+        contenedorGananciasFechasHabitacion.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout contenedorGananciasFechasHabitacionLayout = new javax.swing.GroupLayout(contenedorGananciasFechasHabitacion);
+        contenedorGananciasFechasHabitacion.setLayout(contenedorGananciasFechasHabitacionLayout);
+        contenedorGananciasFechasHabitacionLayout.setHorizontalGroup(
+            contenedorGananciasFechasHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+        contenedorGananciasFechasHabitacionLayout.setVerticalGroup(
+            contenedorGananciasFechasHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+
+        JPanel6.add(contenedorGananciasFechasHabitacion);
+        contenedorGananciasFechasHabitacion.setBounds(0, 60, 450, 250);
+
+        jPanel5.add(JPanel6);
+        JPanel6.setBounds(10, 10, 450, 350);
 
         tbGananciasFechas = new javax.swing.JTable() {
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -712,6 +716,100 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         });
         jPanel5.add(materialButton2);
         materialButton2.setBounds(490, 320, 160, 40);
+
+        JPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        JPanel7.setLayout(null);
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel24.setText("Habitación:");
+        JPanel7.add(jLabel24);
+        jLabel24.setBounds(40, 350, 70, 20);
+
+        cbHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbHabitacion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbHabitacionItemStateChanged(evt);
+            }
+        });
+        JPanel7.add(cbHabitacion);
+        cbHabitacion.setBounds(120, 350, 280, 20);
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/134157-32.png"))); // NOI18N
+        jLabel26.setText(" Ganancias por Habitación");
+        JPanel7.add(jLabel26);
+        jLabel26.setBounds(10, 10, 420, 40);
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel27.setText("Total:");
+        JPanel7.add(jLabel27);
+        jLabel27.setBounds(10, 50, 35, 15);
+
+        lbGananciasHabitacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbGananciasHabitacion.setForeground(new java.awt.Color(51, 153, 255));
+        lbGananciasHabitacion.setText("jLabel24");
+        JPanel7.add(lbGananciasHabitacion);
+        lbGananciasHabitacion.setBounds(60, 50, 70, 15);
+
+        contenedorGananciasHabitacion.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout contenedorGananciasHabitacionLayout = new javax.swing.GroupLayout(contenedorGananciasHabitacion);
+        contenedorGananciasHabitacion.setLayout(contenedorGananciasHabitacionLayout);
+        contenedorGananciasHabitacionLayout.setHorizontalGroup(
+            contenedorGananciasHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+        contenedorGananciasHabitacionLayout.setVerticalGroup(
+            contenedorGananciasHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
+        );
+
+        JPanel7.add(contenedorGananciasHabitacion);
+        contenedorGananciasHabitacion.setBounds(0, 60, 450, 290);
+
+        jPanel5.add(JPanel7);
+        JPanel7.setBounds(10, 380, 450, 380);
+
+        tbGananciasHabitacion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbGananciasHabitacion.setPreferredSize(new java.awt.Dimension(300, 300));
+        jScrollPane2.setViewportView(tbGananciasHabitacion);
+
+        jPanel5.add(jScrollPane2);
+        jScrollPane2.setBounds(490, 380, 500, 330);
+
+        materialButton3.setBackground(new java.awt.Color(0, 153, 51));
+        materialButton3.setForeground(new java.awt.Color(255, 255, 255));
+        materialButton3.setText("Exportar A Excel");
+        materialButton3.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        materialButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                materialButton3ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(materialButton3);
+        materialButton3.setBounds(490, 720, 160, 40);
+
+        materialButton4.setBackground(new java.awt.Color(204, 0, 0));
+        materialButton4.setForeground(new java.awt.Color(255, 255, 255));
+        materialButton4.setText("Exportar A PDF");
+        materialButton4.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        materialButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                materialButton4ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(materialButton4);
+        materialButton4.setBounds(660, 720, 160, 40);
 
         ScrollReportes.setViewportView(jPanel5);
 
@@ -782,17 +880,47 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         reportes.reporteGenerar("ReporteHabitacionFechaGanancia", parametros);
     }//GEN-LAST:event_materialButton1ActionPerformed
 
+    private void cbHabitacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbHabitacionItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            gananciasHabitacion();
+        }
+    }//GEN-LAST:event_cbHabitacionItemStateChanged
+
+    private void materialButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton3ActionPerformed
+        reportes.exportExcel(tbGananciasHabitacion);
+    }//GEN-LAST:event_materialButton3ActionPerformed
+
+    private void materialButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton4ActionPerformed
+        HashMap parametros = new HashMap();
+        if(cbHabitacion.getSelectedItem().toString().equals("Todas las habitaciones")) {
+            parametros.put("habitacion", "");
+        } else {
+            parametros.put("habitacion", cbHabitacion.getSelectedItem().toString());
+        }
+        reportes.reporteGenerar("ReporteGananciasTotalesHabitaciones", parametros);
+    }//GEN-LAST:event_materialButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel GananciasFechas;
-    private javax.swing.JPanel IndiceReservaciones;
+    private javax.swing.JPanel JPanel1;
+    private javax.swing.JPanel JPanel3;
+    private javax.swing.JPanel JPanel4;
+    private javax.swing.JPanel JPanel5;
+    private javax.swing.JPanel JPanel6;
+    private javax.swing.JPanel JPanel7;
     private javax.swing.JPanel PorcentajeGanancias;
     private javax.swing.JPanel PorcentajeReservaciones;
     private javax.swing.JScrollPane ScrollEstadisticas;
     private javax.swing.JScrollPane ScrollReportes;
     private com.toedter.calendar.JDateChooser cFinalGananciasFechas;
     private com.toedter.calendar.JDateChooser cInicialGananciasFechas;
-    private javax.swing.JPanel indiceFacturacion;
+    private javax.swing.JComboBox<String> cbHabitacion;
+    private javax.swing.JPanel contenedorGananciasFechasHabitacion;
+    private javax.swing.JPanel contenedorGananciasHabitacion;
+    private javax.swing.JPanel contenedorGananciasTotales;
+    private javax.swing.JPanel contenedorIndiceFacturacion;
+    private javax.swing.JPanel contenedorIndiceReservaciones;
+    private javax.swing.JPanel contenedorPopularidad;
     private javax.swing.JPanel indiceFacturacion1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -810,7 +938,10 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -823,11 +954,13 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbConFacturacion;
     private javax.swing.JLabel lbGananciaHoy;
     private javax.swing.JLabel lbGanancias;
     private javax.swing.JLabel lbGananciasFechas;
+    private javax.swing.JLabel lbGananciasHabitacion;
     private javax.swing.JLabel lbPorcentajeGanancias;
     private javax.swing.JLabel lbPorcentajeReservaciones;
     private javax.swing.JLabel lbReservacionesHoy;
@@ -839,8 +972,9 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     private javax.swing.JLabel lb_Id;
     private principal.MaterialButton materialButton1;
     private principal.MaterialButton materialButton2;
-    private javax.swing.JPanel montoTotal;
-    private javax.swing.JPanel popularidad;
+    private principal.MaterialButton materialButton3;
+    private principal.MaterialButton materialButton4;
     private javax.swing.JTable tbGananciasFechas;
+    private javax.swing.JTable tbGananciasHabitacion;
     // End of variables declaration//GEN-END:variables
 }

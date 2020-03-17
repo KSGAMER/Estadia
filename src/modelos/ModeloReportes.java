@@ -36,18 +36,19 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author KSGAMER
  */
-public class ModeloReportes extends BD{
+public class ModeloReportes extends BD {
+
     private ResultSet rs;
     private PreparedStatement st;
-    
+
     protected DefaultTableModel popularHabitacion() {
-        String [] titulos = {"Habitación", "Reservaciones"};
+        String[] titulos = {"Habitación", "Reservaciones"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[2];
         try {
             this.st = conectar().prepareStatement("SELECT h.Nombre, COUNT(h.Nombre) as Reservado FROM Habitacion h INNER JOIN Reservacion r on r.IdHabitacion = h.IdHabitacion group by h.Nombre");
             this.rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 fila[0] = rs.getString(1);
                 fila[1] = rs.getInt(2);
                 tb.addRow(fila);
@@ -58,17 +59,18 @@ public class ModeloReportes extends BD{
         }
         return tb;
     }
-    
+
     protected DefaultTableModel gananciasPorFechas() {
-        String [] titulos = {"Fecha", "Total"};
+        String[] titulos = {"Total", "Habitacion", "Fechas"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
-        Object[] fila = new Object[2];
+        Object[] fila = new Object[3];
         try {
-            this.st = conectar().prepareStatement("SELECT top 7 CAST(CONCAT(SUBSTRING(FechaCobro,4,2),'/',SUBSTRING(FechaCobro,0,3),'/',SUBSTRING(FechaCobro,7,4)) as date) as FechaCobro, SUM(c.Monto) as Total FROM Cobro c group by CAST(CONCAT(SUBSTRING(FechaCobro,4,2),'/',SUBSTRING(FechaCobro,0,3),'/',SUBSTRING(FechaCobro,7,4)) as date) order by CAST(CONCAT(SUBSTRING(FechaCobro,4,2),'/',SUBSTRING(FechaCobro,0,3),'/',SUBSTRING(FechaCobro,7,4)) as date) desc");
+            this.st = conectar().prepareStatement("SELECT top 7 SUM(c.Monto) as Total, h.Nombre as Habitación, CONVERT(DATE, c.FechaCobro, 103) as FechaCobro FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion GROUP BY CONVERT(DATE, FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, FechaCobro, 103) DESC");
             this.rs = st.executeQuery();
-            while(rs.next()) {
-                fila[0] = rs.getString(1);
-                fila[1] = rs.getInt(2);
+            while (rs.next()) {
+                fila[0] = rs.getDouble(1);
+                fila[1] = rs.getString(2);
+                fila[2] = rs.getString(3);
                 tb.addRow(fila);
             }
             conectar().close();
@@ -77,15 +79,15 @@ public class ModeloReportes extends BD{
         }
         return tb;
     }
-    
+
     protected DefaultTableModel indiceFacturacion() {
-        String [] titulos = {"Tipo", "Cantidad"};
+        String[] titulos = {"Tipo", "Cantidad"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[2];
         try {
             this.st = conectar().prepareStatement("SELECT  f.Nombre, COUNT(f.Nombre) as Cantidad FROM Cobro c INNER JOIN Facturacion f on f.IdFacturacion = c.IdFacturacion GROUP BY f.Nombre");
             this.rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 fila[0] = rs.getString(1);
                 fila[1] = rs.getInt(2);
                 tb.addRow(fila);
@@ -96,17 +98,18 @@ public class ModeloReportes extends BD{
         }
         return tb;
     }
-    
+
     protected DefaultTableModel indiceReservaciones() {
-        String [] titulos = {"Fecha", "Cantidad"};
+        String[] titulos = {"Cantidad", "Habitación", "Fecha"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
-        Object[] fila = new Object[2];
+        Object[] fila = new Object[3];
         try {
-            this.st = conectar().prepareStatement("SELECT TOP 5 CAST(CONCAT(SUBSTRING(r.FechaIngreso, 4, 2) ,'/',SUBSTRING(r.FechaIngreso, 0, 3),'/',SUBSTRING(r.FechaIngreso, 7, 4)) AS date) as Fecha, COUNT(r.FechaIngreso) as Reservaciones FROM Reservacion r GROUP BY CAST(CONCAT(SUBSTRING(r.FechaIngreso, 4, 2) ,'/',SUBSTRING(r.FechaIngreso, 0, 3),'/',SUBSTRING(r.FechaIngreso, 7, 4)) AS date) ORDER BY CAST(CONCAT(SUBSTRING(r.FechaIngreso, 4, 2) ,'/',SUBSTRING(r.FechaIngreso, 0, 3),'/',SUBSTRING(r.FechaIngreso, 7, 4)) AS date) DESC");
+            this.st = conectar().prepareStatement("SELECT TOP 15 COUNT(r.FechaIngreso) as Reservaciones, h.Nombre as Habitacion, CONVERT(DATE, r.FechaIngreso, 103) as Fecha FROM Reservacion r INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion GROUP BY CONVERT(DATE, FechaIngreso, 103), h.Nombre ORDER BY CONVERT(DATE, FechaIngreso, 103) DESC");
             this.rs = st.executeQuery();
-            while(rs.next()) {
-                fila[0] = rs.getString(1);
-                fila[1] = rs.getInt(2);
+            while (rs.next()) {
+                fila[0] = rs.getInt(1);
+                fila[1] = rs.getString(2);
+                fila[2] = rs.getString(3);
                 tb.addRow(fila);
             }
             conectar().close();
@@ -115,15 +118,15 @@ public class ModeloReportes extends BD{
         }
         return tb;
     }
-    
+
     protected DefaultTableModel gananciasHoy() {
-        String [] titulos = {"Fecha", "Total"};
+        String[] titulos = {"Fecha", "Total"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[2];
         try {
             this.st = conectar().prepareStatement("SELECT top 2 CAST(CONCAT(SUBSTRING(FechaCobro,4,2),'/',SUBSTRING(FechaCobro,0,3),'/',SUBSTRING(FechaCobro,7,4)) as date) as FechaCobro, SUM(c.Monto) as Total FROM Cobro c group by CAST(CONCAT(SUBSTRING(FechaCobro,4,2),'/',SUBSTRING(FechaCobro,0,3),'/',SUBSTRING(FechaCobro,7,4)) as date) order by CAST(CONCAT(SUBSTRING(FechaCobro,4,2),'/',SUBSTRING(FechaCobro,0,3),'/',SUBSTRING(FechaCobro,7,4)) as date) desc");
             this.rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 fila[0] = rs.getString(1);
                 fila[1] = rs.getInt(2);
                 tb.addRow(fila);
@@ -134,15 +137,15 @@ public class ModeloReportes extends BD{
         }
         return tb;
     }
-    
-   protected DefaultTableModel porcentajeReservaciones() {
-       String [] titulos = {"Fecha", "Total"};
+
+    protected DefaultTableModel porcentajeReservaciones() {
+        String[] titulos = {"Fecha", "Total"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[2];
         try {
             this.st = conectar().prepareStatement("SELECT TOP 2 CAST(CONCAT(SUBSTRING(r.FechaIngreso, 4, 2) ,'/',SUBSTRING(r.FechaIngreso, 0, 3),'/',SUBSTRING(r.FechaIngreso, 7, 4)) AS date) as Fecha, COUNT(r.FechaIngreso) as Reservaciones FROM Reservacion r GROUP BY CAST(CONCAT(SUBSTRING(r.FechaIngreso, 4, 2) ,'/',SUBSTRING(r.FechaIngreso, 0, 3),'/',SUBSTRING(r.FechaIngreso, 7, 4)) AS date) ORDER BY CAST(CONCAT(SUBSTRING(r.FechaIngreso, 4, 2) ,'/',SUBSTRING(r.FechaIngreso, 0, 3),'/',SUBSTRING(r.FechaIngreso, 7, 4)) AS date) DESC");
             this.rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 fila[0] = rs.getString(1);
                 fila[1] = rs.getInt(2);
                 tb.addRow(fila);
@@ -152,61 +155,129 @@ public class ModeloReportes extends BD{
             Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return tb;
-   }
-   
-   protected DefaultTableModel gananciasFechas(String fechaInicial, String fechaFinal) {
-       String [] titulos = {"Habitación", "Reservaciones", "Ganancias"};
-        DefaultTableModel tb = new DefaultTableModel(null, titulos);
-        Object[] fila = new Object[3];
-        try {
-            this.st = conectar().prepareStatement("SELECT h.Nombre, COUNT(h.Nombre) as Reservaciones, SUM(c.Monto) as Ganancias FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, ?, 103) GROUP BY h.Nombre ");
-            this.st.setString(1, fechaInicial);
-            this.st.setString(2, fechaFinal);
-            this.rs = st.executeQuery();
-            while(rs.next()) {
-                fila[0] = rs.getString(1);
-                fila[1] = rs.getInt(2);
-                fila[2] = rs.getInt(3);
-                tb.addRow(fila);
+    }
+
+    protected DefaultTableModel gananciasFechas(String fechaInicial, String fechaFinal, String modo) {
+        if (modo.equals("Tabla")) {
+            String[] titulos = {"Habitación", "Reservaciones", "Ganancias"};
+            DefaultTableModel tb = new DefaultTableModel(null, titulos);
+            Object[] fila = new Object[3];
+            try {
+                this.st = conectar().prepareStatement("SELECT h.Nombre, COUNT(h.Nombre) as Reservaciones, SUM(c.Monto) as Ganancias  FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, ?, 103) GROUP BY h.Nombre ");
+                this.st.setString(1, fechaInicial);
+                this.st.setString(2, fechaFinal);
+                this.rs = st.executeQuery();
+                while (rs.next()) {
+                    fila[0] = rs.getString(1);
+                    fila[1] = rs.getInt(2);
+                    fila[2] = "$ " + rs.getDouble(3) + "0";
+                    tb.addRow(fila);
+                }
+                conectar().close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
             }
-            conectar().close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
+            return tb;
+        } else {
+            String[] titulos = {"Ganancias", "Reservaciones", "Habitacion"};
+            DefaultTableModel tb = new DefaultTableModel(null, titulos);
+            Object[] fila = new Object[3];
+            try {
+                this.st = conectar().prepareStatement("SELECT SUM(c.Monto) as Ganancias, h.Nombre, COUNT(h.Nombre) as Reservaciones  FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, ?, 103) GROUP BY h.Nombre ");
+                this.st.setString(1, fechaInicial);
+                this.st.setString(2, fechaFinal);
+                this.rs = st.executeQuery();
+                while (rs.next()) {
+                    fila[0] = rs.getInt(1);
+                    fila[1] = rs.getString(2);
+                    fila[2] = rs.getString(3);
+                    tb.addRow(fila);
+                }
+                conectar().close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return tb;
         }
-        return tb;
-   }
-    
+    }
+
+    protected DefaultTableModel gananciasHabitaciones(String habitacion, String modo) {
+        if (modo.equals("Tabla")) {
+            String[] titulos = {"Habitacion", "Fecha", "Ganancias"};
+            DefaultTableModel tb = new DefaultTableModel(null, titulos);
+            Object[] fila = new Object[3];
+            try {
+                this.st = conectar().prepareStatement("SELECT h.Nombre as Habitacion, CONVERT(DATE, c.FechaCobro, 103) as Fecha, SUM(Monto) as Ganancia FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE h.Nombre like CONCAT('%', ? ,'%') GROUP BY CONVERT(DATE, c.FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC");
+                this.st.setString(1, habitacion);
+                this.rs = st.executeQuery();
+                while (rs.next()) {
+                    fila[0] = rs.getString(1);
+                    fila[1] = rs.getString(2);
+                    fila[2] = "$ "+rs.getDouble(3);
+                    tb.addRow(fila);
+                }
+                conectar().close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return tb;
+        } else {
+            String[] titulos = {"Ganancias", "Habitacion", "Fecha"};
+            DefaultTableModel tb = new DefaultTableModel(null, titulos);
+            Object[] fila = new Object[3];
+            try {
+                this.st = conectar().prepareStatement("SELECT SUM(Monto) as Ganancia, h.Nombre as Habitacion, CONVERT(DATE, c.FechaCobro, 103) as Fecha FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE h.Nombre like CONCAT('%', ? ,'%') GROUP BY CONVERT(DATE, c.FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC");
+                this.st.setString(1, habitacion);
+                this.rs = st.executeQuery();
+                while (rs.next()) {
+                    fila[0] = rs.getDouble(1);
+                    fila[1] = rs.getString(2);
+                    fila[2] = rs.getString(3);
+                    tb.addRow(fila);
+                }
+                conectar().close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return tb;
+        }
+    }
+
     protected void generarReporte(String report) {
         try {
-            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("src\\reportes\\"+report+".jasper");
+            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("src\\reportes\\" + report + ".jasper");
             JasperPrint imprimir = JasperFillManager.fillReport(reporte, null, conectar());
             JasperViewer vista = new JasperViewer(imprimir, false);
             vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             vista.setVisible(true);
         } catch (JRException ex) {
-            Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("ERROR", "No se ha podido generar el Reporte, intentelo nuevamente", DesktopNotify.ERROR);
+        } catch (Exception e) {
+            DesktopNotify.showDesktopMessage("ERROR", "No se ha podido generar el Reporte, intente con otra opción", DesktopNotify.ERROR);
         }
     }
-    
+
     protected void generarReporte(String report, HashMap parametros) {
         try {
-            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("src\\reportes\\"+report+".jasper");
+            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("src\\reportes\\" + report + ".jasper");
             JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametros, conectar());
             JasperViewer vista = new JasperViewer(imprimir, false);
             vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             vista.setVisible(true);
         } catch (JRException ex) {
-            Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("ERROR", "No se ha podido generar el Reporte, intentelo nuevamente", DesktopNotify.ERROR);
+        } catch (Exception e) {
+            DesktopNotify.showDesktopMessage("ERROR", "No se ha podido generar el Reporte, intente con otra opción", DesktopNotify.ERROR);
         }
     }
-    
+
     protected void excel(JTable table) {
         JFileChooser file = new JFileChooser();
         file.showSaveDialog(file);
         File excel = file.getSelectedFile();
-        if(excel != null) {
+        if (excel != null) {
             try {
-                excel = new File(excel.toString()+".xls");
+                excel = new File(excel.toString() + ".xls");
                 WritableWorkbook book = Workbook.createWorkbook(excel);
                 WritableSheet sheet = book.createSheet("Hoja 1", 0);
                 for (int i = 0; i < table.getColumnCount(); i++) {
@@ -215,7 +286,7 @@ public class ModeloReportes extends BD{
                 }
                 for (int i = 0; i < table.getRowCount(); i++) {
                     for (int j = 0; j < table.getColumnCount(); j++) {
-                        Label row = new Label(j, i+1, table.getValueAt(i, j).toString());
+                        Label row = new Label(j, i + 1, table.getValueAt(i, j).toString());
                         sheet.addCell(row);
                     }
                 }
@@ -230,7 +301,7 @@ public class ModeloReportes extends BD{
             }
         }
     }
-    
+
     public void abrirArchivo(String file) {
         try {
             File path = new File(file);

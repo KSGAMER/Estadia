@@ -1,0 +1,130 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Utilerias;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.RingPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.ui.RectangleInsets;
+
+/**
+ *
+ * @author KSGAMER
+ */
+public class ComponenteGrafica extends javax.swing.JPanel {
+
+    /**
+     * Creates new form ComponenteGrafica
+     */
+    public ComponenteGrafica() {
+        initComponents();
+    }
+
+    public JPanel componenteGrafica(String tipoGrafica, DefaultTableModel informacion, String tituloHorizontal, String tituloVertical, int ancho, int altura) {
+        switch (tipoGrafica) {
+            case "Barras": {
+                DefaultCategoryDataset grafica = new DefaultCategoryDataset();
+                for (int i = 0; i < informacion.getRowCount(); i++) {
+                    grafica.setValue(Double.parseDouble(informacion.getValueAt(i, 0).toString()), informacion.getValueAt(i, 1).toString(), informacion.getValueAt(i, 2).toString());
+                }
+                JFreeChart chart = ChartFactory.createBarChart("", tituloHorizontal, tituloVertical, grafica, PlotOrientation.VERTICAL, true, true, false);
+                StandardChartTheme theme = (StandardChartTheme) org.jfree.chart.StandardChartTheme.createJFreeTheme();
+                theme.setRangeGridlinePaint(Color.decode("#C0C0C0"));
+                theme.setAxisOffset(new RectangleInsets(0, 0, 0, 0));
+                theme.setBarPainter(new StandardBarPainter());
+                theme.apply(chart);
+                chart.getCategoryPlot().setOutlineVisible(false);
+                chart.getCategoryPlot().getRangeAxis().setAxisLineVisible(false);
+                chart.getCategoryPlot().getRangeAxis().setTickMarksVisible(false);
+                chart.getCategoryPlot().setRangeGridlineStroke(new BasicStroke());
+                chart.getCategoryPlot().getRangeAxis().setTickLabelPaint(Color.decode("#666666"));
+                chart.getCategoryPlot().getDomainAxis().setTickLabelPaint(Color.decode("#666666"));
+                chart.setTextAntiAlias(true);
+                chart.setAntiAlias(true);
+                chart.getCategoryPlot().getRenderer().setSeriesPaint(0, Color.decode("#4572a7"));
+                BarRenderer rend = (BarRenderer) chart.getCategoryPlot().getRenderer();
+                rend.setShadowVisible(true);
+                rend.setShadowXOffset(2);
+                rend.setShadowYOffset(0);
+                rend.setShadowPaint(Color.decode("#C0C0C0"));
+                rend.setMaximumBarWidth(0.1);
+                chart.getPlot().setBackgroundPaint(Color.WHITE);
+                ChartPanel panel = new ChartPanel(chart);
+                panel.setOpaque(false);
+                this.removeAll();
+                this.add(panel);
+                panel.setBounds(0, 0, ancho, altura);
+                break;
+            }
+            case "Pastel": {
+                break;
+            }
+            case "Anillo": {
+                DefaultPieDataset grafica = new DefaultPieDataset();
+                for (int i = 0; i < informacion.getRowCount(); i++) {
+                    grafica.setValue(informacion.getValueAt(i, 0).toString(), Double.parseDouble(informacion.getValueAt(i, 1).toString()));
+                }
+                JFreeChart chart = ChartFactory.createRingChart("", grafica, false, true, false);
+                RingPlot pie = (RingPlot) chart.getPlot();
+                pie.setOutlineVisible(false);
+                pie.setShadowPaint(null);
+                pie.setLabelShadowPaint(null);
+                pie.setSectionDepth(0.30);
+                pie.setSectionOutlinesVisible(false);
+                pie.setSeparatorsVisible(false);
+                chart.getPlot().setBackgroundPaint(null);
+                chart.getPlot().setOutlinePaint(null);
+                ChartPanel panel = new ChartPanel(chart);
+                panel.setOpaque(false);
+                this.add(panel);
+                panel.setBounds(0, 0, ancho, altura);
+                break;
+            }
+        }
+        this.validate();
+        this.setBounds(0, 0, ancho, altura);
+        this.setOpaque(false);
+        return this;
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
+}

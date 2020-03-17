@@ -10,25 +10,14 @@ package vistas;
 import controladores.ControladorEventosSesion;
 import controladores.ControladorSesion;
 import controladores.ControladorUsuarios;
-import java.awt.Color;
 import java.awt.Image;
-import javafx.scene.layout.Border;
-import javax.swing.BorderFactory;
-import javax.swing.SwingUtilities;
 //para cambiar los valores de un boton 
-import javax.swing.border.MatteBorder;
 //import Vista.Segundo;
 //para la fecha y la hora 
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import javax.swing.JOptionPane;
-import java.awt.event.KeyEvent;
 import javax.swing.InputMap;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import static javafx.scene.paint.Color.color;
 import javax.swing.ImageIcon;
 
 /**
