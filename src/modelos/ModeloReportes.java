@@ -36,8 +36,10 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author KSGAMER
  */
-public class ModeloReportes extends BD {
 
+//Se aplica Herencia desde la clase padre BD
+public class ModeloReportes extends BD {
+    //
     private ResultSet rs;
     private PreparedStatement st;
 
@@ -294,9 +296,7 @@ public class ModeloReportes extends BD {
                 book.close();
                 DesktopNotify.showDesktopMessage("Exito", "Se ha creado el archivo correctamente", DesktopNotify.SUCCESS);
                 abrirArchivo(excel.toString());
-            } catch (IOException ex) {
-                Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (WriteException ex) {
+            } catch (IOException | WriteException ex) {
                 Logger.getLogger(ControladorReportes.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

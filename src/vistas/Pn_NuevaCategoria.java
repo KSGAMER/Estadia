@@ -93,7 +93,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
 
     private void cTabla() {
         this.jt_categorias.setModel(ccat.tablaCategorias());
-        jt_t_registros.setText(String.valueOf(ccat.selectCategoria().size()));
+        jt_t_registros.setText(String.valueOf(this.jt_categorias.getRowCount()));
 
     }
 

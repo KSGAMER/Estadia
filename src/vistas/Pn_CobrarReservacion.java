@@ -6,20 +6,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import static java.util.Collections.list;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableRowSorter;
-import objetos.ObjetoCFDI;
 import objetos.ObjetoTipoPago;
 
 /*
@@ -106,7 +99,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private void cTabla() {
         try {
             jt_Clientes.setModel(cco.tablaCobros());
-            jt_t_registros.setText(String.valueOf(cco.selectCobro().size()));
+            jt_t_registros.setText(String.valueOf(jt_Clientes.getRowCount()));
         } catch (Exception e) {
         }
 

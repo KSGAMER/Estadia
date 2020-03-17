@@ -14,16 +14,9 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableRowSorter;
-import objetos.ObjetoCFDI;
 import objetos.ObjetoCategoria;
 import objetos.ObjetoPiso;
 import objetos.ObjetoEstadoHabitacion;
@@ -98,7 +91,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
     private void cTabla() {
         jt_habitaciones.setModel(ch.tablaHabitaciones());
-        jt_t_registros.setText(String.valueOf(ch.selectHabitacion().size()));
+        jt_t_registros.setText(String.valueOf(jt_habitaciones.getRowCount()));
     }
 
     private void tamañoTabla() {

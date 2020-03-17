@@ -1,24 +1,17 @@
 package vistas;
 
 import controladores.*;
-import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import static java.util.Collections.list;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableRowSorter;
 import objetos.ObjetoCFDI;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -78,7 +71,7 @@ public class Pn_SeleccionarClientesCobro extends javax.swing.JFrame {
 
     public void cTabla() {
         jt_Clientes.setModel(mc.tablaClientes());
-        jt_t_registros.setText(String.valueOf(mc.selectCliente().size()));
+        jt_t_registros.setText(String.valueOf(jt_Clientes.getRowCount()));
     }
 
     public void cargarCFDI() {

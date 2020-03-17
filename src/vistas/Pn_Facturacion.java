@@ -89,7 +89,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
 
     private void cTabla() {
         jt_Facturacion.setModel(cenf.tablaEnvioFacturacion());
-        jt_t_registros.setText(String.valueOf(cenf.selectEnvioFacturacion().size()));
+        jt_t_registros.setText(String.valueOf(jt_Facturacion.getRowCount()));
     }
 
     private void RowApariencia() {
