@@ -176,7 +176,6 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         chk_mostrar = new javax.swing.JCheckBox();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        btn_Ingresar1 = new principal.MaterialButton();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -418,18 +417,6 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         });
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, -1));
 
-        btn_Ingresar1.setBackground(new java.awt.Color(40, 180, 99));
-        btn_Ingresar1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Ingresar1.setText("Agregar");
-        btn_Ingresar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_Ingresar1.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        btn_Ingresar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Ingresar1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_Ingresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 460, 70, 40));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -621,15 +608,10 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         cft.formFocusGain(jt_Buscar);
     }//GEN-LAST:event_jt_BuscarFocusGained
 
-    private void btn_Ingresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Ingresar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Ingresar1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static principal.MaterialButton btn_Eliminar;
     public static principal.MaterialButton btn_Ingresar;
-    public static principal.MaterialButton btn_Ingresar1;
     public static principal.MaterialButton btn_Modificar;
     private javax.swing.JCheckBox chk_mostrar;
     private javax.swing.JLabel jLabel1;

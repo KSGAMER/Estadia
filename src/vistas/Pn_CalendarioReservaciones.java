@@ -252,71 +252,22 @@ HABITACION  | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ETC
                     for (int i = 1; i < columna.length; i++) {  //ARREGLO DE DIAS 
                         if (mesIn == mes && mesOut == mes) {
                             if (objetoReservacion.getIdHabitacion() == habitacion.getIdHabitacion()) {
-                                if (i < DayIn) {
-                                  //  columna[i] = "";
-                                } else if (DayIn == i) {
 
-//arreglo iniciado con el primer dia de la reservacion y finalizado con el dia de
-//termino de la reservacion (DayOut) para pintar la tabla con x
-                                    for (int p = DayIn; p <= DayOut; p++) {
-//llenamos la tabla de x para denotar en la tabla donde hay fechas reservadas
-                                        columna[p] = "x";
-                                    }
-                                } else if (i > DayOut) {
-                                    columna[i] = "";
-                                }
-                           
-                            } else {
-                              
-
-                            }
-                        } else {
-                            // columna[i]="";
-                        }
-
-                        if (mesIn == mes && (mesOut == mes + 1)) {
-
-                            if (objetoReservacion.getIdHabitacion() == habitacion.getIdHabitacion()) {
-                                if (i < DayIn) {
-                                    columna[i] = "";
-                                }
                                 if (DayIn == i) {
-//arreglo iniciado con el primer dia de la reservacion y finalizado con el dia de
-//termino de la reservacion (DayOut) para pintar la tabla con x
-                                    for (int p = DayIn; p <= days; p++) {
-//llenamos la tabla de x para denotar en la tabla donde hay fechas reservadas
-                                        columna[p] = "x";
-                                    }
-                                }
+                                    columna[i] = "x";
 
-                            } else {
-                                // columna[i]="";
-                            }
-                        } else {
-                            // columna[i]="";
-                        }
-                        if ((mesIn == mes - 1) && mesOut == mes) {
-
-                            if (objetoReservacion.getIdHabitacion() == habitacion.getIdHabitacion()) {
-
-                                if (i == 1) {
-//arreglo iniciado con el primer dia de la reservacion y finalizado con el dia de
-//termino de la reservacion (DayOut) para pintar la tabla con x
-                                    for (int p = i; p <= DayOut; p++) {
-//llenamos la tabla de x para denotar en la tabla donde hay fechas reservadas
-                                        columna[p] = "x";
-                                    }
-                                }
-                                if (i > DayOut) {
+                                } else if (i >= DayIn && DayOut <= DayOut) {
+                                    columna[i] = "x";
+                                } else {
                                     columna[i] = "";
                                 }
-                            } else {
-                                // columna[i]="";
+
+                                System.out.println(habitacion.getNombre() + ": Dia " + i + "-> " + columna[i]);
                             }
-                        } else {
-                            //columna[i]="";
                         }
+
                     }
+
 
                 }
                 modelo.addRow(columna);
