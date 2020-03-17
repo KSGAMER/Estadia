@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import ds.desktop.notify.DesktopNotify;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,9 +19,9 @@ import objetos.ObjetoPermiso;
  *
  * @author KSGAMER
  */
-
 //Se aplica Herencia de la clase padre BD
-public class ModeloPermisos extends BD{
+public class ModeloPermisos extends BD {
+
     //Se declaran las variables a utilizar para el reemplazo de información
     private ModeloEstatusPermisos mep = new ModeloEstatusPermisos();
     private ModeloModulos mm = new ModeloModulos();
@@ -29,7 +30,7 @@ public class ModeloPermisos extends BD{
     private PreparedStatement st;
     //Se declara el arreglo de tipo Objeto Permiso
     private ArrayList<ObjetoPermiso> listAccess = new ArrayList<>();
-    
+
     //Método que extrae la información directamente de base de datos
     protected DefaultTableModel cargarTabla() {
         //Se cargan los resultados a utilizar
@@ -55,7 +56,7 @@ public class ModeloPermisos extends BD{
                 //Se recorre el resultado con un for
                 for (int i = 0; i < mm.selectModulos().size(); i++) {
                     //Si el ID del resultado es igual al de la clase se prosigue
-                    if(rs.getInt("IdModulo") == mm.selectModulos().get(i).getIdModulo()) {
+                    if (rs.getInt("IdModulo") == mm.selectModulos().get(i).getIdModulo()) {
                         //Se reemplaza el valor por el nombre
                         fila[2] = mm.selectModulos().get(i).getNombre();
                     }
@@ -63,22 +64,22 @@ public class ModeloPermisos extends BD{
                 //Se recorre el resultado con un for
                 for (int i = 0; i < mep.selectEstatusPermisos().size(); i++) {
                     //Si el ID del resultado es igual al de la clase se prosigue
-                    if(rs.getInt("Consultar") == mep.selectEstatusPermisos().get(i).getIdEstatusPermiso()) {
+                    if (rs.getInt("Consultar") == mep.selectEstatusPermisos().get(i).getIdEstatusPermiso()) {
                         //Se reemplaza el valor por el nombre
                         fila[3] = mep.selectEstatusPermisos().get(i).getNombre();
                     }
                     //Si el ID del resultado es igual al de la clase se prosigue
-                    if(rs.getInt("Insertar") == mep.selectEstatusPermisos().get(i).getIdEstatusPermiso()) {
+                    if (rs.getInt("Insertar") == mep.selectEstatusPermisos().get(i).getIdEstatusPermiso()) {
                         //Se reemplaza el valor por el nombre
                         fila[4] = mep.selectEstatusPermisos().get(i).getNombre();
                     }
                     //Si el ID del resultado es igual al de la clase se prosigue
-                    if(rs.getInt("Actualizar") == mep.selectEstatusPermisos().get(i).getIdEstatusPermiso()) {
+                    if (rs.getInt("Actualizar") == mep.selectEstatusPermisos().get(i).getIdEstatusPermiso()) {
                         //Se reemplaza el valor por el nombre
                         fila[5] = mep.selectEstatusPermisos().get(i).getNombre();
                     }
                     //Si el ID del resultado es igual al de la clase se prosigue
-                    if(rs.getInt("Eliminar") == mep.selectEstatusPermisos().get(i).getIdEstatusPermiso()) {
+                    if (rs.getInt("Eliminar") == mep.selectEstatusPermisos().get(i).getIdEstatusPermiso()) {
                         //Se reemplaza el valor por el nombre
                         fila[6] = mep.selectEstatusPermisos().get(i).getNombre();
                     }
@@ -96,12 +97,12 @@ public class ModeloPermisos extends BD{
         //Se retorna la tabla
         return tb;
     }
-    
+
     //Método que retorna la información en formato de arreglo
     protected ArrayList<ObjetoPermiso> selectPermisos() {
         return this.listAccess;
     }
-    
+
     //Método que inserta un permiso
     protected void insertPermisos(String username, String modulo, String consultar, String insertar, String actualizar, String eliminar) {
         //Se cargan las datos a utilizar
@@ -115,7 +116,7 @@ public class ModeloPermisos extends BD{
             //Se recorre el resultado con un for
             for (int i = 0; i < mm.selectModulos().size(); i++) {
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(modulo.equals(mm.selectModulos().get(i).getNombre())) {
+                if (modulo.equals(mm.selectModulos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(2, mm.selectModulos().get(i).getIdModulo());
                 }
@@ -123,22 +124,22 @@ public class ModeloPermisos extends BD{
             //Se recorre el resultado con un for
             for (int i = 0; i < mep.selectEstatusPermisos().size(); i++) {
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(consultar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
+                if (consultar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(3, mep.selectEstatusPermisos().get(i).getIdEstatusPermiso());
                 }
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(insertar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
+                if (insertar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(4, mep.selectEstatusPermisos().get(i).getIdEstatusPermiso());
                 }
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(actualizar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
+                if (actualizar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(5, mep.selectEstatusPermisos().get(i).getIdEstatusPermiso());
                 }
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(eliminar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
+                if (eliminar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(6, mep.selectEstatusPermisos().get(i).getIdEstatusPermiso());
                 }
@@ -147,11 +148,15 @@ public class ModeloPermisos extends BD{
             this.st.execute();
             //Se cierra la conexión
             conectar().close();
+            DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido agregados con éxito.", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar insertar los datos del privilegio", DesktopNotify.ERROR);
+
         }
     }
-    
+
     //Método que actualiza un permiso
     protected void updatePermisos(String username, String modulo, String consultar, String insertar, String actualizar, String eliminar, int id) {
         //Se cargan las datos a utilizar
@@ -165,7 +170,7 @@ public class ModeloPermisos extends BD{
             //Se recorre el resultado con un for
             for (int i = 0; i < mm.selectModulos().size(); i++) {
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(modulo.equals(mm.selectModulos().get(i).getNombre())) {
+                if (modulo.equals(mm.selectModulos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(2, mm.selectModulos().get(i).getIdModulo());
                 }
@@ -173,22 +178,22 @@ public class ModeloPermisos extends BD{
             //Se recorre el resultado con un for
             for (int i = 0; i < mep.selectEstatusPermisos().size(); i++) {
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(consultar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
+                if (consultar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(3, mep.selectEstatusPermisos().get(i).getIdEstatusPermiso());
                 }
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(insertar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
+                if (insertar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(4, mep.selectEstatusPermisos().get(i).getIdEstatusPermiso());
                 }
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(actualizar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
+                if (actualizar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(5, mep.selectEstatusPermisos().get(i).getIdEstatusPermiso());
                 }
                 //Si el Nombre del resultado es igual al de la clase se prosigue
-                if(eliminar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
+                if (eliminar.equals(mep.selectEstatusPermisos().get(i).getNombre())) {
                     //Se reemplaza el valor por el ID
                     this.st.setInt(6, mep.selectEstatusPermisos().get(i).getIdEstatusPermiso());
                 }
@@ -198,11 +203,14 @@ public class ModeloPermisos extends BD{
             this.st.executeUpdate();
             //Se cierra la conexión
             conectar().close();
+            DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido actualizados con éxito.", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar actualizar los datos del privilegio", DesktopNotify.ERROR);
+
         }
     }
-    
+
     //Método que elimina un permiso
     protected void deletePermisos(int id) {
         try {
@@ -214,8 +222,11 @@ public class ModeloPermisos extends BD{
             this.st.execute();
             //Se cierra la conexión
             conectar().close();
+            DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido eliminados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar eliminar los datos del privilegio", DesktopNotify.ERROR);
+
         }
     }
 }

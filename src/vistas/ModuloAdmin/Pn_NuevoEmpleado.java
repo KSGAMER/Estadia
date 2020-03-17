@@ -17,30 +17,50 @@ import javax.swing.table.TableColumnModel;
 import objetos.*;
 import controladores.*;
 import ds.desktop.notify.DesktopNotify;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import vistas.Pn_Alert_Eliminar;
 /**
  *
  * @author fenix
  */
 public class Pn_NuevoEmpleado extends javax.swing.JPanel {
+    //NECESARIO PARA FUNCIONES DE ESTE MODULO 
     ControladorEstatusUsuarios usr = new ControladorEstatusUsuarios();
     ControladorUsuarios cusr = new ControladorUsuarios();
     ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     DefaultTableModel NewTable;
+    //fin
+    //necesario para obtener el numero de fila de la jtable
     private int seleccion;
-
+    //fin
+     //NECESARIO PARA HACER LA COMPRACION Y EXTRACCION DE LOS PRIVILEGIOS DE ESTE MODULO
+    private String NombreModulo = "Empleados";
+    //FIN
+  //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    Frame Principal;
+//FIN
     /**
      * Creates new form NuevoEmpleado1
      */
     public Pn_NuevoEmpleado() {
         initComponents();
-        initComponents();
+         //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
-        cTabla();
+        //FIN
+        //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
+        //FIN 
+         //CARGA LOS VALORES EN LA TABLA
+        cTabla();
+        //FIN
+        //carga los elementos del estado de los usuarios para llenar el cbox dentro del metodo cargarStatus..()
         usr.tablaEstatusUsuarios();
         cargarStatusEmpleados();
+        //FIN
         tamañoTabla();
     }
 
@@ -635,9 +655,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
                 datosIniciales();
             }
         } catch (Exception e) {
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar agregar los datos del nuevo empleado,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-        }
+     }
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
     private void btnCancelar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelar1MouseClicked
@@ -650,17 +668,29 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
             if (jt_usuario.getText().equals("*")) {
                 DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
             } else {
-                cusr.deleteUsuario(jt_usuario.getText());
-                tamañoTabla();
-            }
-            NewTable = new DefaultTableModel();
-            cTabla();
-            datosIniciales();
-            tamañoTabla();
-        } catch (Exception e) {
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar los datos del empleado" + jt_empleado.getText()
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
 
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+
+                        cusr.deleteUsuario(jt_usuario.getText());
+                        tamañoTabla();
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        datosIniciales();
+
+                    }
+                });
+                ale.setVisible(true);
+                
+                
+                
+            }
+
+        } catch (Exception e) {
+    
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelar1ActionPerformed
@@ -809,9 +839,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
                 datosIniciales();
             }
         } catch (Exception e) {
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar actualizar los datos del empleado "+jt_empleado.getText()
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-        }        // TODO add your handling code here:
+      }        // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelar2ActionPerformed
 
 

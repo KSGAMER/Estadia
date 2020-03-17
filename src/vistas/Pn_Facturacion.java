@@ -35,6 +35,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import controladores.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.mail.AuthenticationFailedException;
 import objetos.*;
 
@@ -59,7 +62,9 @@ public class Pn_Facturacion extends javax.swing.JPanel {
     DefaultTableModel NewTable = new DefaultTableModel();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     private String correoRemitente, passwordRemitente, correoReceptor, asunto, mensaje;
-
+    
+     //necesario para dar formato al jdateChooser
+    private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     /**
      * Creates new form Pn_NuevaCategoria
      */
@@ -76,18 +81,18 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         tamañoTabla();
 
     }
-
-    public void tamañoTabla() {
+ 
+    private void tamañoTabla() {
         TableColumnModel columnModel = jt_Facturacion.getColumnModel();
 
     }
 
-    public void cTabla() {
+    private void cTabla() {
         jt_Facturacion.setModel(cenf.tablaEnvioFacturacion());
         jt_t_registros.setText(String.valueOf(cenf.selectEnvioFacturacion().size()));
     }
 
-    public void RowApariencia() {
+    private void RowApariencia() {
 
         jt_Facturacion.setFocusable(false);
         //espacio entre comulnas
@@ -102,7 +107,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
 
     }
 
-    public void RowHeaderApariencia() {
+    private void RowHeaderApariencia() {
         jt_Facturacion.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_Facturacion.getTableHeader().setOpaque(false);
         jt_Facturacion.getTableHeader().setBackground(Color.BLACK);
@@ -110,7 +115,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
 
     }
 
-    public void datosIniciales() {
+    private void datosIniciales() {
         lb_Destinatario.setText(cemail.getEmailDestinatario());
         jt_Asunto.setText("Datos de Facturación");
         lb_RazonSocial.setText("Razón Social");
@@ -128,7 +133,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
     }
     
 
-    public Boolean validarEscritura() {
+    private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_email.getText().equals("Email")) && !(jt_email.getText().equals(""))) {
@@ -155,6 +160,12 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         return val;
     }
 
+    private void cargarDatosPorFechaCobro() {
+        
+        jt_Facturacion.setModel(cenf.RangoFechaCobroFacturacion(dateFormat.format(jd_fechaCobro.getDate()),dateFormat.format(jd_fechaCobroFinal.getDate())));
+        jt_t_registros.setText(String.valueOf(cenf.selectEnvioFacturacion().size()));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -168,7 +179,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_Facturacion = new javax.swing.JTable();
         btn_Ingresar = new principal.MaterialButton();
-        jLabel5 = new javax.swing.JLabel();
+        lb_limpiarCampos = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jt_t_registros = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -176,7 +187,6 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel27 = new javax.swing.JLabel();
         jt_Buscar = new javax.swing.JTextField();
-        chk_mostrar = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -215,7 +225,8 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jd_Ingreso = new com.toedter.calendar.JDateChooser();
+        jd_fechaCobroFinal = new com.toedter.calendar.JDateChooser();
+        jd_fechaCobro = new com.toedter.calendar.JDateChooser();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -257,14 +268,14 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         });
         jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 250, 40));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        lb_limpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
+        lb_limpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lb_limpiarCampos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+                lb_limpiarCamposMouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, -1, -1));
+        jPanel1.add(lb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -343,17 +354,6 @@ public class Pn_Facturacion extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 210, 20));
-
-        chk_mostrar.setBackground(new java.awt.Color(84, 110, 122));
-        chk_mostrar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        chk_mostrar.setForeground(new java.awt.Color(255, 255, 255));
-        chk_mostrar.setText("Mostrar");
-        chk_mostrar.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                chk_mostrarItemStateChanged(evt);
-            }
-        });
-        jPanel1.add(chk_mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 60, -1, 20));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -644,7 +644,20 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("El campo de telefono , email del cliente y observaciones son editables ");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, -1, -1));
-        jPanel1.add(jd_Ingreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 190, -1));
+
+        jd_fechaCobroFinal.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jd_fechaCobroFinalPropertyChange(evt);
+            }
+        });
+        jPanel1.add(jd_fechaCobroFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 190, -1));
+
+        jd_fechaCobro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jd_fechaCobroPropertyChange(evt);
+            }
+        });
+        jPanel1.add(jd_fechaCobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -708,6 +721,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
                 props.setProperty("mail.smtp.auth", "true"); //AUTENTIFICACION DIRECTA CON EL SERVIDOR DE GMAIL4
                 //LA SIGUIENTE LINEA CORRIGE EL ERROR DE VALIDACION POR SSL como se muestra abajo             
                 props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+//ERROR//
                 /*   javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
     at Test.main(Test.java:43)
 Caused by: javax.mail.MessagingException: Could not convert socket to TLS;
@@ -784,10 +798,10 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
 
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+    private void lb_limpiarCamposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_limpiarCamposMouseClicked
         datosIniciales();
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseClicked
+    }//GEN-LAST:event_lb_limpiarCamposMouseClicked
 
     private void jt_t_registrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_t_registrosActionPerformed
         // TODO add your handling code here:
@@ -817,7 +831,7 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     }//GEN-LAST:event_jt_BuscarKeyTyped
 
     private void jt_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyReleased
-        this.jt_Facturacion.setModel(ccat.tablaCategorias(jt_Buscar, chk_mostrar.isSelected()));
+        this.jt_Facturacion.setModel(cenf.tablaEnvioFacturacion(jt_Buscar));
         tamañoTabla();
     }//GEN-LAST:event_jt_BuscarKeyReleased
 
@@ -897,16 +911,16 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_FacturacionMouseEntered
 
-    private void chk_mostrarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chk_mostrarItemStateChanged
-        if (jt_Buscar.getText().equals("Buscar Nombre") || jt_Buscar.getText().equals("")) {
-            jt_Buscar.setText("");
-        } else {
-            String buscar = jt_Buscar.getText();
-            jt_Buscar.setText(buscar);
-        }
-        this.jt_Facturacion.setModel(ccat.tablaCategorias(jt_Buscar, chk_mostrar.isSelected()));
-        tamañoTabla();
-    }//GEN-LAST:event_chk_mostrarItemStateChanged
+    private void jd_fechaCobroFinalPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jd_fechaCobroFinalPropertyChange
+      //  cargarDatosPorFechaCobro();
+       // cTabla();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jd_fechaCobroFinalPropertyChange
+
+    private void jd_fechaCobroPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jd_fechaCobroPropertyChange
+     //   cargarDatosPorFechaCobro();
+    }//GEN-LAST:event_jd_fechaCobroPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -916,7 +930,6 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JLabel cfdi;
     private javax.swing.JLabel cfdi1;
     private javax.swing.JLabel cfdi2;
-    private javax.swing.JCheckBox chk_mostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -931,7 +944,6 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -944,7 +956,8 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator4;
-    private com.toedter.calendar.JDateChooser jd_Ingreso;
+    private com.toedter.calendar.JDateChooser jd_fechaCobro;
+    private com.toedter.calendar.JDateChooser jd_fechaCobroFinal;
     private javax.swing.JTextField jt_Asunto;
     private javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_Facturacion;
@@ -961,6 +974,7 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JLabel lb_errorAsunto;
     private javax.swing.JLabel lb_errorEmail;
     private javax.swing.JLabel lb_errorTelefono;
+    private javax.swing.JLabel lb_limpiarCampos;
     public static javax.swing.JLabel lb_monto;
     // End of variables declaration//GEN-END:variables
 }

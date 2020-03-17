@@ -5,9 +5,13 @@
  */
 package vistas;
 
+import controladores.ValidadorDePrivilegios.*;
 import controladores.ControladorCategorias;
 import controladores.ControladorEscritura;
+import controladores.ControladorEstatusPermisos;
 import controladores.ControladorFormularioTab;
+import controladores.ControladorModulos;
+import controladores.ControladorPermisos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -34,27 +38,52 @@ import javax.swing.table.TableRowSorter;
  */
 public class Pn_NuevaCategoria extends javax.swing.JPanel {
 
+//NECESARIO PARA FUNCIONES DE ESTE MODULO 
     ControladorCategorias ccat = new ControladorCategorias();
     ControladorEscritura ce = new ControladorEscritura();
     DefaultTableModel NewTable = new DefaultTableModel();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-Frame Principal;
+    ////FIN
+
+    //NECESARIO PARA EXTRAER LOS PRIVILEGIOS DENTRO DE ESTE MODULO, EN FUNCION AL USUARIO ACTUAL 
+    ControladorPrivilegiosCategorias analisis = new ControladorPrivilegiosCategorias();
+    //FIN
+//NECESARIO PARA HACER LA COMPRACION Y EXTRACCION DE LOS PRIVILEGIOS DE ESTE MODULO
+    private String NombreModulo = "Categorias";
+    //FIN
+
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    Frame Principal;
+//FIN
+
     /**
      * Creates new form Pn_NuevaCategoria
      */
     public Pn_NuevaCategoria() {
         initComponents();
-        datosIniciales();
+        //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
+        analisis.validarPermisos(NombreModulo);
+        //FIN
+      
+        //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
+        //FIN 
+        //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
+        datosIniciales();
+        //FIN
+        //CARGA LOS VALORES EN LA TABLA
         cTabla();
+        //FIN
+        //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
         tamañoTabla();
+        //FIN
         //para ajustar el tecto al tamaño del jtextarea
         jta_observaciones.setLineWrap(true);
-
+        //FIN
     }
 
-    public void tamañoTabla() {
+    private void tamañoTabla() {
         TableColumnModel columnModel = jt_categorias.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(5);
         columnModel.getColumn(1).setPreferredWidth(50);
@@ -62,13 +91,13 @@ Frame Principal;
 
     }
 
-    public void cTabla() {
+    private void cTabla() {
         this.jt_categorias.setModel(ccat.tablaCategorias());
         jt_t_registros.setText(String.valueOf(ccat.selectCategoria().size()));
 
     }
 
-    public void RowApariencia() {
+    private void RowApariencia() {
 
         jt_categorias.setFocusable(false);
 
@@ -84,7 +113,7 @@ Frame Principal;
 
     }
 
-    public void RowHeaderApariencia() {
+    private void RowHeaderApariencia() {
         jt_categorias.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_categorias.getTableHeader().setOpaque(false);
         jt_categorias.getTableHeader().setBackground(Color.BLACK);
@@ -92,7 +121,7 @@ Frame Principal;
 
     }
 
-    public void datosIniciales() {
+    private void datosIniciales() {
         lb_Id.setText("*");
         lb_errorNombre.setText("*");
         lb_errorNombre.setForeground(new Color(84, 110, 122));
@@ -100,7 +129,7 @@ Frame Principal;
         jta_observaciones.setText("Ingresar Observaciones");
     }
 
-    public Boolean validarEscritura() {
+    private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_nombre.getText().equals("Ingresar Nombre")) && !(jt_nombre.getText().equals(""))) {
@@ -147,6 +176,7 @@ Frame Principal;
         chk_mostrar = new javax.swing.JCheckBox();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
+        btn_Ingresar1 = new principal.MaterialButton();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -301,8 +331,8 @@ Frame Principal;
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel27.setText("Buscar Categoria:");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, -1, -1));
+        jLabel27.setText("Buscar :");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, -1, -1));
 
         jt_Buscar.setBackground(new java.awt.Color(84, 110, 122));
         jt_Buscar.setForeground(new java.awt.Color(204, 204, 204));
@@ -387,6 +417,18 @@ Frame Principal;
             }
         });
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, -1));
+
+        btn_Ingresar1.setBackground(new java.awt.Color(40, 180, 99));
+        btn_Ingresar1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Ingresar1.setText("Agregar");
+        btn_Ingresar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Ingresar1.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Ingresar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Ingresar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_Ingresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 460, 70, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -516,7 +558,6 @@ Frame Principal;
                     + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
 
         }
-      
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_EliminarActionPerformed
@@ -580,11 +621,16 @@ Frame Principal;
         cft.formFocusGain(jt_Buscar);
     }//GEN-LAST:event_jt_BuscarFocusGained
 
+    private void btn_Ingresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Ingresar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Ingresar1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private principal.MaterialButton btn_Eliminar;
+    public static principal.MaterialButton btn_Eliminar;
     public static principal.MaterialButton btn_Ingresar;
-    private principal.MaterialButton btn_Modificar;
+    public static principal.MaterialButton btn_Ingresar1;
+    public static principal.MaterialButton btn_Modificar;
     private javax.swing.JCheckBox chk_mostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
@@ -600,7 +646,7 @@ Frame Principal;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jt_Buscar;
+    public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_categorias;
     private javax.swing.JTextField jt_nombre;
     private javax.swing.JTextField jt_t_registros;

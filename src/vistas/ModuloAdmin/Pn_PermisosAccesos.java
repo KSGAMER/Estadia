@@ -10,18 +10,28 @@ import javax.swing.DefaultComboBoxModel;
 import objetos.*;
 import controladores.*;
 import ds.desktop.notify.DesktopNotify;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
-
+import vistas.*;
 /**
  *
  * @author fenix
  */
 public class Pn_PermisosAccesos extends javax.swing.JPanel {
-   ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
-   ControladorPermisos cperm = new ControladorPermisos();
-   ControladorUsuarios cuser = new ControladorUsuarios();
-   ControladorModulos cmod = new ControladorModulos();
- DefaultTableModel NewTable = new DefaultTableModel();
+//NECESARIO PARA FUNCIONES DE ESTE MODULO 
+    ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
+    ControladorPermisos cperm = new ControladorPermisos();
+    ControladorUsuarios cuser = new ControladorUsuarios();
+    ControladorModulos cmod = new ControladorModulos();
+    DefaultTableModel NewTable = new DefaultTableModel();
+    //fin
+  
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    Frame Principal;
+    //FIN
+
     /**
      * Creates new form NuevoEmpleado1
      */
@@ -41,12 +51,47 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     }
 
-   
-    public void cTabla() {
-        jt_Privilegios.setModel(cperm.tablaPermisos());
-     
+    private void datosIniciales() {
+        lb_Id.setText("*");
+        cb_usuario.setSelectedIndex(0);
+        cb_modulo.setSelectedIndex(0);
+        cb_consultar.setSelectedIndex(0);
+        cb_agregar.setSelectedIndex(0);
+        cb_actualizar.setSelectedIndex(0);
+        cb_eliminar.setSelectedIndex(0);
+        btn_Ingresar.setEnabled(true);
+        btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
+    
     }
-       public void cargarUsuarios() {
+
+    private void bloquearComponentes() {
+        
+        cb_modulo.setEnabled(false);
+        cb_consultar.setEnabled(false);
+        cb_agregar.setEnabled(false);
+        cb_actualizar.setEnabled(false);
+        cb_eliminar.setEnabled(false);
+        btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
+    }
+
+    private void desbloquearComponentes() {
+        cb_modulo.setEnabled(true);
+        cb_consultar.setEnabled(true);
+        cb_agregar.setEnabled(true);
+        cb_actualizar.setEnabled(true);
+        cb_eliminar.setEnabled(true);
+        btn_Modificar.setEnabled(true);
+        btn_Eliminar.setEnabled(true);
+    }
+
+    private void cTabla() {
+        jt_Privilegios.setModel(cperm.tablaPermisos());
+
+    }
+
+    private void cargarUsuarios() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Usuario");
@@ -56,10 +101,12 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_usuario.setModel(cb);
 
     }
-        public void cargarModulo() {
+  
+
+    private void cargarModulo() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Módulo");
         for (ObjetoModulo campos : cmod.selectModulo()) {
             cb.addElement(campos.getNombre());
         }
@@ -67,20 +114,20 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     }
 
-    public void cargarConsultar() {
+    private void cargarConsultar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
-        cb_buscar.setModel(cb);
+        cb_consultar.setModel(cb);
      
     }
-     public void cargarAgregar() {
+     private void cargarAgregar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
@@ -88,10 +135,10 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_agregar.setModel(cb);
       
     }
-      public void cargarActualizar() {
+      private void cargarActualizar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
@@ -99,10 +146,10 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_actualizar.setModel(cb);
       
     }
-       public void cargarEliminar() {
+       private void cargarEliminar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Usuario");
+        cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
@@ -119,12 +166,8 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lb_errorStatus = new javax.swing.JLabel();
         lb_errorUsuario = new javax.swing.JLabel();
@@ -132,34 +175,38 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         lb_errorNombre = new javax.swing.JLabel();
         lb_errorTelefono = new javax.swing.JLabel();
         lb_errorDireccion = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        cb_modulo = new javax.swing.JComboBox<>();
-        cb_buscar = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_Privilegios = new javax.swing.JTable();
-        cb_eliminar = new javax.swing.JComboBox<>();
-        cb_usuario = new javax.swing.JComboBox<>();
-        cb_agregar = new javax.swing.JComboBox<>();
-        cb_actualizar = new javax.swing.JComboBox<>();
         btn_Ingresar = new principal.MaterialButton();
+        btn_Modificar = new principal.MaterialButton();
+        jLabel5 = new javax.swing.JLabel();
+        btn_Eliminar = new principal.MaterialButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        lb_Id = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        cb_modulo = new javax.swing.JComboBox<>();
+        cb_usuario = new javax.swing.JComboBox<>();
+        jLabel21 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel18 = new javax.swing.JLabel();
+        cb_consultar = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        cb_actualizar = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
+        cb_agregar = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        cb_eliminar = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jch_facturacion = new javax.swing.JCheckBox();
+        jLabel13 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel15.setText("Usuario");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 190, -1));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Total de registros ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 530, 100, 20));
 
         jPanel2.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -185,16 +232,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Formulario de Cambios");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Detalle de Empleados");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, -1, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1010, 10));
 
         lb_errorStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -227,54 +264,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         lb_errorDireccion.setText("*");
         jPanel1.add(lb_errorDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 10, -1));
 
-        jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel16.setText("Usuario");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 190, -1));
-
-        jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel17.setText("Usuario");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 190, -1));
-
-        jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel18.setText("Usuario");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 190, -1));
-
-        jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel19.setText("Usuario");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 460, 190, -1));
-
-        jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("Usuario");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, 190, -1));
-
-        cb_modulo.setBackground(new java.awt.Color(84, 110, 122));
-        cb_modulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
-        cb_modulo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_moduloItemStateChanged(evt);
-            }
-        });
-        jPanel1.add(cb_modulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 190, -1));
-
-        cb_buscar.setBackground(new java.awt.Color(84, 110, 122));
-        cb_buscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
-        cb_buscar.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_buscarItemStateChanged(evt);
-            }
-        });
-        jPanel1.add(cb_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 190, -1));
-
         jt_Privilegios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -286,18 +275,109 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jt_Privilegios);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 960, 220));
-
-        cb_eliminar.setBackground(new java.awt.Color(84, 110, 122));
-        cb_eliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
-        cb_eliminar.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_eliminarItemStateChanged(evt);
+        jt_Privilegios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_PrivilegiosMouseClicked(evt);
             }
         });
-        jPanel1.add(cb_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, 190, -1));
+        jScrollPane1.setViewportView(jt_Privilegios);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 960, 180));
+
+        btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
+        btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Ingresar.setText("Agregar");
+        btn_Ingresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Ingresar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Ingresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_IngresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, 140, 40));
+
+        btn_Modificar.setBackground(new java.awt.Color(255, 153, 0));
+        btn_Modificar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Modificar.setText("Modificar");
+        btn_Modificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Modificar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ModificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 140, 40));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, -1, -1));
+
+        btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
+        btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Eliminar.setText("Eliminar");
+        btn_Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Eliminar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_EliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 460, 140, 40));
+
+        jPanel3.setBackground(new java.awt.Color(233, 235, 238));
+        jPanel3.setToolTipText("");
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Formulario de Cambios");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                .addComponent(lb_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(lb_Id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 30));
+
+        jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel16.setText("Privilegios");
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 100, -1));
+
+        jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel17.setText("Modulo");
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 150, -1));
+
+        cb_modulo.setBackground(new java.awt.Color(84, 110, 122));
+        cb_modulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Modulo" }));
+        cb_modulo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_moduloItemStateChanged(evt);
+            }
+        });
+        jPanel3.add(cb_modulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 150, -1));
 
         cb_usuario.setBackground(new java.awt.Color(84, 110, 122));
         cb_usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar usuario" }));
@@ -311,37 +391,103 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
                 cb_usuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(cb_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 190, -1));
+        jPanel3.add(cb_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 150, -1));
 
-        cb_agregar.setBackground(new java.awt.Color(84, 110, 122));
-        cb_agregar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
-        cb_agregar.addItemListener(new java.awt.event.ItemListener() {
+        jLabel21.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel21.setText("Usuario");
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 150, -1));
+        jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 390, 10));
+
+        jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel18.setText("Consultar");
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 170, -1));
+
+        cb_consultar.setBackground(new java.awt.Color(84, 110, 122));
+        cb_consultar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
+        cb_consultar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_agregarItemStateChanged(evt);
+                cb_consultarItemStateChanged(evt);
             }
         });
-        jPanel1.add(cb_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, 190, -1));
+        jPanel3.add(cb_consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 170, -1));
+
+        jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel20.setText("Modificar");
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 170, -1));
 
         cb_actualizar.setBackground(new java.awt.Color(84, 110, 122));
-        cb_actualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
+        cb_actualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
         cb_actualizar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_actualizarItemStateChanged(evt);
             }
         });
-        jPanel1.add(cb_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 190, -1));
+        jPanel3.add(cb_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 170, -1));
 
-        btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
-        btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Ingresar.setText("Aplicar");
-        btn_Ingresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_Ingresar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        btn_Ingresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_IngresarActionPerformed(evt);
+        jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel19.setText("Agregar");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 170, -1));
+
+        cb_agregar.setBackground(new java.awt.Color(84, 110, 122));
+        cb_agregar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
+        cb_agregar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_agregarItemStateChanged(evt);
             }
         });
-        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 140, 40));
+        jPanel3.add(cb_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 170, -1));
+
+        jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel15.setText("Eliminar");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 170, -1));
+
+        cb_eliminar.setBackground(new java.awt.Color(84, 110, 122));
+        cb_eliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
+        cb_eliminar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_eliminarItemStateChanged(evt);
+            }
+        });
+        jPanel3.add(cb_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 170, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 390, 280));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Tabla de Registros");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Recomendaciones");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Generar Todos los Privilegios");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 510, -1, 20));
+
+        jch_facturacion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jch_facturacionItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(jch_facturacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 510, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Reestablecer Valores");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 325, -1, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -366,9 +512,9 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         //  System.out.println(cb_piso.getSelectedItem());
     }//GEN-LAST:event_cb_moduloItemStateChanged
 
-    private void cb_buscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_buscarItemStateChanged
+    private void cb_consultarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_consultarItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_cb_buscarItemStateChanged
+    }//GEN-LAST:event_cb_consultarItemStateChanged
 
     private void cb_eliminarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_eliminarItemStateChanged
         // TODO add your handling code here:
@@ -392,45 +538,149 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         try {
-          
-            cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_buscar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
-            NewTable = new DefaultTableModel();
-            cTabla();
+            if (btn_Ingresar.getText().equals("Generar")) {
+                
+                //codigo de generacion
+                for (ObjetoUsuario user : cuser.selectUsuario()) {
+                    for (ObjetoModulo mod : cmod.selectModulo()) {
 
+                        cperm.insertPermiso(user.getUsername(), mod.getNombre(), "Permitido", "Permitido", "Permitido", "Permitido");
+                        NewTable = new DefaultTableModel();
+                        cTabla();
 
+                    }
+
+                }
+            } else {
+                         
+                cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
+                NewTable = new DefaultTableModel();
+                cTabla();
+                
+            }
 
         } catch (Exception e) {
-
-           DesktopNotify.showDesktopMessage("Error", "algo paso", DesktopNotify.ERROR);
+            //DesktopNotify.showDesktopMessage("Error", "algo paso", DesktopNotify.ERROR);
         }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
+    private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
+        try {
+            if (lb_Id.getText().equals("*")) {
+
+                DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
+
+            } else {
+                cperm.updatePermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()), Integer.parseInt(lb_Id.getText()));
+                NewTable = new DefaultTableModel();
+                cTabla();
+                datosIniciales();
+            }
+        } catch (Exception e) {
+            // DesktopNotify.showDesktopMessage("Error", "algo paso", DesktopNotify.ERROR);
+        }
+
+
+    }//GEN-LAST:event_btn_ModificarActionPerformed
+
+    private void jt_PrivilegiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_PrivilegiosMouseClicked
+        int seleccion = jt_Privilegios.rowAtPoint(evt.getPoint());
+        btn_Ingresar.setEnabled(false); //se desactiva este boton para so
+        //variable que guarda el id del la fila del los privilegios de algun modulo
+        lb_Id.setText(String.valueOf(jt_Privilegios.getValueAt(seleccion, 0)));
+        cb_usuario.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 1));
+        cb_modulo.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 2));
+        cb_consultar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 3));
+        cb_agregar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 4));
+        cb_actualizar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 5));
+        cb_eliminar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 6));
+    }//GEN-LAST:event_jt_PrivilegiosMouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        datosIniciales();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
+
+        try {
+            if (lb_Id.getText().equals("*")) {
+
+                DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
+
+            } else {
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                  ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        cperm.deletePermiso(Integer.parseInt(lb_Id.getText()));
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        datosIniciales();
+
+                    }
+                });
+                ale.setVisible(true);
+            }
+
+        } catch (Exception e) {
+
+    
+        }
+
+      
+    }//GEN-LAST:event_btn_EliminarActionPerformed
+
+    private void jch_facturacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jch_facturacionItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+//            validador = 1;
+            btn_Ingresar.setText("Generar");
+            bloquearComponentes();
+        } else {//checkbox has been deselected
+            btn_Ingresar.setText("Agregar");
+    //        validador = 0;
+            desbloquearComponentes();
+        }       // TODO add your handling code here:
+    }//GEN-LAST:event_jch_facturacionItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private principal.MaterialButton btn_Eliminar;
     private principal.MaterialButton btn_Ingresar;
+    private principal.MaterialButton btn_Modificar;
     private javax.swing.JComboBox<String> cb_actualizar;
     private javax.swing.JComboBox<String> cb_agregar;
-    private javax.swing.JComboBox<String> cb_buscar;
+    private javax.swing.JComboBox<String> cb_consultar;
     private javax.swing.JComboBox<String> cb_eliminar;
     private javax.swing.JComboBox<String> cb_modulo;
     private javax.swing.JComboBox<String> cb_usuario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JCheckBox jch_facturacion;
     private javax.swing.JTable jt_Privilegios;
+    private javax.swing.JLabel lb_Id;
     private javax.swing.JLabel lb_errorDireccion;
     private javax.swing.JLabel lb_errorNombre;
     private javax.swing.JLabel lb_errorPassword;

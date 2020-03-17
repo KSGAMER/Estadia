@@ -5,13 +5,16 @@
  */
 package vistas;
 
-import Utilerias.CambiaPanel;
-import controladores.*;
-import ds.desktop.notify.DesktopNotify;
 
+import controladores.*;
+import controladores.ValidadorDePrivilegios.*;
+import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,15 +24,14 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import objetos.ObjetoCliente;
-import objetos.ObjetoHabitacion;
+import objetos.*;
 
 /**
  *
  * @author fenix
  */
 public class Pn_Reservaciones extends javax.swing.JPanel {
-
+//NECESARIO PARA FUNCIONES DE ESTE MODULO 
     private ControladorEscritura ce = new ControladorEscritura();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
     private ControladorClientes mc = new ControladorClientes();
@@ -38,30 +40,54 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private Pn_SeleccionarClientes select = new Pn_SeleccionarClientes();
     private Pn_CobrarReservacion CobrarReserv = new Pn_CobrarReservacion();
     private DefaultTableModel NewTable;
-
+//FIN
     //necesario para obtener el numero de fila de la jtable
     private int seleccion;
+    //fin
     //necesario para dar formato al jdateChooser
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-   
- private int m = 0;
+    private int m = 0;
+    //fin
+    //NECESARIO PARA EXTRAER LOS PRIVILEGIOS DENTRO DE ESTE MODULO, EN FUNCION AL USUARIO ACTUAL 
+    ControladorPrivilegiosReservaciones analisis = new ControladorPrivilegiosReservaciones();
+    //FIN
+    //NECESARIO PARA HACER LA COMPRACION Y EXTRACCION DE LOS PRIVILEGIOS DE ESTE MODULO
+    private String NombreModulo = "Reservaciones";
+    //FIN
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    Frame Principal;
+//FIN
+
     /**
      * Creates new form Pn_Reservaciones1
      */
     public Pn_Reservaciones() {
         initComponents();
+         //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
+        analisis.validarPermisos(NombreModulo);
+        //FIN
+        //NECESARIO PARA CARGAR LOS DATOS DE LAS TABLAS O EN LOS CB REQUERIDOS
         cr.tablaReservaciones();
         mc.tablaClientes();
         ch.tablaHabitaciones();
+        //FIN
+         //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
+        //FIN
+           //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
+        //FIN
+        //CARGA LOS VALORES EN LA TABLA
         cTabla();
+        //FIN
+        //CARGA EL CB CON LAS HABITACIONES
         cargarHabitaciones();
+        //FIN
              
     }
 
-    public void cargarHabitaciones() {
+    private void cargarHabitaciones() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Habitacion");
 
@@ -75,13 +101,13 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         cb_Habitacion.setModel(cb);
     }
 
-    public void cTabla() {
+    private void cTabla() {
         jt_Reservas.setModel(cr.tablaReservaciones());
         jt_t_registros.setText(String.valueOf(cr.selectReservacion().size()));
 
     }
 
-    public void tamañoTabla() {
+    private void tamañoTabla() {
         TableColumnModel columnModel = jt_Reservas.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(30);
         columnModel.getColumn(1).setPreferredWidth(150);
@@ -91,7 +117,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     }
 
-    public void datosIniciales() {
+    private void datosIniciales() {
 
         jt_nombre.setText("Ingresar Nombre");
         cb_Habitacion.setSelectedIndex(0);
@@ -99,7 +125,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jd_Salida.setCalendar(null);
     }
 
-    public void RowApariencia() {
+    private void RowApariencia() {
 
         jt_Reservas.setFocusable(false);
 
@@ -115,29 +141,25 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     }
 
-    public void RowHeaderApariencia() {
+    private void RowHeaderApariencia() {
         jt_Reservas.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_Reservas.getTableHeader().setOpaque(false);
         jt_Reservas.getTableHeader().setBackground(new Color(32, 136, 203));
         jt_Reservas.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
-
-    public void bloquearComponentes() {
+/*
+    private void bloquearComponentes() {
 
         jt_nombre.setEnabled(false);
         jt_nombre.setText("Ingresar Nombre");
         //datos no editables
         jt_nombre.setEditable(false);
     }
+*/
+ 
 
-    public void desbloquearComponentes() {
-        jt_nombre.setEnabled(true);
-        //datos no editables
-        jt_nombre.setEditable(true);
-    }
-
-    public Boolean validarEscritura() {
+    private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_nombre.getText().equals("Ingresar Nombre")) && !(jt_nombre.getText().equals(""))) {
@@ -165,7 +187,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         return val;
     }
 
-    public Boolean validarSeleccion() {
+    private Boolean validarSeleccion() {
         Boolean val = true;
 
         if (!(cb_Habitacion.getSelectedIndex() == 0)) {
@@ -219,6 +241,9 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         btn_clientes = new principal.MaterialButton();
         btn_Eliminar2 = new principal.MaterialButton();
         lb_Id = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jt_Buscar = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -243,7 +268,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jt_Reservas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 650, 340));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 650, 330));
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -482,6 +507,40 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
         jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 30, 20));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 130, 210, 10));
+
+        jt_Buscar.setBackground(new java.awt.Color(84, 110, 122));
+        jt_Buscar.setForeground(new java.awt.Color(204, 204, 204));
+        jt_Buscar.setText("Buscar Nombre");
+        jt_Buscar.setBorder(null);
+        jt_Buscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jt_BuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jt_BuscarFocusLost(evt);
+            }
+        });
+        jt_Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_BuscarMouseClicked(evt);
+            }
+        });
+        jt_Buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jt_BuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jt_BuscarKeyTyped(evt);
+            }
+        });
+        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, 210, 20));
+
+        jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel27.setText("Buscar :");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -546,19 +605,13 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
                     }
                 }
-
-                DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion agregados con éxito.", DesktopNotify.SUCCESS);
                 NewTable = new DefaultTableModel();
                 cTabla();
                 datosIniciales();
             }
 
         } catch (Exception e) {
-            System.out.println(e);
-
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar ingresar los datos de la nueva reservación,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+           
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_IngresarActionPerformed
@@ -623,19 +676,28 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-                cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
-                DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion eliminados con éxito.", DesktopNotify.SUCCESS);
-                NewTable = new DefaultTableModel();
-                cTabla();
-                datosIniciales();
+               
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+
+                      cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
+                  //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
+
+                        tamañoTabla();
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        datosIniciales();
+
+                    }
+                });
+                ale.setVisible(true);
             }
 
         } catch (Exception e) {
-            System.out.println(e);
-
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar  los datos de la reservación,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+    
         }
     }//GEN-LAST:event_btn_Eliminar2ActionPerformed
 
@@ -649,19 +711,13 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             } else {
 
                 cr.updateReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Integer.valueOf(lb_Id.getText()));
-
-                DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion actualizados con éxito.", DesktopNotify.SUCCESS);
                 NewTable = new DefaultTableModel();
                 cTabla();
                 datosIniciales();
             }
 
         } catch (Exception e) {
-            System.out.println(e);
-
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar actualizar los datos de la reservación,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+     
         }
     }//GEN-LAST:event_btn_ModificarActionPerformed
 
@@ -669,12 +725,40 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         cft.formFocusGain(jt_nombre);
     }//GEN-LAST:event_jt_nombreFocusGained
 
+    private void jt_BuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_BuscarFocusGained
+        cft.formFocusGain(jt_Buscar);
+    }//GEN-LAST:event_jt_BuscarFocusGained
+
+    private void jt_BuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_BuscarFocusLost
+        cft.formFocusLostJTextField(jt_Buscar, "Buscar Nombre");
+    }//GEN-LAST:event_jt_BuscarFocusLost
+
+    private void jt_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_BuscarMouseClicked
+        cft.formFocusGain(jt_Buscar);
+    }//GEN-LAST:event_jt_BuscarMouseClicked
+
+    private void jt_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyReleased
+        jt_Reservas.setModel(cr.tablaReservaciones(jt_Buscar));
+        tamañoTabla();
+    }//GEN-LAST:event_jt_BuscarKeyReleased
+
+    private void jt_BuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyTyped
+
+        char tecla;
+        tecla = evt.getKeyChar();
+        //Convertir a letras mayusculas
+        if (Character.isLetter(tecla)) {
+            evt.setKeyChar(Character.toUpperCase(tecla));
+
+        }
+    }//GEN-LAST:event_jt_BuscarKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private principal.MaterialButton btn_Cobrar;
-    private principal.MaterialButton btn_Eliminar2;
-    private principal.MaterialButton btn_Ingresar;
-    private principal.MaterialButton btn_Modificar;
+    public static principal.MaterialButton btn_Eliminar2;
+    public static principal.MaterialButton btn_Ingresar;
+    public static principal.MaterialButton btn_Modificar;
     private principal.MaterialButton btn_clientes;
     private javax.swing.JComboBox<String> cb_Habitacion;
     private javax.swing.JLabel jLabel1;
@@ -683,6 +767,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -690,9 +775,11 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private com.toedter.calendar.JDateChooser jd_Ingreso;
     private com.toedter.calendar.JDateChooser jd_Salida;
+    public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_Reservas;
     public static javax.swing.JTextField jt_nombre;
     private javax.swing.JLabel jt_t_registros;

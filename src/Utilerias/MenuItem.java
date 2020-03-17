@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 
 /**
- *
+ *clase necesaria para crear el menu lateral de la aplicacion , y se manda a llamar 
+ * en la pantalla principal 
+ * 
  * @
  */
 public class MenuItem extends javax.swing.JPanel {

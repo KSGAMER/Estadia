@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
+ *esta clase es necesaria para crear componentes dinámicos en la pantalla de recepcion y son las caracteristicas de las habitaciones
  * @author fenix
  */
 public class ComponenteRecepcion extends javax.swing.JPanel {

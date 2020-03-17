@@ -23,54 +23,54 @@ public class ControladorEventosSesion {
     public void campoGainFocus(java.awt.event.FocusEvent evt, JTextField usuario, JPasswordField contraseña) {
         if ((usuario.getText().equals("Ingresa tu usuario") || usuario.getText().isEmpty()) && evt.getComponent().getClass().toString().equals("class javax.swing.JTextField")) {
             usuario.setText("");
-            usuario.setBackground(Color.WHITE);
-            if (contraseña.getText().isEmpty()) {
+            usuario.setBackground(new Color(28,37,47));
+            if (contraseña.getText().isEmpty()) {//28,37,47
                 contraseña.setText("password");
-                contraseña.setBackground(new Color(36, 47, 65));
+                contraseña.setBackground(new Color(28,37,47));
             } else {
-                contraseña.setBackground(new Color(36, 47, 65));
+                contraseña.setBackground(new Color(28,37,47));
             }
         } else if (!evt.getComponent().getClass().toString().equals("class javax.swing.JPasswordField") && !contraseña.getText().isEmpty()) {
-            contraseña.setBackground(new Color(36, 47, 65));
+            contraseña.setBackground(new Color(28,37,47));
         } else if (contraseña.getText().isEmpty()) {
             contraseña.setText("password");
-            contraseña.setBackground(new Color(36, 47, 65));
+            contraseña.setBackground(new Color(28,37,47));
         }
 
         if ((contraseña.getText().equals("password") || contraseña.getText().isEmpty()) && evt.getComponent().getClass().toString().equals("class javax.swing.JPasswordField")) {
             contraseña.setText("");
-            contraseña.setBackground(Color.WHITE);
+            contraseña.setBackground(new Color(28,37,47));
             if (usuario.getText().isEmpty()) {
                 usuario.setText("Ingresa tu usuario");
-                usuario.setBackground(new Color(36, 47, 65));
+                usuario.setBackground(new Color(28,37,47));
             } else {
-                usuario.setBackground(new Color(36, 47, 65));
+                usuario.setBackground(new Color(28,37,47));
             }
         } else if (!evt.getComponent().getClass().toString().equals("class javax.swing.JTextField") && !usuario.getText().isEmpty()) {
-            usuario.setBackground(new Color(36, 47, 65));
+            usuario.setBackground(new Color(28,37,47));
         }
     }
 
     public void camposMouseClick(java.awt.event.MouseEvent evt, JTextField usuario, JPasswordField contraseña) {
         if (usuario.getText().equals("Ingresa tu usuario") && evt.getComponent().getClass().toString().equals("class javax.swing.JTextField")) {
             usuario.setText("");
-            usuario.setBackground(Color.WHITE);
+            usuario.setBackground(new Color(28,37,47));
             if (contraseña.getText().isEmpty()) {
                 contraseña.setText("password");
-                contraseña.setBackground(new Color(36, 47, 65));
+                contraseña.setBackground(new Color(28,37,47));
             }
         } else if (!evt.getComponent().getClass().toString().equals("class javax.swing.JPasswordField")) {
-            contraseña.setBackground(new Color(36, 47, 65));
+            contraseña.setBackground(new Color(28,37,47));
         }
         if (contraseña.getText().equals("password") && evt.getComponent().getClass().toString().equals("class javax.swing.JPasswordField")) {
             contraseña.setText("");
-            contraseña.setBackground(Color.WHITE);
+            contraseña.setBackground(new Color(28,37,47));
             if (usuario.getText().isEmpty()) {
                 usuario.setText("Ingresa tu usuario");
-                usuario.setBackground(new Color(36, 47, 65));
+                usuario.setBackground(new Color(28,37,47));
             }
         } else if (!evt.getComponent().getClass().toString().equals("class javax.swing.JTextField")) {
-            usuario.setBackground(new Color(36, 47, 65));
+            usuario.setBackground(new Color(28,37,47));
         }
     }
     

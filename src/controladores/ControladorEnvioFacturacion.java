@@ -6,6 +6,7 @@
 package controladores;
 
 import java.util.ArrayList;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelos.ModeloEnvioFacturacion;
 import objetos.objetoEnvioFacturacion;
@@ -15,9 +16,16 @@ import objetos.objetoEnvioFacturacion;
  * @author KSGAMER
  */
 public class ControladorEnvioFacturacion extends ModeloEnvioFacturacion{
+     public DefaultTableModel tablaEnvioFacturacion(JTextField Buscar) {
+        return cargarTabla(Buscar.getText());
+    }
     public DefaultTableModel tablaEnvioFacturacion() {
         return cargarTabla();
     }
+      public DefaultTableModel RangoFechaCobroFacturacion(String fechaCobro,String fechaCobroFinal) {
+        return cargarTabla(fechaCobro,fechaCobroFinal);
+    }
+    
     
     public ArrayList<objetoEnvioFacturacion> selectEnvioFacturacion() {
         return selectEnvioFacturaciones();

@@ -253,7 +253,7 @@ HABITACION  | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ETC
                         if (mesIn == mes && mesOut == mes) {
                             if (objetoReservacion.getIdHabitacion() == habitacion.getIdHabitacion()) {
                                 if (i < DayIn) {
-                                    columna[i] = "";
+                                  //  columna[i] = "";
                                 } else if (DayIn == i) {
 
 //arreglo iniciado con el primer dia de la reservacion y finalizado con el dia de

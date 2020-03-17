@@ -26,7 +26,7 @@ public class Pn_Recepcion extends javax.swing.JPanel {
     ControladorReservaciones crv = new ControladorReservaciones();
     ComponenteRecepcion p, q;
     ComponenteMenuSuperior ms;
-    private int Piso;
+   // private int Piso;
     private Color disponible = new Color(40, 180, 99);
     private Color reservado = new Color(255, 153, 0);
     private Color limpieza = new Color(211, 18, 18);
@@ -45,7 +45,7 @@ public class Pn_Recepcion extends javax.swing.JPanel {
         cp.tablaPisos();
         ceh.tablaEstadoHabiaciones();
         actualizacionReservas();
-        actualizaMenuPiso();///prueba
+        actualizaMenuPiso();
         cargarStatus();
         configScroll();
     }
