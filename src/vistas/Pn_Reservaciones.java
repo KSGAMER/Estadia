@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -103,7 +102,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     private void cTabla() {
         jt_Reservas.setModel(cr.tablaReservaciones());
-        jt_t_registros.setText(String.valueOf(cr.selectReservacion().size()));
+        jt_t_registros.setText(String.valueOf(jt_Reservas.getRowCount()));
 
     }
 
