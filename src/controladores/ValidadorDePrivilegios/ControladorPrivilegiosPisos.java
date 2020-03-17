@@ -53,19 +53,19 @@ public class ControladorPrivilegiosPisos {
                                 //VALIDAR PERMISO DE CONSULTA
                                 if (permiso.getConsultar() == estado.getIdEstatusPermiso()) {
                                     if (estado.getNombre().equals("Permitido")) {
-                                        if (Pn_NuevoNivel.jt_Buscar.isEnabled() && Pn_NuevoNivel.jt_Buscar.isEditable()) {
+                                        if (Pn_NuevoPiso.jt_Buscar.isEnabled() && Pn_NuevoPiso.jt_Buscar.isEditable()) {
                                             //si esta activado no hara nada
                                         } else {
                                             //si el boton estaba desactivado no activará
-                                            Pn_NuevoNivel.jt_Buscar.setEnabled(true);
-                                            Pn_NuevoNivel.jt_Buscar.setEditable(true);
+                                            Pn_NuevoPiso.jt_Buscar.setEnabled(true);
+                                            Pn_NuevoPiso.jt_Buscar.setEditable(true);
                                         }
                                     } else if (estado.getNombre().equals("Denegado")) {
                                         //no importa su estado , desactivará el textfield
-                                        Pn_NuevoNivel.jt_Buscar.setEnabled(false);
+                                        Pn_NuevoPiso.jt_Buscar.setEnabled(false);
                                         //no importa su estado , no se podrá escribir
-                                        Pn_NuevoNivel.jt_Buscar.setEditable(false);
-                                        Pn_NuevoNivel.jt_Buscar.addMouseListener(new MouseListener() {
+                                        Pn_NuevoPiso.jt_Buscar.setEditable(false);
+                                        Pn_NuevoPiso.jt_Buscar.addMouseListener(new MouseListener() {
                                             @Override
                                             public void mouseClicked(MouseEvent e) {
 
@@ -99,44 +99,44 @@ public class ControladorPrivilegiosPisos {
                                 //VALIDAR PERMISO DE INSERCION 
                                 if (permiso.getInsertar() == estado.getIdEstatusPermiso()) {
                                     if (estado.getNombre().equals("Permitido")) {
-                                        if (Pn_NuevoNivel.btn_Ingresar.isEnabled()) {
+                                        if (Pn_NuevoPiso.btn_Ingresar.isEnabled()) {
                                             //si esta activado no hara nada
                                         } else {
                                             //si el boton estaba desactivado no activará
-                                            Pn_NuevoNivel.btn_Ingresar.setEnabled(true);
+                                            Pn_NuevoPiso.btn_Ingresar.setEnabled(true);
                                         }
                                     } else if (estado.getNombre().equals("Denegado")) {
 
                                         //no importa su estado , desactivará al boton
-                                        Pn_NuevoNivel.btn_Ingresar.setEnabled(false);
+                                        Pn_NuevoPiso.btn_Ingresar.setEnabled(false);
                                     }
                                 }
                                 //VALIDAR PERMISO DE ACTUALIZACION
                                 if (permiso.getActualizar() == estado.getIdEstatusPermiso()) {
                                     if (estado.getNombre().equals("Permitido")) {
-                                        if (Pn_NuevoNivel.btn_Modificar.isEnabled()) {
+                                        if (Pn_NuevoPiso.btn_Modificar.isEnabled()) {
                                             //si esta activado no hara nada
                                         } else {
                                             //si el boton estaba desactivado no activará
-                                            Pn_NuevoNivel.btn_Modificar.setEnabled(true);
+                                            Pn_NuevoPiso.btn_Modificar.setEnabled(true);
                                         }
                                     } else if (estado.getNombre().equals("Denegado")) {
                                         //no importa su estado , desactivará al boton
-                                        Pn_NuevoNivel.btn_Modificar.setEnabled(false);
+                                        Pn_NuevoPiso.btn_Modificar.setEnabled(false);
                                     }
                                 }
                                 //VALIDAR PERMISO DE ELIMINACION
                                 if (permiso.getEliminar() == estado.getIdEstatusPermiso()) {
                                     if (estado.getNombre().equals("Permitido")) {
-                                        if (Pn_NuevoNivel.btn_Eliminar.isEnabled()) {
+                                        if (Pn_NuevoPiso.btn_Eliminar.isEnabled()) {
                                             //si esta activado no hara nada
                                         } else {
                                             //si el boton estaba desactivado no activará
-                                            Pn_NuevoNivel.btn_Eliminar.setEnabled(true);
+                                            Pn_NuevoPiso.btn_Eliminar.setEnabled(true);
                                         }
                                     } else if (estado.getNombre().equals("Denegado")) {
                                         //no importa su estado , desactivará al boton
-                                        Pn_NuevoNivel.btn_Eliminar.setEnabled(false);
+                                        Pn_NuevoPiso.btn_Eliminar.setEnabled(false);
                                     }
                                 }
                             }

@@ -70,12 +70,12 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
                 + "Calle , Num Int y/o Ext, Colonia, Codigo Postal, Ciudad, Municipio, Estado  ", DesktopNotify.TIP);
     }
 
-    public void cTabla() {
+    private void cTabla() {
         jt_Clientes.setModel(mc.tablaClientes());
         jt_t_registros.setText(String.valueOf(mc.selectCliente().size()));
     }
 
-    public void cargarCFDI() {
+    private void cargarCFDI() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar CFDI");
         for (ObjetoCFDI campos : cf.selectCFDI()) {
@@ -86,7 +86,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
     }
 
-    public void tamañoTabla() {
+    private void tamañoTabla() {
         TableColumnModel columnModel = jt_Clientes.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(30);
         columnModel.getColumn(1).setPreferredWidth(150);
@@ -146,7 +146,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
         this.jt_Clientes.setModel(NewTable);
     }*/
-    public void RowApariencia() {
+    private void RowApariencia() {
 
         jt_Clientes.setFocusable(false);
 
@@ -162,7 +162,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
     }
 
-    public void RowHeaderApariencia() {
+    private void RowHeaderApariencia() {
         jt_Clientes.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_Clientes.getTableHeader().setOpaque(false);
         jt_Clientes.getTableHeader().setBackground(new Color(32, 136, 203));
@@ -170,7 +170,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
     }
 
-    public void datosIniciales() {
+    private void datosIniciales() {
         lb_Id.setText("*");
         lb_errorCFDI.setText("*");
         lb_errorDireccion.setText("*");
@@ -194,7 +194,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         cb_cfdi.setSelectedIndex(0);
     }
 
-    public Boolean validarEscritura() {
+    private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_nombre.getText().equals("Ingresar Nombre")) && !(jt_nombre.getText().equals(""))) {
@@ -235,7 +235,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         return val;
     }
 
-    public Boolean validarSeleccion() {
+    private Boolean validarSeleccion() {
         Boolean val = true;
         if (!(cb_cfdi.getSelectedIndex() == 0)) {
 

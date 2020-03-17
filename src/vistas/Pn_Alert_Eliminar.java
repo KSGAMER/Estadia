@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Rojeru San
+ * @author fenix
  */
 public class Pn_Alert_Eliminar extends javax.swing.JDialog {
 
@@ -156,7 +156,7 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarActionPerformed
-        System.exit(0);
+   Cerrar();
     }//GEN-LAST:event_jb_aceptarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

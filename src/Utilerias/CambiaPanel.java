@@ -6,8 +6,8 @@
 package Utilerias;
 
 /**
- *
- * @
+ *Clase ocupada en la pantalla principal para hacer el cambio dinamico entre paneles dentro del panel principal 
+ * @ 
  */
 import javax.swing.JPanel;
 

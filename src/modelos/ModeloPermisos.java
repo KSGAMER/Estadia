@@ -153,6 +153,8 @@ public class ModeloPermisos extends BD{
         try {
             this.st = conectar().prepareStatement("DELETE FROM Permiso WHERE IdPermiso = ?");
             this.st.setInt(1, id);
+            this.st.execute();
+            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido eliminados con éxito.", DesktopNotify.SUCCESS);
 
         } catch (SQLException ex) {

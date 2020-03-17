@@ -87,7 +87,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
              
     }
 
-    public void cargarHabitaciones() {
+    private void cargarHabitaciones() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Habitacion");
 
@@ -101,13 +101,13 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         cb_Habitacion.setModel(cb);
     }
 
-    public void cTabla() {
+    private void cTabla() {
         jt_Reservas.setModel(cr.tablaReservaciones());
         jt_t_registros.setText(String.valueOf(cr.selectReservacion().size()));
 
     }
 
-    public void tamañoTabla() {
+    private void tamañoTabla() {
         TableColumnModel columnModel = jt_Reservas.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(30);
         columnModel.getColumn(1).setPreferredWidth(150);
@@ -117,7 +117,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     }
 
-    public void datosIniciales() {
+    private void datosIniciales() {
 
         jt_nombre.setText("Ingresar Nombre");
         cb_Habitacion.setSelectedIndex(0);
@@ -125,7 +125,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jd_Salida.setCalendar(null);
     }
 
-    public void RowApariencia() {
+    private void RowApariencia() {
 
         jt_Reservas.setFocusable(false);
 
@@ -141,29 +141,25 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     }
 
-    public void RowHeaderApariencia() {
+    private void RowHeaderApariencia() {
         jt_Reservas.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_Reservas.getTableHeader().setOpaque(false);
         jt_Reservas.getTableHeader().setBackground(new Color(32, 136, 203));
         jt_Reservas.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
-
-    public void bloquearComponentes() {
+/*
+    private void bloquearComponentes() {
 
         jt_nombre.setEnabled(false);
         jt_nombre.setText("Ingresar Nombre");
         //datos no editables
         jt_nombre.setEditable(false);
     }
+*/
+ 
 
-    public void desbloquearComponentes() {
-        jt_nombre.setEnabled(true);
-        //datos no editables
-        jt_nombre.setEditable(true);
-    }
-
-    public Boolean validarEscritura() {
+    private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_nombre.getText().equals("Ingresar Nombre")) && !(jt_nombre.getText().equals(""))) {
@@ -191,7 +187,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         return val;
     }
 
-    public Boolean validarSeleccion() {
+    private Boolean validarSeleccion() {
         Boolean val = true;
 
         if (!(cb_Habitacion.getSelectedIndex() == 0)) {

@@ -50,38 +50,71 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     ControladorModulos cmod = new ControladorModulos();
     ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
 //    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
-    public static String User = "SEBAS";//sesion.Username;
+    public static String User = "admin";//sesion.Username;
+    //necesario para el control del administrador unicamente
     MenuItem Administrador;
     MenuItem Configuracion;
+   //fin 
+   
 
     /**
      * Creates new form Main
      */
     public Principal() {
+        //ajusta caracteristicas de la pantalla como quitar el decorado por default y 
+        //la posibilidad de arrastrar la aplicacion dentro del escritorio
         setPantalla();
+        //fin
         initComponents();
         //PARA QUE APAREZCA LA PANTALLE DE INICIO AL COMENZAR LA APLICACION
         //new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
         //PARA QUE APARECA LA PANTALLA DEL CALENDARIO AL INICAR LA APLICACION 
         new CambiaPanel(pnlPrincipal, new Pn_CalendarioReservaciones());
+        //asigna la imagen de icono de la aplicacion que se muestra en la barra de tareas
         setIconSystem();
+        //fin
+        //metodo para asignar el tamaño de la aplicacion 
         full_Screen();
+        //fin
+        //ajusta la aplicacion al centro de la pantalla
         centrarPantalla();
+        //fin
+        //ajusta la visibilidad y velocidad del movimiento con el scroll
         ajustesDeScroll();
+        //fin
+        //muestra el nombre del usuario logueado dentro de la aplicacion
         Bienvenida.setText("Bienvenido " + User);
+        //
+        //ejecuta la funciones necesarias para crear el menu lateral con todos los accesos
         execute();
+        //
         cperm.tablaPermisos();
         cmod.tablaModulos();
         eperm.tablaEstatusPermisos();
+        //muestra dependiendo del usuario, lo modulos que le corresponden
         comparadorPrivilegios();
+        //fin
+        //muestra datos de fecha y tiempo actuales
         mostrarFecha();
         mostrarHora();
+        //fin
         cr.tablaReservaciones();
         cf.tablaCFDI();
         cc.tablaCategorias();
         ccl.tablaClientes();
         ch.tablaHabitaciones();
         cp.tablaPisos();
+    }
+
+    public void comparadorPrivilegios() {
+        if (!(User == "admin")) { //para cualquier otro usuario
+            Administrador.setVisible(false);
+            Configuracion.setVisible(false);
+        } else {
+            Administrador.setVisible(true);
+            Configuracion.setVisible(true);
+        }
+        
     }
 
     /**
@@ -141,11 +174,6 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
         lb_Configs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/configuracion-24x24.png"))); // NOI18N
         lb_Configs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lb_Configs.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lb_ConfigsMouseClicked(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 34)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(28, 37, 47));
@@ -174,11 +202,6 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/world.png"))); // NOI18N
         jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
-            }
-        });
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel12.setText("Hora actual");
@@ -451,28 +474,11 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lb_ConfigsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_ConfigsMouseClicked
-
-        //   Pn_IpServerJason acerca = new Pn_IpServerJason(this, true);
-        //   acerca.setVisible(true);
-      /*  if (User == null) {
-            Modulo_Principal admin = new Modulo_Principal();
-            admin.setVisible(true);
-        }*/
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lb_ConfigsMouseClicked
-
     private void lb_AcercaDeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_AcercaDeMouseClicked
         Pn_About about = new Pn_About(this, true);
         about.setVisible(true);
 
     }//GEN-LAST:event_lb_AcercaDeMouseClicked
-
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel11MouseClicked
 
     private void lb_minMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_minMouseClicked
         this.setState(ICONIFIED);
@@ -485,22 +491,18 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private void lb_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lb_closeActionPerformed
         Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(this, true);
         wa.lb_titulo.setText("¿ESTAS SEGURO QUE DESEA SALIR?");
+          wa.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                   System.exit(0);
+                    }
+                });
         wa.setVisible(true);
 
     }//GEN-LAST:event_lb_closeActionPerformed
 //inicializa el menu lateral 
 
-    public void comparadorPrivilegios() {
-        if (User == null) { //para administrador 
-            Administrador.setVisible(true);
-            Configuracion.setVisible(true);
-        }
-        if (User == "recepcionista") {//para recepcionista
-            Administrador.setVisible(false);
-            Configuracion.setVisible(false);
-        }
-    }
-
+ 
     private void execute() {
         //ICONOS PARA LOS BOTONES PRINCIPALES DEL MENU LATERAL
         ImageIcon iconRecepcion = new ImageIcon(getClass().getResource("/Imagenes/icons/recep32x32.png"));
@@ -532,7 +534,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         MenuItem NuevoNivel = new MenuItem(subMenus, "Nuevo Piso", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new CambiaPanel(pnlPrincipal, new Pn_NuevoNivel());
+                new CambiaPanel(pnlPrincipal, new Pn_NuevoPiso());
             }
         });
         MenuItem NuevaCategoria = new MenuItem(subMenus, "Nueva Categoria", 10, new ActionListener() {
@@ -606,8 +608,26 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);
         MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
         Administrador = new MenuItem(iconReportes, "Administrador", 35, null, NuevoEmpleado,ConfiguraciónServidor,Permisos);
+        MenuItem Sesion =new MenuItem(iconReportes, "Cerrar Sesión", 35, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(Principal.this, true);
+                wa.lb_titulo.setText("¿ESTAS SEGURO DE CERRAR SESIÓN?");
+                wa.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        Principal.this.dispose();  
+                        sesion se = new sesion();
+                        se.setVisible(true);
+                 
+
+                    }
+                });
+                wa.setVisible(true);
+            }
+        });
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
-        addMenu(CalendarioReservas, Reservaciones, Recepcion, Clientes, Configuracion, Facturas, Reportes, Administrador); //Configuracion);
+        addMenu(CalendarioReservas, Reservaciones, Recepcion, Clientes,Facturas, Reportes,Configuracion, Administrador,Sesion); //Configuracion);
     }
 
     private void addMenu(MenuItem... menu) {
@@ -622,7 +642,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     }
 //metodo para eliminar el scrollbar
 
-    public void ajustesDeScroll() {
+    private void ajustesDeScroll() {
         //scroll_Menu es el nombre del jscrollpane que contiene el panel del menu
         scroll_Menu.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
   //incrementa a velocidad de scroleo
@@ -633,7 +653,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         scrollPane_pnPrncipal.setHorizontalScrollBarPolicy(scrollPane_pnPrncipal.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
-    public void setPantalla() {
+    private void setPantalla() {
 
         //para eliminar el tittle bar
         this.setUndecorated(true);
@@ -642,17 +662,17 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
     }
 
-    public void setIconSystem() {
+    private void setIconSystem() {
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/logosmall.png")).getImage());
     }
 
-    public void centrarPantalla() {
+    private void centrarPantalla() {
         //para dejar el menu centrado y estatico
         this.setLocationRelativeTo(null);
 
     }
 
-    public void full_Screen() {
+    private void full_Screen() {
         //   Toolkit tk = Toolkit.getDefaultToolkit();
 //        int ysize = (int) tk.getScreenSize().getHeight();
         //   this.setSize(xsize, ysize);
@@ -671,13 +691,13 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         }
     }
 
-    public static String fecha() {
+    private String fecha() {
         Date fecha = new Date();
         SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/YYYY");
         return formatofecha.format(fecha);
     }
 
-    public void hora() {
+    private void hora() {
         Calendar calendario = new GregorianCalendar();
         Date horaactual = new Date();
         calendario.setTime(horaactual);
@@ -687,12 +707,12 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
     }
 
-    public void mostrarFecha() {
+    private void mostrarFecha() {
         //componente para fecha
         lb_fecha.setText(fecha());
     }
 
-    public void mostrarHora() {
+    private void mostrarHora() {
         //componentes para la hora
         hilo = new Thread(this);
         hilo.start();
@@ -742,23 +762,15 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jl_Icon_User;

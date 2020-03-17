@@ -47,13 +47,39 @@ public class ModeloEnvioFacturacion extends BD{
         }
         return tb;
     }
-       protected DefaultTableModel cargarTabla(String fechaCobro) {
+     protected DefaultTableModel cargarTabla(String Buscar){
+        String [] titulos = {"Razon Social", "Email","Tipo Pago", "Fecha Ingreso", "Fecha Salida", "Fecha Cobro", "Monto"};
+        DefaultTableModel tb = new DefaultTableModel(null, titulos);
+        Object[] fila = new Object[7];
+        try {
+            this.st = conectar().prepareStatement("SELECT r.Nombre ,c.Correo, tp.Nombre as TipoPago, r.FechaIngreso, r.FechaSalida, c.FechaCobro, c.Monto FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN TipoPago tp on tp.IdTipoPago = c.IdTipoPago WHERE c.IdFacturacion = 1 and r.Nombre=?");
+            this.st.setString(1, Buscar);
+            this.rs = st.executeQuery();
+            while(rs.next()) {
+                fila[0] = rs.getString(1);
+                fila[1] = rs.getString(2);
+                fila[2] = rs.getString(3);
+                fila[3] = rs.getString(4);
+                fila[4] = rs.getString(5);
+                fila[5] = rs.getString(6);
+                fila[6] = rs.getDouble(7);
+                tb.addRow(fila);
+                list.add(new objetoEnvioFacturacion(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDouble(7)));
+            }
+            conectar().close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tb;
+    }
+       protected DefaultTableModel cargarTabla(String fechaCobro,String fechaCobroFinal) {
         String[] titulos = {"Razon Social", "Email", "Tipo Pago", "Fecha Ingreso", "Fecha Salida", "Fecha Cobro", "Monto"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
       Object[] fila = new Object[7];
         try {
-            this.st = conectar().prepareStatement("SELECT r.Nombre ,c.Correo, tp.Nombre as TipoPago, r.FechaIngreso, r.FechaSalida, c.FechaCobro, c.Monto FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN TipoPago tp on tp.IdTipoPago = c.IdTipoPago WHERE c.IdFacturacion = 1 and CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103)");
+            this.st = conectar().prepareStatement("SELECT r.Nombre ,c.Correo, tp.Nombre as TipoPago, r.FechaIngreso, r.FechaSalida, c.FechaCobro, c.Monto FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN TipoPago tp on tp.IdTipoPago = c.IdTipoPago WHERE c.IdFacturacion = 1 and CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, ?, 103)");
             this.st.setString(1, fechaCobro);
+            this.st.setString(1, fechaCobroFinal);
             this.rs = st.executeQuery();
             while(rs.next()) {
                 fila[0] = rs.getString(1);

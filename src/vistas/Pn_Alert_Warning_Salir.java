@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Rojeru San
+ * @author fenix
  */
 public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
 
@@ -45,7 +45,7 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
         lb_titulo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         cancelar = new principal.MaterialButton();
-        materialButton1 = new principal.MaterialButton();
+        jb_aceptar = new principal.MaterialButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -82,14 +82,14 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
             }
         });
 
-        materialButton1.setBackground(new java.awt.Color(40, 180, 99));
-        materialButton1.setForeground(new java.awt.Color(255, 255, 255));
-        materialButton1.setText("ACEPTAR");
-        materialButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        materialButton1.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
-        materialButton1.addActionListener(new java.awt.event.ActionListener() {
+        jb_aceptar.setBackground(new java.awt.Color(40, 180, 99));
+        jb_aceptar.setForeground(new java.awt.Color(255, 255, 255));
+        jb_aceptar.setText("ACEPTAR");
+        jb_aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_aceptar.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
+        jb_aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                materialButton1ActionPerformed(evt);
+                jb_aceptarActionPerformed(evt);
             }
         });
 
@@ -99,7 +99,7 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(materialButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jb_aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                 .addContainerGap())
@@ -110,7 +110,7 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(materialButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jb_aceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -155,9 +155,9 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void materialButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton1ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_materialButton1ActionPerformed
+    private void jb_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarActionPerformed
+//        System.exit(0);
+    }//GEN-LAST:event_jb_aceptarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         task = new TimerTask() {
@@ -500,8 +500,8 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    public static principal.MaterialButton jb_aceptar;
     public static javax.swing.JLabel lb_titulo;
-    private principal.MaterialButton materialButton1;
     // End of variables declaration//GEN-END:variables
 
     private void Cerrar() {

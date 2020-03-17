@@ -38,7 +38,7 @@ public class Pn_SeleccionarClientesCobro extends javax.swing.JFrame {
     Pn_CobrarReservacion Cobrarreserv ;
     DefaultTableModel NewTable;
     private int seleccion;
-    private int idCfdi = 0;
+   // private int idCfdi = 0;
     /**
      * Creates new form Pn_SeleccionClientes
      */
@@ -741,7 +741,7 @@ public class Pn_SeleccionarClientesCobro extends javax.swing.JFrame {
 
     private void cb_cfdiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_cfdiItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.idCfdi=cb_cfdi.getSelectedIndex();
+//            this.idCfdi=cb_cfdi.getSelectedIndex();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_cb_cfdiItemStateChanged
 

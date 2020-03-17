@@ -28,7 +28,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author fenix
  */
-public class Pn_NuevoNivel extends javax.swing.JPanel {
+public class Pn_NuevoPiso extends javax.swing.JPanel {
 //NECESARIO PARA FUNCIONES DE ESTE MODULO 
     ControladorPisos cc = new ControladorPisos();
     ControladorEscritura ce = new ControladorEscritura();
@@ -48,7 +48,7 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
     /**
      * Creates new form Pn_NuevoNivel
      */
-    public Pn_NuevoNivel() {
+    public Pn_NuevoPiso() {
         initComponents();
         //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
         analisis.validarPermisos(NombreModulo);
@@ -472,7 +472,6 @@ public class Pn_NuevoNivel extends javax.swing.JPanel {
 
                         cc.deletePiso(Integer.valueOf(lb_Id.getText()));
                         //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
-
                         tamañoTabla();
                         NewTable = new DefaultTableModel();
                         cTabla();

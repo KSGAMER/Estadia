@@ -12,7 +12,7 @@ import java.awt.Toolkit;
 
 /**
  *
- * @author Rojeru San
+ * @author fenix
  */
 public class Pn_About extends javax.swing.JDialog {
 
@@ -27,7 +27,7 @@ public class Pn_About extends javax.swing.JDialog {
         setPantalla();
         initComponents();
         centrarPantalla();
-        //   AWTUtilities.setOpaque(this, false);
+        AWTUtilities.setOpaque(this, false);
 
     }
 

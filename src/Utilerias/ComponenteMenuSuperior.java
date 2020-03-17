@@ -14,8 +14,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
- *
- * @
+ *Esta clase es necesaria para crear el menu dinámico en el menu superior de la pantalla recepciones 
+ * @ fenix
  */
 public class ComponenteMenuSuperior extends javax.swing.JPanel {
 

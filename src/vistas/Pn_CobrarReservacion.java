@@ -41,6 +41,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     Pn_SeleccionarClientesCobro selectCC = new Pn_SeleccionarClientesCobro();
     ControladorTipoPagos ct = new ControladorTipoPagos();
     ControladorCobros cco = new ControladorCobros();
+    ControladorHabitaciones ch  = new ControladorHabitaciones();
     DefaultTableModel NewTable;
     private int validador;
 //FIN
@@ -50,22 +51,40 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     public Pn_CobrarReservacion() {
         setPantalla();
         initComponents();
+          //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
+        //FIN
+         //asigna la imagen de icono de la aplicacion que se muestra en la barra de tareas
         setIconSystem();
+        //fin
+        //ajusta la aplicacion al centro de la pantalla
         centrarPantalla();
+        //fin
+          //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
+        //FIN 
         cf.tablaCFDI();
         ct.tablaTipoPagos();
+        ch.tablaHabitaciones();
+        //CARGA LOS VALORES EN LA TABLA
         cTabla();
+        //FIN
+       //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
         tamañoTabla();
+        //FIN
+      //carga los datos del tipo de pago en el combo box
         cargarTiposdePago();
+        //fin
+        //bloquea componentes no necesarios en el formulario
         bloquearComponentes();
+        //fin
+        //oculta elementos no requeridos en la app , a menos que se manden a visualizar
         ocultarElementosFacturas();
-
+//fin
     }
 
-    public void setPantalla() {
+    private void setPantalla() {
 
         //para eliminar el tittle bar
         this.setUndecorated(true);
@@ -74,17 +93,17 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
     }
 
-    public void setIconSystem() {
+    private void setIconSystem() {
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/logosmall.png")).getImage());
     }
 
-    public void centrarPantalla() {
+    private void centrarPantalla() {
         //para dejar el menu centrado y estatico
         this.setLocationRelativeTo(null);
 
     }
 
-    public void cTabla() {
+    private void cTabla() {
         try {
             jt_Clientes.setModel(cco.tablaCobros());
             jt_t_registros.setText(String.valueOf(cco.selectCobro().size()));
@@ -93,7 +112,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
     }
 
-    public void cargarTiposdePago() {
+    private void cargarTiposdePago() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Tipo de Pago");
         for (ObjetoTipoPago campos : ct.selectTipoPago()) {
@@ -104,7 +123,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
     }
 
-    public void tamañoTabla() {
+    private void tamañoTabla() {
         TableColumnModel columnModel = jt_Clientes.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(30);
         columnModel.getColumn(1).setPreferredWidth(150);
@@ -164,7 +183,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
         this.jt_Clientes.setModel(NewTable);
     }*/
-    public void RowApariencia() {
+    private void RowApariencia() {
 
         jt_Clientes.setFocusable(false);
 
@@ -180,7 +199,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
     }
 
-    public void RowHeaderApariencia() {
+    private void RowHeaderApariencia() {
         jt_Clientes.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_Clientes.getTableHeader().setOpaque(false);
         jt_Clientes.getTableHeader().setBackground(new Color(32, 136, 203));
@@ -188,7 +207,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
     }
 
-    public void datosIniciales() {
+    private void datosIniciales() {
 
         lb_errorCFDI.setText("*");
 
@@ -198,17 +217,17 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         cb_TipoPago.setSelectedIndex(0);
     }
 
-    public void bloquearComponentes() {
+    private void bloquearComponentes() {
         btn_SeleccionarClientes.setEnabled(false);
         jt_email.setEnabled(false);
     }
 
-    public void desbloquearComponentes() {
+    private void desbloquearComponentes() {
         btn_SeleccionarClientes.setEnabled(true);
         jt_email.setEnabled(true);
     }
 
-    public void mostrarElementosFacturas() {
+    private void mostrarElementosFacturas() {
         pn_showFacturas.setVisible(true);
         lb_NombreRazonSocial.setVisible(true);
         lb_NombreRFC.setVisible(true);
@@ -219,7 +238,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jsep_Email.setVisible(true);
     }
 
-    public void ocultarElementosFacturas() {
+    private void ocultarElementosFacturas() {
         pn_showFacturas.setVisible(false);
         lb_NombreRazonSocial.setVisible(false);
         lb_NombreRFC.setVisible(false);
@@ -230,22 +249,22 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jsep_Email.setVisible(false);
     }
 
-    public void ReposicionarBotones() {
+    private void ReposicionarBotones() {
         btn_Cobrar.setLocation(340, 320);
         btn_Cobrar.setLocation(340, 370);
     }
 
-    public void PosicionOriginalBotones() {
+    private void PosicionOriginalBotones() {
         btn_Cobrar.setLocation(340, 450);
         btn_Cobrar.setLocation(340, 500);
     }
 
-    public Boolean validarEscritura() {
+    private Boolean validarEscritura() {
         Boolean val = true;
         return val;
     }
-
-    public Boolean validarSeleccion() {
+/*
+    private Boolean validarSeleccion() {
         Boolean val = true;
         if (!(cb_TipoPago.getSelectedIndex() == 0)) {
 
@@ -258,7 +277,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         }
         return val;
 
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -314,9 +333,6 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         pn_showFacturas = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jch_facturacion = new javax.swing.JCheckBox();
         lb_NombreRazonSocial = new javax.swing.JLabel();
         lb_NombreRFC = new javax.swing.JLabel();
         lb_NombreEmail = new javax.swing.JLabel();
@@ -328,16 +344,17 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jsep_RazonSocial = new javax.swing.JSeparator();
         btn_SeleccionarClientes = new principal.MaterialButton();
         jLabel7 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jch_facturacion = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(204, 204, 204));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 190, -1));
 
         jt_t_registros.setEditable(false);
         jt_t_registros.setBackground(new java.awt.Color(84, 110, 122));
@@ -349,12 +366,10 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 jt_t_registrosActionPerformed(evt);
             }
         });
-        jPanel1.add(jt_t_registros, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 270, 30, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Total de registros ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 270, 100, 20));
 
         btn_Cobrar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Cobrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -371,7 +386,6 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 btn_CobrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Cobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 450, 290, 40));
 
         jPanel2.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -432,13 +446,9 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 50));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1090, 10));
-
         lb_errorCFDI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorCFDI.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorCFDI.setText("*");
-        jPanel1.add(lb_errorCFDI, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 10, -1));
 
         jt_Clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -460,12 +470,9 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jt_Clientes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 990, 140));
-
         jLabel26.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 330, 30, 20));
 
         btn_Salir.setBackground(new java.awt.Color(211, 18, 18));
         btn_Salir.setForeground(new java.awt.Color(255, 255, 255));
@@ -482,7 +489,6 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 btn_SalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 500, 290, 40));
 
         jPanel3.setBackground(new java.awt.Color(233, 235, 238));
         jPanel3.setToolTipText("");
@@ -646,14 +652,88 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jLabel24.setText("Folio de Reservación");
         jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 130, 20));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 310, 310));
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Formulario de Cambios");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, -1));
 
         pn_showFacturas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lb_NombreRazonSocial.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lb_NombreRazonSocial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lb_NombreRazonSocial.setText("Razón Social");
+        pn_showFacturas.add(lb_NombreRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 80, -1));
+
+        lb_NombreRFC.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lb_NombreRFC.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lb_NombreRFC.setText("RFC");
+        pn_showFacturas.add(lb_NombreRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 80, -1));
+
+        lb_NombreEmail.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lb_NombreEmail.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lb_NombreEmail.setText("Email");
+        pn_showFacturas.add(lb_NombreEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 80, -1));
+        pn_showFacturas.add(jsep_Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 190, 10));
+
+        jt_email.setBackground(new java.awt.Color(233, 235, 238));
+        jt_email.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
+        jt_email.setForeground(new java.awt.Color(153, 153, 153));
+        jt_email.setText("Ingresar Email");
+        jt_email.setBorder(null);
+        jt_email.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jt_emailFocusLost(evt);
+            }
+        });
+        jt_email.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_emailMouseClicked(evt);
+            }
+        });
+        jt_email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jt_emailActionPerformed(evt);
+            }
+        });
+        jt_email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jt_emailKeyTyped(evt);
+            }
+        });
+        pn_showFacturas.add(jt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 190, -1));
+        pn_showFacturas.add(jsep_RFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 190, 10));
+
+        lb_rfc.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
+        lb_rfc.setForeground(new java.awt.Color(153, 153, 153));
+        lb_rfc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lb_rfc.setText("RFC");
+        pn_showFacturas.add(lb_rfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 190, -1));
+
+        lb_razonSocial.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lb_razonSocial.setForeground(new java.awt.Color(153, 153, 153));
+        lb_razonSocial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lb_razonSocial.setText("Razon Social");
+        pn_showFacturas.add(lb_razonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 170, -1));
+        pn_showFacturas.add(jsep_RazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 170, 10));
+
+        btn_SeleccionarClientes.setBackground(new java.awt.Color(204, 204, 204));
+        btn_SeleccionarClientes.setText("...");
+        btn_SeleccionarClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_SeleccionarClientes.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_SeleccionarClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_SeleccionarClientesMouseClicked(evt);
+            }
+        });
+        btn_SeleccionarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SeleccionarClientesActionPerformed(evt);
+            }
+        });
+        pn_showFacturas.add(btn_SeleccionarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 30, 30));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Recomendaciones");
 
         jPanel6.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -700,87 +780,85 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pn_showFacturas.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 30));
-
-        lb_NombreRazonSocial.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        lb_NombreRazonSocial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_NombreRazonSocial.setText("Razón Social");
-        pn_showFacturas.add(lb_NombreRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 80, -1));
-
-        lb_NombreRFC.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        lb_NombreRFC.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_NombreRFC.setText("RFC");
-        pn_showFacturas.add(lb_NombreRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 80, -1));
-
-        lb_NombreEmail.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        lb_NombreEmail.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_NombreEmail.setText("Email");
-        pn_showFacturas.add(lb_NombreEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 80, -1));
-        pn_showFacturas.add(jsep_Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 190, 10));
-
-        jt_email.setBackground(new java.awt.Color(233, 235, 238));
-        jt_email.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
-        jt_email.setForeground(new java.awt.Color(153, 153, 153));
-        jt_email.setText("Ingresar Email");
-        jt_email.setBorder(null);
-        jt_email.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jt_emailFocusLost(evt);
-            }
-        });
-        jt_email.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jt_emailMouseClicked(evt);
-            }
-        });
-        jt_email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jt_emailActionPerformed(evt);
-            }
-        });
-        jt_email.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jt_emailKeyTyped(evt);
-            }
-        });
-        pn_showFacturas.add(jt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 190, -1));
-        pn_showFacturas.add(jsep_RFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 190, 10));
-
-        lb_rfc.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
-        lb_rfc.setForeground(new java.awt.Color(153, 153, 153));
-        lb_rfc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_rfc.setText("RFC");
-        pn_showFacturas.add(lb_rfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 190, -1));
-
-        lb_razonSocial.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        lb_razonSocial.setForeground(new java.awt.Color(153, 153, 153));
-        lb_razonSocial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lb_razonSocial.setText("Razon Social");
-        pn_showFacturas.add(lb_razonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 170, -1));
-        pn_showFacturas.add(jsep_RazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 170, 10));
-
-        btn_SeleccionarClientes.setBackground(new java.awt.Color(204, 204, 204));
-        btn_SeleccionarClientes.setText("...");
-        btn_SeleccionarClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_SeleccionarClientes.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        btn_SeleccionarClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_SeleccionarClientesMouseClicked(evt);
-            }
-        });
-        btn_SeleccionarClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SeleccionarClientesActionPerformed(evt);
-            }
-        });
-        pn_showFacturas.add(btn_SeleccionarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 30, 30));
-
-        jPanel1.add(pn_showFacturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 290, 150));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Recomendaciones");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 340, -1, -1));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1090, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lb_errorCFDI, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(110, 110, 110)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jLabel4))
+                    .addComponent(jLabel7))
+                .addComponent(jt_t_registros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(400, 400, 400)
+                .addComponent(jLabel6))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jLabel16))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(lb_errorCFDI))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel7))
+                    .addComponent(jt_t_registros, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -790,7 +868,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -805,14 +883,15 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CobrarMouseClicked
 
     private void btn_CobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CobrarActionPerformed
+
         try {
             if (validador == 1 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
 
                 cco.insertCobro(Integer.parseInt(lb_FolioReservaciones.getText()), Integer.parseInt(jt_Monto.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), "Con Factura");
-
+                ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
             } else if (validador == 0 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
                 cco.insertCobro(Integer.parseInt(lb_FolioReservaciones.getText()), Integer.parseInt(jt_Monto.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", "Sin Factura");
-
+                ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
             } else if (cb_TipoPago.getSelectedItem() == "Seleccionar Tipo de Pago") {
                 DesktopNotify.showDesktopMessage("Error", "Seleccione un tipo de pago", DesktopNotify.ERROR);
             }

@@ -38,7 +38,7 @@ public class ModeloReservaciones extends BD {
         Object[] fila = new Object[5];
 
         try {
-            this.st = conectar().prepareStatement("SELECT * FROM Reservacion WHERE Cliente like CONCAT('%',?,'#')");
+            this.st = conectar().prepareStatement("SELECT * FROM Reservacion WHERE Nombre like CONCAT('%',?,'#')");
             this.st.setString(1, buscar);
             this.rs = st.executeQuery();
 

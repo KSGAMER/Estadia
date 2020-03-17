@@ -17,10 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.SwingUtilities;
 //para cambiar los valores de un boton 
 import javax.swing.border.MatteBorder;
-//import Vista.Segundo;
-//para la fecha y la hora 
-import java.util.Date;
-import java.text.SimpleDateFormat;
+
 import java.util.*;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
@@ -35,17 +32,13 @@ import javax.swing.ImageIcon;
  *
  * @author sebastian
  */
-public class sesion extends javax.swing.JFrame implements Runnable {
+public class sesion extends javax.swing.JFrame {
 
-    String hora, minutos, segundos;
-    Thread hilo;
     
     private ControladorEventosSesion ce = new ControladorEventosSesion();
     private ControladorSesion cs = new ControladorSesion();
     private ControladorUsuarios cu = new ControladorUsuarios();
     public static String Username;
-
-    InputMap map = new InputMap();
 
     /**
      * Creates new form sesion
@@ -55,14 +48,12 @@ public class sesion extends javax.swing.JFrame implements Runnable {
         setPantalla();//se debe mandar a llamar primero
         initComponents();
         centrarPantalla();
-        mostrarFecha();
-        mostrarHora();
         cu.tablaUsuarios();
 //jp_imagen.setBackground(new Color(0,0,0,1));
         ajustarImagen();
     }
 
-    public void setPantalla() {
+    private void setPantalla() {
 
         //para eliminar el tittle bar
         this.setUndecorated(true);
@@ -71,43 +62,15 @@ public class sesion extends javax.swing.JFrame implements Runnable {
 
     }
 
-    public void centrarPantalla() {
+    private void centrarPantalla() {
         //para dejar el menu centrado y estatico
         this.setLocationRelativeTo(null);
     }
 
-    public void hora() {
-        Calendar calendario = new GregorianCalendar();
-        Date horaactual = new Date();
-        calendario.setTime(horaactual);
-        hora = calendario.get(Calendar.HOUR_OF_DAY) > 9 ? "" + calendario.get(Calendar.HOUR_OF_DAY) : "0" + calendario.get(Calendar.HOUR_OF_DAY);
-        minutos = calendario.get(Calendar.MINUTE) > 9 ? "" + calendario.get(Calendar.MINUTE) : "0" + calendario.get(Calendar.MINUTE);
-        segundos = calendario.get(Calendar.SECOND) > 9 ? "" + calendario.get(Calendar.SECOND) : "0" + calendario.get(Calendar.SECOND);
-    }
 
-    public void run() {
-        // Thread current= Thread.currentThread();
-        for (int i = 1; i > 0; i++) {
-            if (i > 0) {
-                hora();
-                lb_hora.setText(hora + ":" + minutos + ":" + segundos);
-            }
-        }
-    }
 
-    public void mostrarFecha() {
-        //componente para fecha
-        lb_fecha.setText(fecha());
-    }
 
-    public void mostrarHora() {
-        //componentes para la hora
-        hilo = new Thread(this);
-        hilo.start();
-        setVisible(true);
-    }
-
-    public void ajustarImagen() {
+    private void ajustarImagen() {
         //se utiliza para obtener la ruta de la imagen 
         ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/ImagenFondo/img_Hotel.jpg"));
 
@@ -144,9 +107,9 @@ public class sesion extends javax.swing.JFrame implements Runnable {
         jLabel5 = new javax.swing.JLabel();
         Lb_notificacion = new javax.swing.JLabel();
         cerrar_sesion = new javax.swing.JLabel();
-        iniciar_sesion = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        iniciar_sesion = new principal.MaterialButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -189,7 +152,7 @@ public class sesion extends javax.swing.JFrame implements Runnable {
         jLabel4.setText("Hotel Paraiso Inn");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, 20));
 
-        usuario.setBackground(new java.awt.Color(36, 47, 65));
+        usuario.setBackground(new java.awt.Color(28, 37, 47));
         usuario.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         usuario.setForeground(new java.awt.Color(153, 153, 153));
         usuario.setText("Ingresa tu usuario");
@@ -214,7 +177,7 @@ public class sesion extends javax.swing.JFrame implements Runnable {
         });
         jPanel2.add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 220, -1));
 
-        contraseña.setBackground(new java.awt.Color(36, 47, 65));
+        contraseña.setBackground(new java.awt.Color(28, 37, 47));
         contraseña.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         contraseña.setForeground(new java.awt.Color(153, 153, 153));
         contraseña.setText("password");
@@ -266,28 +229,23 @@ public class sesion extends javax.swing.JFrame implements Runnable {
         });
         jPanel2.add(cerrar_sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, -1, -1));
 
-        iniciar_sesion.setBackground(new java.awt.Color(40, 180, 99));
-        iniciar_sesion.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        iniciar_sesion.setForeground(new java.awt.Color(255, 255, 255));
-        iniciar_sesion.setText("Ingresar");
-        iniciar_sesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iniciar_sesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                iniciar_sesionMouseClicked(evt);
-            }
-        });
-        iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                iniciar_sesionActionPerformed(evt);
-            }
-        });
-        jPanel2.add(iniciar_sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 220, 34));
-
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_icon-114-lock_314481 (1).png"))); // NOI18N
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, 28));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/user.png"))); // NOI18N
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+
+        iniciar_sesion.setBackground(new java.awt.Color(40, 180, 99));
+        iniciar_sesion.setForeground(new java.awt.Color(255, 255, 255));
+        iniciar_sesion.setText("Ingresar");
+        iniciar_sesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iniciar_sesion.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        iniciar_sesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iniciar_sesionMouseClicked(evt);
+            }
+        });
+        jPanel2.add(iniciar_sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 230, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 310, 400));
 
@@ -328,10 +286,6 @@ public class sesion extends javax.swing.JFrame implements Runnable {
         System.exit(0);   //cierra el sistema
     }//GEN-LAST:event_cerrar_sesionMouseClicked
 
-    private void iniciar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciar_sesionMouseClicked
-        cs.autentificarUsuario(usuario, contraseña, Lb_notificacion, this);
-    }//GEN-LAST:event_iniciar_sesionMouseClicked
-
     private void usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyPressed
         ce.logearWithEnter(evt, usuario, contraseña, Lb_notificacion, this);
     }//GEN-LAST:event_usuarioKeyPressed
@@ -348,9 +302,10 @@ public class sesion extends javax.swing.JFrame implements Runnable {
         ce.logearWithEnter(evt, usuario, contraseña, Lb_notificacion, this);
     }//GEN-LAST:event_contraseñaKeyPressed
 
-    private void iniciar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciar_sesionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iniciar_sesionActionPerformed
+    private void iniciar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciar_sesionMouseClicked
+  cs.autentificarUsuario(usuario, contraseña, Lb_notificacion, this);
+  // TODO add your handling code here:
+    }//GEN-LAST:event_iniciar_sesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -408,17 +363,13 @@ public class sesion extends javax.swing.JFrame implements Runnable {
         iniciar_sesion.setContentAreaFilled(true);
         iniciar_sesion.setBorderPainted(false);
     }*/
-    public static String fecha() {
-        Date fecha = new Date();
-        SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/YYYY");
-        return formatofecha.format(fecha);
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IconImage;
     private javax.swing.JLabel Lb_notificacion;
     private javax.swing.JLabel cerrar_sesion;
     private javax.swing.JPasswordField contraseña;
-    private javax.swing.JButton iniciar_sesion;
+    public static principal.MaterialButton iniciar_sesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -27,11 +27,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     ControladorModulos cmod = new ControladorModulos();
     DefaultTableModel NewTable = new DefaultTableModel();
     //fin
-    //variable que guarda el id del la fila del los privilegios de algun modulo
-    private int idModUserPriv=0;
-    //NECESARIO PARA MODIFICAR EL NOMBRE Y FUNCION DEL BOTON INGRESAR
-    private int validador=0;
-    //fin
+  
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
     //FIN
@@ -55,17 +51,21 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     }
 
-    public void datosIniciales() {
-        idModUserPriv=0;
+    private void datosIniciales() {
+        lb_Id.setText("*");
         cb_usuario.setSelectedIndex(0);
         cb_modulo.setSelectedIndex(0);
         cb_consultar.setSelectedIndex(0);
         cb_agregar.setSelectedIndex(0);
         cb_actualizar.setSelectedIndex(0);
         cb_eliminar.setSelectedIndex(0);
+        btn_Ingresar.setEnabled(true);
+        btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
+    
     }
 
-    public void bloquearComponentes() {
+    private void bloquearComponentes() {
         
         cb_modulo.setEnabled(false);
         cb_consultar.setEnabled(false);
@@ -76,7 +76,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         btn_Eliminar.setEnabled(false);
     }
 
-    public void desbloquearComponentes() {
+    private void desbloquearComponentes() {
         cb_modulo.setEnabled(true);
         cb_consultar.setEnabled(true);
         cb_agregar.setEnabled(true);
@@ -86,12 +86,12 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         btn_Eliminar.setEnabled(true);
     }
 
-    public void cTabla() {
+    private void cTabla() {
         jt_Privilegios.setModel(cperm.tablaPermisos());
 
     }
 
-    public void cargarUsuarios() {
+    private void cargarUsuarios() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Usuario");
@@ -101,7 +101,9 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_usuario.setModel(cb);
 
     }
-        public void cargarModulo() {
+  
+
+    private void cargarModulo() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Módulo");
@@ -112,7 +114,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     }
 
-    public void cargarConsultar() {
+    private void cargarConsultar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Permiso");
@@ -122,7 +124,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_consultar.setModel(cb);
      
     }
-     public void cargarAgregar() {
+     private void cargarAgregar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Permiso");
@@ -133,7 +135,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_agregar.setModel(cb);
       
     }
-      public void cargarActualizar() {
+      private void cargarActualizar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Permiso");
@@ -144,7 +146,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_actualizar.setModel(cb);
       
     }
-       public void cargarEliminar() {
+       private void cargarEliminar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Permiso");
@@ -182,6 +184,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        lb_Id = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         cb_modulo = new javax.swing.JComboBox<>();
@@ -343,11 +346,14 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                .addComponent(lb_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(lb_Id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 30));
@@ -532,8 +538,8 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         try {
-            if (validador == 1) {
-                btn_Ingresar.setText("Generar");
+            if (btn_Ingresar.getText().equals("Generar")) {
+                
                 //codigo de generacion
                 for (ObjetoUsuario user : cuser.selectUsuario()) {
                     for (ObjetoModulo mod : cmod.selectModulo()) {
@@ -546,8 +552,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
                 }
             } else {
-                
-                btn_Ingresar.setText("Agregar");
+                         
                 cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
                 NewTable = new DefaultTableModel();
                 cTabla();
@@ -563,11 +568,16 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
         try {
-            cperm.updatePermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()), idModUserPriv);
-            NewTable = new DefaultTableModel();
-            cTabla();
-            datosIniciales();
+            if (lb_Id.getText().equals("*")) {
 
+                DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
+
+            } else {
+                cperm.updatePermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()), Integer.parseInt(lb_Id.getText()));
+                NewTable = new DefaultTableModel();
+                cTabla();
+                datosIniciales();
+            }
         } catch (Exception e) {
             // DesktopNotify.showDesktopMessage("Error", "algo paso", DesktopNotify.ERROR);
         }
@@ -577,8 +587,9 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     private void jt_PrivilegiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_PrivilegiosMouseClicked
         int seleccion = jt_Privilegios.rowAtPoint(evt.getPoint());
+        btn_Ingresar.setEnabled(false); //se desactiva este boton para so
         //variable que guarda el id del la fila del los privilegios de algun modulo
-        idModUserPriv = Integer.parseInt(String.valueOf(jt_Privilegios.getValueAt(seleccion, 0)));
+        lb_Id.setText(String.valueOf(jt_Privilegios.getValueAt(seleccion, 0)));
         cb_usuario.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 1));
         cb_modulo.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 2));
         cb_consultar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 3));
@@ -595,17 +606,17 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
 
         try {
-            if (idModUserPriv==0) {
+            if (lb_Id.getText().equals("*")) {
 
                 DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
 
             } else {
                 Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
-                ale.jb_aceptar.addActionListener(new ActionListener() {
+                  ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-                     cperm.deletePermiso(idModUserPriv);
+                        cperm.deletePermiso(Integer.parseInt(lb_Id.getText()));
                         NewTable = new DefaultTableModel();
                         cTabla();
                         datosIniciales();
@@ -625,10 +636,12 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     private void jch_facturacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jch_facturacionItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
-            validador = 1;
+//            validador = 1;
+            btn_Ingresar.setText("Generar");
             bloquearComponentes();
         } else {//checkbox has been deselected
-            validador = 0;
+            btn_Ingresar.setText("Agregar");
+    //        validador = 0;
             desbloquearComponentes();
         }       // TODO add your handling code here:
     }//GEN-LAST:event_jch_facturacionItemStateChanged
@@ -667,6 +680,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JCheckBox jch_facturacion;
     private javax.swing.JTable jt_Privilegios;
+    private javax.swing.JLabel lb_Id;
     private javax.swing.JLabel lb_errorDireccion;
     private javax.swing.JLabel lb_errorNombre;
     private javax.swing.JLabel lb_errorPassword;

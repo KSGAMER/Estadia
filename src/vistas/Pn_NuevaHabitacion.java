@@ -96,12 +96,12 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         //FIN
     }
 
-    public void cTabla() {
+    private void cTabla() {
         jt_habitaciones.setModel(ch.tablaHabitaciones());
         jt_t_registros.setText(String.valueOf(ch.selectHabitacion().size()));
     }
 
-    public void tamañoTabla() {
+    private void tamañoTabla() {
         TableColumnModel columnModel = jt_habitaciones.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(5);
         columnModel.getColumn(1).setPreferredWidth(30);
@@ -113,7 +113,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
     }
 
-    public void cargarPisos() {
+    private void cargarPisos() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Piso");
@@ -124,7 +124,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
     }
 
-    public void cargarCategorias() {
+    private void cargarCategorias() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Categoria");
         for (ObjetoCategoria campos : ccat.selectCategoria()) {
@@ -134,7 +134,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         cb_Categoria.setModel(cb);
     }
 
-    public void cargarStatus() {
+    private void cargarStatus() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Estatus");
         for (ObjetoEstadoHabitacion campos : ceh.selectEstadoHabitacion()) {
@@ -185,7 +185,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         }
         this.jt_habitaciones.setModel(NewTable);
     }*/
-    public void RowApariencia() {
+    private void RowApariencia() {
         jt_habitaciones.setFocusable(false);
         jt_habitaciones.setIntercellSpacing(new Dimension(0, 1));
         jt_habitaciones.setRowHeight(25);
@@ -201,7 +201,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jt_habitaciones.getTableHeader().setForeground(new Color(255, 255, 255));
     }
 
-    public void datosIniciales() {
+    private void datosIniciales() {
         lb_Id.setText("*");
         lb_errorCaracteristicas.setText("*");
         lb_errorCategoria.setText("*");
@@ -224,7 +224,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
     }
 
-    public Boolean validarEscritura() {
+    private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_nombre.getText().equals("Ingresar Nombre")) && !(jt_nombre.getText().equals(""))) {
@@ -251,7 +251,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         return val;
     }
 
-    public Boolean validarSeleccion() {
+    private Boolean validarSeleccion() {
         Boolean val = true;
         if (!(cb_piso.getSelectedIndex() == 0)) {
 
