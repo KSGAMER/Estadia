@@ -74,7 +74,7 @@ public class ModeloEnvioFacturacion extends BD {
         Object[] fila = new Object[7];
         try {
             //Se instancia la conexión a la base de datos pasando la consulta preparada
-            this.st = conectar().prepareStatement("SELECT r.Nombre ,c.Correo, tp.Nombre as TipoPago, r.FechaIngreso, r.FechaSalida, c.FechaCobro, c.Monto FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN TipoPago tp on tp.IdTipoPago = c.IdTipoPago WHERE c.IdFacturacion = 1 and r.Nombre=?");
+            this.st = conectar().prepareStatement("SELECT r.Nombre ,c.Correo, tp.Nombre as TipoPago, r.FechaIngreso, r.FechaSalida, c.FechaCobro, c.Monto FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN TipoPago tp on tp.IdTipoPago = c.IdTipoPago WHERE c.IdFacturacion = 1 and r.Nombre like  CONCAT('%',?,'%')");
             //Se pasan los paramtros a la consulta
             this.st.setString(1, Buscar);
             //Se ejecuta el Query
@@ -104,7 +104,7 @@ public class ModeloEnvioFacturacion extends BD {
     }
 
     //Método que extrae la información directamente de base de datos con pase de parametros y sobrecarga de operadores
-    protected DefaultTableModel cargarTabla(String fechaCobro, String fechaCobroFinal) {
+    protected DefaultTableModel cargarTabla(String fechaCobroInicial, String fechaCobroFinal) {
         //Se declaran las columnas de la tabla
         String[] titulos = {"Razon Social", "Email", "Tipo Pago", "Fecha Ingreso", "Fecha Salida", "Fecha Cobro", "Monto"};
         //Se declara la tabla pasando las columnas
@@ -115,8 +115,8 @@ public class ModeloEnvioFacturacion extends BD {
             //Se instancia la conexión a la base de datos pasando la consulta preparada
             this.st = conectar().prepareStatement("SELECT r.Nombre ,c.Correo, tp.Nombre as TipoPago, r.FechaIngreso, r.FechaSalida, c.FechaCobro, c.Monto FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN TipoPago tp on tp.IdTipoPago = c.IdTipoPago WHERE c.IdFacturacion = 1 and CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, ?, 103)");
             //Se pasan los parametros a la consulta
-            this.st.setString(1, fechaCobro);
-            this.st.setString(1, fechaCobroFinal);
+            this.st.setString(1, fechaCobroInicial);
+            this.st.setString(2, fechaCobroFinal);
             //Se ejecuta el Query
             this.rs = st.executeQuery();
             //Se iteran los resultados
