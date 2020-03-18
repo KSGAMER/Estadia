@@ -187,14 +187,13 @@ public class Pn_SeleccionarClientes extends javax.swing.JFrame {
         lb_errorDireccion = new javax.swing.JLabel();
         lb_errorTelefono = new javax.swing.JLabel();
         lb_errorEmail = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
         jt_Buscar = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
         pn_cerrar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btn_Ingresar1 = new principal.MaterialButton();
         jt_t_registros = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -221,7 +220,7 @@ public class Pn_SeleccionarClientes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jt_Clientes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 720, 320));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 720, 300));
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -473,14 +472,8 @@ public class Pn_SeleccionarClientes extends javax.swing.JFrame {
         lb_errorEmail.setText("*");
         jPanel1.add(lb_errorEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 10, -1));
 
-        jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel27.setText("Buscar Cliente:");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, -1, -1));
-
-        jt_Buscar.setBackground(new java.awt.Color(84, 110, 122));
-        jt_Buscar.setForeground(new java.awt.Color(204, 204, 204));
+        jt_Buscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jt_Buscar.setForeground(new java.awt.Color(102, 102, 102));
         jt_Buscar.setText("Buscar Nombre");
         jt_Buscar.setBorder(null);
         jt_Buscar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -506,8 +499,7 @@ public class Pn_SeleccionarClientes extends javax.swing.JFrame {
                 jt_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, 210, 20));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, 210, 10));
+        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 150, 20));
 
         pn_cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -541,7 +533,7 @@ public class Pn_SeleccionarClientes extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(pn_cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 10, -1, 20));
+        jPanel1.add(pn_cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 10, -1, 20));
 
         btn_Ingresar1.setBackground(new java.awt.Color(40, 180, 99));
         btn_Ingresar1.setForeground(new java.awt.Color(255, 255, 255));
@@ -572,11 +564,14 @@ public class Pn_SeleccionarClientes extends javax.swing.JFrame {
         jLabel5.setText("Total de registros ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 380, -1, 20));
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, -1, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -865,13 +860,12 @@ dispose();
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;

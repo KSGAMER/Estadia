@@ -324,9 +324,8 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         lb_errorStatus = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jt_t_registros = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
         jt_Buscar = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
+        jLabel13 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -387,7 +386,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jt_habitaciones);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, 660, 390));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 660, 370));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -619,14 +618,8 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jt_t_registros.setBorder(null);
         jPanel1.add(jt_t_registros, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 550, 30, 20));
 
-        jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel27.setText("Buscar :");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, -1, -1));
-
-        jt_Buscar.setBackground(new java.awt.Color(84, 110, 122));
-        jt_Buscar.setForeground(new java.awt.Color(204, 204, 204));
+        jt_Buscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jt_Buscar.setForeground(new java.awt.Color(102, 102, 102));
         jt_Buscar.setText("Buscar Nombre");
         jt_Buscar.setBorder(null);
         jt_Buscar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -650,8 +643,10 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 jt_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 210, 20));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 130, 210, 10));
+        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 120, 150, 20));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 110, -1, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -867,8 +862,8 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -880,7 +875,6 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator7;
     public static javax.swing.JTextField jt_Buscar;

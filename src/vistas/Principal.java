@@ -55,8 +55,9 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     MenuItem Administrador;
     MenuItem Configuracion;
    //fin 
-   
-
+    //para abrir la ventana de sesion al dar click en cerrar sesion 
+   sesion se = new sesion();
+//fin
     /**
      * Creates new form Main
      */
@@ -191,7 +192,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/calendar.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/date24x24.png"))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel10.setText("Fecha Actual");
@@ -200,7 +201,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         lb_fecha.setForeground(new java.awt.Color(128, 128, 131));
         lb_fecha.setText("dd/mm/yy");
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/world.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/time24x24.png"))); // NOI18N
         jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -505,12 +506,15 @@ public class Principal extends javax.swing.JFrame implements Runnable {
  
     private void execute() {
         //ICONOS PARA LOS BOTONES PRINCIPALES DEL MENU LATERAL
+        ImageIcon iconCalendario = new ImageIcon(getClass().getResource("/Imagenes/icons/calendario32x32.png"));
         ImageIcon iconRecepcion = new ImageIcon(getClass().getResource("/Imagenes/icons/recep32x32.png"));
         ImageIcon iconClientes = new ImageIcon(getClass().getResource("/Imagenes/icons/cliente-32x32.png"));
         ImageIcon iconConfiguracion = new ImageIcon(getClass().getResource("/Imagenes/icons/settingsMenu32x32.png"));
+        ImageIcon iconReservaciones = new ImageIcon(getClass().getResource("/Imagenes/icons/reservaciones32x32.png"));
         ImageIcon iconReportes = new ImageIcon(getClass().getResource("/Imagenes/reporte32x32.png"));
         ImageIcon iconFacturas = new ImageIcon(getClass().getResource("/Imagenes/icons/facturas32x32.png"));
-
+        ImageIcon iconAdministrador = new ImageIcon(getClass().getResource("/Imagenes/icons/administrador32x32.png"));
+        ImageIcon iconSesion = new ImageIcon(getClass().getResource("/Imagenes/icons/cerrarSesion32x32.png"));
         //ICONO PARA LOS SUBMENUS
         ImageIcon subMenus = new ImageIcon(getClass().getResource("/Imagenes/newarrow20x20.png"));
         //  SUBMENU PARA RESERVACIONES
@@ -557,7 +561,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
         //  SUBMENU PARA REPORTES
-        MenuItem GenerarReportes = new MenuItem(subMenus, "prueba", 10, new ActionListener() {
+        MenuItem GenerarReportes = new MenuItem(subMenus, "Reportes/Estadisticas", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoReportes());
@@ -587,14 +591,14 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
 //APARTADO DE TODOS LOS MENUS
-        MenuItem CalendarioReservas = new MenuItem(iconRecepcion, "Calendario", 35, new ActionListener() {
+        MenuItem CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_CalendarioReservaciones());
             }
         });
 
-        MenuItem Reservaciones = new MenuItem(iconRecepcion, "Reservaciones", 35, null, NuevaReservacion);
+        MenuItem Reservaciones = new MenuItem(iconReservaciones, "Reservaciones", 35, null, NuevaReservacion);
 
         MenuItem Recepcion = new MenuItem(iconRecepcion, "Recepcion", 35, new ActionListener() {
             @Override
@@ -604,11 +608,11 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         });
 
         MenuItem Clientes = new MenuItem(iconClientes, "Clientes", 35, null, AgregarCliente);
-        Configuracion = new MenuItem(iconConfiguracion, "Configuración", 35, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
+        Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
         MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);
         MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
-        Administrador = new MenuItem(iconReportes, "Administrador", 35, null, NuevoEmpleado,ConfiguraciónServidor,Permisos);
-        MenuItem Sesion =new MenuItem(iconReportes, "Cerrar Sesión", 35, new ActionListener() {
+        Administrador = new MenuItem(iconAdministrador, "Administrador", 35, null, NuevoEmpleado,ConfiguraciónServidor,Permisos);
+        MenuItem Sesion =new MenuItem(iconSesion, "Cerrar Sesión", 35, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(Principal.this, true);
@@ -616,8 +620,9 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 wa.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-                        Principal.this.dispose();  
-                        sesion se = new sesion();
+                         
+                        
+                        Principal.this.dispose(); 
                         se.setVisible(true);
                  
 

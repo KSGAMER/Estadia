@@ -35,12 +35,15 @@ public class sesion extends javax.swing.JFrame {
 
         setPantalla();//se debe mandar a llamar primero
         initComponents();
+        setIconSystem();
         centrarPantalla();
         cu.tablaUsuarios();
 //jp_imagen.setBackground(new Color(0,0,0,1));
         ajustarImagen();
     }
-
+ private void setIconSystem() {
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/logosmall.png")).getImage());
+    }
     private void setPantalla() {
 
         //para eliminar el tittle bar

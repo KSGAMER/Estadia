@@ -185,7 +185,6 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel27 = new javax.swing.JLabel();
         jt_Buscar = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -227,6 +226,9 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jd_fechaCobroFinal = new com.toedter.calendar.JDateChooser();
         jd_fechaCobro = new com.toedter.calendar.JDateChooser();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -254,7 +256,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jt_Facturacion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 1000, 120));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 1000, 110));
 
         btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,7 +282,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Total de registros ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 220, 100, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 230, 100, 20));
 
         jt_t_registros.setEditable(false);
         jt_t_registros.setBackground(new java.awt.Color(84, 110, 122));
@@ -292,7 +294,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
                 jt_t_registrosActionPerformed(evt);
             }
         });
-        jPanel1.add(jt_t_registros, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 220, 30, 20));
+        jPanel1.add(jt_t_registros, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 230, 30, 20));
 
         jPanel2.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -305,11 +307,14 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,14 +327,8 @@ public class Pn_Facturacion extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 50));
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel27.setText("Buscar :");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 60, -1, -1));
-
-        jt_Buscar.setBackground(new java.awt.Color(84, 110, 122));
-        jt_Buscar.setForeground(new java.awt.Color(204, 204, 204));
+        jt_Buscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jt_Buscar.setForeground(new java.awt.Color(102, 102, 102));
         jt_Buscar.setText("Buscar Nombre");
         jt_Buscar.setBorder(null);
         jt_Buscar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -353,7 +352,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
                 jt_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 60, 210, 20));
+        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 70, 150, 20));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -607,13 +606,13 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         lb_errorAsunto.setText("*");
         jPanel3.add(lb_errorAsunto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 10, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 530, 340));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 530, 330));
 
         jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel19.setText("LImpia Nuevo Mensaje");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, 190, 30));
+        jLabel19.setText("Fecha final");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 100, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -650,14 +649,29 @@ public class Pn_Facturacion extends javax.swing.JPanel {
                 jd_fechaCobroFinalPropertyChange(evt);
             }
         });
-        jPanel1.add(jd_fechaCobroFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 190, -1));
+        jPanel1.add(jd_fechaCobroFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 190, -1));
 
         jd_fechaCobro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jd_fechaCobroPropertyChange(evt);
             }
         });
-        jPanel1.add(jd_fechaCobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 190, -1));
+        jPanel1.add(jd_fechaCobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 190, -1));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 60, -1, 40));
+
+        jLabel22.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel22.setText("LImpia Nuevo Mensaje");
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, 190, 30));
+
+        jLabel23.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel23.setText("Fecha inicial ");
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 100, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -933,6 +947,7 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -941,7 +956,8 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

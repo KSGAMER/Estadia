@@ -107,14 +107,20 @@ public class Pn_ConfServer extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jt_Password = new javax.swing.JPasswordField();
-        lb_errorServidor = new javax.swing.JLabel();
         lb_errorInstancia = new javax.swing.JLabel();
         lb_errorPuerto = new javax.swing.JLabel();
         lb_errorBD = new javax.swing.JLabel();
         lb_errorUsuario = new javax.swing.JLabel();
         lb_errorPassword = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        lb_errorServidor = new javax.swing.JLabel();
         btnAceptar = new principal.MaterialButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -150,133 +156,106 @@ public class Pn_ConfServer extends javax.swing.JPanel {
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1010, 10));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("SERVIDOR :");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 20));
 
         jt_Servidor.setText("jTextField1");
+        jPanel3.add(jt_Servidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 342, 20));
 
         jt_Instancia.setText("jTextField1");
+        jPanel3.add(jt_Instancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 342, 20));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("INSTANCIA :");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, 20));
 
         jt_Puerto.setText("jTextField1");
+        jPanel3.add(jt_Puerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 342, 20));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("PUERTO :");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, 20));
 
         jt_BD.setText("jTextField1");
+        jPanel3.add(jt_BD, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 342, 20));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("BASE DE DATOS :");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, 20));
 
         jt_Usuario.setText("jTextField1");
+        jPanel3.add(jt_Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 341, 20));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("USUARIO :");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, 20));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("CONTRASEÑA :");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, 20));
 
         jt_Password.setText("jPasswordField1");
-
-        lb_errorServidor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorServidor.setForeground(new java.awt.Color(255, 255, 255));
-        lb_errorServidor.setText("*");
+        jPanel3.add(jt_Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 341, 20));
 
         lb_errorInstancia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorInstancia.setForeground(new java.awt.Color(255, 255, 255));
         lb_errorInstancia.setText("*");
+        jPanel3.add(lb_errorInstancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 10, -1));
 
         lb_errorPuerto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorPuerto.setForeground(new java.awt.Color(255, 255, 255));
         lb_errorPuerto.setText("*");
+        jPanel3.add(lb_errorPuerto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 10, -1));
 
         lb_errorBD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorBD.setForeground(new java.awt.Color(255, 255, 255));
         lb_errorBD.setText("*");
+        jPanel3.add(lb_errorBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 10, -1));
 
         lb_errorUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lb_errorUsuario.setText("*");
+        jPanel3.add(lb_errorUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 10, -1));
 
         lb_errorPassword.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorPassword.setForeground(new java.awt.Color(255, 255, 255));
         lb_errorPassword.setText("*");
+        jPanel3.add(lb_errorPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 10, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lb_errorServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_errorInstancia, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_errorPuerto, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_errorBD, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_errorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_errorPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jt_Servidor, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                    .addComponent(jt_Instancia)
-                    .addComponent(jt_Puerto)
-                    .addComponent(jt_BD)
-                    .addComponent(jt_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jt_Usuario))
-                .addContainerGap(38, Short.MAX_VALUE))
+        jPanel4.setBackground(new java.awt.Color(36, 47, 65));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Configuración de la conexión");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(lb_errorServidor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_Servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(lb_errorInstancia))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_Instancia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(lb_errorPuerto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_Puerto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(lb_errorBD))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_BD, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(lb_errorUsuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(lb_errorPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 440));
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, -1));
+
+        lb_errorServidor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_errorServidor.setForeground(new java.awt.Color(255, 255, 255));
+        lb_errorServidor.setText("*");
+        jPanel3.add(lb_errorServidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 10, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 400, 440));
 
         btnAceptar.setBackground(new java.awt.Color(24, 157, 63));
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
@@ -298,7 +277,27 @@ public class Pn_ConfServer extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Recomendaciones:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 120, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Las siguientes configuraciónes son provistas por el administrador de BD");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("por el administrador con previo conocimiento.");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("todo movimientos debe ser consultador y realizado por el administrador en ");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 280, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("supervision del administrador Ing Rogelio Gonzales Sanchez o en su defecto");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -346,7 +345,12 @@ public class Pn_ConfServer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -354,6 +358,7 @@ public class Pn_ConfServer extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jt_BD;
     private javax.swing.JTextField jt_Instancia;

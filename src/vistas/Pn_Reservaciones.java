@@ -240,9 +240,8 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         btn_clientes = new principal.MaterialButton();
         btn_Eliminar2 = new principal.MaterialButton();
         lb_Id = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jt_Buscar = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -267,7 +266,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jt_Reservas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 650, 330));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 650, 310));
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -506,10 +505,9 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
         jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 30, 20));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 130, 210, 10));
 
-        jt_Buscar.setBackground(new java.awt.Color(84, 110, 122));
-        jt_Buscar.setForeground(new java.awt.Color(204, 204, 204));
+        jt_Buscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jt_Buscar.setForeground(new java.awt.Color(102, 102, 102));
         jt_Buscar.setText("Buscar Nombre");
         jt_Buscar.setBorder(null);
         jt_Buscar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -533,13 +531,10 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 jt_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, 210, 20));
+        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 120, 150, 20));
 
-        jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel27.setText("Buscar :");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, -1, -1));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, -1, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -766,15 +761,14 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private com.toedter.calendar.JDateChooser jd_Ingreso;
     private com.toedter.calendar.JDateChooser jd_Salida;

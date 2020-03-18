@@ -213,14 +213,13 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jt_password = new javax.swing.JPasswordField();
         jch_mostrar = new javax.swing.JCheckBox();
         jt_Buscar = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         lb_errorStatus = new javax.swing.JLabel();
         lb_errorUsuario = new javax.swing.JLabel();
         lb_errorPassword = new javax.swing.JLabel();
         lb_errorNombre = new javax.swing.JLabel();
         lb_errorTelefono = new javax.swing.JLabel();
         lb_errorDireccion = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -243,7 +242,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jt_Empleados);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 700, 370));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 700, 310));
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -257,7 +256,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Total de registros ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 530, 100, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 480, 100, 20));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -542,8 +541,8 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         });
         jPanel1.add(jch_mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
 
-        jt_Buscar.setBackground(new java.awt.Color(84, 110, 122));
-        jt_Buscar.setForeground(new java.awt.Color(204, 204, 204));
+        jt_Buscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jt_Buscar.setForeground(new java.awt.Color(102, 102, 102));
         jt_Buscar.setText("Buscar Nombre");
         jt_Buscar.setBorder(null);
         jt_Buscar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -567,14 +566,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
                 jt_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 120, 210, 20));
-
-        jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel27.setText("Buscar Cliente:");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, -1, -1));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 140, 210, 10));
+        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 130, 150, 20));
 
         lb_errorStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorStatus.setForeground(new java.awt.Color(84, 110, 122));
@@ -605,6 +597,9 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         lb_errorDireccion.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorDireccion.setText("*");
         jPanel1.add(lb_errorDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 10, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, -1, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -856,15 +851,14 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;

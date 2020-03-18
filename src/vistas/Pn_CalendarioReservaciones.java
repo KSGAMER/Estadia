@@ -60,11 +60,15 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
     private String mesActual = "";
     private int mesIngreso;
 
-    /*
-    int mesIn;
-    int mesOut;
-    int DayIn;
-    int DayOut;
+    //NECESARIO
+//busqueda del numero de mes de la reservaciion para comparaciones
+    String MesdeFechaIngreso, MesdeFechaSalida;
+    int mesIn, mesOut;
+//Busqueda del dia de la reservacion en ese mes para compracion 
+    String diaFechaIngreso, diaFechaSalida;
+    int DayIn, DayOut;
+//FIN DE NECESARIO
+   
 
     /**
      * Creates new form pnlHome
@@ -77,7 +81,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         cr.tablaReservaciones();
         cargarReservas();
         tamañoTabla();
-        // prueba();
+        
 
     }
 
@@ -232,45 +236,94 @@ HABITACION  | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ETC
 
 //FIN DE LA CABECERA
         try {
-            Object[] columna = new Object[days + 1]; //objeto que sirve para guardar dias o como medida de comparacion
+            //  Object[] columna = new Object[days + 1]; //objeto que sirve para guardar dias o como medida de comparacion
+            // Object[] columna2 = new Object[days + 1];
             for (ObjetoHabitacion habitacion : ch.selectHabitacion()) {
+                Object[] columna = new Object[days + 1];
                 columna[0] = habitacion.getNombre();
 
                 for (ObjetoReservacion objetoReservacion : cr.selectReservacion()) {
 
 //busqueda del numero de mes de la reservaciion para comparaciones
-                    String MesdeFechaIngreso = new SimpleDateFormat("MM").format(dateFormat.parse(objetoReservacion.getFechaIngresoCompleta()));
-                    String MesdeFechaSalida = new SimpleDateFormat("MM").format(dateFormat.parse(objetoReservacion.getFechaSalidaCompleta()));
-                    int mesIn = Integer.parseInt(MesdeFechaIngreso);
-                    int mesOut = Integer.parseInt(MesdeFechaSalida);
-                    //busqueda del numero de dia de la reservacion para comparaciones
-                    String diaFechaIngreso = new SimpleDateFormat("dd").format(dateFormat.parse(objetoReservacion.getFechaIngresoCompleta()));
-                    String diaFechaSalida = new SimpleDateFormat("dd").format(dateFormat.parse(objetoReservacion.getFechaSalidaCompleta()));
-                    int DayIn = Integer.parseInt(diaFechaIngreso);
-                    int DayOut = Integer.parseInt(diaFechaSalida);
+                    MesdeFechaIngreso = new SimpleDateFormat("MM").format(dateFormat.parse(objetoReservacion.getFechaIngresoCompleta()));
+                    MesdeFechaSalida = new SimpleDateFormat("MM").format(dateFormat.parse(objetoReservacion.getFechaSalidaCompleta()));
+                    mesIn = Integer.parseInt(MesdeFechaIngreso);
+                    mesOut = Integer.parseInt(MesdeFechaSalida);
+//busqueda del numero de dia de la reservacion para comparaciones
+                    diaFechaIngreso = new SimpleDateFormat("dd").format(dateFormat.parse(objetoReservacion.getFechaIngresoCompleta()));
+                    diaFechaSalida = new SimpleDateFormat("dd").format(dateFormat.parse(objetoReservacion.getFechaSalidaCompleta()));
+                    DayIn = Integer.parseInt(diaFechaIngreso);
+                    DayOut = Integer.parseInt(diaFechaSalida);
 
                     for (int i = 1; i < columna.length; i++) {  //ARREGLO DE DIAS 
+//comparacion si el mes de la reservaciones es igual al mes actual (mes inicial , mes final)
                         if (mesIn == mes && mesOut == mes) {
+//comparamos si el id de la reservacion en el mes, es igual al id de alguna de las habitaciones
                             if (objetoReservacion.getIdHabitacion() == habitacion.getIdHabitacion()) {
 
-                                if (DayIn == i) {
+/*comparamos el dia de ingreso de 1a reservacion(DayIn) con la posicion del arreglo que tiene como size()
+al objeto columna y si son iguales , iniamos el siguiente arreglo a partir de esa posicion hasta 
+la posicion final que seria DayOut*/
+                                if (i >= DayIn && i <= DayOut) {
                                     columna[i] = "x";
+                                }
+//SIRVE PARA COMPROBAR QUE SE HACE EL LLENADO EN LAS POSICIONES Y HABITACIONES REQUERIDAS
+//-----System.out.println(habitacion.getNombre() + ": Dia " + i + "-> " + columna[i]);------IMPORTANTE
+                            }
+                        } else if (mesIn == mes && !(mesOut == mes)) {
 
-                                } else if (i >= DayIn && DayOut <= DayOut) {
-                                    columna[i] = "x";
-                                } else {
-                                    columna[i] = "";
+//comparamos si el id de la reservacion en el mes, es igual al id de alguna de las habitaciones
+                            if (objetoReservacion.getIdHabitacion() == habitacion.getIdHabitacion()) {
+
+//comparamos el dia de ingreso de 1a reservacion(DayIn) con la posicion del arreglo que tiene como size() al objeto columna
+//y si son iguales , iniamos el siguiente arreglo a partir de esa posicion 
+                                //hasta la posicion final que seria Days
+                                if (DayIn == i) {
+
+                                    /*arreglo iniciado con el primer dia de la reservacion y finalizado con el dia de
+termino del mes actual (days  nos dato el total de dias del mes actual o en el que se encuentra la vista)*/
+                                    for (int p = DayIn; p <= days; p++) {
+//llenamos la tabla de x para denotar en la tabla donde hay fechas reservadas
+                                        columna[p] = "x";
+                                    }
+                                }
+//si no existe ninguna reservacion , rellenamos la tabla con cuialquier otro caracter
+                            }
+
+//(2 DE 2)excepcion en caso de que la reservacion este en 2 meses diferentes (ejemp. ehero 22- febrero 3)
+//y carga desde el dia 1 del siguiente mes hasta el ultimo dia de la reservacion 3 febrero
+                        } else if (!(mesIn == mes) && mesOut == mes) {
+
+ //comparamos si el id de la reservacion en el mes, es igual al id de alguna de las habitaciones
+                            if (objetoReservacion.getIdHabitacion() == habitacion.getIdHabitacion()) {
+
+/*comparamos que la posicion del arreglo sea igual a 1 para comenzar el llnado de la reservacion 
+con 2 fechas en 2 meses diferentes 
+este apartado comienza a llenar desde el dia 1 del siguiente mes , hasta el dia (Dayout) donde finaliza 
+la reservacion */
+                                if (i == 1) {
+
+/*arreglo iniciado con el primer dia de la reservacion y finalizado con el dia de
+termino de la reservacion (DayOut) para pintar la tabla con x */
+                                    for (int p = i; p <= DayOut; p++) {
+//llenamos la tabla de x para denotar en la tabla donde hay fechas reservadas
+                                        columna[p] = "x";
+                                    
+                                    }
                                 }
 
-                                System.out.println(habitacion.getNombre() + ": Dia " + i + "-> " + columna[i]);
                             }
                         }
-
                     }
 
-
                 }
+//ingresa cada fila en la tabla , en cada iteracion de habitacion
                 modelo.addRow(columna);
+                
+/*borra los valores guardados en el objeto columna, para que no se pinten los mismos valores de filas anteriores 
+en las siguientes finas*/
+                columna = null;
+                
             }
 
         } catch (ParseException ex) {
@@ -280,7 +333,7 @@ HABITACION  | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ETC
         headerRenderer.setBackground(new Color(102, 205, 170));
         jt_Reservas.setModel(modelo);
         jt_Reservas.getColumnModel().getColumn(0).setPreferredWidth(200);
-        //jt_Reservas.setDefaultRenderer(Object.class, null);
+        //jt_Reservas.setDefaultRenderer(Object.class, new TooltipJTable());
 
         //SI EL MES ACTUAL ES IGUAL AL MES DE LA APLICACION , 
         //SELECCIONAMOS EL LA POSICION DE LA COLUMNA EN LA TABLA CON EL MISMO NUMERO DE PISICION QUE EL DIA ACTUAL
@@ -288,7 +341,7 @@ HABITACION  | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ETC
         if (mes == mn) {
             jt_Reservas.getColumnModel().getColumn(Integer.parseInt(day)).setHeaderRenderer(headerRenderer);
         }
-        
+
     }
 
     /**
