@@ -163,6 +163,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_nombre.getText().equals("Ingresar Nombre")) && !(jt_nombre.getText().equals(""))) {
             lb_errorNombre.setForeground(new Color(84, 110, 122));
+            
         } else {
             lb_errorNombre.setForeground(Color.RED);
             val = false;
@@ -190,9 +191,9 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         Boolean val = true;
 
         if (!(cb_Habitacion.getSelectedIndex() == 0)) {
-            lb_errorIngreso.setForeground(new Color(84, 110, 122));
+            lb_errorHabitacion.setForeground(new Color(84, 110, 122));
         } else {
-            lb_errorIngreso.setForeground(Color.RED);
+            lb_errorHabitacion.setForeground(Color.RED);
             val = false;
         }
         return val;
@@ -231,10 +232,8 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jd_Salida = new com.toedter.calendar.JDateChooser();
         jt_t_registros = new javax.swing.JLabel();
         lb_errorFechaSalida = new javax.swing.JLabel();
-        lb_errorIngreso = new javax.swing.JLabel();
         lb_errorNombre = new javax.swing.JLabel();
         lb_errorFechaIngreso = new javax.swing.JLabel();
-        lb_errorStatusReserva = new javax.swing.JLabel();
         lb_errorHabitacion = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         btn_clientes = new principal.MaterialButton();
@@ -439,11 +438,6 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         lb_errorFechaSalida.setText("*");
         jPanel1.add(lb_errorFechaSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 10, -1));
 
-        lb_errorIngreso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorIngreso.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorIngreso.setText("*");
-        jPanel1.add(lb_errorIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 10, -1));
-
         lb_errorNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorNombre.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorNombre.setText("*");
@@ -452,12 +446,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         lb_errorFechaIngreso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorFechaIngreso.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorFechaIngreso.setText("*");
-        jPanel1.add(lb_errorFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 10, -1));
-
-        lb_errorStatusReserva.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorStatusReserva.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorStatusReserva.setText("*");
-        jPanel1.add(lb_errorStatusReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 10, -1));
+        jPanel1.add(lb_errorFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 10, -1));
 
         lb_errorHabitacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorHabitacion.setForeground(new java.awt.Color(84, 110, 122));
@@ -587,7 +576,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
 
         try {
-            if (!validarEscritura() == true && !validarSeleccion() == true) {
+            if (!(validarEscritura() == true) || !(validarSeleccion() == true)) {
 
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
@@ -698,7 +687,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
 
         try {
-            if (!validarEscritura() == true && !validarSeleccion() == true) {
+            if (!validarEscritura() == true || !validarSeleccion() == true) {
 
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
@@ -780,8 +769,6 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private javax.swing.JLabel lb_errorFechaIngreso;
     private javax.swing.JLabel lb_errorFechaSalida;
     private javax.swing.JLabel lb_errorHabitacion;
-    private javax.swing.JLabel lb_errorIngreso;
     private javax.swing.JLabel lb_errorNombre;
-    private javax.swing.JLabel lb_errorStatusReserva;
     // End of variables declaration//GEN-END:variables
 }

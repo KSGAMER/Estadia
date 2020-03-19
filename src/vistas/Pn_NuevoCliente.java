@@ -767,7 +767,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
 
         try {
-            if (!validarEscritura() == true && !validarSeleccion() == true) {
+            if (!validarEscritura() == true || !validarSeleccion() == true) {
 
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
@@ -794,7 +794,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
 
         try {
-            if (!validarEscritura() == true && !validarSeleccion() == true) {
+            if (!validarEscritura() == true || !validarSeleccion() == true) {
 
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 

@@ -8,6 +8,7 @@ package vistas;
 import Utilerias.*;
 import controladores.*;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.MouseInfo;
@@ -26,8 +27,10 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import objetos.*;
 
@@ -65,7 +68,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
     String diaFechaIngreso, diaFechaSalida;
     int DayIn, DayOut;
 //FIN DE NECESARIO
-   
+    int days;
 
     /**
      * Creates new form pnlHome
@@ -91,7 +94,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
     }
 
     public void RowApariencia() {
-        jt_Reservas.setFont(new Font("Tahoma", Font.BOLD, 12));
+        jt_Reservas.setFont(new Font("Tahoma", Font.BOLD, 13));
         jt_Reservas.setFocusable(false);
         //espacio entre comulnas
         jt_Reservas.setIntercellSpacing(new Dimension(0, 1));
@@ -104,18 +107,14 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         jt_Reservas.setGridColor(Color.decode("#D3EFFC"));
         jt_Reservas.setShowHorizontalLines(false);
 
-        //color de la fila seleccionada y su texto
-        jt_Reservas.setSelectionBackground(new Color(255, 255, 255));
-        jt_Reservas.setSelectionForeground(new Color(0, 0, 0));
-
-
-
     }
 
     public void tamañoTabla() {
         TableColumnModel columnModel = jt_Reservas.getColumnModel();
+        //evita la seleccion de las filas en la tabla, SOLO ES PARA VISUALIZAR, NO NECESITA ACCION ALGUNA
+        jt_Reservas.setEnabled(false);
         columnModel.getColumn(0).setPreferredWidth(390);
-     
+   
     }
 
     public void ajustesDeScroll() {
@@ -225,7 +224,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
 HABITACION  | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ETC
 
          */
-        int days = cal.getActualMaximum(Calendar.DAY_OF_MONTH); // int numero de dias        
+        days = cal.getActualMaximum(Calendar.DAY_OF_MONTH); // int numero de dias        
         String titulos[] = new String[days + 1];//cabeceras de la tabla
         titulos[0] = "Habitaciones";
 
@@ -271,7 +270,7 @@ HABITACION  | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ETC
 al objeto columna y si son iguales , iniamos el siguiente arreglo a partir de esa posicion hasta 
 la posicion final que seria DayOut*/
                                 if (i >= DayIn && i <= DayOut) {
-                                    columna[i] = "x";
+                                    columna[i] = " ";
                                 }
 //SIRVE PARA COMPROBAR QUE SE HACE EL LLENADO EN LAS POSICIONES Y HABITACIONES REQUERIDAS
 //-----System.out.println(habitacion.getNombre() + ": Dia " + i + "-> " + columna[i]);------IMPORTANTE
@@ -290,7 +289,7 @@ la posicion final que seria DayOut*/
 termino del mes actual (days  nos dato el total de dias del mes actual o en el que se encuentra la vista)*/
                                     for (int p = DayIn; p <= days; p++) {
 //llenamos la tabla de x para denotar en la tabla donde hay fechas reservadas
-                                        columna[p] = "x";
+                                        columna[p] = " ";
                                     }
                                 }
 //si no existe ninguna reservacion , rellenamos la tabla con cuialquier otro caracter
@@ -313,7 +312,7 @@ la reservacion */
 termino de la reservacion (DayOut) para pintar la tabla con x */
                                     for (int p = i; p <= DayOut; p++) {
 //llenamos la tabla de x para denotar en la tabla donde hay fechas reservadas
-                                        columna[p] = "x";
+                                        columna[p] = " ";
                                     
                                     }
                                 }
@@ -325,7 +324,7 @@ termino de la reservacion (DayOut) para pintar la tabla con x */
                 }
 //ingresa cada fila en la tabla , en cada iteracion de habitacion
                 modelo.addRow(columna);
-                
+               
 /*borra los valores guardados en el objeto columna, para que no se pinten los mismos valores de filas anteriores 
 en las siguientes finas*/
                 columna = null;
@@ -339,8 +338,10 @@ en las siguientes finas*/
         headerRenderer.setBackground(new Color(102, 205, 170));
         jt_Reservas.setModel(modelo);
         jt_Reservas.getColumnModel().getColumn(0).setPreferredWidth(200);
-        //jt_Reservas.setDefaultRenderer(Object.class, new TooltipJTable());
+        
+       
 
+   
         //SI EL MES ACTUAL ES IGUAL AL MES DE LA APLICACION , 
         //SELECCIONAMOS EL LA POSICION DE LA COLUMNA EN LA TABLA CON EL MISMO NUMERO DE PISICION QUE EL DIA ACTUAL
         //Y LO RESALTAMOS
@@ -369,7 +370,30 @@ en las siguientes finas*/
         btnBeforeMont = new principal.MaterialButton();
         btnNextMonth = new principal.MaterialButton();
         scroll_Tabla = new javax.swing.JScrollPane();
-        jt_Reservas = new javax.swing.JTable();
+        jt_Reservas = new javax.swing.JTable()
+        {
+            @Override
+
+            public Component prepareRenderer (TableCellRenderer renderer, int rowIndex, int columnIndex){
+                Component componenet = super.prepareRenderer(renderer, rowIndex, columnIndex);
+                Object value = getModel().getValueAt(rowIndex,columnIndex);
+
+                if(columnIndex >=1 && columnIndex<days+1){
+                    if(value ==" "){
+                        componenet.setBackground(new Color(97, 212, 195));
+                    }else{
+                        componenet.setBackground(Color.WHITE);
+                    }
+
+                }else{
+                    componenet.setBackground(Color.WHITE);
+                }
+                return componenet;
+            }
+
+        }
+
+        ;
 
         setBackground(new java.awt.Color(153, 163, 164));
         setToolTipText("");
