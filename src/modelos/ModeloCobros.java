@@ -165,13 +165,13 @@ public class ModeloCobros extends BD {
     }
 
     //Método que inserta un cobro a la tabla
-    protected void insertCobros(int idReservacion, double monto, String tipoPago, String rfc, String correo, String facturacion) {
+    protected void insertCobros(int idReservacion, double monto, String tipoPago, String rfc, String correo, String facturacion, String usuario) {
         //Se instancian los resultados a utilizar para reemplazarlos en la consulta
         mtp.cargarTabla();
         mf.cargarTabla();
         try {
             //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
-            this.st = conectar().prepareStatement("INSERT INTO Cobro (IdReservacion, Monto, IdTipoPago, RFC, Correo, FechaCobro, IdFacturacion) VALUES (?,?,?,?,?, convert(varchar, getdate(), 103) ,?)");
+            this.st = conectar().prepareStatement("INSERT INTO Cobro (IdReservacion, Monto, IdTipoPago, RFC, Correo, FechaCobro, IdFacturacion, Username) VALUES (?,?,?,?,?, convert(varchar, getdate(), 103) ,?), ?");
             //Se pasan los parametros a la consulta
             this.st.setInt(1, idReservacion);
             this.st.setDouble(2, monto);
@@ -193,6 +193,7 @@ public class ModeloCobros extends BD {
                     this.st.setInt(6, mf.selectFacturaciones().get(i).getIdFacturacion());
                 }
             }
+            this.st.setString(7, usuario);
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión

@@ -29,8 +29,8 @@ public class ControladorReservaciones extends ModeloReservaciones{
         return selectReservaciones();
     }
     
-    public void insertReservacion(String nombre, String habitacion, String fechaIngreso, String fechaSalida) {
-        insertReservaciones(nombre, habitacion, fechaIngreso, fechaSalida);
+    public void insertReservacion(String nombre, String habitacion, String fechaIngreso, String fechaSalida, String usuario) {
+        insertReservaciones(nombre, habitacion, fechaIngreso, fechaSalida, usuario);
     }
     
     public void updateReservacion(String nombre, String habitacion, String fechaIngreso, String fechaSalida, int id) {
