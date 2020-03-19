@@ -15,20 +15,25 @@ import objetos.ObjetoPiso;
  *
  * @author KSGAMER
  */
+
+//Se aplica Herencia de la clase padre Modelo Pisos
 public class ControladorPisos extends ModeloPisos{
-    
+    //Método que retorna una tabla pasando un parametro para filtrar los resultados
     public DefaultTableModel tablaPisos(JTextField texto) {
         return cargarTabla(texto.getText());
     }
     
+    //Método que retorna una tabla usando sobrecarga de operadores
     public DefaultTableModel tablaPisos() {
         return cargarTabla();
     }
     
+    //Método que retorna un arreglo de tipo Objeto Piso
     public ArrayList<ObjetoPiso> selectPiso() {
         return selectPisos();
     }
     
+    //Método que inserta un nuevo piso pasando nombre del piso y las observaciones
     public void insertPiso(String nombre, String observaciones) {
         insertPisos(nombre, observaciones);
     }

@@ -14,11 +14,15 @@ import objetos.ObjetoModulo;
  *
  * @author KSGAMER
  */
+
+//Se aplica Herencia de la clase padre Modelo Modulos
 public class ControladorModulos extends ModeloModulos{
+    //Método que retorna una tabla 
     public DefaultTableModel tablaModulos() {
         return cargarTabla();
     }
     
+    //Método que retorna un arreglo de tipo Objeto Modulo
     public ArrayList<ObjetoModulo> selectModulo() {
         return selectModulos();
     }

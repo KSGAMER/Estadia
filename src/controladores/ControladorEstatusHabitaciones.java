@@ -14,12 +14,15 @@ import objetos.ObjetoEstadoHabitacion;
  *
  * @author KSGAMER
  */
+
+//Se aplica Herencia de la clase padre Modelo Estatus Habitacion
 public class ControladorEstatusHabitaciones extends ModeloEstatusHabitaciones{
-    
+    //Método que retorna una tabla
     public DefaultTableModel tablaEstadoHabiaciones() {
         return cargarTabla();
     }
     
+    //Método que retorna un arreglo de tipo Objeto Estado Habitacion
     public ArrayList<ObjetoEstadoHabitacion> selectEstadoHabitacion() {
         return selectEstadoHabitaciones();
     }
