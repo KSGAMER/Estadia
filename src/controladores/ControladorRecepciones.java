@@ -16,8 +16,6 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import modelos.ModeloRecepciones;
-import objetos.ObjetoHabitacion;
-
 import objetos.ObjetoRecepcion;
 import objetos.ObjetoReservacion;
 
@@ -25,15 +23,22 @@ import objetos.ObjetoReservacion;
  *
  * @author KSGAMER
  */
+
+//Se aplica Herencia de la clase padre Modelo Recepciones
 public class ControladorRecepciones extends ModeloRecepciones {
+    //Se declaran las clases a ocupar para reemplazar la información
     private ControladorHabitaciones habitaciones = new ControladorHabitaciones();
     private ControladorReservaciones reservaciones = new ControladorReservaciones();
 
+    //Método que actualiza el estatus de las Habitaciones que cuenten con una reservacion
     public void actualizarEstatus() {
+        //Se cargan los datos a utilizar
         reservaciones.tablaReservaciones();
+        //Se crea una variable para formatear las fechas en dia, mes , año
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+        //Se crea una variable que actua como fecha actual
         String fecha = formato.format(new Date());
-
+        
         for (ObjetoReservacion objetoReservacion : reservaciones.selectReservacion()) {
             try {
                 if (formato.parse(fecha).equals(formato.parse(objetoReservacion.getFechaIngresoCompleta()))) {
