@@ -229,6 +229,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jt_ReservasMouseClicked"/>
               </Events>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable()&#xa;{&#xa;    @Override&#xa;&#xa;    public Component prepareRenderer (TableCellRenderer renderer, int rowIndex, int columnIndex){&#xa;        Component componenet = super.prepareRenderer(renderer, rowIndex, columnIndex);&#xa;        Object value = getModel().getValueAt(rowIndex,columnIndex);&#xa;&#xa;        if(columnIndex &gt;=1 &amp;&amp; columnIndex&lt;days+1){&#xa;            if(value ==&quot; &quot;){&#xa;                componenet.setBackground(new Color(97, 212, 195));&#xa;            }else{&#xa;                componenet.setBackground(Color.WHITE);&#xa;            }&#xa;&#xa;        }else{&#xa;            componenet.setBackground(Color.WHITE);&#xa;        }&#xa;        return componenet;&#xa;    }&#xa;&#xa;}&#xa;&#xa;"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
