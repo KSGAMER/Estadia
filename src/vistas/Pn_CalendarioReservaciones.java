@@ -91,22 +91,31 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
     }
 
     public void RowApariencia() {
+        jt_Reservas.setFont(new Font("Tahoma", Font.BOLD, 12));
         jt_Reservas.setFocusable(false);
         //espacio entre comulnas
         jt_Reservas.setIntercellSpacing(new Dimension(0, 1));
         //altura de columnas 
         jt_Reservas.setRowHeight(25);
         //margen entre filas
-        jt_Reservas.setRowMargin(0);
+        jt_Reservas.setRowMargin(5);
 //sin lineas verticles
-        jt_Reservas.setShowVerticalLines(false);
-        jt_Reservas.setSelectionBackground(new Color(97, 212, 195));
+        jt_Reservas.setShowVerticalLines(true);
+        jt_Reservas.setGridColor(Color.decode("#D3EFFC"));
+        jt_Reservas.setShowHorizontalLines(false);
+
+        //color de la fila seleccionada y su texto
+        jt_Reservas.setSelectionBackground(new Color(255, 255, 255));
+        jt_Reservas.setSelectionForeground(new Color(0, 0, 0));
+        
+
 
     }
 
     public void tamañoTabla() {
         TableColumnModel columnModel = jt_Reservas.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(370);
+        columnModel.getColumn(0).setPreferredWidth(390);
+     
     }
 
     public void ajustesDeScroll() {
