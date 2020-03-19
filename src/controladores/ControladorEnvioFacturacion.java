@@ -15,18 +15,24 @@ import objetos.objetoEnvioFacturacion;
  *
  * @author KSGAMER
  */
-public class ControladorEnvioFacturacion extends ModeloEnvioFacturacion{
-     public DefaultTableModel tablaEnvioFacturacion(JTextField Buscar) {
+//Se aplica Herencia desde la clase padre ModeloEnvioFacturación
+public class ControladorEnvioFacturacion extends ModeloEnvioFacturacion {
+    //Método que retorna una tabla pasando un parametro para filtrar entre los resultados
+    public DefaultTableModel tablaEnvioFacturacion(JTextField Buscar) {
         return cargarTabla(Buscar.getText());
     }
+
+    //Método que retorna una tabla al que el anterior método usando sobrecarga de operadores
     public DefaultTableModel tablaEnvioFacturacion() {
         return cargarTabla();
     }
-      public DefaultTableModel RangoFechaCobroFacturacion(String fechaCobro,String fechaCobroFinal) {
-        return cargarTabla(fechaCobro,fechaCobroFinal);
+
+    //Método que retorna una tabla pasando los parametros fecha Inicial y fecha Final
+    public DefaultTableModel RangoFechaCobroFacturacion(String fechaCobroInicial, String fechaCobroFinal) {
+        return cargarTabla(fechaCobroInicial, fechaCobroFinal);
     }
-    
-    
+
+    //Método que retorna un arreglo de tipo Objeto Envio Facturación
     public ArrayList<objetoEnvioFacturacion> selectEnvioFacturacion() {
         return selectEnvioFacturaciones();
     }
