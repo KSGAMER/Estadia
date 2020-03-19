@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author KSGAMER
+ * @author Felix
  */
 public class ControladorEmail {
 

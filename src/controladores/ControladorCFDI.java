@@ -14,12 +14,15 @@ import objetos.ObjetoCFDI;
  *
  * @author KSGAMER
  */
+
+//Se aplica Herencia de la clase padre Modelo CFDI
 public class ControladorCFDI extends ModeloCFDI {
-    
+    //Método que retorna una tabla
     public DefaultTableModel tablaCFDI() {
         return cargarTabla();
     }
     
+    //Método que retorna un arreglo de tipo Objeto CFDI
     public ArrayList<ObjetoCFDI> selectCFDI() {
         return selectCFDIs();
     }
