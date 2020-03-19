@@ -54,7 +54,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private String NombreModulo = "Reservaciones";
     //FIN
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
-    Frame Principal;
+    Frame principal;
 //FIN
 
     /**
@@ -593,7 +593,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
             } else {
 
-                cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()));
+                cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Principal.User);
                 for (int i = 0; i < ch.selectHabitacion().size(); i++) {
                     if (ch.selectHabitacion().get(i).getNombre().equals(String.valueOf(cb_Habitacion.getSelectedItem()))) {
 
@@ -671,7 +671,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
             } else {
                
-                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override

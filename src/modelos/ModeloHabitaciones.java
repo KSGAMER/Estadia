@@ -291,7 +291,7 @@ public class ModeloHabitaciones extends BD {
             this.st.executeUpdate();
             //Se cierra la conexión
             conectar().close();
-            DesktopNotify.showDesktopMessage("Exito", "Los datos de la habitación han sido actualizados con éxito.", DesktopNotify.SUCCESS);
+//            DesktopNotify.showDesktopMessage("Exito", "Los datos de la habitación han sido actualizados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar actualizar los datos de la habitación, intentelo nuevamente y asegurese de que todos los campos obligatorios este llenos", DesktopNotify.ERROR);
         }
@@ -319,9 +319,7 @@ public class ModeloHabitaciones extends BD {
             this.st.executeUpdate();
             //Se cierra la conexión
             conectar().close();
-            DesktopNotify.showDesktopMessage("Exito", "Los datos de la habitación han sido actualizados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
-            DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar actualizar los datos de la habitación, intentelo nuevamente y asegurese de que todos los campos obligatorios este llenos", DesktopNotify.ERROR);
         }
     }
 
@@ -336,9 +334,7 @@ public class ModeloHabitaciones extends BD {
             this.st.execute();
             //Se cierra la conexión
             conectar().close();
-            DesktopNotify.showDesktopMessage("Exito", "Los datos de la habitación han sido eliminados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
-            DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar eliminar los datos de la habitación, una habitación previamente utilizada no puede ser eliminada", DesktopNotify.ERROR);
         }
     }
 
