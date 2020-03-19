@@ -14,11 +14,15 @@ import objetos.ObjetoEstatusPermiso;
  *
  * @author KSGAMER
  */
+
+//Se aplica Herencia de la clase Modelo Estatus Permiso
 public class ControladorEstatusPermisos extends ModeloEstatusPermisos{
+    //Método que retorna una tabla
     public DefaultTableModel tablaEstatusPermisos() {
         return cargarTabla();
     }
     
+    //Método que retorna un arreglo de tipo Objeto Estatus Permiso
     public ArrayList<ObjetoEstatusPermiso> selectEstatusPermiso() {
         return selectEstatusPermisos();
     }
