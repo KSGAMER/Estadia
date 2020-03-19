@@ -131,12 +131,12 @@ public class ModeloReservaciones extends BD {
     }
 
     //Método que insertar una nueva reservación
-    protected void insertReservaciones(String nombre, String habitacion, String fechaIngreso, String fechaSalida) {
+    protected void insertReservaciones(String nombre, String habitacion, String fechaIngreso, String fechaSalida, String Usuario) {
         //Se cargan los datos a utilizar
         mh.cargarTabla();
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
-            this.st = conectar().prepareStatement("INSERT INTO Reservacion(Nombre, IdHabitacion, FechaIngreso, FechaSalida) VALUES (?,?,?,?)");
+            this.st = conectar().prepareStatement("INSERT INTO Reservacion(Nombre, IdHabitacion, FechaIngreso, FechaSalida, Username) VALUES (?,?,?,?,?)");
             //Se pasan los parametros a la consulta
             this.st.setString(1, nombre);
             //Se recorre el valor con un for
@@ -149,6 +149,7 @@ public class ModeloReservaciones extends BD {
             }
             this.st.setString(3, fechaIngreso);
             this.st.setString(4, fechaSalida);
+            this.st.setString(5, Usuario);
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión

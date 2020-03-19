@@ -28,8 +28,8 @@ public class ControladorCobros extends ModeloCobros{
         return selectCobros();
     }
     
-    public void insertCobro(int idReservacion, double monto, String tipoPago, String rfc, String correo, String facturacion) {
-        insertCobros(idReservacion, monto, tipoPago, rfc, correo, facturacion);
+    public void insertCobro(int idReservacion, double monto, String tipoPago, String rfc, String correo, String facturacion, String usuario) {
+        insertCobros(idReservacion, monto, tipoPago, rfc, correo, facturacion, usuario);
     }
     
     public void updateCobro(double monto, String tipoPago, String rfc, String correo, String facturacion, int id) {
