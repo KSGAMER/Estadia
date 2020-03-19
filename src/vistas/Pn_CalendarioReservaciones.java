@@ -107,7 +107,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         //color de la fila seleccionada y su texto
         jt_Reservas.setSelectionBackground(new Color(255, 255, 255));
         jt_Reservas.setSelectionForeground(new Color(0, 0, 0));
-        
+
 
 
     }
