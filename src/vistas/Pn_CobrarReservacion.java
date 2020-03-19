@@ -880,10 +880,10 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         try {
             if (validador == 1 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
 
-                cco.insertCobro(Integer.parseInt(lb_FolioReservaciones.getText()), Integer.parseInt(jt_Monto.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), "Con Factura");
+                cco.insertCobro(Integer.parseInt(lb_FolioReservaciones.getText()), Integer.parseInt(jt_Monto.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), "Con Factura",Principal.User);
                 ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
             } else if (validador == 0 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
-                cco.insertCobro(Integer.parseInt(lb_FolioReservaciones.getText()), Integer.parseInt(jt_Monto.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", "Sin Factura");
+                cco.insertCobro(Integer.parseInt(lb_FolioReservaciones.getText()), Integer.parseInt(jt_Monto.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", "Sin Factura",Principal.User);
                 ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
             } else if (cb_TipoPago.getSelectedItem() == "Seleccionar Tipo de Pago") {
                 DesktopNotify.showDesktopMessage("Error", "Seleccione un tipo de pago", DesktopNotify.ERROR);

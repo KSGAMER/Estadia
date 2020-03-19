@@ -17,6 +17,7 @@ import objetos.objetoEnvioFacturacion;
  */
 //Se aplica Herencia desde la clase padre ModeloEnvioFacturación
 public class ControladorEnvioFacturacion extends ModeloEnvioFacturacion {
+
     //Método que retorna una tabla pasando un parametro para filtrar entre los resultados
     public DefaultTableModel tablaEnvioFacturacion(JTextField Buscar) {
         return cargarTabla(Buscar.getText());
