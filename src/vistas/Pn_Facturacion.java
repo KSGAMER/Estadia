@@ -62,14 +62,20 @@ public class Pn_Facturacion extends javax.swing.JPanel {
     DefaultTableModel NewTable = new DefaultTableModel();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     private String correoRemitente, passwordRemitente, correoReceptor, asunto, mensaje;
-    
-     //necesario para dar formato al jdateChooser
+
+    //necesario para dar formato al jdateChooser
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    private boolean flag = false;
+
     /**
      * Creates new form Pn_NuevaCategoria
      */
     public Pn_Facturacion() {
         initComponents();
+        mouseOnClickGananciasFechas();
+        rangoFechas();
+        cargarDatosPorFechaCobro();
         datosIniciales();
         RowHeaderApariencia();
         RowApariencia();
@@ -81,7 +87,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         tamañoTabla();
 
     }
- 
+
     private void tamañoTabla() {
         TableColumnModel columnModel = jt_Facturacion.getColumnModel();
 
@@ -129,31 +135,30 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         //COLORES INICIALES
         lb_errorEmail.setForeground(new Color(255, 255, 255));
         lb_errorTelefono.setForeground(new Color(255, 255, 255));
-        lb_errorAsunto.setForeground(new Color(255,255,255));
+        lb_errorAsunto.setForeground(new Color(255, 255, 255));
     }
-    
 
     private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_email.getText().equals("Email")) && !(jt_email.getText().equals(""))) {
-            lb_errorEmail.setForeground(new Color(255,255,255));
+            lb_errorEmail.setForeground(new Color(255, 255, 255));
         } else {
-              lb_errorEmail.setForeground(Color.RED);
+            lb_errorEmail.setForeground(Color.RED);
             val = false;
         }
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_telefono.getText().equals("Telefono")) && !(jt_telefono.getText().equals(""))) {
-              lb_errorTelefono.setForeground(new Color(255,255,255));
+            lb_errorTelefono.setForeground(new Color(255, 255, 255));
         } else {
-                lb_errorTelefono.setForeground(Color.RED);
+            lb_errorTelefono.setForeground(Color.RED);
             val = false;
         }
-            //si el textfield tiene algo diferente a Vacío aparecerá de color negro
+        //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_Asunto.getText().equals(""))) {
-              lb_errorAsunto.setForeground(new Color(255,255,255));
+            lb_errorAsunto.setForeground(new Color(255, 255, 255));
         } else {
-                lb_errorAsunto.setForeground(Color.RED);
+            lb_errorAsunto.setForeground(Color.RED);
             val = false;
         }
 
@@ -161,9 +166,39 @@ public class Pn_Facturacion extends javax.swing.JPanel {
     }
 
     private void cargarDatosPorFechaCobro() {
-        
-        jt_Facturacion.setModel(cenf.RangoFechaCobroFacturacion(dateFormat.format(jd_fechaCobro.getDate()),dateFormat.format(jd_fechaCobroFinal.getDate())));
+
+        jt_Facturacion.setModel(cenf.RangoFechaCobroFacturacion(dateFormat.format(jd_fechaCobroInicial.getDate()), dateFormat.format(jd_fechaCobroFinal.getDate())));
         jt_t_registros.setText(String.valueOf(cenf.selectEnvioFacturacion().size()));
+    }
+
+    public void mouseOnClickGananciasFechas() {
+        jd_fechaCobroInicial.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flag = true;
+            }
+        });
+        jd_fechaCobroInicial.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flag = true;
+            }
+        });
+        jd_fechaCobroFinal.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flag = true;
+            }
+        });
+        jd_fechaCobroFinal.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                flag = true;
+            }
+        });
+    }
+
+    public void rangoFechas() {
+        Calendar fecha = Calendar.getInstance();
+        jd_fechaCobroFinal.setDate(fecha.getTime());
+        fecha.add(Calendar.DATE, -14);
+        jd_fechaCobroInicial.setDate(fecha.getTime());
     }
 
     /**
@@ -225,7 +260,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jd_fechaCobroFinal = new com.toedter.calendar.JDateChooser();
-        jd_fechaCobro = new com.toedter.calendar.JDateChooser();
+        jd_fechaCobroInicial = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -651,12 +686,12 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         });
         jPanel1.add(jd_fechaCobroFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 190, -1));
 
-        jd_fechaCobro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        jd_fechaCobroInicial.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jd_fechaCobroPropertyChange(evt);
+                jd_fechaCobroInicialPropertyChange(evt);
             }
         });
-        jPanel1.add(jd_fechaCobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 190, -1));
+        jPanel1.add(jd_fechaCobroInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 190, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 60, -1, 40));
@@ -800,12 +835,12 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
                 datosIniciales();
             }
         } catch (AuthenticationFailedException ex) {
-           // Logger.getLogger(Pn_Facturacion.class.getName()).log(Level.SEVERE, null, ex);
-            DesktopNotify.showDesktopMessage("Error", "Error al acceder al correo electronico: " + correoRemitente +""
+            // Logger.getLogger(Pn_Facturacion.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("Error", "Error al acceder al correo electronico: " + correoRemitente + ""
                     + " favor de revisar su conexión a internet", DesktopNotify.ERROR);
 
         } catch (MessagingException ex) {
-          //  Logger.getLogger(Pn_Facturacion.class.getName()).log(Level.SEVERE, null, ex);
+            //  Logger.getLogger(Pn_Facturacion.class.getName()).log(Level.SEVERE, null, ex);
             DesktopNotify.showDesktopMessage("Error", "Error al enviar el mensaje al correo electronico: " + correoReceptor, DesktopNotify.ERROR);
 
         }
@@ -926,15 +961,21 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     }//GEN-LAST:event_jt_FacturacionMouseEntered
 
     private void jd_fechaCobroFinalPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jd_fechaCobroFinalPropertyChange
-      //  cargarDatosPorFechaCobro();
-       // cTabla();
+
+        if (flag == true) {
+            cargarDatosPorFechaCobro();
+        }//
+        // cTabla();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jd_fechaCobroFinalPropertyChange
 
-    private void jd_fechaCobroPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jd_fechaCobroPropertyChange
-     //   cargarDatosPorFechaCobro();
-    }//GEN-LAST:event_jd_fechaCobroPropertyChange
+    private void jd_fechaCobroInicialPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jd_fechaCobroInicialPropertyChange
+        if (flag == true) {
+            cargarDatosPorFechaCobro();
+        }
+        //   
+    }//GEN-LAST:event_jd_fechaCobroInicialPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -972,8 +1013,8 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator4;
-    private com.toedter.calendar.JDateChooser jd_fechaCobro;
     private com.toedter.calendar.JDateChooser jd_fechaCobroFinal;
+    private com.toedter.calendar.JDateChooser jd_fechaCobroInicial;
     private javax.swing.JTextField jt_Asunto;
     private javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_Facturacion;

@@ -51,14 +51,11 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
     Calendar cal = null;
     //necesario para dar formato al jdateChooser
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    //guarda el tamaño real de resrvaciones por mes cuando se compara
-    private int sizeReservas;
-    //IMPORTANTE
-    private int mesBoton;
+ 
     //es el mes que que aparece en pantalla al cambiar con el boton siguiente / anterior
     //sirve para compracion 
     private String mesActual = "";
-    private int mesIngreso;
+  
 
     //NECESARIO
 //busqueda del numero de mes de la reservaciion para comparaciones
@@ -149,69 +146,69 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
             case 1:
                 cal = new GregorianCalendar(ye, Calendar.JANUARY, 1);
                 mesActual = "Enero";
-                mesBoton = 1;
+              
                 break;
             case 2:
                 cal = new GregorianCalendar(ye, Calendar.FEBRUARY, 1);
                 mesActual = "Febrero";
-                mesBoton = 2;
+              
                 break;
             case 3:
                 cal = new GregorianCalendar(ye, Calendar.MARCH, 1);
                 mesActual = "Marzo";
-                mesBoton = 3;
-                break;
+              
+               break;
             case 4:
                 cal = new GregorianCalendar(ye, Calendar.APRIL, 1);
                 mesActual = "Abril";
-                mesBoton = 4;
+                
                 break;
             case 5:
                 cal = new GregorianCalendar(ye, Calendar.MAY, 1);
                 mesActual = "Mayo";
-                mesBoton = 5;
+                
                 break;
             case 6:
                 cal = new GregorianCalendar(ye, Calendar.JUNE, 1);
                 mesActual = "Junio";
-                mesBoton = 6;
+                
                 break;
             case 7:
                 cal = new GregorianCalendar(ye, Calendar.JULY, 1);
                 mesActual = "Julio";
-                mesBoton = 7;
+                
                 break;
             case 8:
                 cal = new GregorianCalendar(ye, Calendar.AUGUST, 1);
                 mesActual = "Agosto";
-                mesBoton = 8;
+              
                 break;
             case 9:
                 cal = new GregorianCalendar(ye, Calendar.SEPTEMBER, 1);
                 mesActual = "Septiembre";
-                mesBoton = 9;
+                
                 break;
             case 10:
 
                 cal = new GregorianCalendar(ye, Calendar.OCTOBER, 1);
                 mesActual = "Octubre";
-                mesBoton = 10;
+                
                 break;
             case 11:
                 cal = new GregorianCalendar(ye, Calendar.NOVEMBER, 1);
                 mesActual = "Noviembre";
-                mesBoton = 11;
+               
                 break;
 
             case 12:
                 cal = new GregorianCalendar(ye, Calendar.DECEMBER, 1);
                 mesActual = "Diciembre";
-                // mesBoton=12;
+               
                 break;
 
         }
 //DATOS DEL MES Y AÑO ACTUALES
-        lb_año.setText(Integer.toString(ye));
+//        lb_año.setText(Integer.toString(ye));
         lb_mes.setText(mesActual);
 
         /*CODIGO QUE CARGA LOS TITULOS DE LA TABLA .. EJEMPLO
@@ -359,10 +356,9 @@ en las siguientes finas*/
         jSeparator1 = new javax.swing.JSeparator();
         Pn_Pisos = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        btnBeforeMont = new javax.swing.JButton();
-        btnNextMonth = new javax.swing.JButton();
-        lb_año = new javax.swing.JLabel();
         lb_mes = new javax.swing.JLabel();
+        btnBeforeMont = new principal.MaterialButton();
+        btnNextMonth = new principal.MaterialButton();
         scroll_Tabla = new javax.swing.JScrollPane();
         jt_Reservas = new javax.swing.JTable();
 
@@ -405,27 +401,43 @@ en las siguientes finas*/
         jLabel2.setText("Check - In ");
         Pn_Pisos.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
-        btnBeforeMont.setText("anterior");
+        lb_mes.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb_mes.setText("mes");
+        Pn_Pisos.add(lb_mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, -1));
+
+        btnBeforeMont.setBackground(new java.awt.Color(40, 180, 99));
+        btnBeforeMont.setForeground(new java.awt.Color(255, 255, 255));
+        btnBeforeMont.setText("< Anterior");
+        btnBeforeMont.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBeforeMont.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btnBeforeMont.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBeforeMontMouseClicked(evt);
+            }
+        });
         btnBeforeMont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBeforeMontActionPerformed(evt);
             }
         });
-        Pn_Pisos.add(btnBeforeMont, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, -1, 30));
+        Pn_Pisos.add(btnBeforeMont, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 6, 100, 40));
 
-        btnNextMonth.setText("siguiente");
+        btnNextMonth.setBackground(new java.awt.Color(40, 180, 99));
+        btnNextMonth.setForeground(new java.awt.Color(255, 255, 255));
+        btnNextMonth.setText("Siguiente >");
+        btnNextMonth.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNextMonth.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btnNextMonth.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNextMonthMouseClicked(evt);
+            }
+        });
         btnNextMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNextMonthActionPerformed(evt);
             }
         });
-        Pn_Pisos.add(btnNextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 10, -1, 30));
-
-        lb_año.setText("año");
-        Pn_Pisos.add(lb_año, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, -1, -1));
-
-        lb_mes.setText("mes");
-        Pn_Pisos.add(lb_mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, -1, -1));
+        Pn_Pisos.add(btnNextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 6, 100, 40));
 
         jPanel1.add(Pn_Pisos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 1000, 50));
 
@@ -463,37 +475,44 @@ en las siguientes finas*/
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBeforeMontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeforeMontActionPerformed
-        m = m - 1;
-        cargarReservas();
-        tamañoTabla();
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBeforeMontActionPerformed
-
-    private void btnNextMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextMonthActionPerformed
-        m = m + 1;
-        cargarReservas();
-        tamañoTabla();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNextMonthActionPerformed
-
     private void jt_ReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ReservasMouseClicked
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_ReservasMouseClicked
 
+    private void btnBeforeMontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBeforeMontMouseClicked
+
+    }//GEN-LAST:event_btnBeforeMontMouseClicked
+
+    private void btnBeforeMontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeforeMontActionPerformed
+
+        m = m - 1;
+        cargarReservas();
+        tamañoTabla();
+                // TODO add your handling code here:
+    }//GEN-LAST:event_btnBeforeMontActionPerformed
+
+    private void btnNextMonthMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNextMonthMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNextMonthMouseClicked
+
+    private void btnNextMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextMonthActionPerformed
+
+        m = m + 1;
+        cargarReservas();
+        tamañoTabla();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNextMonthActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Pn_Pisos;
-    public static javax.swing.JButton btnBeforeMont;
-    public static javax.swing.JButton btnNextMonth;
+    public static principal.MaterialButton btnBeforeMont;
+    public static principal.MaterialButton btnNextMonth;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     public javax.swing.JTable jt_Reservas;
-    public static javax.swing.JLabel lb_año;
     public static javax.swing.JLabel lb_mes;
     private javax.swing.JLabel lb_titulo;
     private javax.swing.JScrollPane scroll_Tabla;
