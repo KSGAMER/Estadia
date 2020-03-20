@@ -547,14 +547,14 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevaCategoria());
             }
         });
-        MenuItem NuevaHabitacion = new MenuItem(subMenus, "Nueva Habitacion", 10, new ActionListener() {
+        MenuItem NuevaHabitacion = new MenuItem(subMenus, "Nueva Habitación", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevaHabitacion());
             }
         });
         //  SUBMENU PARA FACTURACION
-        MenuItem NuevaFactura = new MenuItem(subMenus, "Facturación", 10, new ActionListener() {
+        MenuItem NuevaFactura = new MenuItem(subMenus, "Nueva Factura", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_Facturacion());
@@ -576,7 +576,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoEmpleado());
             }
         });
-         MenuItem ConfiguraciónServidor = new MenuItem(subMenus, "Conexion", 10, new ActionListener() {
+         MenuItem ConfiguraciónServidor = new MenuItem(subMenus, "Conexión", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
@@ -607,7 +607,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
         MenuItem Reservaciones = new MenuItem(iconReservaciones, "Reservaciones", 35, null, NuevaReservacion);
 
-        MenuItem Recepcion = new MenuItem(iconRecepcion, "Recepcion", 35, new ActionListener() {
+        MenuItem Recepcion = new MenuItem(iconRecepcion, "Recepción", 35, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_Recepcion());

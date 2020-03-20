@@ -186,6 +186,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
         jt_Buscar = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -379,6 +380,10 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("VISTA GENERAL DE PISOS");
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Inicio > Hotel > Nuevo Piso");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -386,13 +391,17 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(760, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 520, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addGap(91, 91, 91))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel8))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -598,6 +607,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -489,7 +489,7 @@ en las siguientes finas*/
         });
         Pn_Pisos.add(btnNextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 6, 100, 40));
 
-        jPanel1.add(Pn_Pisos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 1000, 50));
+        jPanel1.add(Pn_Pisos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 990, 50));
 
         jt_Reservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -511,7 +511,7 @@ en las siguientes finas*/
         });
         scroll_Tabla.setViewportView(jt_Reservas);
 
-        jPanel1.add(scroll_Tabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 117, 1000, 490));
+        jPanel1.add(scroll_Tabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 117, 990, 490));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -57,7 +57,14 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame principal;
 //FIN
-
+  //NECESARIO
+//busqueda del numero de mes de la reservaciion para comparaciones
+    String MesdeFechaIngreso, MesdeFechaSalida;
+    int mesIn, mesOut;
+//Busqueda del dia de la reservacion en ese mes para compracion 
+    String diaFechaIngreso, diaFechaSalida;
+    int DayIn, DayOut;
+//FIN DE NECESARIO
     /**
      * Creates new form Pn_Reservaciones1
      */
@@ -70,8 +77,9 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         cr.tablaReservaciones();
         mc.tablaClientes();
         ch.tablaHabitaciones();
+        ccat.tablaCategorias();
         //FIN
-         //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
+        //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
         //FIN
            //APARIENCIA DE LA TABLA
@@ -225,6 +233,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         cb_Habitacion = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -392,6 +401,10 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("VISTA GENERAL DE LAS HABITACIONES RESERVADAS");
 
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setText("Inicio > Reservaciones > Nueva Reservación");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -399,13 +412,17 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(jLabel29)
+                .addGap(77, 77, 77))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel29))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -582,6 +599,30 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
+               /* for (ObjetoHabitacion objetoHabitacion : ch.selectHabitacion()) {
+                    for (ObjetoReservacion objetoReservacion : cr.selectReservacion()) {
+
+//busqueda del numero de mes de la reservaciion para comparaciones
+                        MesdeFechaIngreso = new SimpleDateFormat("MM").format(dateFormat.parse(objetoReservacion.getFechaIngresoCompleta()));
+                        MesdeFechaSalida = new SimpleDateFormat("MM").format(dateFormat.parse(objetoReservacion.getFechaSalidaCompleta()));
+                        mesIn = Integer.parseInt(MesdeFechaIngreso);
+                        mesOut = Integer.parseInt(MesdeFechaSalida);
+//busqueda del numero de dia de la reservacion para comparaciones
+                        diaFechaIngreso = new SimpleDateFormat("dd").format(dateFormat.parse(objetoReservacion.getFechaIngresoCompleta()));
+                        diaFechaSalida = new SimpleDateFormat("dd").format(dateFormat.parse(objetoReservacion.getFechaSalidaCompleta()));
+                        DayIn = Integer.parseInt(diaFechaIngreso);
+                        DayOut = Integer.parseInt(diaFechaSalida);
+                        
+                        if (objetoHabitacion.getNombre().equals(String.valueOf(cb_Habitacion.getSelectedItem()))) {
+                            if(String.valueOf(jd_Ingreso.getDate()).equals(objetoReservacion.getFechaIngresoCompleta())){
+                                 DesktopNotify.showDesktopMessage("Error", "Ya existe una reservacion en esta fecha: "+String.valueOf(jd_Ingreso.getDate())+" para la habitacion :"+String.valueOf(cb_Habitacion.getSelectedItem())
+                                         +" !Favor de usuar una fecha posterior a "+objetoReservacion.getFechaSalidaCompleta(), DesktopNotify.ERROR);
+                            }
+                        }
+                    }                    
+                }
+    */
+            
 
                 cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Principal.User);
                 for (int i = 0; i < ch.selectHabitacion().size(); i++) {
@@ -759,6 +800,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

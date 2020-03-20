@@ -33,8 +33,8 @@ public class ControladorCobros extends ModeloCobros{
     }
     
     //Método que pasa los parametros id de la reservación, monto, tipo de pago, rfc, correo, si requiere facturación y el usuario para agregar un nuevo cobro
-    public void insertCobro(double monto, String tipoPago, String rfc, String correo, String usuario, String Nombre, String FechaIngreso, String FechaSalida,String IdFacturacion) {
-        insertCobros( monto,  tipoPago,  rfc,  correo,  usuario,  Nombre, FechaIngreso,  FechaSalida,  IdFacturacion);
+    public void insertCobro(double monto, String tipoPago, String rfc, String correo, String usuario, String Nombre,String NombreHabitacion, String FechaIngreso, String FechaSalida, String IdFacturacion) {
+        insertCobros( monto,  tipoPago,  rfc,  correo,  usuario,  Nombre, NombreHabitacion,  FechaIngreso,  FechaSalida,  IdFacturacion);
     }
     
    /* //Método que que pasa los parametros monto, el tipo de pago, el rfc, el correo, si requiere facturacion, y el id para actualizar los datos del cobro

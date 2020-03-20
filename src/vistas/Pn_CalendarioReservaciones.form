@@ -118,7 +118,7 @@
         <Container class="javax.swing.JPanel" name="Pn_Pisos">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="60" width="1000" height="50"/>
+              <AbsoluteConstraints x="20" y="60" width="990" height="50"/>
             </Constraint>
           </Constraints>
 
@@ -221,7 +221,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="117" width="1000" height="490"/>
+              <AbsoluteConstraints x="20" y="117" width="990" height="490"/>
             </Constraint>
           </Constraints>
 
