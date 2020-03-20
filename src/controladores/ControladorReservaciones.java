@@ -15,27 +15,34 @@ import objetos.ObjetoReservacion;
  *
  * @author KSGAMER
  */
-public class ControladorReservaciones extends ModeloReservaciones{
-    
-     public DefaultTableModel tablaReservaciones(JTextField texto) {
+//Se aplica Herencia de la clase padre Modelo Reservaciones
+public class ControladorReservaciones extends ModeloReservaciones {
+    //Método que retorna una tabla pasando el parametro a filtrar de los resultados
+    public DefaultTableModel tablaReservaciones(JTextField texto) {
         return cargarTabla(texto.getText());
     }
+
+    //Método que retorna una tabla usando sobrecarga de operadores
     public DefaultTableModel tablaReservaciones() {
         return cargarTabla();
     }
-    
+
+    //Método que retorna un arreglo de tipo Objeto Reservacion
     public ArrayList<ObjetoReservacion> selectReservacion() {
         return selectReservaciones();
     }
-    
+
+    //Método que inserta una nueva reservacion pasando los parametros nombre del cliente, nombre de la habitacion, fecha de ingreso, fecha de salida y el usuario que da de alta la reservacion
     public void insertReservacion(String nombre, String habitacion, String fechaIngreso, String fechaSalida, String usuario) {
         insertReservaciones(nombre, habitacion, fechaIngreso, fechaSalida, usuario);
     }
-    
+
+    //Método que actualiza una reservacion pasando los parametros nombre del cliente, nombre de la habitacion, fecha de ingreso, fecha de salida y el id de la reservacion
     public void updateReservacion(String nombre, String habitacion, String fechaIngreso, String fechaSalida, int id) {
         updateReservaciones(nombre, habitacion, fechaIngreso, fechaSalida, id);
     }
-    
+
+    //Método que elimina una reservacion pasando los parametros id de la reservacion
     public void deleteReservacion(int id) {
         deleteReservaciones(id);
     }

@@ -25,7 +25,7 @@ public class ControladorHilo extends Thread {
                 //Método a ocupar
                 recepciones.actualizarEstatus();
                 //Hacemos que el while tenga un intervalo de 1000 milisegundos entre cada recorrido
-                sleep(1000);
+                sleep(700);
             } catch (InterruptedException ex) {
                 Logger.getLogger(ControladorHilo.class.getName()).log(Level.SEVERE, null, ex);
             }

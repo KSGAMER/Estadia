@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b23e7f07-c91b-4890-8d41-d60e1a8c931a">
-	<property name="ireport.zoom" value="1.1000000000000028"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="FechaFinal" class="java.lang.String">
@@ -10,7 +10,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT h.Nombre, COUNT(h.Nombre) as Reservaciones, SUM(c.Monto) as Ganancias FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, $P{FechaInicial}, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, $P{FechaFinal}, 103) GROUP BY h.Nombre]]>
+		<![CDATA[SELECT h.Nombre, COUNT(h.Nombre) as Reservaciones, SUM(c.Monto) as Ganancias FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, $P{FechaInicial}, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, $P{FechaFinal}, 103) GROUP BY h.Nombre]]>
 	</queryString>
 	<field name="Nombre" class="java.lang.String"/>
 	<field name="Reservaciones" class="java.lang.Integer"/>

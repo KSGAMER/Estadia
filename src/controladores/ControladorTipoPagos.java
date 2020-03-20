@@ -14,12 +14,15 @@ import objetos.ObjetoTipoPago;
  *
  * @author KSGAMER
  */
+
+//Se aplica Herencia de la clase padre Modelo Tipo Pagos
 public class ControladorTipoPagos extends ModeloTipoPagos{
-    
+    //Método que retorna una tabla
     public DefaultTableModel tablaTipoPagos() {
         return cargarTabla();
     }
     
+    //Método que retorna un arreglo de tipo Objeto Tipo Pago
     public ArrayList<ObjetoTipoPago> selectTipoPago() {
         return selectTipoPagos();
     }

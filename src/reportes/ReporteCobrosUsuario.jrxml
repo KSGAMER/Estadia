@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="16e2dbb9-7728-4e5e-b773-779c79fe25c3">
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="usuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT c.Username, CONVERT(DATE, c.FechaCobro, 103) as FechaCobro, SUM(c.Monto) as Cobro, h.Nombre as Habitacion, CONVERT(DATE, c.FechaIngreso, 103) as FechaIngreso, CONVERT(DATE, c.FechaSalida, 103) as FechaSalida, c.Nombre as Cliente FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE c.Username like CONCAT('%', $P{usuario} ,'%') GROUP BY c.Username, CONVERT(DATE, c.FechaCobro, 103), h.Nombre, CONVERT(DATE, c.FechaIngreso, 103), CONVERT(DATE, c.FechaSalida, 103), c.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC]]>
+	</queryString>
+	<field name="Username" class="java.lang.String"/>
+	<field name="FechaCobro" class="java.sql.Date"/>
+	<field name="Cobro" class="java.math.BigDecimal"/>
+	<field name="Habitacion" class="java.lang.String"/>
+	<field name="FechaIngreso" class="java.sql.Date"/>
+	<field name="FechaSalida" class="java.sql.Date"/>
+	<field name="Cliente" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="69" y="22" width="419" height="54" uuid="50f346dd-ae66-4b09-93d8-b711ddfcf51f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Reporte de Hotel Paraíso Inn]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="28" width="419" height="22" uuid="c16670b4-feeb-4bdc-b580-dc7975cc2e11"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Tabla de Cobros por Usuarios]]></text>
+			</staticText>
+			<textField pattern="EEEEEE dd &apos;de&apos; MMMMM &apos;del&apos; yyyy HH:mm:ss aaa">
+				<reportElement x="328" y="10" width="205" height="20" uuid="6a9d3c62-ee21-45ec-aa7d-6203000f4fa3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="69" height="20" uuid="973d3b89-df56-4f8f-b5df-3e86ac62c3e0"/>
+				<text><![CDATA[Username]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="2" width="84" height="20" uuid="93a7d8dd-10ae-4517-84fa-73b53b0929af"/>
+				<text><![CDATA[FechaCobro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="2" width="84" height="20" uuid="8e9cb8b7-b323-41ba-818b-8dc1f5907ae8"/>
+				<text><![CDATA[Cobro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="506" y="2" width="49" height="20" uuid="365dc13e-3b10-403b-9327-9ab7e285db6f"/>
+				<text><![CDATA[Habitacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="2" width="86" height="20" uuid="3c4b614e-6b19-438e-8a8c-6a20d2403d1d"/>
+				<text><![CDATA[FechaIngreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="2" width="83" height="20" uuid="1a6bec03-af92-41ae-9d7f-10f5c201a902"/>
+				<text><![CDATA[FechaSalida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="2" width="100" height="20" uuid="909c0946-68f1-43e0-95a9-d069dd0642a4"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="69" height="20" uuid="3c22f86a-e132-4019-bfa9-3c0227eb0ff5"/>
+				<textFieldExpression><![CDATA[$F{Username}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="155" y="0" width="84" height="20" uuid="8f45a34b-79ee-4a79-841d-84d68a366dc9"/>
+				<textFieldExpression><![CDATA[$F{FechaCobro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="0" width="84" height="20" uuid="b8758b0a-cbc0-4409-bb6b-a6030f03bc1b"/>
+				<textFieldExpression><![CDATA[$F{Cobro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="506" y="0" width="49" height="20" uuid="fb9feeb1-88c2-423a-95a1-e58a9b9af85b"/>
+				<textFieldExpression><![CDATA[$F{Habitacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="0" width="86" height="20" uuid="00186fea-aa16-4ece-b904-c59a91245987"/>
+				<textFieldExpression><![CDATA[$F{FechaIngreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="0" width="83" height="20" uuid="4e64c4c6-b993-4b12-8988-68051fbe2dbe"/>
+				<textFieldExpression><![CDATA[$F{FechaSalida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="406" y="0" width="100" height="20" uuid="30f5902e-3d12-4157-aa4c-a670237630b9"/>
+				<textFieldExpression><![CDATA[$F{Cliente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="219" y="18" width="80" height="20" uuid="6274ec14-46f4-401f-a17c-e278d48b2323"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="299" y="18" width="40" height="20" uuid="3859b620-4816-4445-ba6f-41a8012b8b1c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
