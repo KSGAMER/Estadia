@@ -53,7 +53,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
     }
 
     //Método que carga las habitaciones y pintandolas dependiendo del estado en el que se encuentren
-    public void cargarRecepcion(JPanel contenedor, ComponenteRecepcion componenteRecepcion, Color disponible, Color reservado, Color limpieza, Color estilo, int idPiso, String estatus) {
+    public void cargarRecepcion(JPanel contenedor, Color disponible, Color reservado, Color limpieza, Color estilo, int idPiso, String estatus) {
         //Se remueve el contenido del panel
         contenedor.removeAll();
         //Se recorre las recepciones
