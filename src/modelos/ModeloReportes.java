@@ -376,9 +376,9 @@ public class ModeloReportes extends BD {
                 //Se iteran los resultados
                 while (rs.next()) {
                     //Se agregan los resultados al objeto
-                    fila[0] = rs.getDouble(1);
+                    fila[0] = rs.getString(1);
                     fila[1] = rs.getString(2);
-                    fila[2] = rs.getString(3);
+                    fila[2] = rs.getDouble(3);
                     fila[3] = rs.getString(4);
                     fila[4] = rs.getString(5);
                     fila[5] = rs.getString(6);
