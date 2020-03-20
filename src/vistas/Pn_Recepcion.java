@@ -21,29 +21,33 @@ import objetos.*;
  */
 public class Pn_Recepcion extends javax.swing.JPanel {
 
-    ControladorEstatusHabitaciones ceh = new ControladorEstatusHabitaciones();
-    ControladorPisos cp = new ControladorPisos();
-    ControladorReservaciones crv = new ControladorReservaciones();
-    ComponenteRecepcion p, q;
-    ComponenteMenuSuperior ms;
-   // private int Piso;
+    //Se declaran las clases a utilizar
+    private ControladorEstatusHabitaciones ceh = new ControladorEstatusHabitaciones();
+    private ControladorPisos cp = new ControladorPisos();
+    private ControladorReservaciones crv = new ControladorReservaciones();
+    private ControladorRecepciones cr = new ControladorRecepciones();
+    //Se declaran los componentes a utilizar
+    private ComponenteRecepcion q;
+    private ComponenteMenuSuperior ms;
+    //Se declaran los colores a utilizar para los paneles
     private Color disponible = new Color(40, 180, 99);
     private Color reservado = new Color(255, 153, 0);
     private Color limpieza = new Color(211, 18, 18);
     private Color estilo = new Color(174, 182, 191);
+    //Se declara la variable para identificar los pisos
     private int idPiso = 0;
-    private ControladorRecepciones cr = new ControladorRecepciones();
 
     /**
      * Creates new form pnlHome
      */
     public Pn_Recepcion() {
         initComponents();
+        //Se instancian los datos a utilizar
         crv.tablaReservaciones();
         cr.tablaReservaciones();
-        actualizarEstatus();
         cp.tablaPisos();
         ceh.tablaEstadoHabiaciones();
+        actualizarEstatus();
         actualizacionReservas();
         actualizaMenuPiso();
         cargarStatus();
@@ -63,7 +67,8 @@ public class Pn_Recepcion extends javax.swing.JPanel {
     }
 
     public void actualizacionReservas() {
-        cr.cargarRecepcion(pn_VistaReservaciones, p, disponible, reservado, limpieza, estilo, idPiso, cb_Categoria.getSelectedItem().toString());
+        //Se ejecuta el método para generar los componentes pasando el panel que contendra los componentes, los coloresm el filtrado del piso, la categoria para filtrar, agrega los componentes automaticamente 
+        cr.cargarRecepcion(pn_VistaReservaciones, disponible, reservado, limpieza, estilo, idPiso, cb_Categoria.getSelectedItem().toString());
     }
 
     public void actualizaMenuPiso() {
@@ -299,5 +304,4 @@ public class Pn_Recepcion extends javax.swing.JPanel {
     private javax.swing.JPanel pn_VistaReservaciones;
     // End of variables declaration//GEN-END:variables
 
-    
 }
