@@ -65,6 +65,8 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         cargarStatusEmpleados();
         //FIN
         tamañoTabla();
+        //RECORDATORIO 
+        DesktopNotify.showDesktopMessage("Recordatorio", "El password puede ser de maximo 20 caracteres ", DesktopNotify.TIP);
     }
 
     public void cTabla() {
