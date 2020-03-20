@@ -38,10 +38,12 @@ public class ControladorPisos extends ModeloPisos{
         insertPisos(nombre, observaciones);
     }
     
+    //Método que actualiza un piso pasando el nombre del piso, las observaciones y el id del piso
     public void updatePiso(String nombre, String observaciones, int id) {
         updatePisos(nombre, observaciones, id);
     }
     
+    //Método que elimina un piso pasando el id del piso
     public void deletePiso(int id) {
         deletePisos(id);
     }

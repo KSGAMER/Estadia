@@ -5,6 +5,9 @@
  */
 package controladores;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author KSGAMER
@@ -18,8 +21,14 @@ public class ControladorHilo extends Thread {
     public void run() {
         //Operación para que se repita la funcion establecida dentro
         while (true) {
-            //Método a ocupar
-            recepciones.actualizarEstatus();
+            try {
+                //Método a ocupar
+                recepciones.actualizarEstatus();
+                //Hacemos que el while tenga un intervalo de 1000 milisegundos entre cada recorrido
+                sleep(700);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ControladorHilo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

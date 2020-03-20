@@ -2,12 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6a5a4a6-f236-4aa9-b3a4-b125c1579808">
 	<property name="ireport.zoom" value="1.3310000000000026"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="habitacion" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT CONVERT(DATE, c.FechaCobro, 103) as Fecha, h.Nombre as Habitacion, SUM(Monto) as Ganancia FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE h.Nombre like CONCAT('%', $P{habitacion} ,'%') GROUP BY CONVERT(DATE, c.FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC]]>
+		<![CDATA[SELECT CONVERT(DATE, c.FechaCobro, 103) as Fecha, h.Nombre as Habitacion, SUM(Monto) as Ganancia FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE h.Nombre like CONCAT('%', $P{habitacion} ,'%') GROUP BY CONVERT(DATE, c.FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC]]>
 	</queryString>
 	<field name="Fecha" class="java.sql.Date"/>
 	<field name="Habitacion" class="java.lang.String"/>

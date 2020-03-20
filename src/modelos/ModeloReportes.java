@@ -83,7 +83,7 @@ public class ModeloReportes extends BD {
         Object[] fila = new Object[3];
         try {
             //Se instancia la conexión a base de datos y se pasa la consulta preparada
-            this.st = conectar().prepareStatement("SELECT top 7 SUM(c.Monto) as Total, h.Nombre as Habitación, CONVERT(DATE, c.FechaCobro, 103) as FechaCobro FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion GROUP BY CONVERT(DATE, FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, FechaCobro, 103) DESC");
+            this.st = conectar().prepareStatement("SELECT top 7 SUM(c.Monto) as Total, h.Nombre as Habitación, CONVERT(DATE, c.FechaCobro, 103) as FechaCobro FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion GROUP BY CONVERT(DATE, FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, FechaCobro, 103) DESC");
             //Se ejecuta el Query
             this.rs = st.executeQuery();
             //Se iteran los resultados
@@ -237,7 +237,7 @@ public class ModeloReportes extends BD {
             Object[] fila = new Object[3];
             try {
                 //Se instancia la conexión a la base de datos y se pasa la consulta preparada
-                this.st = conectar().prepareStatement("SELECT h.Nombre, COUNT(h.Nombre) as Reservaciones, SUM(c.Monto) as Ganancias  FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, ?, 103) GROUP BY h.Nombre ");
+                this.st = conectar().prepareStatement("SELECT h.Nombre, COUNT(h.Nombre) as Reservaciones, SUM(c.Monto) as Ganancias  FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, ?, 103) GROUP BY h.Nombre ");
                 //Se pasan los parametros a la consulta
                 this.st.setString(1, fechaInicial);
                 this.st.setString(2, fechaFinal);
@@ -268,7 +268,7 @@ public class ModeloReportes extends BD {
             Object[] fila = new Object[3];
             try {
                 //Se instancia la conexión a base de datos pasando la consulta preparada
-                this.st = conectar().prepareStatement("SELECT SUM(c.Monto) as Ganancias, h.Nombre, COUNT(h.Nombre) as Reservaciones  FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, ?, 103) GROUP BY h.Nombre ");
+                this.st = conectar().prepareStatement("SELECT SUM(c.Monto) as Ganancias, h.Nombre, COUNT(h.Nombre) as Reservaciones  FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE CONVERT(DATE, c.FechaCobro, 103) >= CONVERT(DATE, ?, 103) and CONVERT(DATE, c.FechaCobro, 103) <= CONVERT(DATE, ?, 103) GROUP BY h.Nombre ");
                 //Se pasan los parametros
                 this.st.setString(1, fechaInicial);
                 this.st.setString(2, fechaFinal);
@@ -305,7 +305,7 @@ public class ModeloReportes extends BD {
             Object[] fila = new Object[3];
             try {
                 //Se instancia la conexión a base de datos pasando la consulta preparada
-                this.st = conectar().prepareStatement("SELECT h.Nombre as Habitacion, CONVERT(DATE, c.FechaCobro, 103) as Fecha, SUM(Monto) as Ganancia FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE h.Nombre like CONCAT('%', ? ,'%') GROUP BY CONVERT(DATE, c.FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC");
+                this.st = conectar().prepareStatement("SELECT h.Nombre as Habitacion, CONVERT(DATE, c.FechaCobro, 103) as Fecha, SUM(Monto) as Ganancia FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE h.Nombre like CONCAT('%', ? ,'%') GROUP BY CONVERT(DATE, c.FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC");
                 //Se pasan los parametros a la consulta
                 this.st.setString(1, habitacion);
                 //Se ejecuta el Query
@@ -335,7 +335,7 @@ public class ModeloReportes extends BD {
             Object[] fila = new Object[3];
             try {
                 //Se instancia la conexión a base de datos pasando la consulta preparada
-                this.st = conectar().prepareStatement("SELECT SUM(Monto) as Ganancia, h.Nombre as Habitacion, CONVERT(DATE, c.FechaCobro, 103) as Fecha FROM Cobro c INNER JOIN Reservacion r on r.IdReservacion = c.IdReservacion INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion WHERE h.Nombre like CONCAT('%', ? ,'%') GROUP BY CONVERT(DATE, c.FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC");
+                this.st = conectar().prepareStatement("SELECT SUM(Monto) as Ganancia, h.Nombre as Habitacion, CONVERT(DATE, c.FechaCobro, 103) as Fecha FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE h.Nombre like CONCAT('%', ? ,'%') GROUP BY CONVERT(DATE, c.FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC");
                 //Se pasan los parametros a la consulta
                 this.st.setString(1, habitacion);
                 //Se iteran los resultados
@@ -357,6 +357,42 @@ public class ModeloReportes extends BD {
             //Se retorna la tabla
             return tb;
         }
+    }
+    
+    protected DefaultTableModel cobroUsuario(String usuario) {
+        //Se declara la tabla pasando las columnas
+            String[] titulos = {"Usuario", "Fecha Cobro", "Cobro", "Habitación", "Fecha Ingreso", "Fecha Salida", "Cliente"};
+            //Se declara un objeto que actuara como la fila de la tabla
+            DefaultTableModel tb = new DefaultTableModel(null, titulos);
+            //Se declara un objeto que actuara como la fila de la tabla
+            Object[] fila = new Object[7];
+            try {
+                //Se instancia la conexión a base de datos pasando la consulta preparada
+                this.st = conectar().prepareStatement("SELECT c.Username, CONVERT(DATE, c.FechaCobro, 103) as FechaCobro, SUM(c.Monto) as Cobro, h.Nombre as Habitacion, CONVERT(DATE, c.FechaIngreso, 103) as FechaIngreso, CONVERT(DATE, c.FechaSalida, 103) as FechaSalida, c.Nombre as Cliente FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE c.Username like CONCAT('%', ? ,'%') GROUP BY c.Username, CONVERT(DATE, c.FechaCobro, 103), h.Nombre, CONVERT(DATE, c.FechaIngreso, 103), CONVERT(DATE, c.FechaSalida, 103), c.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC");
+                //Se pasan los parametros a la consulta
+                this.st.setString(1, usuario);
+                //Se iteran los resultados
+                this.rs = st.executeQuery();
+                //Se iteran los resultados
+                while (rs.next()) {
+                    //Se agregan los resultados al objeto
+                    fila[0] = rs.getDouble(1);
+                    fila[1] = rs.getString(2);
+                    fila[2] = rs.getString(3);
+                    fila[3] = rs.getString(4);
+                    fila[4] = rs.getString(5);
+                    fila[5] = rs.getString(6);
+                    fila[6] = rs.getString(7);
+                    //Se agrega el objeto a la tabla
+                    tb.addRow(fila);
+                }
+                //Se cierra la conexión
+                conectar().close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //Se retorna la tabla
+            return tb;
     }
 
     //Método para generar reportes con JasperReport

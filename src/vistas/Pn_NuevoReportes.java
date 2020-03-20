@@ -78,13 +78,19 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     }
 
     public void indiceFacturacion() {
-        int total = 0;
-        for (int i = 0; i < reportes.facturacionIndice().getRowCount(); i++) {
-            total = total + Integer.parseInt(reportes.facturacionIndice().getValueAt(i, 1).toString());
+        if (reportes.facturacionIndice().getRowCount() == 0) {
+            lbTotalIndiceFacturacion.setText("0");
+            lbConFacturacion.setText("0");
+            lbSinFacturacion.setText("0");
+        } else {
+            int total = 0;
+            for (int i = 0; i < reportes.facturacionIndice().getRowCount(); i++) {
+                total = total + Integer.parseInt(reportes.facturacionIndice().getValueAt(i, 1).toString());
+            }
+            lbTotalIndiceFacturacion.setText(String.valueOf(total));
+            lbConFacturacion.setText(reportes.facturacionIndice().getValueAt(0, 1).toString());
+            lbSinFacturacion.setText(reportes.facturacionIndice().getValueAt(1, 1).toString());
         }
-        lbTotalIndiceFacturacion.setText(String.valueOf(total));
-        lbConFacturacion.setText(reportes.facturacionIndice().getValueAt(0, 1).toString());
-        lbSinFacturacion.setText(reportes.facturacionIndice().getValueAt(1, 1).toString());
         contenedorIndiceFacturacion.removeAll();
         contenedorIndiceFacturacion.add(new ComponenteGrafica().componenteGrafica("Anillo", reportes.facturacionIndice(), "", "", 300, 196));
         contenedorIndiceFacturacion.setOpaque(false);
@@ -126,32 +132,51 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     }
 
     public void porcentajeGanancias() {
-        lbGananciaHoy.setText("$" + Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) + "0");
-        double porcentaje = Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeGanancias().getValueAt(1, 1).toString());
-        lbPorcentajeGanancias.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
-        if (porcentaje >= 100) {
-            lbPorcentajeGanancias.setForeground(new Color(0, 191, 95));
-            lbPorcentajeGanancias.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
+        if (reportes.porcentajeGanancias().getRowCount() == 0) {
+            lbGananciaHoy.setText("$" + 0.00);
+            lbPorcentajeGanancias.setText("0%");
+            lbPorcentajeGanancias.setForeground(new Color(153, 153, 153));
+            lbPorcentajeGanancias.setIcon(new ImageIcon());
         } else {
-            lbPorcentajeGanancias.setForeground(new Color(229, 16, 16));
-            lbPorcentajeGanancias.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186411-16.png")));
+            lbGananciaHoy.setText("$" + Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) + "0");
+            double porcentaje = Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeGanancias().getValueAt(1, 1).toString());
+            lbPorcentajeGanancias.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
+            if (porcentaje >= 100) {
+                lbPorcentajeGanancias.setForeground(new Color(0, 191, 95));
+                lbPorcentajeGanancias.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
+            } else {
+                lbPorcentajeGanancias.setForeground(new Color(229, 16, 16));
+                lbPorcentajeGanancias.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186411-16.png")));
+            }
         }
     }
 
     public void porcentajeReservacion() {
-        lbReservacionesHoy.setText(String.valueOf(Integer.parseInt(reportes.porcentajeReservacion().getValueAt(0, 1).toString())));
-        double porcentaje = Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeReservacion().getValueAt(1, 1).toString());
-        lbPorcentajeReservaciones.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
-        if (porcentaje >= 100) {
-            lbPorcentajeReservaciones.setForeground(new Color(0, 191, 95));
-            lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
+        if (reportes.porcentajeReservacion().getRowCount() == 0) {
+            lbReservacionesHoy.setText("0");
+            lbPorcentajeReservaciones.setText("0%");
+            lbPorcentajeGanancias.setForeground(new Color(153, 153, 153));
+            lbPorcentajeReservaciones.setIcon(new ImageIcon());
         } else {
-            lbPorcentajeReservaciones.setForeground(new Color(0, 191, 95));
-            lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
+            lbReservacionesHoy.setText(String.valueOf(Integer.parseInt(reportes.porcentajeReservacion().getValueAt(0, 1).toString())));
+            double porcentaje = Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeReservacion().getValueAt(1, 1).toString());
+            lbPorcentajeReservaciones.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
+            if (porcentaje >= 100) {
+                lbPorcentajeReservaciones.setForeground(new Color(0, 191, 95));
+                lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
+            } else {
+                lbPorcentajeReservaciones.setForeground(new Color(0, 191, 95));
+                lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
+            }
         }
     }
 
+    public void cobrosUsuarios() {
+        tbCobrosUsuarios.setModel(reportes.cobroPorUsuarios(txtBuscarUsuario.getText()));
+    }
+    
     public void estadisticas() {
+        cobrosUsuarios();
         gananciasHabitacion();
         gananciasFechas();
         porcentajeReservacion();
@@ -265,6 +290,12 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         tbGananciasHabitacion = new javax.swing.JTable();
         materialButton3 = new principal.MaterialButton();
         materialButton4 = new principal.MaterialButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbCobrosUsuarios = new javax.swing.JTable();
+        txtBuscarUsuario = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        btnCobroUsuarioExcel = new principal.MaterialButton();
+        btnCobroUsuarioPDF = new principal.MaterialButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lb_Id = new javax.swing.JLabel();
@@ -594,11 +625,11 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
 
         ScrollReportes.setBackground(new java.awt.Color(204, 204, 204));
         ScrollReportes.setBorder(null);
-        ScrollReportes.setPreferredSize(new java.awt.Dimension(1090, 710));
+        ScrollReportes.setPreferredSize(new java.awt.Dimension(1090, 2500));
 
         jPanel5.setBackground(new java.awt.Color(245, 245, 245));
-        jPanel5.setMaximumSize(new java.awt.Dimension(1090, 900));
-        jPanel5.setPreferredSize(new java.awt.Dimension(1090, 900));
+        jPanel5.setMaximumSize(new java.awt.Dimension(1090, 1300));
+        jPanel5.setPreferredSize(new java.awt.Dimension(1090, 1300));
         jPanel5.setLayout(null);
 
         JPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -770,6 +801,11 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jPanel5.add(JPanel7);
         JPanel7.setBounds(10, 380, 450, 380);
 
+        tbGananciasHabitacion = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         tbGananciasHabitacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -782,6 +818,8 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             }
         ));
         tbGananciasHabitacion.setPreferredSize(new java.awt.Dimension(300, 300));
+        tbGananciasHabitacion.getTableHeader().setResizingAllowed(false);
+        tbGananciasHabitacion.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbGananciasHabitacion);
 
         jPanel5.add(jScrollPane2);
@@ -810,6 +848,67 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         });
         jPanel5.add(materialButton4);
         materialButton4.setBounds(660, 720, 160, 40);
+
+        tbCobrosUsuarios = new javax.swing.JTable() {
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
+        tbCobrosUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbCobrosUsuarios.getTableHeader().setResizingAllowed(false);
+        tbCobrosUsuarios.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tbCobrosUsuarios);
+
+        jPanel5.add(jScrollPane3);
+        jScrollPane3.setBounds(10, 820, 980, 350);
+
+        txtBuscarUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtBuscarUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarUsuarioKeyReleased(evt);
+            }
+        });
+        jPanel5.add(txtBuscarUsuario);
+        txtBuscarUsuario.setBounds(90, 790, 270, 20);
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setText("Buscar:");
+        jPanel5.add(jLabel28);
+        jLabel28.setBounds(20, 790, 50, 20);
+
+        btnCobroUsuarioExcel.setBackground(new java.awt.Color(0, 153, 51));
+        btnCobroUsuarioExcel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCobroUsuarioExcel.setText("Exportar A Excel");
+        btnCobroUsuarioExcel.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btnCobroUsuarioExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCobroUsuarioExcelActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnCobroUsuarioExcel);
+        btnCobroUsuarioExcel.setBounds(10, 1180, 160, 40);
+
+        btnCobroUsuarioPDF.setBackground(new java.awt.Color(204, 0, 0));
+        btnCobroUsuarioPDF.setForeground(new java.awt.Color(255, 255, 255));
+        btnCobroUsuarioPDF.setText("Exportar A PDF");
+        btnCobroUsuarioPDF.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btnCobroUsuarioPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCobroUsuarioPDFActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnCobroUsuarioPDF);
+        btnCobroUsuarioPDF.setBounds(180, 1180, 160, 40);
 
         ScrollReportes.setViewportView(jPanel5);
 
@@ -892,13 +991,27 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
 
     private void materialButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton4ActionPerformed
         HashMap parametros = new HashMap();
-        if(cbHabitacion.getSelectedItem().toString().equals("Todas las habitaciones")) {
+        if (cbHabitacion.getSelectedItem().toString().equals("Todas las habitaciones")) {
             parametros.put("habitacion", "");
         } else {
             parametros.put("habitacion", cbHabitacion.getSelectedItem().toString());
         }
         reportes.reporteGenerar("ReporteGananciasTotalesHabitaciones", parametros);
     }//GEN-LAST:event_materialButton4ActionPerformed
+
+    private void txtBuscarUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarUsuarioKeyReleased
+        cobrosUsuarios();
+    }//GEN-LAST:event_txtBuscarUsuarioKeyReleased
+
+    private void btnCobroUsuarioExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobroUsuarioExcelActionPerformed
+        reportes.exportExcel(tbCobrosUsuarios);
+    }//GEN-LAST:event_btnCobroUsuarioExcelActionPerformed
+
+    private void btnCobroUsuarioPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobroUsuarioPDFActionPerformed
+        HashMap parametros = new HashMap();
+        parametros.put("usuario", txtBuscarUsuario.getText());
+        reportes.reporteGenerar("ReporteCobrosUsuario", parametros);
+    }//GEN-LAST:event_btnCobroUsuarioPDFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -912,6 +1025,8 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     private javax.swing.JPanel PorcentajeReservaciones;
     private javax.swing.JScrollPane ScrollEstadisticas;
     private javax.swing.JScrollPane ScrollReportes;
+    private principal.MaterialButton btnCobroUsuarioExcel;
+    private principal.MaterialButton btnCobroUsuarioPDF;
     private com.toedter.calendar.JDateChooser cFinalGananciasFechas;
     private com.toedter.calendar.JDateChooser cInicialGananciasFechas;
     private javax.swing.JComboBox<String> cbHabitacion;
@@ -942,6 +1057,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -955,6 +1071,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbConFacturacion;
     private javax.swing.JLabel lbGananciaHoy;
@@ -974,7 +1091,9 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     private principal.MaterialButton materialButton2;
     private principal.MaterialButton materialButton3;
     private principal.MaterialButton materialButton4;
+    private javax.swing.JTable tbCobrosUsuarios;
     private javax.swing.JTable tbGananciasFechas;
     private javax.swing.JTable tbGananciasHabitacion;
+    private javax.swing.JTextField txtBuscarUsuario;
     // End of variables declaration//GEN-END:variables
 }
