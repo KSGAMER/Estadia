@@ -40,6 +40,8 @@ public class ModeloCobros extends BD {
         mr.cargarTabla();
         mtp.cargarTabla();
         mf.cargarTabla();
+        mh.cargarTabla();
+        mcat.cargarTabla();
         //Se agregan los titulos de la tabla
         String[] titulos = {"#", "Monto", "Tipo Pago", "Nombre", "RFC", "Correo", "Fecha Cobro", "Facturación"};
         //Se crea una variable de tipo tabla pasando los titulos de la columna
@@ -104,24 +106,27 @@ public class ModeloCobros extends BD {
     }
 
     //Método que inserta un cobro a la tabla
-    protected void insertCobros(double monto, String tipoPago, String rfc, String correo, String usuario, String Nombre, String FechaIngreso, String FechaSalida, String IdFacturacion) {
+    protected void insertCobros(double monto, String tipoPago, String rfc, String correo, String usuario, String Nombre, String NombreHabitacion, String FechaIngreso, String FechaSalida, String IdFacturacion) {
         //Se instancian los resultados a utilizar para reemplazarlos en la consulta
         mtp.cargarTabla();
         mf.cargarTabla();
+        mh.cargarTabla();
+        mcat.cargarTabla();
         try {
             //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
             this.st = conectar().prepareStatement("INSERT INTO Cobro ("
-                    + "Monto, "
+                    + "Monto,"
                     + "IdTipoPago,"
-                    + "RFC, "
-                    + "Correo, "
+                    + "RFC,"
+                    + "Correo,"
                     + "FechaCobro,"
                     + "Username,"
-                    + "Nombre,"                    
+                    + "Nombre,"
+                    + "IdHabitacion,"
                     + "FechaIngreso,"
                     + "FechaSalida,"
                     + "IdFacturacion)"
-                    + " VALUES (?,?,?,?, convert(varchar, getdate(), 103) ,?), ?,?,?,?,?");
+                    + " VALUES (?,?,?,?, convert(varchar, getdate(), 103),?,?,?,?,?,?)");
             this.st.setDouble(1, monto);
             //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
             for (int i = 0; i < mtp.selectTipoPagos().size(); i++) {
@@ -133,18 +138,20 @@ public class ModeloCobros extends BD {
             }
             this.st.setString(3, rfc);
             this.st.setString(4, correo);
-
-            this.st.setString(6, usuario);
-               //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
+            this.st.setString(5, usuario);
+            this.st.setString(6, Nombre);
+            //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
+         
             for (int i = 0; i < mh.selectHabitaciones().size(); i++) {
-
                 //Si el Nombre es igual al Nombre de la clase previamente cargada se prosigue
-                if (Nombre.equals(mh.selectHabitaciones().get(i).getNombre())) {
+                System.out.println(mh.selectHabitaciones().get(i).getNombre());
+                if (NombreHabitacion.equals(mh.selectHabitaciones().get(i).getNombre())) {
                     //Se extrae el resultado y se remplaza por el ID
+                    System.out.println(mh.selectHabitaciones().get(i).getNombre());
                     this.st.setInt(7, mh.selectHabitaciones().get(i).getIdHabitacion());
                 }
             }
-       
+
             this.st.setString(8, FechaIngreso);
             this.st.setString(9, FechaSalida);
 //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
