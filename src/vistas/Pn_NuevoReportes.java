@@ -15,6 +15,7 @@ import objetos.ObjetoHabitacion;
  * @author KSGAMER
  */
 public class Pn_NuevoReportes extends javax.swing.JPanel {
+
     //Se declaran las clases a utilizar
     private ControladorReportes reportes = new ControladorReportes();
     private ControladorHabitaciones habitaciones = new ControladorHabitaciones();
@@ -135,7 +136,11 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             lbTotalIndiceFacturacion.setText(String.valueOf(total));
             //Se extrae la información de la tabla y se asigna al label
             lbConFacturacion.setText(reportes.facturacionIndice().getValueAt(0, 1).toString());
-            lbSinFacturacion.setText(reportes.facturacionIndice().getValueAt(1, 1).toString());
+            if(reportes.facturacionIndice().getRowCount() == 1) {
+                lbSinFacturacion.setText("0");
+            } else {
+                lbSinFacturacion.setText(reportes.facturacionIndice().getValueAt(1, 1).toString());
+            }
         }
         //Se remueven todos los elementos del panel contenedorIndiceFacturacion
         contenedorIndiceFacturacion.removeAll();
@@ -221,7 +226,12 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             //Se extrae el valor de la tabla y se asigna al label
             lbGananciaHoy.setText("$" + Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) + "0");
             //Se declara una variable que actuara como el porcentaje extrayendo la información de la tabla
-            double porcentaje = Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeGanancias().getValueAt(1, 1).toString());
+            double porcentaje = 0;
+            if (reportes.porcentajeGanancias().getRowCount() == 1) {
+                porcentaje = Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString());
+            } else {
+                 porcentaje = Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeGanancias().getValueAt(1, 1).toString());
+            }
             //Se asigna el valor del porcentaje al label
             lbPorcentajeGanancias.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
             //Si el porcentaje es mayor a 100 entra en el if
@@ -257,7 +267,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             //Se declara una variable que actuara como el porcentaje
             double porcentaje = Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeReservacion().getValueAt(1, 1).toString());
             //Se asigna el porcentaje al label
-            lbPorcentajeReservaciones.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
+            lbPorcentajeReservaciones.setText(String.valueOf(porcentaje) + "%");
             //Si el porcentaje es mayor a 100 entra en el if
             if (porcentaje >= 100) {
                 //Se cambia el color de la letra por el siguiente
@@ -278,7 +288,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         //Se asigna el modelo de la tabla extraido del controlador a la tabla tbCobrosUsuarios pasando el parametro a filtrar
         tbCobrosUsuarios.setModel(reportes.cobroPorUsuarios(txtBuscarUsuario.getText()));
     }
-    
+
     //Método que inicializa las graficas, porcentajes y tablas
     public void estadisticas() {
         cobrosUsuarios();
@@ -1097,7 +1107,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             gananciasFechas();
         }
     }//GEN-LAST:event_cFinalGananciasFechasPropertyChange
-    
+
     private void materialButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton2ActionPerformed
         //Se ejecuta el método de exportar a Excel pasando la tabla
         reportes.exportExcel(tbGananciasFechas);
