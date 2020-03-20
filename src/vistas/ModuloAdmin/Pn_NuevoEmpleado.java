@@ -42,6 +42,9 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
   //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
+    private int limitePass=20;
+    
+    
     /**
      * Creates new form NuevoEmpleado1
      */
@@ -523,6 +526,11 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
                 jt_passwordFocusLost(evt);
             }
         });
+        jt_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jt_passwordKeyTyped(evt);
+            }
+        });
         jPanel1.add(jt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 170, -1));
 
         jch_mostrar.setBackground(new java.awt.Color(84, 110, 122));
@@ -836,6 +844,15 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         } catch (Exception e) {
       }        // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelar2ActionPerformed
+
+    private void jt_passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_passwordKeyTyped
+       //compara tamaño
+        if (jt_password.getText().length() == limitePass) {
+            evt.consume();
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_passwordKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

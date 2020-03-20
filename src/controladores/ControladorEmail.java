@@ -20,6 +20,8 @@ import org.json.simple.parser.ParseException;
 /**
  *
  * @author Felix
+ * clase / controlador que extraer los datos necesarios del correo que enviar los datos de facturacion 
+ * su contraseña y el correo del receptor, la persona encargada de realizar las facturas
  */
 public class ControladorEmail {
 

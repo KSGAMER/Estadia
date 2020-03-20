@@ -38,6 +38,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
+     private int limiteRFC = 13;
     /**
      * Creates new form pnlHome
      */
@@ -684,6 +685,9 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
     private void jt_rfcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_rfcKeyTyped
         ce.typedCharsAndDigits(evt, jt_rfc);
+          if (jt_rfc.getText().length() == limiteRFC) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jt_rfcKeyTyped
 
     private void jt_rfcMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_rfcMouseClicked

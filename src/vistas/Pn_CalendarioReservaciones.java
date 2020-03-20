@@ -107,6 +107,9 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         jt_Reservas.setGridColor(Color.decode("#D3EFFC"));
         jt_Reservas.setShowHorizontalLines(false);
 
+      
+
+
     }
 
     public void tamañoTabla() {
@@ -114,7 +117,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         //evita la seleccion de las filas en la tabla, SOLO ES PARA VISUALIZAR, NO NECESITA ACCION ALGUNA
         jt_Reservas.setEnabled(false);
         columnModel.getColumn(0).setPreferredWidth(390);
-   
+     
     }
 
     public void ajustesDeScroll() {
@@ -339,7 +342,12 @@ en las siguientes finas*/
         jt_Reservas.setModel(modelo);
         jt_Reservas.getColumnModel().getColumn(0).setPreferredWidth(200);
         
-       
+        //necesario para centrar los valores en un jtabla, especificamente en una columan
+        //se puede hacer un for con el tamaño total en columnas de la tabla , para hacer dicho cambio en todos los valores
+        //de esa tabla
+        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+        tcr.setHorizontalAlignment(SwingConstants.CENTER);
+        jt_Reservas.getColumnModel().getColumn(0).setCellRenderer(tcr);
 
    
         //SI EL MES ACTUAL ES IGUAL AL MES DE LA APLICACION , 
@@ -363,6 +371,7 @@ en las siguientes finas*/
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         lb_titulo = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         Pn_Pisos = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -408,6 +417,10 @@ en las siguientes finas*/
         lb_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lb_titulo.setText("CALEDARIO DE RESERVACIONES");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Inicio > Calendario de Reservaciones");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -415,13 +428,17 @@ en las siguientes finas*/
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lb_titulo)
-                .addContainerGap(685, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 409, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(78, 78, 78))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lb_titulo)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(lb_titulo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -434,13 +451,13 @@ en las siguientes finas*/
         jLabel2.setText("Check - In ");
         Pn_Pisos.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
-        lb_mes.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb_mes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lb_mes.setText("mes");
-        Pn_Pisos.add(lb_mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, -1));
+        Pn_Pisos.add(lb_mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, 30));
 
         btnBeforeMont.setBackground(new java.awt.Color(40, 180, 99));
         btnBeforeMont.setForeground(new java.awt.Color(255, 255, 255));
-        btnBeforeMont.setText("< Anterior");
+        btnBeforeMont.setText("<");
         btnBeforeMont.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBeforeMont.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         btnBeforeMont.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -457,7 +474,7 @@ en las siguientes finas*/
 
         btnNextMonth.setBackground(new java.awt.Color(40, 180, 99));
         btnNextMonth.setForeground(new java.awt.Color(255, 255, 255));
-        btnNextMonth.setText("Siguiente >");
+        btnNextMonth.setText(">");
         btnNextMonth.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNextMonth.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         btnNextMonth.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -542,6 +559,7 @@ en las siguientes finas*/
     public static principal.MaterialButton btnBeforeMont;
     public static principal.MaterialButton btnNextMonth;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;

@@ -18,7 +18,6 @@ import objetos.ObjetoCobro;
  *
  * @author KSGAMER
  */
-
 //Se aplica Herencia haciendo que la clase Modelo Cobros sea hijo de BD para heredar los métodos antes realizados
 public class ModeloCobros extends BD {
 
@@ -32,68 +31,8 @@ public class ModeloCobros extends BD {
     private ModeloReservaciones mr = new ModeloReservaciones();
     private ModeloTipoPagos mtp = new ModeloTipoPagos();
     private ModeloFacturaciones mf = new ModeloFacturaciones();
-
-    //Se declara un método que retorna una tabla con pase de parametros y usando sobrecarga de operadores
-    protected DefaultTableModel cargarTabla(String buscar) {
-        //Se instancian los resultados a utilizar para reemplazarlos en la consulta
-        mtp.cargarTabla();
-        mf.cargarTabla();
-        //Se agregan los titulos de la tabla
-        String[] titulos = {"#", "Monto", "Tipo Pago", "Nombre", "RFC", "Correo", "Fecha Cobro", "Facturación"};
-        //Se crea una variable de tipo tabla pasando los titulos de la columna
-        DefaultTableModel tb = new DefaultTableModel(null, titulos);
-        //Se declara un objeto que actuara como la fila de la tabla
-        Object[] fila = new Object[8];
-
-        try {
-            //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
-            this.st = conectar().prepareStatement("SELECT C.IdReservacion, C.Monto, C.IdTipoPago, R.Nombre, C.RFC, C.Correo, C.FechaCobro, C.IdFacturacion FROM Cobro C INNER JOIN Reservacion R on C.IdReservacion = R.IdReservacion WHERE C.Monto like CONCAT('%', ? ,'%') or C.RFC like CONCAT('%', ? ,'%') or C.FechaCobro like CONCAT('%', ? ,'%') or R.Nombre like CONCAT('%', ? ,'%')");
-            //Se pasan los parametros a la consulta
-            this.st.setString(1, buscar);
-            this.st.setString(2, buscar);
-            this.st.setString(3, buscar);
-            this.st.setString(4, buscar);
-            //Se ejecuta el Query
-            this.rs = st.executeQuery();
-
-            //Se iteran los resultados obtenidos de la consulta preparada
-            while (this.rs.next()) {
-                //Se agregan los resultados al objeto
-                fila[0] = rs.getInt("C.IdReservacion");
-                fila[1] = rs.getInt("C.Monto");
-                //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
-                for (int i = 0; i < mtp.selectTipoPagos().size(); i++) {
-                    //Si el Id es igual al Id de la clase previamente cargada se prosigue
-                    if (rs.getInt("C.IdTipoPago") == mtp.selectTipoPagos().get(i).getIdTipoPago()) {
-                        //Se extrae el resultado y se remplaza por el nombre
-                        fila[2] = mtp.selectTipoPagos().get(i).getNombre();
-                    }
-                }
-                fila[3] = rs.getString("R.Nombre");
-                fila[4] = rs.getString("C.RFC");
-                fila[5] = rs.getString("C.Correo");
-                fila[6] = rs.getString("C.FechaCobro");
-                //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
-                for (int i = 0; i < mf.selectFacturaciones().size(); i++) {
-                    //Si el Id es igual al Id de la clase previamente cargada se prosigue
-                    if (rs.getInt("C.IdFacturacion") == mf.selectFacturaciones().get(i).getIdFacturacion()) {
-                        //Se extrae el resultado y se remplaza por el nombre
-                        fila[7] = mf.selectFacturaciones().get(i).getNombre();
-                    }
-                }
-                //Se agrega el objeto fila a la tabla
-                tb.addRow(fila);
-                //Se agrega el resultado al arreglo
-                this.listPay.add(new ObjetoCobro(rs.getInt("C.IdReservacion"), rs.getInt("C.Monto"), rs.getInt("C.IdTipoPago"), rs.getString("C.RFC"), rs.getString("C.Correo"), rs.getString("C.FechaCobro"), rs.getInt("C.IdFacturacion")));
-            }
-            //Se cierra la conexión
-            conectar().close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //Se retorna la tabla
-        return tb;
-    }
+    private ModeloHabitaciones mh = new ModeloHabitaciones();
+    private ModeloCategorias mcat = new ModeloCategorias();
 
     //Se declara un método que retorna una tabla usando sobrecarga de operadores
     protected DefaultTableModel cargarTabla() {
@@ -165,53 +104,24 @@ public class ModeloCobros extends BD {
     }
 
     //Método que inserta un cobro a la tabla
-    protected void insertCobros(int idReservacion, double monto, String tipoPago, String rfc, String correo, String facturacion, String usuario) {
+    protected void insertCobros(double monto, String tipoPago, String rfc, String correo, String usuario, String Nombre, String FechaIngreso, String FechaSalida, String IdFacturacion) {
         //Se instancian los resultados a utilizar para reemplazarlos en la consulta
         mtp.cargarTabla();
         mf.cargarTabla();
         try {
             //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
-            this.st = conectar().prepareStatement("INSERT INTO Cobro (IdReservacion, Monto, IdTipoPago, RFC, Correo, FechaCobro, IdFacturacion, Username) VALUES (?,?,?,?,?, convert(varchar, getdate(), 103) ,?), ?");
-            //Se pasan los parametros a la consulta
-            this.st.setInt(1, idReservacion);
-            this.st.setDouble(2, monto);
-            //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
-            for (int i = 0; i < mtp.selectTipoPagos().size(); i++) {
-                //Si el Nombre es igual al Nombre de la clase previamente cargada se prosigue
-                if (tipoPago.equals(mtp.selectTipoPagos().get(i).getNombre())) {
-                    //Se extrae el resultado y se remplaza por el ID
-                    this.st.setInt(3, mtp.selectTipoPagos().get(i).getIdTipoPago());
-                }
-            }
-            this.st.setString(4, rfc);
-            this.st.setString(5, correo);
-            //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
-            for (int i = 0; i < mf.selectFacturaciones().size(); i++) {
-                //Si el Nombre es igual al Nombre de la clase previamente cargada se prosigue
-                if (facturacion.equals(mf.selectFacturaciones().get(i).getNombre())) {
-                    //Se extrae el resultado y se remplaza por el ID
-                    this.st.setInt(6, mf.selectFacturaciones().get(i).getIdFacturacion());
-                }
-            }
-            this.st.setString(7, usuario);
-            //Se ejecuta el Query
-            this.st.execute();
-            //Se cierra la conexión
-            conectar().close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ModeloClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    //Método para actualizar un Cobro
-    protected void updateCobros(double monto, String tipoPago, String rfc, String correo, String facturacion, int id) {
-        //Se instancian los resultados a utilizar para reemplazarlos en la consulta
-        mtp.cargarTabla();
-        mf.cargarTabla();
-        try {
-            //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
-            this.st = conectar().prepareStatement("UPDATE Cobro SET  Monto = ?, IdTipoPago = ?, RFC = ?, Correo = ?, FechaCobro = GETDATE(), IdFacturacion = ? WHERE IdReservacion = ?");
-            //Se pasan los parametros a la consulta
+            this.st = conectar().prepareStatement("INSERT INTO Cobro ("
+                    + "Monto, "
+                    + "IdTipoPago,"
+                    + "RFC, "
+                    + "Correo, "
+                    + "FechaCobro,"
+                    + "Username,"
+                    + "Nombre,"                    
+                    + "FechaIngreso,"
+                    + "FechaSalida,"
+                    + "IdFacturacion)"
+                    + " VALUES (?,?,?,?, convert(varchar, getdate(), 103) ,?), ?,?,?,?,?");
             this.st.setDouble(1, monto);
             //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
             for (int i = 0; i < mtp.selectTipoPagos().size(); i++) {
@@ -223,16 +133,68 @@ public class ModeloCobros extends BD {
             }
             this.st.setString(3, rfc);
             this.st.setString(4, correo);
-            //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
-            for (int i = 0; i < mf.selectFacturaciones().size(); i++) {
+
+            this.st.setString(6, usuario);
+               //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
+            for (int i = 0; i < mh.selectHabitaciones().size(); i++) {
+
                 //Si el Nombre es igual al Nombre de la clase previamente cargada se prosigue
-                if (facturacion.equals(mf.selectFacturaciones().get(i).getNombre())) {
+                if (Nombre.equals(mh.selectHabitaciones().get(i).getNombre())) {
                     //Se extrae el resultado y se remplaza por el ID
-                    this.st.setInt(5, mf.selectFacturaciones().get(i).getIdFacturacion());
+                    this.st.setInt(7, mh.selectHabitaciones().get(i).getIdHabitacion());
                 }
             }
-            this.st.setInt(6, id);
+       
+            this.st.setString(8, FechaIngreso);
+            this.st.setString(9, FechaSalida);
+//Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
+            for (int i = 0; i < mf.selectFacturaciones().size(); i++) {
+
+                //Si el Nombre es igual al Nombre de la clase previamente cargada se prosigue
+                if (IdFacturacion.equals(mf.selectFacturaciones().get(i).getNombre())) {
+                    //Se extrae el resultado y se remplaza por el ID
+                    this.st.setInt(10, mf.selectFacturaciones().get(i).getIdFacturacion());
+                }
+            }
+
             //Se ejecuta el Query
+            this.st.execute();
+            //Se cierra la conexión
+            conectar().close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /*
+    //Método para actualizar un Cobro
+    protected void updateCobros(double monto, String tipoPago, String rfc, String correo, int IdFacturacion, String usuario, String Nombre, int IdHabitacion, String FechaIngreso, String FechaSalida,String Facturacion, int id) {
+        //Se instancian los resultados a utilizar para reemplazarlos en la consulta
+        mtp.cargarTabla();
+        mf.cargarTabla();
+        try {
+    
+              //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
+            this.st = conectar().prepareStatement("UPDATE Cobro SET Monto=?, IdTipoPago=?, RFC=?, Correo=?, FechaCobro = GETDATE(), IdFacturacion=?, Username=?,Nombre=?,IdHabitacion=?,FechaIngreso=?,FechaSalida=?,Facturacion=? WHERE id_Cobro=?");
+           
+            this.st.setDouble(1, monto);
+            //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
+            for (int i = 0; i < mtp.selectTipoPagos().size(); i++) {
+                //Si el Nombre es igual al Nombre de la clase previamente cargada se prosigue
+                if (tipoPago.equals(mtp.selectTipoPagos().get(i).getNombre())) {
+                    //Se extrae el resultado y se remplaza por el ID
+                    this.st.setInt(2, mtp.selectTipoPagos().get(i).getIdTipoPago());
+                }
+            }
+            this.st.setString(3, rfc);
+            this.st.setString(4, correo);
+            this.st.setInt(6, IdFacturacion);
+            this.st.setString(7, usuario);
+            this.st.setString(8, Nombre);
+            this.st.setInt(9, IdHabitacion);
+            this.st.setString(10, FechaIngreso);
+            this.st.setString(11, FechaSalida);
+            this.st.setString(12, Facturacion);
+            this.st.setInt(13, id);
             this.st.executeUpdate();
             //Se cierra la conexión
             conectar().close();
@@ -255,5 +217,5 @@ public class ModeloCobros extends BD {
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCobros.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 }

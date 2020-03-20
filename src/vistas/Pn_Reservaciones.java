@@ -33,6 +33,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 //NECESARIO PARA FUNCIONES DE ESTE MODULO 
     private ControladorEscritura ce = new ControladorEscritura();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
+    private ControladorCategorias ccat= new ControladorCategorias();
     private ControladorClientes mc = new ControladorClientes();
     private ControladorReservaciones cr = new ControladorReservaciones();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
@@ -615,11 +616,19 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             CobrarReserv.lb_NombreHabitacion.setText(String.valueOf(cb_Habitacion.getSelectedItem()));
             CobrarReserv.lb_FechaIngreso.setText(dateFormat.format(jd_Ingreso.getDate()));
             CobrarReserv.lb_FechaSalida.setText(dateFormat.format(jd_Salida.getDate()));
-            for (int i = 0; i < ch.selectHabitacion().size(); i++) {
-                if (ch.selectHabitacion().get(i).getNombre().equals(String.valueOf(cb_Habitacion.getSelectedItem()))) {
-                    CobrarReserv.lb_PrecioHabitacion.setText(String.valueOf(ch.selectHabitacion().get(i).getPrecioSugerido()));
-                    //AQUI VA ELCODIGO PARA ACTUALIZAR ESTADO DE HABITACION
+            for (ObjetoHabitacion habitacion : ch.selectHabitacion()) {
+                for (ObjetoCategoria categoria : ccat.selectCategoria()) {
+                    if (habitacion.getNombre().equals(String.valueOf(cb_Habitacion.getSelectedItem()))) {
+                        if (habitacion.getIdCategoria() == categoria.getIdCategoria()) {
+                            CobrarReserv.lb_PrecioHabitacion.setText(String.valueOf(habitacion.getPrecioSugerido()));
+                            CobrarReserv.lb_CostoCalculado.setText(String.valueOf(habitacion.getPrecioSugerido()));
+                            CobrarReserv.lb_TipoHabitacion.setText(String.valueOf(categoria.getNombre()));
+
+                        }
+
+                    }
                 }
+
             }
             datosIniciales();
         }
