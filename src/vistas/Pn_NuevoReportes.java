@@ -15,10 +15,12 @@ import objetos.ObjetoHabitacion;
  * @author KSGAMER
  */
 public class Pn_NuevoReportes extends javax.swing.JPanel {
-
+    //Se declaran las clases a utilizar
     private ControladorReportes reportes = new ControladorReportes();
     private ControladorHabitaciones habitaciones = new ControladorHabitaciones();
+    //Se declara una variable que actuara como un formato estandar de fecha
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    //Se declara una bandera instanciandola en falso
     private boolean flag = false;
 
     /**
@@ -26,155 +28,258 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
      */
     public Pn_NuevoReportes() {
         initComponents();
+        //Se cargan los datos a utilizar
         habitaciones.tablaHabitaciones();
+        //Se instancia el método que actua al dar click en los JCalendar
         mouseOnClickGananciasFechas();
+        //Se instancia el combobox con los datos extraidos de base de datos
         comboHabitacion();
+        //Se instancian las fechas de inicio y final de los JCalendar
         rangoFechas();
+        //Se instacia el método de cargado de gráficas y tablas
         estadisticas();
+        //Se instancia el método encargado de la velocidad del Scrolleo
         configScroll();
     }
 
+    //Método que carga un combo box con las habitaciones
     public void comboHabitacion() {
+        //Se remueven los elementos del combo
         cbHabitacion.removeAllItems();
+        //Se agrega un nuevo elemento
         cbHabitacion.addItem("Todas las habitaciones");
+        //Se recooren las habitaciones
         for (ObjetoHabitacion objetoHabitacion : habitaciones.selectHabitacion()) {
+            //Se agregan las habitaciones al combo
             cbHabitacion.addItem(objetoHabitacion.getNombre());
         }
     }
 
+    //Método que ajusta la velocidad del Scrolleo
     public void configScroll() {
+        //Se agrega velocidad al Scroll del panel de Estadisticas
         ScrollEstadisticas.getVerticalScrollBar().setUnitIncrement(20);
+        //Se agrega velocidad al Scroll del panel de Reportes
         ScrollReportes.getVerticalScrollBar().setUnitIncrement(20);
     }
 
+    //Método que instancia los JCalendar con una fecha inicial y una fecha final
     public void rangoFechas() {
+        //Se obtiene la fecha actual del equipo
         Calendar fecha = Calendar.getInstance();
+        //Se asigna la fecha al JCalendar de fecha final
         cFinalGananciasFechas.setDate(fecha.getTime());
+        //Se restan 14 dias a la fecha final
         fecha.add(Calendar.DATE, -14);
+        //Se asigna la fecha al JCalendar de fecha inicial
         cInicialGananciasFechas.setDate(fecha.getTime());
     }
 
+    //Método que genera una grafica con la habitación mas popular reservada
     public void popularHabitacion() {
+        //Se declara un acumulador iniciandolo en 0
         int total = 0;
+        //Se recorre la tabla hasta la ultima fila
         for (int i = 0; i < reportes.habitacionPopular().getRowCount(); i++) {
+            //Se asigna el valor extraido de la tabla al acumulador
             total = total + Integer.parseInt(reportes.habitacionPopular().getValueAt(i, 1).toString());
         }
+        //Se asigna el total acumulado al label
         lbTotalReservacionesGrafica.setText(String.valueOf(total));
+        //Se asigna el toal acumulado al label
         lbTotalReservaciones.setText(String.valueOf(total));
+        //Se remueven todos los componentes del panel contenedorPopularidad
         contenedorPopularidad.removeAll();
+        //Se agrega un nuevo componente pasando el tipo de grafica a generar, la tabla donde se extraeran los datos, si requiere titulos en los ejes X y Y y las dimensiones del componente
         contenedorPopularidad.add(new ComponenteGrafica().componenteGrafica("Anillo", reportes.habitacionPopular(), "", "", 320, 225));
+        //Se declara que el componente sera opaco para generar transparencia
         contenedorPopularidad.setOpaque(false);
     }
 
+    //Método que genera una grafica con el monto total de las reservaciones cobradas
     public void montoTotal() {
+        //Se declara un acumulador de tipo double (Decimal) iniciandolo en 0
         double total = 0;
+        //Se recorre la tabla hasta el numero total de filas que contiene
         for (int i = 0; i < reportes.ganancias().getRowCount(); i++) {
+            //Se asigna el valor extradido de la tabla al acumulador
             total = total + Double.parseDouble(reportes.ganancias().getValueAt(i, 0).toString());
         }
+        //Se asigna el acumulador al label
         lbGanancias.setText("$" + total + "0");
+        //Se remueven los elementos del panel contendorGananciasTotales
         contenedorGananciasTotales.removeAll();
+        //Se agrega un nuevo componente pasando el tipo de grafica a generar, la tabla para la extracción de datos, los titulos de los ejes X y Y y las dimensiones de altura y ancho
         contenedorGananciasTotales.add(new ComponenteGrafica().componenteGrafica("Barras", reportes.ganancias(), "Fechas", "Ganancias Brutas", 500, 325));
+        //Se declara que el componente tendra transparencia
         contenedorGananciasTotales.setOpaque(false);
     }
 
+    //Método que genera los indices de facturación
     public void indiceFacturacion() {
+        //Si el total de filas de la tabla es igual a 0 entra
         if (reportes.facturacionIndice().getRowCount() == 0) {
+            //Se asigna 0 al label ya que no contiene valores a recorrer
             lbTotalIndiceFacturacion.setText("0");
             lbConFacturacion.setText("0");
             lbSinFacturacion.setText("0");
-        } else {
+        } else {//De lo contrario 
+            //Se declara un acumulador de tipo int
             int total = 0;
+            //Se recorre la tabla hasta el total de filas que contiene
             for (int i = 0; i < reportes.facturacionIndice().getRowCount(); i++) {
+                //Se asigna el valor extraido de la tabla al acumulador
                 total = total + Integer.parseInt(reportes.facturacionIndice().getValueAt(i, 1).toString());
             }
+            //Se asigna el acumulador al label
             lbTotalIndiceFacturacion.setText(String.valueOf(total));
+            //Se extrae la información de la tabla y se asigna al label
             lbConFacturacion.setText(reportes.facturacionIndice().getValueAt(0, 1).toString());
             lbSinFacturacion.setText(reportes.facturacionIndice().getValueAt(1, 1).toString());
         }
+        //Se remueven todos los elementos del panel contenedorIndiceFacturacion
         contenedorIndiceFacturacion.removeAll();
+        //Se agrega un nuevo componente pasando el tipo de grafica a generar, la tabla para la extracción de datos, los titulos de los ejes X y Y y las dimesiones del componente
         contenedorIndiceFacturacion.add(new ComponenteGrafica().componenteGrafica("Anillo", reportes.facturacionIndice(), "", "", 300, 196));
+        //Se declara que el componente tendra trasnparencia
         contenedorIndiceFacturacion.setOpaque(false);
     }
 
+    //Método que genera el indice de Reservaciones
     public void indiceReservacion() {
+        //Se declara un acumulador de tipo int
         int total = 0;
+        //Se recorre la tabla hasta el numero total de filas que contiene
         for (int i = 0; i < reportes.ReservacionesIndice().getRowCount(); i++) {
+            //Se asigna el valor extraido de la tabla al acumulador
             total = total + Integer.parseInt(reportes.ReservacionesIndice().getValueAt(i, 0).toString());
         }
+        //Se asigna el acumulador al label
         lbTotalReservacionesFechas.setText(String.valueOf(total));
+        //Se remueven los elementos del panel contenedorIndiceReservaciones
         contenedorIndiceReservaciones.removeAll();
+        //Se agrega un nuevo componente pasando el tipo de grafica a generar, la tabla para la extracción de datos, los titulos de los ejes X y Y, además de las dimesiones de alto y ancho de la grafica
         contenedorIndiceReservaciones.add(new ComponenteGrafica().componenteGrafica("Barras", reportes.ReservacionesIndice(), "Fechas", "Total", 460, 325));
+        //Se declara que el panel tendra trasnparencia
         contenedorIndiceReservaciones.setOpaque(false);
     }
 
+    //Método que genera una grafica con las ganancias obtenidas en determinadas fechas
     public void gananciasFechas() {
+        //Se asigna el modelo del Controlador reportes a la tabla tbGananciasFechas
         tbGananciasFechas.setModel(reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime()), "Tabla"));
+        //Se declara un acumulador de tipo double (Decimal)
         double total = 0;
+        //Se recorre la tabla hasta el numero total de filas que contiene
         for (int i = 0; i < reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime()), "Grafica").getRowCount(); i++) {
+            //Se asigna el valor extraido de la tabla al acumulador
             total = total + Integer.parseInt(reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime()), "Grafica").getValueAt(i, 0).toString());
         }
+        //Se asigna el acumulador al label
         lbGananciasFechas.setText("$" + total + "0");
+        //Se remueven los elementos del panel contenedorGananciasFechaHabitacion
         contenedorGananciasFechasHabitacion.removeAll();
+        //Se genera un nuevo componente pasando el tipo de grafica a generar, la tabla donde se extraera la informacion, pasando las fechas a filtrar de inicio y final, y la bandera (Tabla o Grafica), los titulos de los ejes X y Y y las dimesiones de la grafica
         contenedorGananciasFechasHabitacion.add(new ComponenteGrafica().componenteGrafica("Barras", reportes.fechasGanancias(formato.format(cInicialGananciasFechas.getDate().getTime()), formato.format(cFinalGananciasFechas.getDate().getTime()), "Grafica"), "Reservaciones", "Ganancias", 440, 250));
+        //Se declara que el componente tendra transparencia
         contenedorGananciasFechasHabitacion.setOpaque(false);
     }
 
+    //Método que genera una grafica de las ganancias por cada habitacion
     public void gananciasHabitacion() {
+        //Se asigna el el modelo extraido del controlador al tbGananciasHabitacion pasando el parametro de tabla
         tbGananciasHabitacion.setModel(reportes.gananciasHabitacion(cbHabitacion.getSelectedItem().toString(), "Tabla"));
         double total = 0;
+        //Se recorre la tabla hasta el total de filas que contiene pasando el modo grafica
         for (int i = 0; i < reportes.gananciasHabitacion(cbHabitacion.getSelectedItem().toString(), "Grafica").getRowCount(); i++) {
+            //Se asigna el valor obtenido de la tabla al acumulador
             total = total + Double.parseDouble(reportes.gananciasHabitacion(cbHabitacion.getSelectedItem().toString(), "Grafica").getValueAt(i, 0).toString());
         }
+        //Se asigna el acumulador al label
         lbGananciasHabitacion.setText("$" + total + "0");
+        //Se remueven los elementos del panel contenedorGananciasHabitacion
         contenedorGananciasHabitacion.removeAll();
+        //Se ingresa un nuevo componente pasando el tipo de grafica a generar, la tabla de donde se extraera la información, se pasan los titulos de los ejes X y Y y además las dimesiones del componente
         contenedorGananciasHabitacion.add(new ComponenteGrafica().componenteGrafica("Barras", reportes.gananciasHabitacion(cbHabitacion.getSelectedItem().toString(), "Grafica"), "Fecha", "Total", 440, 270));
+        //Se declara que el componente tendra trasnparencia
         contenedorGananciasHabitacion.setOpaque(false);
     }
 
+    //Método que genera el porcentaje de ganancias
     public void porcentajeGanancias() {
+        //Si las filas totales de la tabla son igual a 0 entra en el if
         if (reportes.porcentajeGanancias().getRowCount() == 0) {
+            //Se asigna el valor 0.00 al label
             lbGananciaHoy.setText("$" + 0.00);
+            //Se asigna el valor 0 al label
             lbPorcentajeGanancias.setText("0%");
+            //Se asigna el color de la letra por el siguente
             lbPorcentajeGanancias.setForeground(new Color(153, 153, 153));
+            //Se elimina el icono del label
             lbPorcentajeGanancias.setIcon(new ImageIcon());
         } else {
+            //Se extrae el valor de la tabla y se asigna al label
             lbGananciaHoy.setText("$" + Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) + "0");
+            //Se declara una variable que actuara como el porcentaje extrayendo la información de la tabla
             double porcentaje = Double.parseDouble(reportes.porcentajeGanancias().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeGanancias().getValueAt(1, 1).toString());
+            //Se asigna el valor del porcentaje al label
             lbPorcentajeGanancias.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
+            //Si el porcentaje es mayor a 100 entra en el if
             if (porcentaje >= 100) {
+                //Se cambia el color de la letra del label por el siguiente
                 lbPorcentajeGanancias.setForeground(new Color(0, 191, 95));
+                //Se cambia el icono del label por el siguiente
                 lbPorcentajeGanancias.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
-            } else {
+            } else {//En caso contrario
+                //Se cambia el color de la letra del label por el siguiente
                 lbPorcentajeGanancias.setForeground(new Color(229, 16, 16));
+                //Se cambia el icono del label por el siguiente
                 lbPorcentajeGanancias.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186411-16.png")));
             }
         }
     }
 
+    //Método que genera los porcentajes de Reservacion
     public void porcentajeReservacion() {
+        //Si el total de las filas de la tabla es igual a 0 entra en el if
         if (reportes.porcentajeReservacion().getRowCount() == 0) {
+            //Se asigna el siguiente valor al label
             lbReservacionesHoy.setText("0");
+            //Se asigna el siguiente valor al label
             lbPorcentajeReservaciones.setText("0%");
+            //Se cambia el color de la letra del label por el siguiente
             lbPorcentajeGanancias.setForeground(new Color(153, 153, 153));
+            //Se elimina el icono del label
             lbPorcentajeReservaciones.setIcon(new ImageIcon());
-        } else {
+        } else {//En caso contrario
+            //Se asigna el valor extraido de la tabla al label
             lbReservacionesHoy.setText(String.valueOf(Integer.parseInt(reportes.porcentajeReservacion().getValueAt(0, 1).toString())));
+            //Se declara una variable que actuara como el porcentaje
             double porcentaje = Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeReservacion().getValueAt(1, 1).toString());
+            //Se asigna el porcentaje al label
             lbPorcentajeReservaciones.setText(String.valueOf(porcentaje).substring(0, 5) + "%");
+            //Si el porcentaje es mayor a 100 entra en el if
             if (porcentaje >= 100) {
+                //Se cambia el color de la letra por el siguiente
                 lbPorcentajeReservaciones.setForeground(new Color(0, 191, 95));
+                //Se cambia el icono del label por el siguiente
                 lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
-            } else {
+            } else { //En caso contrario
+                //Se cambia el color de la letra por el siguiente
                 lbPorcentajeReservaciones.setForeground(new Color(0, 191, 95));
+                //Se cambia el icono por el siguiente
                 lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
             }
         }
     }
 
+    //Método que carga una tabla
     public void cobrosUsuarios() {
+        //Se asigna el modelo de la tabla extraido del controlador a la tabla tbCobrosUsuarios pasando el parametro a filtrar
         tbCobrosUsuarios.setModel(reportes.cobroPorUsuarios(txtBuscarUsuario.getText()));
     }
     
+    //Método que inicializa las graficas, porcentajes y tablas
     public void estadisticas() {
         cobrosUsuarios();
         gananciasHabitacion();
@@ -187,24 +292,37 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         popularHabitacion();
     }
 
+    //Método que detecta los eventos click en los JCalendar
     public void mouseOnClickGananciasFechas() {
+        //Se obtiene el componente 0 del Calendario Incial, se agrega un evento de escucha al componente, se pasa el evento de adaptación del mouse
         cInicialGananciasFechas.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
+            //Método que obtiene el evento click del componente 0
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //Si hay un evento cambia el valor de la bandera a true
                 flag = true;
             }
         });
+        //Se obtiene el componente 1 del Calendario Incial, se agrega un evento de escucha al componente, se pasa el evento de adaptación del mouse
         cInicialGananciasFechas.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
+            //Método que obtiene el evento click del componente 0
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //Si hay un evento cambia el valor de la bandera a true
                 flag = true;
             }
         });
+        //Se obtiene el componente 0 del Calendario Final, se agrega un evento de escucha al componente, se pasa el evento de adaptación del mouse
         cFinalGananciasFechas.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
+            //Método que obtiene el evento click del componente 0
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //Si hay un evento cambia el valor de la bandera a true
                 flag = true;
             }
         });
+        //Se obtiene el componente 1 del Calendario Final, se agrega un evento de escucha al componente, se pasa el evento de adaptación del mouse
         cFinalGananciasFechas.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
+            //Método que obtiene el evento click del componente 0
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //Si hay un evento cambia el valor de la bandera a true
                 flag = true;
             }
         });
@@ -956,60 +1074,79 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    //Evento que obtiene los cambios de fecha dentro del JCalendar
     private void cInicialGananciasFechasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cInicialGananciasFechasPropertyChange
+        //Si la bandera es true entra y ejecuta el método (Si no se pone la condición ejecuta el método 3 veces sin tiempo a obtener respuesta)
         if (flag == true) {
             gananciasFechas();
         }
     }//GEN-LAST:event_cInicialGananciasFechasPropertyChange
-
+    //Evento que obtiene los cambios de fecha dentro del JCalendar
     private void cFinalGananciasFechasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cFinalGananciasFechasPropertyChange
+        //Si la bandera es true entra y ejecuta el método (Si no se pone la condición ejecuta el método 3 veces sin tiempo a obtener respuesta)
         if (flag == true) {
             gananciasFechas();
         }
     }//GEN-LAST:event_cFinalGananciasFechasPropertyChange
-
+    
     private void materialButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton2ActionPerformed
+        //Se ejecuta el método de exportar a Excel pasando la tabla
         reportes.exportExcel(tbGananciasFechas);
     }//GEN-LAST:event_materialButton2ActionPerformed
 
     private void materialButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton1ActionPerformed
+        //Se genera una variable de mapeo
         HashMap parametros = new HashMap();
+        //Se agregan los parametros a mapea con las keys que estan declaradas en los JasperReport
         parametros.put("FechaInicial", formato.format(cInicialGananciasFechas.getDate().getTime()));
         parametros.put("FechaFinal", formato.format(cFinalGananciasFechas.getDate().getTime()));
+        //Se ejecuta el método que el reporte en JasperReport pasando los parametros
         reportes.reporteGenerar("ReporteHabitacionFechaGanancia", parametros);
     }//GEN-LAST:event_materialButton1ActionPerformed
 
     private void cbHabitacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbHabitacionItemStateChanged
+        //Se compara el evento de seleccion con el evento de ser seleccionado si son iguales entra en el if, se ejecuta el siguiente método
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             gananciasHabitacion();
         }
     }//GEN-LAST:event_cbHabitacionItemStateChanged
 
     private void materialButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton3ActionPerformed
+        //Se ejecuta el método de exportar a Excel pasando la tabla
         reportes.exportExcel(tbGananciasHabitacion);
     }//GEN-LAST:event_materialButton3ActionPerformed
 
     private void materialButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton4ActionPerformed
+        //Se declara una variable para mapear
         HashMap parametros = new HashMap();
+        //Si el elemento seleccionado es igual a la cadena "Todas las Habitaciones" se prosigue
         if (cbHabitacion.getSelectedItem().toString().equals("Todas las habitaciones")) {
+            //Se pasa el parametro con nada y la llave concerniente declarada previamente en el JasperReport
             parametros.put("habitacion", "");
-        } else {
+        } else {//En caso contrario
+            //Se pasa el parametro y la llave concerniente declarada previamente en el JasperReport
             parametros.put("habitacion", cbHabitacion.getSelectedItem().toString());
         }
+        //Se ejecita el método para generar el reporte en JasperReport pasando el nombre del ArchivoJasper y los parametros a buscar
         reportes.reporteGenerar("ReporteGananciasTotalesHabitaciones", parametros);
     }//GEN-LAST:event_materialButton4ActionPerformed
 
     private void txtBuscarUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarUsuarioKeyReleased
+        //Cuando una tecla es precionada en el JTextfield este captura el evento y ejecuta el siguiente método
         cobrosUsuarios();
     }//GEN-LAST:event_txtBuscarUsuarioKeyReleased
 
     private void btnCobroUsuarioExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobroUsuarioExcelActionPerformed
+        //Se ejecuta el método de exportar a Excel pasando la tabla
         reportes.exportExcel(tbCobrosUsuarios);
     }//GEN-LAST:event_btnCobroUsuarioExcelActionPerformed
 
     private void btnCobroUsuarioPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobroUsuarioPDFActionPerformed
+        //Se declara una variable de mapeo
         HashMap parametros = new HashMap();
+        //Se pasan los parametros a buscar con las keys concernientes declaradas en el JasperReport
         parametros.put("usuario", txtBuscarUsuario.getText());
+        //Se ejecuta el método pasando el nombre del JasperReport y los parametros
         reportes.reporteGenerar("ReporteCobrosUsuario", parametros);
     }//GEN-LAST:event_btnCobroUsuarioPDFActionPerformed
 
