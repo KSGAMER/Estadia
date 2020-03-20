@@ -590,6 +590,13 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 new CambiaPanel(pnlPrincipal, new Pn_PermisosAccesos());
             }
         });
+                   MenuItem Caja = new MenuItem(subMenus, "Apertura/Cortes", 10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                new CambiaPanel(pnlPrincipal, new Pn_MovimientosCaja());
+            }
+        });
 //APARTADO DE TODOS LOS MENUS
         MenuItem CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35, new ActionListener() {
             @Override
@@ -611,7 +618,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
         MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);
         MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
-        Administrador = new MenuItem(iconAdministrador, "Administrador", 35, null, NuevoEmpleado,ConfiguraciónServidor,Permisos);
+        Administrador = new MenuItem(iconAdministrador, "Administrador", 35, null, NuevoEmpleado,ConfiguraciónServidor,Permisos,Caja);
         MenuItem Sesion =new MenuItem(iconSesion, "Cerrar Sesión", 35, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
