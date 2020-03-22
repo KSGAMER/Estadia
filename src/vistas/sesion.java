@@ -11,10 +11,13 @@ import controladores.ControladorEventosSesion;
 import controladores.ControladorSesion;
 import controladores.ControladorUsuarios;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 //para cambiar los valores de un boton 
 //import Vista.Segundo;
 //para la fecha y la hora 
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -101,6 +104,7 @@ public class sesion extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         iniciar_sesion = new principal.MaterialButton();
+        lb_Configs = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -238,6 +242,15 @@ public class sesion extends javax.swing.JFrame {
         });
         jPanel2.add(iniciar_sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 230, 40));
 
+        lb_Configs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/configuracion-24x24.png"))); // NOI18N
+        lb_Configs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lb_Configs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lb_ConfigsMouseClicked(evt);
+            }
+        });
+        jPanel2.add(lb_Configs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 310, 400));
 
         pack();
@@ -297,6 +310,12 @@ public class sesion extends javax.swing.JFrame {
   cs.autentificarUsuario(usuario, contraseña, Lb_notificacion, this);
   // TODO add your handling code here:
     }//GEN-LAST:event_iniciar_sesionMouseClicked
+
+    private void lb_ConfigsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_ConfigsMouseClicked
+        Pn_IpServerJason ale = new Pn_IpServerJason(this, true);
+        ale.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lb_ConfigsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -372,6 +391,7 @@ public class sesion extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPanel jp_imagen;
+    private javax.swing.JLabel lb_Configs;
     private javax.swing.JLabel lb_fecha;
     private javax.swing.JLabel lb_hora;
     private javax.swing.JTextField usuario;

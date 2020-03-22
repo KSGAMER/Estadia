@@ -77,7 +77,7 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
         lb_TipoHabitacion.setForeground(new java.awt.Color(255, 255, 255));
         lb_TipoHabitacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_TipoHabitacion.setText("Tip de Habitacion");
-        add(lb_TipoHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 86, -1));
+        add(lb_TipoHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 120, -1));
 
         lb_StatusHabitacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_StatusHabitacion.setForeground(new java.awt.Color(255, 255, 255));
