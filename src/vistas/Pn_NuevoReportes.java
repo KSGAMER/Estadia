@@ -2,6 +2,7 @@ package vistas;
 
 import Utilerias.ComponenteGrafica;
 import controladores.*;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
      */
     public Pn_NuevoReportes() {
         initComponents();
+       
         //Se cargan los datos a utilizar
         habitaciones.tablaHabitaciones();
         //Se instancia el método que actua al dar click en los JCalendar
@@ -41,7 +43,10 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         estadisticas();
         //Se instancia el método encargado de la velocidad del Scrolleo
         configScroll();
+       
     }
+    
+
 
     //Método que carga un combo box con las habitaciones
     public void comboHabitacion() {
@@ -347,8 +352,8 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jp_central = new javax.swing.JPanel();
+        jTab_Reportes = new javax.swing.JTabbedPane();
         ScrollEstadisticas = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         JPanel1 = new javax.swing.JPanel();
@@ -434,11 +439,12 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         setToolTipText("");
         setPreferredSize(new java.awt.Dimension(1086, 684));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jp_central.setBackground(new java.awt.Color(255, 255, 255));
+        jp_central.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1090, 710));
+        jTab_Reportes.setBackground(new java.awt.Color(255, 255, 255));
+        jTab_Reportes.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jTab_Reportes.setPreferredSize(new java.awt.Dimension(1090, 710));
 
         ScrollEstadisticas.setBackground(new java.awt.Color(204, 204, 204));
         ScrollEstadisticas.setBorder(null);
@@ -750,7 +756,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
 
         ScrollEstadisticas.setViewportView(jPanel4);
 
-        jTabbedPane1.addTab("Estadísticas", ScrollEstadisticas);
+        jTab_Reportes.addTab("Estadísticas", ScrollEstadisticas);
 
         ScrollReportes.setBackground(new java.awt.Color(204, 204, 204));
         ScrollReportes.setBorder(null);
@@ -1041,9 +1047,9 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
 
         ScrollReportes.setViewportView(jPanel5);
 
-        jTabbedPane1.addTab("Reportes", ScrollReportes);
+        jTab_Reportes.addTab("Reportes", ScrollReportes);
 
-        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1070, 660));
+        jp_central.add(jTab_Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1070, 660));
 
         jPanel2.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -1062,9 +1068,9 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 450, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
                 .addComponent(jLabel29)
-                .addGap(34, 34, 34))
+                .addGap(116, 116, 116))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1076,20 +1082,20 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 50));
+        jp_central.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 50));
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
-        jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 30, 20));
+        jp_central.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 30, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1065, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jp_central, javax.swing.GroupLayout.PREFERRED_SIZE, 1065, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jp_central, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1222,14 +1228,14 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTab_Reportes;
+    private javax.swing.JPanel jp_central;
     private javax.swing.JLabel lbConFacturacion;
     private javax.swing.JLabel lbGananciaHoy;
     private javax.swing.JLabel lbGanancias;

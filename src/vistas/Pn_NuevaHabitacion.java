@@ -731,9 +731,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 datosIniciales();
             }
         } catch (Exception e) {
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar agregar los datos de la nueva habitacion,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-        }
+       }
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
     private void jt_habitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_habitacionesMouseClicked
@@ -779,9 +777,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 datosIniciales();
             }
         } catch (Exception e) {
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar actualizar los datos de la Habitacion " + jt_nombre.getText()
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-        }
+      }
     }//GEN-LAST:event_btn_ModificarActionPerformed
 
     private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
@@ -808,9 +804,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
             }
 
         } catch (Exception e) {
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar los datos de la Habitacion " + jt_nombre.getText()
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+    
         }
 
     }//GEN-LAST:event_btn_EliminarActionPerformed

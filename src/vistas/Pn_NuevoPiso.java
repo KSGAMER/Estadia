@@ -66,12 +66,12 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
         //FIN
     }
 
-    public void cTabla() {
+    private void cTabla() {
         jt_pisos.setModel(cc.tablaPisos());
         jt_t_registros.setText(String.valueOf(jt_pisos.getRowCount()));
     }
 
-    public void tamañoTabla() {
+    private void tamañoTabla() {
         TableColumnModel columnModel = jt_pisos.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(5);
         columnModel.getColumn(1).setPreferredWidth(50);
@@ -112,7 +112,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
         this.jt_pisos.setModel(NewTable);
     }*/
-    public void RowApariencia() {
+    private void RowApariencia() {
 
         jt_pisos.setFocusable(false);
 
@@ -128,7 +128,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
     }
 
-    public void RowHeaderApariencia() {
+    private void RowHeaderApariencia() {
         jt_pisos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_pisos.getTableHeader().setOpaque(false);
         jt_pisos.getTableHeader().setBackground(Color.BLACK);
@@ -136,7 +136,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
     }
 
-    public void datosIniciales() {
+    private void datosIniciales() {
         lb_errorNombre.setText("*");
         lb_errorNombre.setForeground(new Color(84, 110, 122));
 
@@ -145,7 +145,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
         jta_observaciones.setText("Ingresar Observaciones");
     }
 
-    public Boolean validarEscritura() {
+    private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_nombre.getText().equals("Ingresar Nombre")) && !(jt_nombre.getText().equals(""))) {
@@ -512,9 +512,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar actualizar los datos del nuevo piso " + jt_nombre.getText()
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+       
         }
 
         // TODO add your handling code here:
@@ -538,9 +536,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar agregar los datos del nuevo piso,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+     
         }
 
     }//GEN-LAST:event_btn_IngresarActionPerformed

@@ -480,9 +480,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar agregar los datos de la nueva categoria,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+      
         }
 
         // TODO add your handling code here:
@@ -511,9 +509,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar actualizar los datos de la categoria " + jt_nombre.getText()
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+        
         }
 
 
@@ -545,9 +541,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar los datos de la categoria " + jt_nombre.getText()
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+      
         }
 
         // TODO add your handling code here:

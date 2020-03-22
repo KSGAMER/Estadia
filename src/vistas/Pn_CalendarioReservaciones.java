@@ -44,23 +44,19 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
     ControladorReservaciones cr = new ControladorReservaciones();
     //para colorar celdas en una tabla con datos referidos 
     DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-
-    //necesarios para cargar la tabla de meses y reervas
-    private int m = 0;
-    private int y = 0;
-
     DefaultTableModel modelo;
-
+    
+    
+    //necesarios para cargar la tabla de meses y reervas
+    private int m = 0;//mes 
+    private int y = 0;//año
     Calendar cal = null;
     //necesario para dar formato al jdateChooser
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
- 
-    //es el mes que que aparece en pantalla al cambiar con el boton siguiente / anterior
+     //es el mes que que aparece en pantalla al cambiar con el boton siguiente / anterior
     //sirve para compracion 
     private String mesActual = "";
-  
-
-    //NECESARIO
+      //NECESARIO
 //busqueda del numero de mes de la reservaciion para comparaciones
     String MesdeFechaIngreso, MesdeFechaSalida;
     int mesIn, mesOut;
@@ -75,13 +71,19 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
      */
     public Pn_CalendarioReservaciones() {
         initComponents();
+        //apariencia de la cabecera de la tabla
         RowHeaderApariencia();
+        //apariencia de las filas en la tabla
         RowApariencia();
+        //carga de datos de consultas para habitacion y reservaciones 
         ch.tablaHabitaciones();
         cr.tablaReservaciones();
+        //metodo principal que manipula la tabla y marca los dias ocupados por habitación de acuerdo 
+        //a la reservación
         cargarReservas();
+        //otorga tamaños en la tabla y permisos de manipulación
         tamañoTabla();
-        
+        ajustesDeScroll();
 
     }
 
@@ -123,7 +125,8 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
     public void ajustesDeScroll() {
         //scroll_Menu es el nombre del jscrollpane que contiene el panel del menu
         scroll_Tabla.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-
+ //incrementa a velocidad de scroleo
+        scroll_Tabla.getVerticalScrollBar().setUnitIncrement(20);
         //ELIMINA LA POSIBILIDAD DE REALIZAR SCROLL HORIZONTALMENTE
         scroll_Tabla.setHorizontalScrollBarPolicy(scroll_Tabla.HORIZONTAL_SCROLLBAR_NEVER);
     }

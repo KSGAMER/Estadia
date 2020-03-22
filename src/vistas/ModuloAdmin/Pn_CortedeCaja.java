@@ -3,82 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas;
+package vistas.ModuloAdmin;
 
+import vistas.*;
 import Utilerias.AWTUtilities;
-import controladores.ControladorFormularioTab;
-import ds.desktop.notify.DesktopNotify;
-import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.TimerTask;
 import java.util.Timer;
 import javax.swing.JFrame;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author fenix
  */
-public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
+public class Pn_CortedeCaja extends javax.swing.JDialog {
 
     Timer timer = null;
     TimerTask task;
     int i = 32;
-    DefaultTableModel NewTable;
- private ControladorFormularioTab cft = new ControladorFormularioTab();
+    private int sumaCobroReservaciones,sumaGastos,sumaTotalCobrosGastos;
     /**
      * Creates new form AlertSuccess
      */
-    public Pn_Alert_NuevoGasto(java.awt.Frame parent, boolean modal) {
+    public Pn_CortedeCaja(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         AWTUtilities.setOpaque(this, false);
         Ubicar(0);
-       //para ajustar el tecto al tamaño del jtextarea
-        jta_observaciones.setLineWrap(true);
-        //FIN
+        cargarSumas();
     }
-  private Boolean validarEscritura() {//[233,235,238]
-        Boolean val = true;
-        //si el textfield tiene algo diferente a Vacío aparecerá de color negro
-        if (!(jt_NombreGasto.getText().equals("Ingresar Nombre")) && !(jt_NombreGasto.getText().equals(""))) {
-            lb_errorNombreGasto.setForeground(new Color(233,235,238));
-        } else {
-            lb_errorNombreGasto.setForeground(Color.RED);
-            val = false;
-        }
-        //si el textfield tiene algo diferente a Vacío aparecerá de color negro
-        if (!(jt_MontoGastado.getText().equals("Ingresar Gasto")) && !(jt_MontoGastado.getText().equals(""))) {
-            lb_errorMontoGastado.setForeground(new Color(233,235,238));
-        } else {
-            lb_errorMontoGastado.setForeground(Color.RED);
-            val = false;
-        }
-        //si el textfield tiene algo diferente a Vacío aparecerá de color negro
-        if (!(jta_observaciones.getText().equals("Ingresar Observaciones")) && !(jta_observaciones.getText().equals(""))) {
-            lb_errorDescripcion.setForeground(new Color(233,235,238));
-        } else {
-            lb_errorDescripcion.setForeground(Color.RED);
-            val = false;
-        }
-        
-        return val;
-    }
- private void datosIniciales() {
-        lb_errorNombreGasto.setText("*");
-        lb_errorMontoGastado.setText("*");
-        lb_errorDescripcion.setText("*");
-  
-        //colores
-        lb_errorNombreGasto.setForeground(new Color(84, 110, 122));
-        lb_errorMontoGastado.setForeground(new Color(84, 110, 122));
-        lb_errorDescripcion.setForeground(new Color(84, 110, 122));
-        
-        jt_NombreGasto.setText("Ingresar Nombre");
-        jt_MontoGastado.setText("Ingresar Gasto");
-        jta_observaciones.setText("Ingresar Observaciones");
-       
-    }
+private void cargarSumas(){
+    
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,23 +45,22 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        lb_close = new javax.swing.JButton();
+        lb_titulo1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        cancelar = new principal.MaterialButton();
-        jb_aceptar = new principal.MaterialButton();
-        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtabla_Cobros = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtabla_Gastos = new javax.swing.JTable();
+        btn_CorteCaja = new principal.MaterialButton();
+        lb_titulo = new javax.swing.JLabel();
+        lb_titulo2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jta_observaciones = new javax.swing.JTextArea();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jt_NombreGasto = new javax.swing.JTextField();
-        jt_MontoGastado = new javax.swing.JTextField();
-        lb_errorDescripcion = new javax.swing.JLabel();
-        lb_errorNombreGasto = new javax.swing.JLabel();
-        lb_errorMontoGastado = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -119,200 +74,140 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         });
 
         jPanel1.setBackground(new java.awt.Color(233, 235, 238));
-        org.jdesktop.swingx.border.DropShadowBorder dropShadowBorder1 = new org.jdesktop.swingx.border.DropShadowBorder();
-        dropShadowBorder1.setShowLeftShadow(true);
-        dropShadowBorder1.setShowTopShadow(true);
-        jPanel1.setBorder(dropShadowBorder1);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lb_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/icons8_Cancel_32px.png"))); // NOI18N
+        lb_close.setToolTipText("Close");
+        lb_close.setBorder(null);
+        lb_close.setBorderPainted(false);
+        lb_close.setContentAreaFilled(false);
+        lb_close.setRequestFocusEnabled(false);
+        lb_close.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/icons8_Cancel_30px_3.png"))); // NOI18N
+        lb_close.setVerifyInputWhenFocusTarget(false);
+        lb_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lb_closeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(lb_close, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, -1));
+
+        lb_titulo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lb_titulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_titulo1.setText("CORTE POR TURNO");
+        jPanel1.add(lb_titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 53));
+
         jPanel3.setBackground(new java.awt.Color(36, 47, 65));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cancelar.setBackground(new java.awt.Color(211, 18, 18));
-        cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        cancelar.setText("CANCELAR");
-        cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cancelar.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
-        cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarActionPerformed(evt);
+        jtabla_Cobros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtabla_Cobros.getTableHeader().setResizingAllowed(false);
+        jtabla_Cobros.getTableHeader().setReorderingAllowed(false);
+        jtabla_Cobros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtabla_CobrosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jtabla_CobrosMouseEntered(evt);
             }
         });
+        jScrollPane1.setViewportView(jtabla_Cobros);
 
-        jb_aceptar.setBackground(new java.awt.Color(40, 180, 99));
-        jb_aceptar.setForeground(new java.awt.Color(255, 255, 255));
-        jb_aceptar.setText("ACEPTAR");
-        jb_aceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_aceptar.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
-        jb_aceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_aceptarActionPerformed(evt);
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 440, 120));
+
+        jtabla_Gastos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtabla_Gastos.getTableHeader().setResizingAllowed(false);
+        jtabla_Gastos.getTableHeader().setReorderingAllowed(false);
+        jtabla_Gastos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtabla_GastosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jtabla_GastosMouseEntered(evt);
             }
         });
+        jScrollPane2.setViewportView(jtabla_Gastos);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jb_aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(jb_aceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 440, 120));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 410, 70));
+        btn_CorteCaja.setBackground(new java.awt.Color(40, 180, 99));
+        btn_CorteCaja.setForeground(new java.awt.Color(255, 255, 255));
+        btn_CorteCaja.setText("Realizar Corte");
+        btn_CorteCaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_CorteCaja.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_CorteCaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CorteCajaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_CorteCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 326, 194, 40));
 
-        jPanel4.setBackground(new java.awt.Color(36, 47, 65));
+        lb_titulo.setBackground(new java.awt.Color(204, 204, 204));
+        lb_titulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb_titulo.setForeground(new java.awt.Color(204, 204, 204));
+        lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_titulo.setText("0.00");
+        jPanel3.add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 71, 32));
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lb_titulo2.setBackground(new java.awt.Color(204, 204, 204));
+        lb_titulo2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb_titulo2.setForeground(new java.awt.Color(204, 204, 204));
+        lb_titulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_titulo2.setText("TOTAL A RETIRAR  $");
+        jPanel3.add(lb_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 331, 162, 31));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Gastos Realizados");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 160, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Nuevo Gasto");
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("0.0");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 70, -1));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-        );
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Reservaciones Cobradas");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, -1));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 410, -1));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Total       $");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 70, -1));
 
-        jta_observaciones.setColumns(20);
-        jta_observaciones.setForeground(new java.awt.Color(153, 153, 153));
-        jta_observaciones.setRows(5);
-        jta_observaciones.setText("Ingresar Observaciones");
-        jta_observaciones.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jta_observacionesFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jta_observacionesFocusLost(evt);
-            }
-        });
-        jta_observaciones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jta_observacionesMouseClicked(evt);
-            }
-        });
-        jta_observaciones.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jta_observacionesKeyPressed(evt);
-            }
-        });
-        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 380, 70));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Total       $");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 70, -1));
 
-        jLabel21.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel21.setText("Total Gastado");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 190, -1));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("0.0");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 70, -1));
 
-        jLabel22.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("Descripción");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 190, -1));
-
-        jLabel23.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel23.setText("Nombre del Gasto");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 190, -1));
-
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 10));
-
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 10));
-
-        jt_NombreGasto.setBackground(new java.awt.Color(233, 235, 238));
-        jt_NombreGasto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jt_NombreGasto.setForeground(new java.awt.Color(153, 153, 153));
-        jt_NombreGasto.setText("Ingresar Nombre");
-        jt_NombreGasto.setBorder(null);
-        jt_NombreGasto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jt_NombreGastoFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jt_NombreGastoFocusLost(evt);
-            }
-        });
-        jt_NombreGasto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jt_NombreGastoMouseClicked(evt);
-            }
-        });
-        jt_NombreGasto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jt_NombreGastoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jt_NombreGastoKeyTyped(evt);
-            }
-        });
-        jPanel1.add(jt_NombreGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 200, 20));
-
-        jt_MontoGastado.setBackground(new java.awt.Color(233, 235, 238));
-        jt_MontoGastado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jt_MontoGastado.setForeground(new java.awt.Color(153, 153, 153));
-        jt_MontoGastado.setText("Ingresar Gasto");
-        jt_MontoGastado.setBorder(null);
-        jt_MontoGastado.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jt_MontoGastadoFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jt_MontoGastadoFocusLost(evt);
-            }
-        });
-        jt_MontoGastado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jt_MontoGastadoMouseClicked(evt);
-            }
-        });
-        jt_MontoGastado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jt_MontoGastadoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jt_MontoGastadoKeyTyped(evt);
-            }
-        });
-        jPanel1.add(jt_MontoGastado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 20));
-
-        lb_errorDescripcion.setForeground(new java.awt.Color(233, 235, 238));
-        lb_errorDescripcion.setText("*");
-        jPanel1.add(lb_errorDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
-
-        lb_errorNombreGasto.setForeground(new java.awt.Color(233, 235, 238));
-        lb_errorNombreGasto.setText("*");
-        jPanel1.add(lb_errorNombreGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
-
-        lb_errorMontoGastado.setForeground(new java.awt.Color(233, 235, 238));
-        lb_errorMontoGastado.setText("*");
-        jPanel1.add(lb_errorMontoGastado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 470, 390));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -322,30 +217,17 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jb_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarActionPerformed
-     try {
-            if (!validarEscritura() == true) {
-
-                DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
-
-            } else {
-
-                NewTable = new DefaultTableModel();
-                datosIniciales();
-            }
-
-        } catch (Exception e) {
-
-          
-
-        }
-    }//GEN-LAST:event_jb_aceptarActionPerformed
+    private void btn_CorteCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CorteCajaActionPerformed
+ 
+    }//GEN-LAST:event_btn_CorteCajaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         task = new TimerTask() {
@@ -369,97 +251,29 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 0) {
-                    Cerrar();
-                } else {
-                    Ubicar(i);
-                    i -= 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new Timer();
-        timer.schedule(task, 0, 2);
-    }//GEN-LAST:event_cancelarActionPerformed
-
-    private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
-        cft.formFocusGainJTextArea(jta_observaciones);
-    }//GEN-LAST:event_jta_observacionesFocusGained
-
-    private void jta_observacionesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusLost
-        cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Observaciones");
-    }//GEN-LAST:event_jta_observacionesFocusLost
-
-    private void jta_observacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jta_observacionesMouseClicked
-        cft.formFocusGainJTextArea(jta_observaciones);
-    }//GEN-LAST:event_jta_observacionesMouseClicked
-
-    private void jta_observacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jta_observacionesKeyPressed
-    
-    }//GEN-LAST:event_jta_observacionesKeyPressed
-
-    private void jt_NombreGastoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_NombreGastoFocusGained
-        cft.formFocusGain(jt_NombreGasto);
-    }//GEN-LAST:event_jt_NombreGastoFocusGained
-
-    private void jt_NombreGastoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_NombreGastoFocusLost
-        cft.formFocusLostJTextField(jt_NombreGasto, "Ingresar Nombre");
-    }//GEN-LAST:event_jt_NombreGastoFocusLost
-
-    private void jt_NombreGastoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_NombreGastoMouseClicked
-        cft.formFocusGain(jt_NombreGasto);
-    }//GEN-LAST:event_jt_NombreGastoMouseClicked
-
-    private void jt_NombreGastoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_NombreGastoKeyReleased
+    private void jtabla_CobrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_CobrosMouseClicked
+      
        
-    }//GEN-LAST:event_jt_NombreGastoKeyReleased
-
-    private void jt_NombreGastoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_NombreGastoKeyTyped
-
-        char tecla;
-        tecla = evt.getKeyChar();
-        //Convertir a letras mayusculas
-        if (Character.isLetter(tecla)) {
-            evt.setKeyChar(Character.toUpperCase(tecla));
-
-        }
-    }//GEN-LAST:event_jt_NombreGastoKeyTyped
-
-    private void jt_MontoGastadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoGastadoFocusGained
-        cft.formFocusGain(jt_NombreGasto);
-    }//GEN-LAST:event_jt_MontoGastadoFocusGained
-
-    private void jt_MontoGastadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoGastadoFocusLost
-        cft.formFocusLostJTextField(jt_NombreGasto, "Ingresar Gasto");
-    }//GEN-LAST:event_jt_MontoGastadoFocusLost
-
-    private void jt_MontoGastadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_MontoGastadoMouseClicked
-        cft.formFocusGain(jt_NombreGasto);
-    }//GEN-LAST:event_jt_MontoGastadoMouseClicked
-
-    private void jt_MontoGastadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoGastadoKeyReleased
-     
-    }//GEN-LAST:event_jt_MontoGastadoKeyReleased
-
-    private void jt_MontoGastadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoGastadoKeyTyped
-
-        char tecla;
-        tecla = evt.getKeyChar();
-        //Convertir a letras mayusculas
-        if (Character.isDigit(tecla)) {
-            evt.setKeyChar(Character.toUpperCase(tecla));
-
-        }
-    }//GEN-LAST:event_jt_MontoGastadoKeyTyped
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        datosIniciales();
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseClicked
+    }//GEN-LAST:event_jtabla_CobrosMouseClicked
+
+    private void jtabla_CobrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_CobrosMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtabla_CobrosMouseEntered
+
+    private void jtabla_GastosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_GastosMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtabla_GastosMouseEntered
+
+    private void jtabla_GastosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_GastosMouseClicked
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtabla_GastosMouseClicked
+
+    private void lb_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lb_closeActionPerformed
+    Cerrar();
+            
+    }//GEN-LAST:event_lb_closeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -478,13 +292,13 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pn_Alert_NuevoGasto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pn_CortedeCaja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pn_Alert_NuevoGasto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pn_CortedeCaja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pn_Alert_NuevoGasto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pn_CortedeCaja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pn_Alert_NuevoGasto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pn_CortedeCaja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1514,7 +1328,7 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Pn_Alert_NuevoGasto dialog = new Pn_Alert_NuevoGasto(new javax.swing.JFrame(), true);
+                Pn_CortedeCaja dialog = new Pn_CortedeCaja(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1527,24 +1341,23 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private principal.MaterialButton cancelar;
+    public static principal.MaterialButton btn_CorteCaja;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    public static principal.MaterialButton jb_aceptar;
-    public static javax.swing.JTextField jt_MontoGastado;
-    public static javax.swing.JTextField jt_NombreGasto;
-    private javax.swing.JTextArea jta_observaciones;
-    private javax.swing.JLabel lb_errorDescripcion;
-    private javax.swing.JLabel lb_errorMontoGastado;
-    private javax.swing.JLabel lb_errorNombreGasto;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jtabla_Cobros;
+    private javax.swing.JTable jtabla_Gastos;
+    private javax.swing.JButton lb_close;
+    public static javax.swing.JLabel lb_titulo;
+    public static javax.swing.JLabel lb_titulo1;
+    public static javax.swing.JLabel lb_titulo2;
     // End of variables declaration//GEN-END:variables
 
     private void Cerrar() {

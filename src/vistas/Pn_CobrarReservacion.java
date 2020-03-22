@@ -39,6 +39,8 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     DefaultTableModel NewTable;
     private int validador=0;
 //FIN
+    //variables que guardan la cantidad a cobrar o/y el monto acumulado 
+      Double CostoAcumulado, MontoaCobrar;
     /**
      * Creates new form Pn_SeleccionClientes
      */
@@ -69,6 +71,10 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         //oculta elementos no requeridos en la app , a menos que se manden a visualizar
         ocultarElementosFacturas();
 //fin
+      DesktopNotify.showDesktopMessage("RECOMENDACIÓN", "En caso de requerir factura, es importante confirmar el correo"
+              + "al cliente, y en caso de ser diferente se puede modificar desde el formulario SELECCIONA CLIENTE o bien "
+              + "desde la ventana de Checkout", DesktopNotify.TIP);
+   
     }
 
     private void setPantalla() {
@@ -200,7 +206,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     }
 
       private Boolean validaciones() {
-        Double CostoAcumulado, MontoaCobrar;
+      
         CostoAcumulado = Double.valueOf(lb_CostoCalculado.getText());
         MontoaCobrar = Double.valueOf(jt_MontoACobrar.getText());
         Boolean val = true;
@@ -268,6 +274,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         pn_cerrar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         btn_Salir = new principal.MaterialButton();
         jPanel3 = new javax.swing.JPanel();
@@ -279,7 +286,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         Celular2 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
+        jb_Cambio = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
@@ -291,6 +298,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         lb_errorMontoCobrar = new javax.swing.JLabel();
         lb_errorFormaPago = new javax.swing.JLabel();
         jt_MontoACobrar = new javax.swing.JTextField();
+        btn_Cobrar1 = new principal.MaterialButton();
         pn_showFacturas = new javax.swing.JPanel();
         lb_NombreRazonSocial = new javax.swing.JLabel();
         lb_NombreRFC = new javax.swing.JLabel();
@@ -339,6 +347,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
 
         jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(204, 204, 204));
@@ -360,10 +369,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(84, 110, 122));
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Proceso de Check Out");
 
         pn_cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -399,8 +405,18 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         );
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Inicio > Reservaciones > Nueva Reservación > Proceso de Check Out");
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/closeWindow 24x24.png"))); // NOI18N
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel7MouseEntered(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -409,9 +425,11 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(266, 266, 266)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel7)
+                .addGap(245, 245, 245)
                 .addComponent(pn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
@@ -420,6 +438,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
@@ -492,7 +511,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 cb_TipoPagoActionPerformed(evt);
             }
         });
-        jPanel3.add(cb_TipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 150, -1));
+        jPanel3.add(cb_TipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 150, -1));
 
         Celular2.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         Celular2.setForeground(new java.awt.Color(255, 255, 255));
@@ -503,18 +522,18 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jLabel30.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel30.setText("$");
-        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 10, -1));
+        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 10, -1));
 
         jLabel28.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel28.setText("1.-");
-        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 20, -1));
+        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 20, -1));
 
-        jLabel24.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel24.setText("0.0");
-        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 230, 90, 20));
+        jb_Cambio.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jb_Cambio.setForeground(new java.awt.Color(153, 153, 153));
+        jb_Cambio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jb_Cambio.setText("0.0");
+        jPanel3.add(jb_Cambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 230, 50, 20));
 
         jLabel31.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
@@ -553,30 +572,30 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         lb_CostoCalculado.setForeground(new java.awt.Color(153, 153, 153));
         lb_CostoCalculado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_CostoCalculado.setText("Detalles");
-        jPanel3.add(lb_CostoCalculado, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 100, -1));
+        jPanel3.add(lb_CostoCalculado, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 100, -1));
 
         jLabel29.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel29.setText("$");
-        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 10, 20));
+        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 10, 20));
 
         jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel27.setText("Folio de Reservación");
         jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 130, 20));
 
-        jLabel35.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel35.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel35.setText("Total a cobrar: $");
-        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 230, 100, 20));
+        jLabel35.setText("Cambio $");
+        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 90, 20));
 
         lb_errorMontoCobrar.setForeground(new java.awt.Color(233, 235, 238));
         lb_errorMontoCobrar.setText("*");
-        jPanel3.add(lb_errorMontoCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, -1, -1));
+        jPanel3.add(lb_errorMontoCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 10, -1));
 
         lb_errorFormaPago.setForeground(new java.awt.Color(233, 235, 238));
         lb_errorFormaPago.setText("*");
-        jPanel3.add(lb_errorFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, -1));
+        jPanel3.add(lb_errorFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 10, -1));
 
         jt_MontoACobrar.setBackground(new java.awt.Color(233, 235, 238));
         jt_MontoACobrar.setForeground(new java.awt.Color(153, 153, 153));
@@ -601,7 +620,24 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 jt_MontoACobrarKeyTyped(evt);
             }
         });
-        jPanel3.add(jt_MontoACobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 110, 20));
+        jPanel3.add(jt_MontoACobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 110, 20));
+
+        btn_Cobrar1.setBackground(new java.awt.Color(40, 180, 99));
+        btn_Cobrar1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Cobrar1.setText("+");
+        btn_Cobrar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Cobrar1.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Cobrar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_Cobrar1MouseClicked(evt);
+            }
+        });
+        btn_Cobrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Cobrar1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_Cobrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 50, 40));
 
         pn_showFacturas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -706,8 +742,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(jch_facturacion)
                 .addContainerGap())
@@ -878,30 +913,31 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(240, 240, 240)
+                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -938,7 +974,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1065, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1112,6 +1148,34 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         ce.typedCharsAndSpaceAndDigits(evt, jt_MontoACobrar);
     }//GEN-LAST:event_jt_MontoACobrarKeyTyped
 
+    private void btn_Cobrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_Cobrar1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Cobrar1MouseClicked
+
+    private void btn_Cobrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Cobrar1ActionPerformed
+        try {
+            if(!validaciones()==true){
+                 DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a monto calculado", DesktopNotify.ERROR);
+           
+        }else{
+                CostoAcumulado = Double.valueOf(lb_CostoCalculado.getText());
+                MontoaCobrar = Double.valueOf(jt_MontoACobrar.getText());
+                jb_Cambio.setText("");
+                jb_Cambio.setText(String.valueOf(MontoaCobrar - CostoAcumulado));
+            }
+        } catch (Exception e) {
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Cobrar1ActionPerformed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        dispose();
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel7MouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1151,6 +1215,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Celular2;
     private principal.MaterialButton btn_Cobrar;
+    private principal.MaterialButton btn_Cobrar1;
     private principal.MaterialButton btn_Salir;
     private principal.MaterialButton btn_SeleccionarClientes;
     private javax.swing.JComboBox<String> cb_TipoPago;
@@ -1163,7 +1228,6 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -1179,6 +1243,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1201,6 +1266,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JLabel jb_Cambio;
     private javax.swing.JCheckBox jch_facturacion;
     private javax.swing.JSeparator jsep_Email;
     private javax.swing.JSeparator jsep_RFC;

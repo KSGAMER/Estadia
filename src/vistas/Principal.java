@@ -28,6 +28,7 @@ import java.awt.Graphics;
 import javafx.scene.layout.Priority;
 import vistas.ModuloAdmin.*;
 import objetos.*;
+
 /**
  *
  * @
@@ -54,10 +55,12 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     //necesario para el control del administrador unicamente
     MenuItem Administrador;
     MenuItem Configuracion;
-   //fin 
+    MenuItem AdministracionCaja;
+    //fin 
     //para abrir la ventana de sesion al dar click en cerrar sesion 
-   sesion se = new sesion();
+    sesion se = new sesion();
 //fin
+
     /**
      * Creates new form Main
      */
@@ -111,11 +114,13 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         if (!(User == "admin")) { //para cualquier otro usuario
             Administrador.setVisible(false);
             Configuracion.setVisible(false);
+            AdministracionCaja.setVisible(false);
         } else {
             Administrador.setVisible(true);
             Configuracion.setVisible(true);
+            AdministracionCaja.setVisible(true);
         }
-        
+
     }
 
     /**
@@ -492,18 +497,17 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private void lb_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lb_closeActionPerformed
         Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(this, true);
         wa.lb_titulo.setText("¿ESTAS SEGURO QUE DESEA SALIR?");
-          wa.jb_aceptar.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                   System.exit(0);
-                    }
-                });
+        wa.jb_aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.exit(0);
+            }
+        });
         wa.setVisible(true);
 
     }//GEN-LAST:event_lb_closeActionPerformed
 //inicializa el menu lateral 
 
- 
     private void execute() {
         //ICONOS PARA LOS BOTONES PRINCIPALES DEL MENU LATERAL
         ImageIcon iconCalendario = new ImageIcon(getClass().getResource("/Imagenes/icons/calendario32x32.png"));
@@ -576,25 +580,33 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoEmpleado());
             }
         });
-         MenuItem ConfiguraciónServidor = new MenuItem(subMenus, "Conexión", 10, new ActionListener() {
+        MenuItem ConfiguraciónServidor = new MenuItem(subMenus, "Conexión", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
                 new CambiaPanel(pnlPrincipal, new Pn_ConfServer());
             }
         });
-               MenuItem Permisos = new MenuItem(subMenus, "Permisos", 10, new ActionListener() {
+        MenuItem Permisos = new MenuItem(subMenus, "Permisos", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
                 new CambiaPanel(pnlPrincipal, new Pn_PermisosAccesos());
             }
         });
-                   MenuItem Caja = new MenuItem(subMenus, "Apertura/Cortes", 10, new ActionListener() {
+           //  SUBMENU PARA Administracion de caja
+        MenuItem AbrirCaja = new MenuItem(subMenus, "Apertura de Caja", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
-                new CambiaPanel(pnlPrincipal, new Pn_MovimientosCaja());
+                  new CambiaPanel(pnlPrincipal, new Pn_MovimientoAbrirCaja());
+            }
+        });
+          MenuItem CerrarCaja = new MenuItem(subMenus, "Cierre de Caja", 10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                  new CambiaPanel(pnlPrincipal, new Pn_MovimientoCerrarCaja());
             }
         });
 //APARTADO DE TODOS LOS MENUS
@@ -618,8 +630,10 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
         MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);
         MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
-        Administrador = new MenuItem(iconAdministrador, "Administrador", 35, null, NuevoEmpleado,ConfiguraciónServidor,Permisos,Caja);
-        MenuItem Sesion =new MenuItem(iconSesion, "Cerrar Sesión", 35, new ActionListener() {
+        AdministracionCaja = new MenuItem(iconAdministrador, "Caja Admin", 35, null, AbrirCaja,CerrarCaja);
+
+        Administrador = new MenuItem(iconAdministrador, "Administrador", 35, null, NuevoEmpleado, ConfiguraciónServidor, Permisos);
+        MenuItem Sesion = new MenuItem(iconSesion, "Cerrar Sesión", 35, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(Principal.this, true);
@@ -627,11 +641,9 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 wa.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-                         
-                        
-                        Principal.this.dispose(); 
+
+                        Principal.this.dispose();
                         se.setVisible(true);
-                 
 
                     }
                 });
@@ -639,7 +651,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
-        addMenu(CalendarioReservas, Reservaciones, Recepcion, Clientes,Facturas, Reportes,Configuracion, Administrador,Sesion); //Configuracion);
+        addMenu(CalendarioReservas, Reservaciones, Recepcion, Clientes, Facturas, Reportes, Configuracion, Administrador, Sesion); //Configuracion);
     }
 
     private void addMenu(MenuItem... menu) {
@@ -657,7 +669,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private void ajustesDeScroll() {
         //scroll_Menu es el nombre del jscrollpane que contiene el panel del menu
         scroll_Menu.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-  //incrementa a velocidad de scroleo
+        //incrementa a velocidad de scroleo
         scroll_Menu.getVerticalScrollBar().setUnitIncrement(20);
         //elimina el scrollBar vertical 
 
@@ -696,7 +708,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         // Thread current= Thread.currentThread();
         for (int i = 1; i > 0; i++) {
             if (i > 0) {
-              //  validarPermisos();
+                //  validarPermisos();
                 hora();
                 lb_hora.setText(hora + ":" + minutos + ":" + segundos);
             }
@@ -732,8 +744,6 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         hilo = new Thread(hilos);
         hilo.start();
     }
-
-
 
     /**
      * @param args the command line arguments

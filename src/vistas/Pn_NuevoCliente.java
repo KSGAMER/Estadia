@@ -796,9 +796,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar agregar los datos del nuevo Cliente,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+   
         }
 
 
@@ -823,9 +821,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar actualizar los datos del nuevo cliente,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+    
         }
     }//GEN-LAST:event_btn_ModificarActionPerformed
 
@@ -859,9 +855,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar los datos del cliente,"
-                    + "por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
-
+  
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
