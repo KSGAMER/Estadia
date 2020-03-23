@@ -5,6 +5,7 @@
  */
 package vistas;
 
+
 import controladores.*;
 import controladores.ValidadorDePrivilegios.*;
 import ds.desktop.notify.DesktopNotify;
@@ -17,7 +18,9 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -31,10 +34,9 @@ import objetos.*;
  */
 public class Pn_Reservaciones extends javax.swing.JPanel {
 //NECESARIO PARA FUNCIONES DE ESTE MODULO 
-
     private ControladorEscritura ce = new ControladorEscritura();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
-    private ControladorCategorias ccat = new ControladorCategorias();
+    private ControladorCategorias ccat= new ControladorCategorias();
     private ControladorClientes mc = new ControladorClientes();
     private ControladorReservaciones cr = new ControladorReservaciones();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
@@ -58,11 +60,11 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame principal;
 //FIN
-    //NECESARIO
+  //NECESARIO
 //busqueda del numero de mes de la reservaciion para comparaciones
     String MesdeFechaIngreso, MesdeFechaSalida;
-
-    private boolean flag = false;
+    
+     private boolean flag = false;
 
 //FIN DE NECESARIO
     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
@@ -70,16 +72,17 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     String month = new SimpleDateFormat("MM").format(now);
     String day = new SimpleDateFormat("dd").format(now);
     int año = Integer.parseInt(year);
-    int mes = Integer.parseInt(month);
-    int dia = Integer.parseInt(day);
-
+    int mes = Integer.parseInt(month);  
+    int dia = Integer.parseInt(day); 
+    
+ 
     /**
      * Creates new form Pn_Reservaciones1
      */
     public Pn_Reservaciones() {
         initComponents();
         mouseOnClickGananciasFechas();
-        //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
+         //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
         analisis.validarPermisos(NombreModulo);
         //FIN
         //NECESARIO PARA CARGAR LOS DATOS DE LAS TABLAS O EN LOS CB REQUERIDOS
@@ -91,7 +94,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
         //FIN
-        //APARIENCIA DE LA TABLA
+           //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
         //FIN
@@ -101,18 +104,44 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         //CARGA EL CB CON LAS HABITACIONES
         cargarHabitaciones();
         //FIN
+             
+    }
+    public static int restarFechas(Date fechaIn, Date fechaFinal) {
+        GregorianCalendar fechaInicio = new GregorianCalendar();
+        fechaInicio.setTime(fechaIn);
+        GregorianCalendar fechaFin = new GregorianCalendar();
+        fechaFin.setTime(fechaFinal);
+        int dias = 0;
+        if (fechaFin.get(Calendar.YEAR) == fechaInicio.get(Calendar.YEAR)) {
+
+            dias = (fechaFin.get(Calendar.DAY_OF_YEAR) - fechaInicio.get(Calendar.DAY_OF_YEAR)) + 1;
+        } else {
+            int rangoAnyos = fechaFin.get(Calendar.YEAR) - fechaInicio.get(Calendar.YEAR);
+
+            for (int i = 0; i <= rangoAnyos; i++) {
+                int diasAnio = fechaInicio.isLeapYear(fechaInicio.get(Calendar.YEAR)) ? 366 : 365;
+                if (i == 0) {
+                    dias = 1 + dias + (diasAnio - fechaInicio.get(Calendar.DAY_OF_YEAR));
+                } else if (i == rangoAnyos) {
+                    dias = dias + fechaFin.get(Calendar.DAY_OF_YEAR);
+                } else {
+                    dias = dias + diasAnio;
+                }
+            }
+        }
+
+        return dias;
 
     }
-
     private void cargarHabitaciones() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Habitacion");
 
         for (ObjetoHabitacion campos : ch.selectHabitacion()) {
-            /* if (campos.getIdEstadoHabitacion() != 1) {
+           /* if (campos.getIdEstadoHabitacion() != 1) {
 
             } else {*/
-            cb.addElement(campos.getNombre());
+                cb.addElement(campos.getNombre());
             //}
         }
         cb_Habitacion.setModel(cb);
@@ -165,7 +194,6 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jt_Reservas.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
-
     public void mouseOnClickGananciasFechas() {
         jd_Ingreso.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -189,7 +217,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         });
     }
 
-    /*
+/*
     private void bloquearComponentes() {
 
         jt_nombre.setEnabled(false);
@@ -197,13 +225,15 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         //datos no editables
         jt_nombre.setEditable(false);
     }
-     */
+*/
+ 
+
     private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_nombre.getText().equals("Ingresar Nombre")) && !(jt_nombre.getText().equals(""))) {
             lb_errorNombre.setForeground(new Color(84, 110, 122));
-
+            
         } else {
             lb_errorNombre.setForeground(Color.RED);
             val = false;
@@ -239,10 +269,10 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         return val;
 
     }
-
     private Boolean validacionFechas() {
         Boolean val = true;
-
+        
+        
         return val;
     }
 
@@ -643,12 +673,12 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
 
         try {
-            if (!(validarEscritura() == true) || !(validarSeleccion() == true) || !validacionFechas() == true) {
+            if (!(validarEscritura() == true) || !(validarSeleccion() == true) || !validacionFechas()==true) {
 
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-                /* for (ObjetoHabitacion objetoHabitacion : ch.selectHabitacion()) {
+               /* for (ObjetoHabitacion objetoHabitacion : ch.selectHabitacion()) {
                     for (ObjetoReservacion objetoReservacion : cr.selectReservacion()) {
 
 //busqueda del numero de mes de la reservaciion para comparaciones
@@ -670,7 +700,8 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                         }
                     }                    
                 }
-                 */
+    */
+            
 
                 cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Principal.User);
                 for (int i = 0; i < ch.selectHabitacion().size(); i++) {
@@ -684,7 +715,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             }
 
         } catch (Exception e) {
-
+           
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_IngresarActionPerformed
@@ -710,7 +741,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                     if (habitacion.getNombre().equals(String.valueOf(cb_Habitacion.getSelectedItem()))) {
                         if (habitacion.getIdCategoria() == categoria.getIdCategoria()) {
                             CobrarReserv.lb_PrecioHabitacion.setText(String.valueOf(habitacion.getPrecioSugerido()));
-                            CobrarReserv.lb_CostoCalculado.setText(String.valueOf(habitacion.getPrecioSugerido()));
+                            CobrarReserv.lb_TotalxNoches.setText(String.valueOf(habitacion.getPrecioSugerido()));
                             CobrarReserv.lb_TipoHabitacion.setText(String.valueOf(categoria.getNombre()));
 
                         }
@@ -757,15 +788,15 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-
+               
                 Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
 
-                        cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
-                        //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
+                      cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
+                  //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
 
                         tamañoTabla();
                         NewTable = new DefaultTableModel();
@@ -778,7 +809,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             }
 
         } catch (Exception e) {
-
+    
         }
     }//GEN-LAST:event_btn_Eliminar2ActionPerformed
 
@@ -798,7 +829,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             }
 
         } catch (Exception e) {
-
+     
         }
     }//GEN-LAST:event_btn_ModificarActionPerformed
 
@@ -841,16 +872,13 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         int año1 = Integer.parseInt(year1);
         int mes1 = Integer.parseInt(month1);
         int dia1 = Integer.parseInt(day1);
-
+    
         if (flag == true) {
-            if (mes1 < mes && dia1 < dia 
-                año1<año
-            
-                ) {
+            if (mes1<mes && dia1<dia &&año1<año) {
        //RECORDATORIO 
         DesktopNotify.showDesktopMessage("Recordatorio", "La fecha de ingreso no debe ser menor "
-                        + "a la fecha actual ", DesktopNotify.TIP);
-
+                + "a la fecha actual ", DesktopNotify.TIP);
+  
             }else{
                 
             }
@@ -860,21 +888,21 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     }//GEN-LAST:event_jd_IngresoPropertyChange
 
     private void jd_SalidaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jd_SalidaPropertyChange
-        String year1 = new SimpleDateFormat("yyyy").format(dateFormat.format(jd_Salida.getDate()));
+  String year1 = new SimpleDateFormat("yyyy").format(dateFormat.format(jd_Salida.getDate()));
         String month1 = new SimpleDateFormat("MM").format(dateFormat.format(jd_Salida.getDate()));
         String day1 = new SimpleDateFormat("dd").format(dateFormat.format(jd_Salida.getDate()));
         int año1 = Integer.parseInt(year1);
         int mes1 = Integer.parseInt(month1);
         int dia1 = Integer.parseInt(day1);
-
+    
         if (flag == true) {
-            if (mes1 < mes && dia1 < dia && año1 < año) {
-                //RECORDATORIO 
-                DesktopNotify.showDesktopMessage("Recordatorio", "La fecha de salida no debe ser menor "
-                        + "a la fecha actual ", DesktopNotify.TIP);
-
-            } else {
-
+            if (mes1<mes && dia1<dia && año1<año) {
+       //RECORDATORIO 
+        DesktopNotify.showDesktopMessage("Recordatorio", "La fecha de salida no debe ser menor "
+                + "a la fecha actual ", DesktopNotify.TIP);
+  
+            }else{
+                
             }
         }
 

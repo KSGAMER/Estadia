@@ -6,6 +6,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -20,49 +23,52 @@ import objetos.ObjetoTipoPago;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author fenix
  */
 public class Pn_CobrarReservacion extends javax.swing.JFrame {
 //necesario para funciones de este modulo
+
     ControladorClientes mc = new ControladorClientes();
-     private ControladorReservaciones cr = new ControladorReservaciones();
+    private ControladorReservaciones cr = new ControladorReservaciones();
     ControladorCFDI cf = new ControladorCFDI();
     ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     Pn_SeleccionarClientesCobro selectCC = new Pn_SeleccionarClientesCobro();
     ControladorTipoPagos ct = new ControladorTipoPagos();
     ControladorCobros cco = new ControladorCobros();
-    ControladorHabitaciones ch  = new ControladorHabitaciones();
+    ControladorHabitaciones ch = new ControladorHabitaciones();
     DefaultTableModel NewTable;
-    private int validador=0;
+    private int validador = 0;
 //FIN
+
     //variables que guardan la cantidad a cobrar o/y el monto acumulado 
-      Double CostoAcumulado, MontoaCobrar;
+    Double CostoAcumulado, MontoaCobrar;
+//variable de retorno de diferencia entre fechas
+     int dias;
     /**
      * Creates new form Pn_SeleccionClientes
      */
     public Pn_CobrarReservacion() {
         setPantalla();
         initComponents();
-          //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
+        //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
         //FIN
-         //asigna la imagen de icono de la aplicacion que se muestra en la barra de tareas
+        //asigna la imagen de icono de la aplicacion que se muestra en la barra de tareas
         setIconSystem();
         //fin
         //ajusta la aplicacion al centro de la pantalla
         centrarPantalla();
         //fin
-       
+
         cf.tablaCFDI();
         ct.tablaTipoPagos();
         ch.tablaHabitaciones();
         //FIN
-       
-      //carga los datos del tipo de pago en el combo box
+
+        //carga los datos del tipo de pago en el combo box
         cargarTiposdePago();
         //fin
         //bloquea componentes no necesarios en el formulario
@@ -71,10 +77,11 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         //oculta elementos no requeridos en la app , a menos que se manden a visualizar
         ocultarElementosFacturas();
 //fin
-      DesktopNotify.showDesktopMessage("RECOMENDACIÓN", "En caso de requerir factura, es importante confirmar el correo"
-              + "al cliente, y en caso de ser diferente se puede modificar desde el formulario SELECCIONA CLIENTE o bien "
-              + "desde la ventana de Checkout", DesktopNotify.TIP);
-   
+        DesktopNotify.showDesktopMessage("RECOMENDACIÓN", "En caso de requerir factura, es importante confirmar el correo"
+                + "al cliente, y en caso de ser diferente se puede modificar desde el formulario SELECCIONA CLIENTE o bien "
+                + "desde la ventana de Checkout", DesktopNotify.TIP);
+       //solicita que se escriba primero en esta casilla, que es el TotalManual
+        jt_MontoManualaCobrar.requestFocus();
     }
 
     private void setPantalla() {
@@ -156,11 +163,11 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
         this.jt_Clientes.setModel(NewTable);
     }*/
- 
-
     private void datosIniciales() {
         jt_MontoACobrar.setText("Ingresar Monto");
         cb_TipoPago.setSelectedIndex(0);
+        lb_TotalNoches.setText(String.valueOf(CalcularNoches()));
+        lb_TotalxNoches.setText(String.valueOf(CalcularNoches() * (Integer.parseInt(lb_PrecioHabitacion.getText()))));
     }
 
     private void bloquearComponentes() {
@@ -205,9 +212,9 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         btn_Salir.setLocation(680, 470);
     }
 
-      private Boolean validaciones() {
-      
-        CostoAcumulado = Double.valueOf(lb_CostoCalculado.getText());
+    private Boolean validaciones() {
+
+        CostoAcumulado = Double.valueOf(lb_TotalGeneral.getText());
         MontoaCobrar = Double.valueOf(jt_MontoACobrar.getText());
         Boolean val = true;
         if (!(jt_MontoACobrar.getText().equals("0")) && !(jt_MontoACobrar.getText().equals(""))) {
@@ -224,7 +231,6 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
             lb_errorMontoCobrar.setForeground(Color.RED);
             val = false;
         }
-  
 
         return val;
     }
@@ -239,6 +245,45 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         }
 
         return val;
+    }
+
+    private int CalcularNoches() {
+        try {
+            Date FechaInicial = new SimpleDateFormat("dd/MM/yyyy").parse(lb_FechaIngreso.getText());
+            String year = new SimpleDateFormat("yyyy").format(FechaInicial);
+            String month = new SimpleDateFormat("MM").format(FechaInicial);
+            String day = new SimpleDateFormat("dd").format(FechaInicial);
+            int anio = Integer.parseInt(year);
+            int mes = Integer.parseInt(month);
+            int dia = Integer.parseInt(day);
+
+            //valores de la ficha inicial de la reservacion SIN IMPORTAR EL MES Y/O AÑO
+            Calendar FechainicioReservacion = Calendar.getInstance();
+            FechainicioReservacion.set(anio, mes - 1, dia);
+            FechainicioReservacion.set(Calendar.HOUR, 0);
+            FechainicioReservacion.set(Calendar.HOUR_OF_DAY, 0);
+            FechainicioReservacion.set(Calendar.MINUTE, 0);
+            FechainicioReservacion.set(Calendar.SECOND, 0);
+
+            //representa el dia actual
+            Calendar DiaActual = Calendar.getInstance();
+            DiaActual.set(Calendar.HOUR, 0);
+            DiaActual.set(Calendar.HOUR_OF_DAY, 0);
+            DiaActual.set(Calendar.MINUTE, 0);
+            DiaActual.set(Calendar.SECOND, 0);
+
+            long finMS = DiaActual.getTimeInMillis();
+            long inicioMS = FechainicioReservacion.getTimeInMillis();
+            //ESTOS MILISEGUNTOS SE CONVIERTEN EN DIAS 
+            //1000 de milisegundos multiplicado por 60 papra obtener los segundos
+            //es resultado multiplicado por 60 para obtener los minutos 
+            //el resultado multiplicado por 24 para obtener los dias
+            dias = (int) ((Math.abs(finMS - inicioMS)) / (1000 * 60 * 60 * 24)); //86400000
+
+
+        } catch (Exception e) {
+        }
+return dias;
     }
 
     /*
@@ -275,30 +320,44 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         btn_Salir = new principal.MaterialButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jSeparator4 = new javax.swing.JSeparator();
         lb_FolioReservaciones = new javax.swing.JLabel();
         cb_TipoPago = new javax.swing.JComboBox<>();
-        Celular2 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jb_Cambio = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
-        lb_CostoCalculado = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        lb_TotalxNoches = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         lb_errorMontoCobrar = new javax.swing.JLabel();
         lb_errorFormaPago = new javax.swing.JLabel();
         jt_MontoACobrar = new javax.swing.JTextField();
         btn_Cobrar1 = new principal.MaterialButton();
+        jPanel13 = new javax.swing.JPanel();
+        Celular3 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        Celular4 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jt_MontoManualaCobrar = new javax.swing.JTextField();
+        jSeparator12 = new javax.swing.JSeparator();
+        lb_TotalNoches = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jt_CargoExtra = new javax.swing.JTextField();
+        jLabel42 = new javax.swing.JLabel();
+        lb_TotalGeneral = new javax.swing.JLabel();
         pn_showFacturas = new javax.swing.JPanel();
         lb_NombreRazonSocial = new javax.swing.JLabel();
         lb_NombreRFC = new javax.swing.JLabel();
@@ -327,11 +386,11 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jSeparator10 = new javax.swing.JSeparator();
         jPanel7 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jSeparator6 = new javax.swing.JSeparator();
         lb_PrecioHabitacion = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         lb_NombreHabitacion = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
         jPanel10 = new javax.swing.JPanel();
         lb_FechaSalida = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -348,10 +407,12 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(204, 204, 204));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 251, 190, -1));
 
         btn_Cobrar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Cobrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -368,6 +429,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 btn_CobrarActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_Cobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 422, 310, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Proceso de Check Out");
@@ -446,9 +508,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel26.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, -1, 50));
 
         btn_Salir.setBackground(new java.awt.Color(211, 18, 18));
         btn_Salir.setForeground(new java.awt.Color(255, 255, 255));
@@ -465,6 +525,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 btn_SalirActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 472, 310, 40));
 
         jPanel3.setBackground(new java.awt.Color(233, 235, 238));
         jPanel3.setToolTipText("");
@@ -476,17 +537,50 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Datos Generales");
 
+        jLabel31.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel31.setText("Total de Noches");
+
+        jLabel32.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel32.setText("Total ($) por Noches");
+
+        jCheckBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox2ItemStateChanged(evt);
+            }
+        });
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 521, Short.MAX_VALUE))
+                .addGap(120, 120, 120)
+                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox2)
+                .addGap(0, 71, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, -1));
@@ -511,41 +605,23 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 cb_TipoPagoActionPerformed(evt);
             }
         });
-        jPanel3.add(cb_TipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 150, -1));
-
-        Celular2.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        Celular2.setForeground(new java.awt.Color(255, 255, 255));
-        Celular2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Celular2.setText("Forma de pago");
-        jPanel3.add(Celular2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 100, -1));
+        jPanel3.add(cb_TipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 150, -1));
 
         jLabel30.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel30.setText("$");
-        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 10, -1));
+        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 10, -1));
 
         jLabel28.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel28.setText("1.-");
-        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 20, -1));
+        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 20, -1));
 
         jb_Cambio.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jb_Cambio.setForeground(new java.awt.Color(153, 153, 153));
         jb_Cambio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jb_Cambio.setText("0.0");
         jPanel3.add(jb_Cambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 230, 50, 20));
-
-        jLabel31.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel31.setText("Costo Calculado");
-        jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 100, -1));
-
-        jLabel32.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel32.setText("Monto a cobrar ");
-        jPanel3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 100, -1));
 
         jLabel33.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
@@ -555,29 +631,65 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
         jPanel12.setBackground(new java.awt.Color(84, 110, 122));
 
+        jLabel37.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel37.setText("Total Manual");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("(?)");
+        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
+
+        jLabel41.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel41.setText("Cargo Extra");
+
+        jLabel38.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel38.setText("TOTAL GENERAL");
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(jLabel37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(112, 112, 112)
+                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
+        jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 640, -1));
 
-        lb_CostoCalculado.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
-        lb_CostoCalculado.setForeground(new java.awt.Color(153, 153, 153));
-        lb_CostoCalculado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_CostoCalculado.setText("Detalles");
-        jPanel3.add(lb_CostoCalculado, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 100, -1));
-
-        jLabel29.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel29.setText("$");
-        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 10, 20));
+        lb_TotalxNoches.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lb_TotalxNoches.setForeground(new java.awt.Color(153, 153, 153));
+        lb_TotalxNoches.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_TotalxNoches.setText("0");
+        jPanel3.add(lb_TotalxNoches, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 100, 20));
 
         jLabel27.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -591,13 +703,14 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
         lb_errorMontoCobrar.setForeground(new java.awt.Color(233, 235, 238));
         lb_errorMontoCobrar.setText("*");
-        jPanel3.add(lb_errorMontoCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 10, -1));
+        jPanel3.add(lb_errorMontoCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 10, -1));
 
         lb_errorFormaPago.setForeground(new java.awt.Color(233, 235, 238));
         lb_errorFormaPago.setText("*");
-        jPanel3.add(lb_errorFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 10, -1));
+        jPanel3.add(lb_errorFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 10, -1));
 
         jt_MontoACobrar.setBackground(new java.awt.Color(233, 235, 238));
+        jt_MontoACobrar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jt_MontoACobrar.setForeground(new java.awt.Color(153, 153, 153));
         jt_MontoACobrar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jt_MontoACobrar.setText("0");
@@ -620,7 +733,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 jt_MontoACobrarKeyTyped(evt);
             }
         });
-        jPanel3.add(jt_MontoACobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 110, 20));
+        jPanel3.add(jt_MontoACobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 110, 20));
 
         btn_Cobrar1.setBackground(new java.awt.Color(40, 180, 99));
         btn_Cobrar1.setForeground(new java.awt.Color(255, 255, 255));
@@ -637,7 +750,136 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 btn_Cobrar1ActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_Cobrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 50, 40));
+        jPanel3.add(btn_Cobrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, 50, 40));
+
+        jPanel13.setBackground(new java.awt.Color(84, 110, 122));
+
+        Celular3.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        Celular3.setForeground(new java.awt.Color(255, 255, 255));
+        Celular3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Celular3.setText("Monto de Pago");
+
+        jLabel36.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel36.setText("#");
+
+        Celular4.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        Celular4.setForeground(new java.awt.Color(255, 255, 255));
+        Celular4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Celular4.setText("Forma de pago");
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Celular3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
+                .addComponent(Celular4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(323, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Celular4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Celular3)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 640, 30));
+
+        jLabel39.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel39.setText("2.-");
+        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 20, -1));
+
+        jt_MontoManualaCobrar.setBackground(new java.awt.Color(233, 235, 238));
+        jt_MontoManualaCobrar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jt_MontoManualaCobrar.setForeground(new java.awt.Color(153, 153, 153));
+        jt_MontoManualaCobrar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jt_MontoManualaCobrar.setText("0");
+        jt_MontoManualaCobrar.setBorder(null);
+        jt_MontoManualaCobrar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jt_MontoManualaCobrarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jt_MontoManualaCobrarFocusLost(evt);
+            }
+        });
+        jt_MontoManualaCobrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_MontoManualaCobrarMouseClicked(evt);
+            }
+        });
+        jt_MontoManualaCobrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jt_MontoManualaCobrarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jt_MontoManualaCobrarKeyTyped(evt);
+            }
+        });
+        jPanel3.add(jt_MontoManualaCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 100, 30));
+        jPanel3.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 110, 10));
+
+        lb_TotalNoches.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lb_TotalNoches.setForeground(new java.awt.Color(153, 153, 153));
+        lb_TotalNoches.setText("total Noches");
+        jPanel3.add(lb_TotalNoches, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, -1));
+
+        jLabel40.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel40.setText("$");
+        jPanel3.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 10, 20));
+
+        jt_CargoExtra.setBackground(new java.awt.Color(233, 235, 238));
+        jt_CargoExtra.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jt_CargoExtra.setForeground(new java.awt.Color(153, 153, 153));
+        jt_CargoExtra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jt_CargoExtra.setText("0");
+        jt_CargoExtra.setBorder(null);
+        jt_CargoExtra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jt_CargoExtraFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jt_CargoExtraFocusLost(evt);
+            }
+        });
+        jt_CargoExtra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_CargoExtraMouseClicked(evt);
+            }
+        });
+        jt_CargoExtra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jt_CargoExtraKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jt_CargoExtraKeyTyped(evt);
+            }
+        });
+        jPanel3.add(jt_CargoExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 105, 70, 20));
+
+        jLabel42.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel42.setText("$");
+        jPanel3.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 10, 30));
+
+        lb_TotalGeneral.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lb_TotalGeneral.setForeground(new java.awt.Color(153, 153, 153));
+        lb_TotalGeneral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_TotalGeneral.setText("jLabel10");
+        jPanel3.add(lb_TotalGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 100, 80, 30));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 280));
 
         pn_showFacturas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -714,6 +956,8 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         });
         pn_showFacturas.add(btn_SeleccionarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 30, 30));
 
+        jPanel1.add(pn_showFacturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 272, 310, 120));
+
         jPanel6.setBackground(new java.awt.Color(84, 110, 122));
 
         jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -756,6 +1000,8 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 242, -1, 30));
+
         jPanel8.setBackground(new java.awt.Color(233, 235, 238));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -793,6 +1039,8 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         lb_nombreCliente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_nombreCliente.setText("Nombre");
         jPanel8.add(lb_nombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 190, -1));
+
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 62, -1, 150));
 
         jPanel5.setBackground(new java.awt.Color(233, 235, 238));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -835,7 +1083,6 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         );
 
         jPanel5.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, -1));
-        jPanel5.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 120, 10));
 
         lb_PrecioHabitacion.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
         lb_PrecioHabitacion.setForeground(new java.awt.Color(153, 153, 153));
@@ -858,6 +1105,9 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel34.setText("$");
         jPanel5.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 10, -1));
+        jPanel5.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 120, 10));
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 62, -1, 150));
 
         jPanel10.setBackground(new java.awt.Color(233, 235, 238));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -907,68 +1157,9 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         lb_FechaIngreso.setText("Fecha ingreso");
         jPanel10.add(lb_FechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 190, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(240, 240, 240)
-                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel16))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
+        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 62, -1, 150));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 215, 1030, 9));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 52, 1030, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -991,7 +1182,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private void btn_CobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CobrarActionPerformed
 
         try {
-            if (!validaciones() == true && !validarTipoPago() == true) {
+            if (!validaciones() == true && !validarTipoPago() == true ||!validaciones()==true) {
                 DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a monto calculado y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
             } else if (validaciones() == true && !validarTipoPago() == true) {
                 DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a monto calculado y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
@@ -1026,8 +1217,8 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
     private void cb_TipoPagoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_TipoPagoItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-         //   this.idPago = cb_TipoPago.getSelectedIndex();
-        }      
+            //   this.idPago = cb_TipoPago.getSelectedIndex();
+        }
     }//GEN-LAST:event_cb_TipoPagoItemStateChanged
 
     private void jch_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jch_facturacionActionPerformed
@@ -1145,7 +1336,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_MontoACobrarMouseClicked
 
     private void jt_MontoACobrarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoACobrarKeyTyped
-        ce.typedCharsAndSpaceAndDigits(evt, jt_MontoACobrar);
+        ce.typedDigits(evt, jt_MontoACobrar);
     }//GEN-LAST:event_jt_MontoACobrarKeyTyped
 
     private void btn_Cobrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_Cobrar1MouseClicked
@@ -1154,11 +1345,12 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
     private void btn_Cobrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Cobrar1ActionPerformed
         try {
-            if(!validaciones()==true){
-                 DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a monto calculado", DesktopNotify.ERROR);
-           
-        }else{
-                CostoAcumulado = Double.valueOf(lb_CostoCalculado.getText());
+            if (!validaciones() == true) {
+                DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a monto calculado y/o "
+                        + "no debe estar vacio o en ceros", DesktopNotify.ERROR);
+
+            } else {
+                CostoAcumulado = Double.valueOf(lb_TotalxNoches.getText());
                 MontoaCobrar = Double.valueOf(jt_MontoACobrar.getText());
                 jb_Cambio.setText("");
                 jb_Cambio.setText(String.valueOf(MontoaCobrar - CostoAcumulado));
@@ -1175,6 +1367,85 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private void jLabel7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel7MouseEntered
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jt_MontoManualaCobrarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarFocusGained
+   cft.formFocusGain(jt_MontoManualaCobrar);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoManualaCobrarFocusGained
+
+    private void jt_MontoManualaCobrarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarFocusLost
+  cft.formFocusLostJTextField(jt_MontoManualaCobrar, "0");        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoManualaCobrarFocusLost
+
+    private void jt_MontoManualaCobrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarMouseClicked
+cft.formFocusGain(jt_MontoManualaCobrar);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoManualaCobrarMouseClicked
+
+    private void jt_MontoManualaCobrarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarKeyTyped
+   ce.typedDigits(evt, jt_MontoManualaCobrar);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoManualaCobrarKeyTyped
+
+    private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
+if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+    
+    jt_MontoManualaCobrar.setText(lb_TotalxNoches.getText());
+}else{
+      jt_MontoManualaCobrar.setText("0");
+  
+}
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ItemStateChanged
+
+    private void jt_CargoExtraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_CargoExtraMouseClicked
+  cft.formFocusGain(jt_CargoExtra);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CargoExtraMouseClicked
+
+    private void jt_CargoExtraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CargoExtraFocusGained
+  cft.formFocusGain(jt_CargoExtra);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CargoExtraFocusGained
+
+    private void jt_CargoExtraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CargoExtraFocusLost
+ cft.formFocusLostJTextField(jt_CargoExtra, "0");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CargoExtraFocusLost
+
+    private void jt_CargoExtraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_CargoExtraKeyTyped
+ ce.typedDigits(evt, jt_CargoExtra);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CargoExtraKeyTyped
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        DesktopNotify.showDesktopMessage("TIP", "Es campo de monto Manual se puede llenar automaticamente "
+                + "en con el calculo generado en TOTAL POR NOCHES al hacer click en la casilla"
+                + "o ingresar una catidad preferencial y dejar la casilla vacia", DesktopNotify.TIP);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jt_MontoManualaCobrarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarKeyReleased
+String numero = jt_MontoManualaCobrar.getText();
+       
+if(numero.equals("")==false && numero.matches("[0-9]*")){
+     int Monto = Integer.parseInt(jt_MontoManualaCobrar.getText());
+     int Cargo = Integer.parseInt(jt_CargoExtra.getText());
+     lb_TotalGeneral.setText(String.valueOf(Monto+Cargo));
+     
+}
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoManualaCobrarKeyReleased
+
+    private void jt_CargoExtraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_CargoExtraKeyReleased
+String numeroCargo = jt_MontoManualaCobrar.getText();
+       
+if(numeroCargo.equals("")==false && numeroCargo.matches("[0-9]*")){
+     int Monto = Integer.parseInt(jt_MontoManualaCobrar.getText());
+     int Cargo = Integer.parseInt(jt_CargoExtra.getText());
+     lb_TotalGeneral.setText(String.valueOf(Monto+Cargo));
+     
+}        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CargoExtraKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1213,12 +1484,14 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Celular2;
+    private javax.swing.JLabel Celular3;
+    private javax.swing.JLabel Celular4;
     private principal.MaterialButton btn_Cobrar;
     private principal.MaterialButton btn_Cobrar1;
     private principal.MaterialButton btn_Salir;
     private principal.MaterialButton btn_SeleccionarClientes;
     private javax.swing.JComboBox<String> cb_TipoPago;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -1229,10 +1502,8 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -1240,15 +1511,24 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1259,21 +1539,23 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel jb_Cambio;
     private javax.swing.JCheckBox jch_facturacion;
     private javax.swing.JSeparator jsep_Email;
     private javax.swing.JSeparator jsep_RFC;
     private javax.swing.JSeparator jsep_RazonSocial;
+    private javax.swing.JTextField jt_CargoExtra;
     private javax.swing.JTextField jt_MontoACobrar;
+    private javax.swing.JTextField jt_MontoManualaCobrar;
     public static javax.swing.JTextField jt_email;
-    public static javax.swing.JLabel lb_CostoCalculado;
     public static javax.swing.JLabel lb_FechaIngreso;
     public static javax.swing.JLabel lb_FechaSalida;
     public static javax.swing.JLabel lb_FolioReservaciones;
@@ -1283,6 +1565,9 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private javax.swing.JLabel lb_NombreRazonSocial;
     public static javax.swing.JLabel lb_PrecioHabitacion;
     public static javax.swing.JLabel lb_TipoHabitacion;
+    private javax.swing.JLabel lb_TotalGeneral;
+    private javax.swing.JLabel lb_TotalNoches;
+    public static javax.swing.JLabel lb_TotalxNoches;
     private javax.swing.JLabel lb_errorFormaPago;
     private javax.swing.JLabel lb_errorMontoCobrar;
     public static javax.swing.JLabel lb_nombreCliente;
