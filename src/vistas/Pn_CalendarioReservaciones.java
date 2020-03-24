@@ -83,6 +83,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         cargarReservas();
         //otorga tamaños en la tabla y permisos de manipulación
         tamañoTabla();
+        //ajuste jScrollPane que contiene la tabla
         ajustesDeScroll();
 
     }
@@ -108,10 +109,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         jt_Reservas.setShowVerticalLines(true);
         jt_Reservas.setGridColor(Color.decode("#D3EFFC"));
         jt_Reservas.setShowHorizontalLines(false);
-
-      
-
-
+ 
     }
 
     public void tamañoTabla() {
@@ -141,7 +139,19 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         String day = new SimpleDateFormat("dd").format(now);
         int ye = Integer.parseInt(year);
         int mn = Integer.parseInt(month);
-        int mes = mn + m;
+       // int mes = mn+m;
+        int mes;
+
+        if (mn == 1) {
+            m = 0;
+            mes = mn + m;
+        }
+        if (mn == 12) {
+            m = 0;
+            mes = mn + m;
+        } else {
+            mes = mn + m;
+        }
         //bloquear y desbloquar el boton de siguiente o anterior mes
         if (mes > 11) {
             btnNextMonth.setEnabled(false);
@@ -222,7 +232,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
 
         }
 //DATOS DEL MES Y AÑO ACTUALES
-//        lb_año.setText(Integer.toString(ye));
+        lb_año.setText(Integer.toString(ye));
         lb_mes.setText(mesActual);
 
         /*CODIGO QUE CARGA LOS TITULOS DE LA TABLA .. EJEMPLO
@@ -381,6 +391,7 @@ en las siguientes finas*/
         lb_mes = new javax.swing.JLabel();
         btnBeforeMont = new principal.MaterialButton();
         btnNextMonth = new principal.MaterialButton();
+        lb_año = new javax.swing.JLabel();
         scroll_Tabla = new javax.swing.JScrollPane();
         jt_Reservas = new javax.swing.JTable()
         {
@@ -456,7 +467,7 @@ en las siguientes finas*/
 
         lb_mes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lb_mes.setText("mes");
-        Pn_Pisos.add(lb_mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, 30));
+        Pn_Pisos.add(lb_mes, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, 30));
 
         btnBeforeMont.setBackground(new java.awt.Color(40, 180, 99));
         btnBeforeMont.setForeground(new java.awt.Color(255, 255, 255));
@@ -491,6 +502,10 @@ en las siguientes finas*/
             }
         });
         Pn_Pisos.add(btnNextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 6, 100, 40));
+
+        lb_año.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lb_año.setText("año");
+        Pn_Pisos.add(lb_año, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, -1, 30));
 
         jPanel1.add(Pn_Pisos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 990, 50));
 
@@ -567,6 +582,7 @@ en las siguientes finas*/
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     public javax.swing.JTable jt_Reservas;
+    private javax.swing.JLabel lb_año;
     public static javax.swing.JLabel lb_mes;
     private javax.swing.JLabel lb_titulo;
     private javax.swing.JScrollPane scroll_Tabla;
