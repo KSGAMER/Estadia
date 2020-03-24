@@ -2,7 +2,6 @@ package vistas;
 
 import Utilerias.ComponenteGrafica;
 import controladores.*;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;

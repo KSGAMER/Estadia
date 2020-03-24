@@ -38,7 +38,6 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private String hora, minutos, segundos;
     private Thread hilo;
     private ControladorRecepciones crp = new ControladorRecepciones();
-    private ControladorHilo hilos = new ControladorHilo();
     ControladorCFDI cf = new ControladorCFDI();
     ControladorCategorias cc = new ControladorCategorias();
     ControladorClientes ccl = new ControladorClientes();
@@ -741,8 +740,6 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         hilo = new Thread(this);
         hilo.start();
         setVisible(true);
-        hilo = new Thread(hilos);
-        hilo.start();
     }
 
     /**
