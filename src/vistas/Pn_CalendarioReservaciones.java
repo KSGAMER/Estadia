@@ -139,19 +139,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         String day = new SimpleDateFormat("dd").format(now);
         int ye = Integer.parseInt(year);
         int mn = Integer.parseInt(month);
-       // int mes = mn+m;
-        int mes;
-
-        if (mn == 1) {
-            m = 0;
-            mes = mn + m;
-        }
-        if (mn == 12) {
-            m = 0;
-            mes = mn + m;
-        } else {
-            mes = mn + m;
-        }
+        int mes = mn + m;
         //bloquear y desbloquar el boton de siguiente o anterior mes
         if (mes > 11) {
             btnNextMonth.setEnabled(false);
