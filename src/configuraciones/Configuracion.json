@@ -4,6 +4,7 @@
     "DATABASE": "Estadia",
     "PASSWORD": "1234",
     "SERVER": "192.168.0.4",
+    "SERVER": "localhost",
     "AUTH": "false",
     "INSTANCE": "KSGAMER17",
     "USER": "Estadia"
