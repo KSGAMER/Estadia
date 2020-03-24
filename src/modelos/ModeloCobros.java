@@ -56,7 +56,6 @@ public class ModeloCobros extends BD {
             this.rs = st.executeQuery();
             //Se iteran los resultados obtenidos de la consulta preparada
             while (this.rs.next()) {
-                //Si el Id es igual al Id de la clase previamente cargada se prosigue
                 fila[0] = rs.getInt("IdReservacion");
                 fila[1] = rs.getInt("Monto");
                 //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
@@ -86,6 +85,46 @@ public class ModeloCobros extends BD {
                         fila[7] = mf.selectFacturaciones().get(i).getNombre();
                     }
                 }
+                //Se agrega el objeto fila a la tabla
+                tb.addRow(fila);
+                //Se agrega el resultado al arreglo
+                this.listPay.add(new ObjetoCobro(rs.getInt("IdReservacion"), rs.getInt("Monto"), rs.getInt("IdTipoPago"), rs.getString("RFC"), rs.getString("Correo"), rs.getString("FechaCobro"), rs.getInt("IdFacturacion")));
+            }
+            //Se cierra la conexión
+            conectar().close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Se retorna la tabla
+        return tb;
+    }
+    
+    public DefaultTableModel cargarTabla(String usuario) {
+             //Se instancian los resultados a utilizar para reemplazarlos en la consulta
+        mr.cargarTabla();
+        mtp.cargarTabla();
+        mf.cargarTabla();
+        mh.cargarTabla();
+        mcat.cargarTabla();
+        //Se agregan los titulos de la tabla
+        String[] titulos = {"#", "Monto", "Tipo Pago", "Nombre", "RFC", "Correo", "Fecha Cobro", "Facturación"};
+        //Se crea una variable de tipo tabla pasando los titulos de la columna
+        DefaultTableModel tb = new DefaultTableModel(null, titulos);
+        //Se declara un objeto que actuara como la fila de la tabla
+        Object[] fila = new Object[8];
+
+        try {
+            //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
+            this.st = conectar().prepareStatement("SELECT h.Nombre, h.PrecioSugerido, c.Nombre FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE CONVERT(DATE, GETDATE(), 103) = CONVERT(DATE, c.FechaCobro, 103) and c.Username = ? ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC, c.Username");
+            //Se pasan los parametros a la consulta
+            this.st.setString(1, usuario);
+            //Se ejecuta el Query
+            this.rs = st.executeQuery();
+            //Se iteran los resultados obtenidos de la consulta preparada
+            while (this.rs.next()) {
+                fila[0] = rs.getString(1);
+                fila[1] = rs.getDouble(2);
+                fila[2] = rs.getString(3);
                 //Se agrega el objeto fila a la tabla
                 tb.addRow(fila);
                 //Se agrega el resultado al arreglo
