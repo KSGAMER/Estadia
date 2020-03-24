@@ -20,4 +20,12 @@ public class ControladorGastos extends ModeloGastos{
     public DefaultTableModel tablaGastosCompleta() {
         return cargarGastos();
     }
+    
+    public void insertarGatos(String gasto, double cantidad, String descripcion, String usuario, String fecha) {
+        insertGastos(gasto, cantidad, descripcion, usuario, fecha);
+    }
+    
+    public void eliminarGatos(int id) {
+        deleteGastos(id);
+    }
 }

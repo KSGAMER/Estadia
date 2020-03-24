@@ -62,4 +62,30 @@ public class ModeloGastos extends BD{
         }
         return tb;
     }
+    
+    public void insertGastos(String gasto, double cantidad, String descripcion, String usuario, String fecha) {
+        try {
+            this.st = conectar().prepareStatement("INSERT Gastos(Nombre, Cantidad, Descripcion, Username, FechaActual) VALUES (?,?,?,?,?)");
+            this.st.setString(1, gasto);
+            this.st.setDouble(2, cantidad);
+            this.st.setString(3, descripcion);
+            this.st.setString(4, usuario);
+            this.st.setString(5, fecha);
+            this.st.execute();
+            conectar().close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloGastos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteGastos(int id) {
+        try {
+            this.st = conectar().prepareStatement("DELETE FROM Gastos WHERE IdGatos = ?");
+            this.st.setInt(1, id);
+            this.st.execute();
+            this.st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloGastos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
