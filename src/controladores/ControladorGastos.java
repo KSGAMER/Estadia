@@ -17,6 +17,10 @@ public class ControladorGastos extends ModeloGastos{
         return cargarTabla();
     }
     
+    public DefaultTableModel tablaGastos(String usuario) {
+        return cargarTabla(usuario);
+    }
+    
     public DefaultTableModel tablaGastosCompleta() {
         return cargarGastos();
     }
