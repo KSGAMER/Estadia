@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import ds.desktop.notify.DesktopNotify;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -73,8 +74,10 @@ public class ModeloGastos extends BD{
             this.st.setString(5, fecha);
             this.st.execute();
             conectar().close();
+                  DesktopNotify.showDesktopMessage("Exito", "Gasto Creado con exito", DesktopNotify.SUCCESS);
+
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloGastos.class.getName()).log(Level.SEVERE, null, ex);
+            DesktopNotify.showDesktopMessage("Error", "Error al generar el gasto, intente de nuevo", DesktopNotify.ERROR);
         }
     }
     
@@ -84,8 +87,9 @@ public class ModeloGastos extends BD{
             this.st.setInt(1, id);
             this.st.execute();
             this.st.close();
+                DesktopNotify.showDesktopMessage("Exito", "Gasto eliminado con exito", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloGastos.class.getName()).log(Level.SEVERE, null, ex);
+             DesktopNotify.showDesktopMessage("Error", "Error al eliminar el gasto, intente de nuevo", DesktopNotify.ERROR);
         }
     }
 }

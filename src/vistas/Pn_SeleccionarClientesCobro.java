@@ -1,18 +1,18 @@
 package vistas;
 
-import controladores.*;
+
+import controladores.ControladorCFDI;
+import controladores.ControladorClientes;
+import controladores.ControladorEscritura;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ItemEvent;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import objetos.ObjetoCFDI;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -25,10 +25,10 @@ import objetos.ObjetoCFDI;
  */
 public class Pn_SeleccionarClientesCobro extends javax.swing.JFrame {
 
-    ControladorClientes mc = new ControladorClientes();
-    ControladorCFDI cf = new ControladorCFDI();
-    ControladorEscritura ce = new ControladorEscritura();
-    Pn_CobrarReservacion Cobrarreserv ;
+    private ControladorClientes mc = new ControladorClientes();
+    private ControladorCFDI cf = new ControladorCFDI();
+    private ControladorEscritura ce = new ControladorEscritura();
+    Pn_CobrarReservacion Cobrarreserv;
     DefaultTableModel NewTable;
     private int seleccion;
    // private int idCfdi = 0;

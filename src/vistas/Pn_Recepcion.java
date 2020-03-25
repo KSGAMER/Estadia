@@ -5,15 +5,22 @@
  */
 package vistas;
 
-import Utilerias.*;
-import controladores.*;
+
+import Utilerias.ComponenteMenuSuperior;
+import Utilerias.ComponenteRecepcion;
+import controladores.ControladorEstatusHabitaciones;
+import controladores.ControladorPisos;
+import controladores.ControladorRecepciones;
+import controladores.ControladorReservaciones;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import javax.swing.DefaultComboBoxModel;
-import objetos.*;
+import objetos.ObjetoEstadoHabitacion;
+import objetos.ObjetoPiso;
+
 
 /**
  *

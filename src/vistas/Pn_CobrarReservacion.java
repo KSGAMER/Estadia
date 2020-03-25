@@ -1,10 +1,16 @@
 package vistas;
 
-import controladores.*;
+
+import controladores.ControladorCFDI;
+import controladores.ControladorClientes;
+import controladores.ControladorCobros;
+import controladores.ControladorEscritura;
+import controladores.ControladorFormularioTab;
+import controladores.ControladorHabitaciones;
+import controladores.ControladorReservaciones;
+import controladores.ControladorTipoPagos;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,7 +21,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import objetos.ObjetoTipoPago;
 
 /*
@@ -30,15 +35,15 @@ import objetos.ObjetoTipoPago;
 public class Pn_CobrarReservacion extends javax.swing.JFrame {
 //necesario para funciones de este modulo
 
-    ControladorClientes mc = new ControladorClientes();
+    private ControladorClientes mc = new ControladorClientes();
     private ControladorReservaciones cr = new ControladorReservaciones();
-    ControladorCFDI cf = new ControladorCFDI();
-    ControladorEscritura ce = new ControladorEscritura();
+    private ControladorCFDI cf = new ControladorCFDI();
+    private ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-    Pn_SeleccionarClientesCobro selectCC = new Pn_SeleccionarClientesCobro();
-    ControladorTipoPagos ct = new ControladorTipoPagos();
-    ControladorCobros cco = new ControladorCobros();
-    ControladorHabitaciones ch = new ControladorHabitaciones();
+    private Pn_SeleccionarClientesCobro selectCC = new Pn_SeleccionarClientesCobro();
+    private ControladorTipoPagos ct = new ControladorTipoPagos();
+    private ControladorCobros cco = new ControladorCobros();
+    private ControladorHabitaciones ch = new ControladorHabitaciones();
     DefaultTableModel NewTable;
     private int validador = 0;
 

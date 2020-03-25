@@ -199,7 +199,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1060, 10));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1020, 10));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -233,7 +233,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtabla_Cajas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 680, 430));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 640, 430));
 
         btn_AperturaCaja.setBackground(new java.awt.Color(40, 180, 99));
         btn_AperturaCaja.setForeground(new java.awt.Color(255, 255, 255));

@@ -5,8 +5,14 @@
  */
 package vistas;
 
-import controladores.ValidadorDePrivilegios.*;
-import controladores.*;
+import controladores.ControladorCategorias;
+import controladores.ControladorEscritura;
+import controladores.ControladorEstatusHabitaciones;
+import controladores.ControladorFormularioTab;
+import controladores.ControladorHabitaciones;
+import controladores.ControladorPisos;
+import controladores.ValidadorDePrivilegios.ControladorPrivilegiosHabitaciones;
+
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;

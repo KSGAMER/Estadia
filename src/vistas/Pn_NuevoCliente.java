@@ -1,7 +1,11 @@
 package vistas;
 
-import controladores.*;
-import controladores.ValidadorDePrivilegios.*;
+
+import controladores.ControladorCFDI;
+import controladores.ControladorClientes;
+import controladores.ControladorEscritura;
+import controladores.ControladorFormularioTab;
+import controladores.ValidadorDePrivilegios.ControladorPrivilegiosCliente;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,11 +24,11 @@ import objetos.ObjetoCFDI;
  */
 public class Pn_NuevoCliente extends javax.swing.JPanel {
 //NECESARIO PARA FUNCIONES DE ESTE MODULO 
-    ControladorClientes mc = new ControladorClientes();
-    ControladorCFDI cf = new ControladorCFDI();
-    ControladorEscritura ce = new ControladorEscritura();
+    private ControladorClientes mc = new ControladorClientes();
+    private ControladorCFDI cf = new ControladorCFDI();
+    private ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-   
+
     DefaultTableModel NewTable;
     private int seleccion;
     //FIN

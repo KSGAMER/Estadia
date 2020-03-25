@@ -12,8 +12,10 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.TimerTask;
 import java.util.Timer;
-import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import controladores.ControladorGastos;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -26,7 +28,13 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     int i = 32;
     DefaultTableModel NewTable;
  private ControladorFormularioTab cft = new ControladorFormularioTab();
-    /**
+ private ControladorGastos cega = new ControladorGastos();
+ //para extraer la fecga actual
+
+    Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
+    String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
+
+ /**
      * Creates new form AlertSuccess
      */
     public Pn_Alert_NuevoGasto(java.awt.Frame parent, boolean modal) {
@@ -332,17 +340,16 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
      try {
             if (!validarEscritura() == true) {
 
-                DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
+             DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
-            } else {
+         } else {
+             cega.insertGastos(jt_NombreGasto.getText(), Double.valueOf(jt_MontoGastado.getText()), jta_observaciones.getText(), Principal.User, fechaActual);
+             Cerrar();
+         }
 
-                NewTable = new DefaultTableModel();
-                datosIniciales();
-            }
+     } catch (Exception e) {
 
-        } catch (Exception e) {
 
-          
 
         }
     }//GEN-LAST:event_jb_aceptarActionPerformed

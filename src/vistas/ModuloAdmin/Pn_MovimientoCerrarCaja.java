@@ -10,15 +10,15 @@ import controladores.ControladorFormularioTab;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-
 import javax.swing.table.TableColumnModel;
-
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
-
-import vistas.*;
+import vistas.Pn_Alert_Eliminar;
+import controladores.ControladorGastos;
+import controladores.ControladorCobros;
+import ds.desktop.notify.DesktopNotify;
 
 public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
 //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
@@ -27,6 +27,8 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
     //validadores de escrituraa 
     ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
+    private ControladorGastos cega = new ControladorGastos();
+    private ControladorCobros ccob = new ControladorCobros();
 
     //variable para obtener la posicion de la fila en la tablaS
     private int seleccionCobros, seleccionGastos;
@@ -54,16 +56,16 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
     }
 
     private void tamañoTablaGastos() {
-        TableColumnModel columnModel = jtabla_Cobros.getColumnModel();
+        TableColumnModel columnModel = jtabla_Gastos.getColumnModel();
 
     }
 
     private void cTablaCobros() {
-
+jtabla_Cobros.setModel(ccob.tablaCobros());
     }
 
     private void cTablaGastos() {
-
+jtabla_Gastos.setModel(cega.tablaGastosCompleta());
     }
 
     private void RowApariencia() {
@@ -88,7 +90,10 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
         jtabla_Cobros.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
-
+private void datosIniciales(){
+    lb_idGasto.setText("*");
+    lb_idCobroReservacion.setText("*");
+}
 
     /*
      * This method is called from within the constructor to initialize the form.
@@ -147,7 +152,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtabla_Cobros);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 810, 180));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 780, 180));
 
         jPanel2.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -190,14 +195,14 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(402, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 810, -1));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 780, -1));
 
         btn_AperturaCaja1.setBackground(new java.awt.Color(40, 180, 99));
         btn_AperturaCaja1.setForeground(new java.awt.Color(255, 255, 255));
@@ -221,7 +226,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
                 btn_EliminarGastoActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_EliminarGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 390, 220, 40));
+        jPanel1.add(btn_EliminarGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 390, 220, 40));
 
         jt_BuscarCobrosHabitaciones.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_BuscarCobrosHabitaciones.setForeground(new java.awt.Color(102, 102, 102));
@@ -248,10 +253,10 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
                 jt_BuscarCobrosHabitacionesKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_BuscarCobrosHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 130, 150, 20));
+        jPanel1.add(jt_BuscarCobrosHabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 130, 150, 20));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 120, -1, 40));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 120, -1, 40));
 
         jtabla_Gastos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -276,7 +281,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jtabla_Gastos);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 810, 200));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 780, 200));
 
         jPanel6.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -291,14 +296,14 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(402, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 810, -1));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 780, -1));
 
         jt_BuscarGastos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_BuscarGastos.setForeground(new java.awt.Color(102, 102, 102));
@@ -325,10 +330,10 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
                 jt_BuscarGastosKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_BuscarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 350, 150, 20));
+        jPanel1.add(jt_BuscarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 350, 150, 20));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 340, -1, 40));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 340, -1, 40));
 
         btn_EliminarCobro.setBackground(new java.awt.Color(211, 18, 18));
         btn_EliminarCobro.setForeground(new java.awt.Color(255, 255, 255));
@@ -340,15 +345,15 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
                 btn_EliminarCobroActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_EliminarCobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 170, 220, 40));
+        jPanel1.add(btn_EliminarCobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 220, 40));
 
         lb_idGasto.setForeground(new java.awt.Color(84, 110, 122));
         lb_idGasto.setText("*");
-        jPanel1.add(lb_idGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 440, -1, -1));
+        jPanel1.add(lb_idGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 440, 10, -1));
 
         lb_idCobroReservacion.setForeground(new java.awt.Color(84, 110, 122));
         lb_idCobroReservacion.setText("*");
-        jPanel1.add(lb_idCobroReservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 220, -1, -1));
+        jPanel1.add(lb_idCobroReservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 10, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -375,7 +380,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
 
     private void btn_AperturaCaja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AperturaCaja1ActionPerformed
 
-        Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(Principal, true);
+        Pn_CortedeCaja wa = new Pn_CortedeCaja(Principal, true);
         wa.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_AperturaCaja1ActionPerformed
@@ -383,6 +388,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
     private void btn_EliminarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarGastoActionPerformed
         try {
             if (lb_idGasto.getText().equals("*")) {
+DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado", DesktopNotify.ERROR);
 
             } else {
 
@@ -391,11 +397,11 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-
+                        cega.deleteGastos(Integer.parseInt(lb_idGasto.getText()));
                         tamañoTablaGastos();
                         NewTable = new DefaultTableModel();
                         cTablaGastos();
-                        //datosIniciales();
+                        datosIniciales();
 
                     }
                 });
@@ -418,7 +424,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
     }//GEN-LAST:event_jt_BuscarCobrosHabitacionesMouseClicked
 
     private void jt_BuscarCobrosHabitacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarCobrosHabitacionesKeyReleased
-        //   jt_Cobros.setModel(mc.tablaClientes(jt_Buscar));
+           jtabla_Cobros.setModel(ccob.tablaCobros(jt_BuscarCobrosHabitaciones.getText()));
         //   tamañoTabla();
     }//GEN-LAST:event_jt_BuscarCobrosHabitacionesKeyReleased
 
@@ -476,6 +482,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
     private void btn_EliminarCobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarCobroActionPerformed
         try {
             if (lb_idCobroReservacion.getText().equals("*")) {
+ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un cobro realizado", DesktopNotify.ERROR);
 
             } else {
 
@@ -484,11 +491,11 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-
+                        ccob.deleteCobro(Integer.parseInt(lb_idCobroReservacion.getText()));
                         tamañoTablaCobros();
                         NewTable = new DefaultTableModel();
                         cTablaCobros();
-                        //datosIniciales();
+                        datosIniciales();
 
                     }
                 });

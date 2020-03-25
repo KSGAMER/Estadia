@@ -8,7 +8,7 @@ package vistas;
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
 import controladores.ControladorPisos;
-import controladores.ValidadorDePrivilegios.*;
+import controladores.ValidadorDePrivilegios.ControladorPrivilegiosPisos;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;

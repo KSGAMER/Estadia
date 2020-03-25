@@ -6,28 +6,18 @@
 package vistas;
 
 import Utilerias.CambiaPanel;
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import Utilerias.MenuItem;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import controladores.*;
-import ds.desktop.notify.DesktopNotify;
-import ds.desktop.notify.NotifyTheme;
-import java.awt.Graphics;
-import javafx.scene.layout.Priority;
 import vistas.ModuloAdmin.*;
-import objetos.*;
 
 /**
  *
@@ -38,17 +28,17 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private String hora, minutos, segundos;
     private Thread hilo;
     private ControladorRecepciones crp = new ControladorRecepciones();
-    ControladorCFDI cf = new ControladorCFDI();
-    ControladorCategorias cc = new ControladorCategorias();
-    ControladorClientes ccl = new ControladorClientes();
-    ControladorConfiguracion cco = new ControladorConfiguracion();
-    ControladorHabitaciones ch = new ControladorHabitaciones();
-    ControladorPisos cp = new ControladorPisos();
-    ControladorReservaciones cr = new ControladorReservaciones();
+    private ControladorCFDI cf = new ControladorCFDI();
+    private ControladorCategorias cc = new ControladorCategorias();
+    private ControladorClientes ccl = new ControladorClientes();
+    private ControladorConfiguracion cco = new ControladorConfiguracion();
+    private ControladorHabitaciones ch = new ControladorHabitaciones();
+    private ControladorPisos cp = new ControladorPisos();
+    private ControladorReservaciones cr = new ControladorReservaciones();
     //necesario para validar permisos
-    ControladorPermisos cperm = new ControladorPermisos();
-    ControladorModulos cmod = new ControladorModulos();
-    ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
+    private ControladorPermisos cperm = new ControladorPermisos();
+    private ControladorModulos cmod = new ControladorModulos();
+    private ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
 //    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
     public static String User = "admin";//sesion.Username;
     //necesario para el control del administrador unicamente
@@ -624,10 +614,19 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
             }
         });
+//submenu gastos 
+ MenuItem NuevoGasto = new MenuItem(iconRecepcion, "Nuevo Gasto", 35, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Pn_Alert_NuevoGasto gasto = new Pn_Alert_NuevoGasto(Principal.this, true);
+                gasto.setVisible(true);
 
+            }
+        });
         MenuItem Clientes = new MenuItem(iconClientes, "Clientes", 35, null, AgregarCliente);
         Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
         MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);
+        MenuItem GastosHotel = new MenuItem(iconClientes, "Caja", 35, null, NuevoGasto);
         MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
         AdministracionCaja = new MenuItem(iconAdministrador, "Caja Admin", 35, null, AbrirCaja,CerrarCaja);
 
@@ -650,7 +649,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
-        addMenu(CalendarioReservas, Reservaciones, Recepcion, Clientes, Facturas, Reportes, Configuracion, Administrador, Sesion); //Configuracion);
+        addMenu(CalendarioReservas, Reservaciones, Recepcion, Clientes, Facturas, Reportes,GastosHotel, Configuracion, Administrador,AdministracionCaja, Sesion); //Configuracion);
     }
 
     private void addMenu(MenuItem... menu) {

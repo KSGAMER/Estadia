@@ -5,41 +5,34 @@
  */
 package vistas;
 
+import controladores.ControladorCFDI;
 import controladores.ControladorCategorias;
+import controladores.ControladorClientes;
+import controladores.ControladorEmail;
+import controladores.ControladorEnvioFacturacion;
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
+import controladores.ControladorReservaciones;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.DefaultCaret;
 import ds.desktop.notify.DesktopNotify;
-import ds.desktop.notify.NotifyTheme;
-import java.awt.event.ItemEvent;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.JTable;
-import javax.swing.RowFilter;
-import javax.swing.border.LineBorder;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableRowSorter;
-import controladores.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.mail.AuthenticationFailedException;
-import objetos.*;
+import objetos.ObjetoCFDI;
+import objetos.ObjetoCliente;
+
 
 /*
     NOTA: SE DEBE CONFIGURAR GMAIL PARA PERMITIR EL ACCESO A APLICACIONES MENOS SEGURAS
@@ -53,12 +46,12 @@ public class Pn_Facturacion extends javax.swing.JPanel {
 
     private ControladorReservaciones cr = new ControladorReservaciones();
     private ControladorClientes mc = new ControladorClientes();
-    ControladorCFDI cf = new ControladorCFDI();
+    private ControladorCFDI cf = new ControladorCFDI();
     //controlador necesario para extraer datos de las tablas reservaciones/cobro reservaciones
-    ControladorEnvioFacturacion cenf = new ControladorEnvioFacturacion();
-    ControladorEmail cemail = new ControladorEmail();
-    ControladorCategorias ccat = new ControladorCategorias();
-    ControladorEscritura ce = new ControladorEscritura();
+    private ControladorEnvioFacturacion cenf = new ControladorEnvioFacturacion();
+    private ControladorEmail cemail = new ControladorEmail();
+    private ControladorCategorias ccat = new ControladorCategorias();
+    private ControladorEscritura ce = new ControladorEscritura();
     DefaultTableModel NewTable = new DefaultTableModel();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     private String correoRemitente, passwordRemitente, correoReceptor, asunto, mensaje;

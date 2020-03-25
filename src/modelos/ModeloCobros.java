@@ -247,9 +247,9 @@ public class ModeloCobros extends BD {
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCobros.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 
-    //Método para eliminar un Cobro
+  
     protected void deleteCobros(int id) {
         try {
             //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
@@ -263,5 +263,5 @@ public class ModeloCobros extends BD {
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCobros.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
 }

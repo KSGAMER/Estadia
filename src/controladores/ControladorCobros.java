@@ -45,8 +45,7 @@ public class ControladorCobros extends ModeloCobros {
         updateCobros( monto,  tipoPago,  rfc,  correo,  IdFacturacion,  usuario,  Nombre,  IdHabitacion,  FechaIngreso,  FechaSalida, id);
     }
      */
-    //Método que pasa los parametros id para eliminar los datos de un cobro
-    /*  public void deleteCobro(int id) {
+     public void deleteCobro(int id) {
         deleteCobros(id);
-    }*/
+    }
 }

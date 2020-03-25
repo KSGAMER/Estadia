@@ -6,7 +6,13 @@
 package vistas;
 
 
-import controladores.*;
+
+import controladores.ControladorCategorias;
+import controladores.ControladorClientes;
+import controladores.ControladorEscritura;
+import controladores.ControladorFormularioTab;
+import controladores.ControladorHabitaciones;
+import controladores.ControladorReservaciones;
 import controladores.ValidadorDePrivilegios.*;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
@@ -18,15 +24,15 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import objetos.*;
+import objetos.ObjetoCategoria;
+import objetos.ObjetoHabitacion;
+
 
 /**
  *
@@ -173,18 +179,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jt_Reservas.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
-   
 
-/*
-    private void bloquearComponentes() {
-
-        jt_nombre.setEnabled(false);
-        jt_nombre.setText("Ingresar Nombre");
-        //datos no editables
-        jt_nombre.setEditable(false);
-    }
-*/
- 
 
     private Boolean validarEscritura() {
         Boolean val = true;
@@ -233,35 +228,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         
         return val;
     }
-    /*
- public void rangoFechas() {
-        Calendar fecha = Calendar.getInstance();
-        jd_Ingreso.setDate(fecha.getTime());
-        jd_Salida.setDate(fecha.getTime());
-    }
-   public void mouseOnClickFechas() {
-        jd_Ingreso.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                flag = true;
-            }
-        });
-        jd_Ingreso.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                flag = true;
-            }
-        });
-        jd_Salida.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                flag = true;
-            }
-        });
-        jd_Salida.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                flag = true;
-            }
-        });
-    }
-*/
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -664,30 +631,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-               /* for (ObjetoHabitacion objetoHabitacion : ch.selectHabitacion()) {
-                    for (ObjetoReservacion objetoReservacion : cr.selectReservacion()) {
-
-//busqueda del numero de mes de la reservaciion para comparaciones
-                        MesdeFechaIngreso = new SimpleDateFormat("MM").format(dateFormat.parse(objetoReservacion.getFechaIngresoCompleta()));
-                        MesdeFechaSalida = new SimpleDateFormat("MM").format(dateFormat.parse(objetoReservacion.getFechaSalidaCompleta()));
-                        mesIn = Integer.parseInt(MesdeFechaIngreso);
-                        mesOut = Integer.parseInt(MesdeFechaSalida);
-//busqueda del numero de dia de la reservacion para comparaciones
-                        diaFechaIngreso = new SimpleDateFormat("dd").format(dateFormat.parse(objetoReservacion.getFechaIngresoCompleta()));
-                        diaFechaSalida = new SimpleDateFormat("dd").format(dateFormat.parse(objetoReservacion.getFechaSalidaCompleta()));
-                        DayIn = Integer.parseInt(diaFechaIngreso);
-                        DayOut = Integer.parseInt(diaFechaSalida);
-                        
-                        if (objetoHabitacion.getNombre().equals(String.valueOf(cb_Habitacion.getSelectedItem()))) {
-                            if(String.valueOf(jd_Ingreso.getDate()).equals(objetoReservacion.getFechaIngresoCompleta())){
-                                 DesktopNotify.showDesktopMessage("Error", "Ya existe una reservacion en esta fecha: "+String.valueOf(jd_Ingreso.getDate())+" para la habitacion :"+String.valueOf(cb_Habitacion.getSelectedItem())
-                                         +" !Favor de usuar una fecha posterior a "+objetoReservacion.getFechaSalidaCompleta(), DesktopNotify.ERROR);
-                            }
-                        }
-                    }                    
-                }
-    */
-            
+    
                 cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Principal.User);
                 ch.updateHabitacion(String.valueOf(cb_Habitacion.getSelectedItem()), "Reservado");
                 NewTable = new DefaultTableModel();
