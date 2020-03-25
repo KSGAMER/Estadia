@@ -41,7 +41,9 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     ControladorHabitaciones ch = new ControladorHabitaciones();
     DefaultTableModel NewTable;
     private int validador = 0;
+
 //FIN
+ private int validadorTNoches=0;   
 
     //variables que guardan la cantidad a cobrar o/y el monto acumulado 
     Double CostoAcumulado, MontoaCobrar;
@@ -53,9 +55,14 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     public Pn_CobrarReservacion() {
         setPantalla();
         initComponents();
+        
         //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
         //FIN
+        //evita que se editen los campos de cobro como el monto manual, el cargo , el total a pagar y el tipo de pago
+        //hasta dar click en el boton generar, el cual calcula la cantidad de noches x el precio de la habitación
+        bloquearCamposPago();
+        //fin
         //asigna la imagen de icono de la aplicacion que se muestra en la barra de tareas
         setIconSystem();
         //fin
@@ -166,9 +173,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
     private void datosIniciales() {
         jt_MontoACobrar.setText("Ingresar Monto");
         cb_TipoPago.setSelectedIndex(0);
-        lb_TotalNoches.setText(String.valueOf(CalcularNoches()));
-        lb_TotalxNoches.setText(String.valueOf(CalcularNoches() * (Integer.parseInt(lb_PrecioHabitacion.getText()))));
-    }
+  }
 
     private void bloquearComponentes() {
         btn_SeleccionarClientes.setEnabled(false);
@@ -179,7 +184,21 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         btn_SeleccionarClientes.setEnabled(true);
         jt_email.setEnabled(true);
     }
+    private void bloquearCamposPago() {
+        jc_seleccionarTxNoches.setEnabled(false);
+        jt_MontoManualaCobrar.setEnabled(false);
+        jt_CargoExtra.setEnabled(false);
+        jt_MontoACobrar.setEnabled(false);
+        cb_TipoPago.setEnabled(false);
+    }
 
+    private void desbloquearCamposPago() {
+  jc_seleccionarTxNoches.setEnabled(true);
+        jt_MontoManualaCobrar.setEnabled(true);
+        jt_CargoExtra.setEnabled(true);
+        jt_MontoACobrar.setEnabled(true);
+        cb_TipoPago.setEnabled(true);
+}
     private void mostrarElementosFacturas() {
         pn_showFacturas.setVisible(true);
         lb_NombreRazonSocial.setVisible(true);
@@ -285,7 +304,26 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         }
 return dias;
     }
+    private void  sumarCobroManual() {
+        String numero = jt_MontoManualaCobrar.getText();
 
+        if (!(numero.equals("")) && numero.matches("[0-9]*")) {
+            Double Monto = Double.valueOf(jt_MontoManualaCobrar.getText());
+            Double Cargo = Double.valueOf(jt_CargoExtra.getText());
+            lb_TotalGeneral.setText(String.valueOf(Monto + Cargo));
+
+        }
+    }
+    private void sumarCargo(){
+        String numeroCargo = jt_CargoExtra.getText();
+  
+        if (!(numeroCargo.equals("")) && numeroCargo.matches("[0-9]*")) {
+            Double Monto = Double.valueOf(jt_MontoManualaCobrar.getText());
+            Double Cargo = Double.valueOf(jt_CargoExtra.getText());
+            lb_TotalGeneral.setText(String.valueOf(Monto + Cargo));
+
+        }
+    }
     /*
     private Boolean validarSeleccion() {
         Boolean val = true;
@@ -326,7 +364,8 @@ return dias;
         jLabel3 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        jc_seleccionarTxNoches = new javax.swing.JCheckBox();
+        btn_Ingresar1 = new principal.MaterialButton();
         jSeparator4 = new javax.swing.JSeparator();
         lb_FolioReservaciones = new javax.swing.JLabel();
         cb_TipoPago = new javax.swing.JComboBox<>();
@@ -407,12 +446,10 @@ return dias;
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(204, 204, 204));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 251, 190, -1));
 
         btn_Cobrar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Cobrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -429,7 +466,6 @@ return dias;
                 btn_CobrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Cobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 422, 310, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Proceso de Check Out");
@@ -508,8 +544,6 @@ return dias;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, -1, 50));
-
         btn_Salir.setBackground(new java.awt.Color(211, 18, 18));
         btn_Salir.setForeground(new java.awt.Color(255, 255, 255));
         btn_Salir.setText("SALIR");
@@ -525,7 +559,6 @@ return dias;
                 btn_SalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 472, 310, 40));
 
         jPanel3.setBackground(new java.awt.Color(233, 235, 238));
         jPanel3.setToolTipText("");
@@ -547,14 +580,25 @@ return dias;
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel32.setText("Total ($) por Noches");
 
-        jCheckBox2.addItemListener(new java.awt.event.ItemListener() {
+        jc_seleccionarTxNoches.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox2ItemStateChanged(evt);
+                jc_seleccionarTxNochesItemStateChanged(evt);
             }
         });
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        jc_seleccionarTxNoches.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                jc_seleccionarTxNochesActionPerformed(evt);
+            }
+        });
+
+        btn_Ingresar1.setBackground(new java.awt.Color(40, 180, 99));
+        btn_Ingresar1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Ingresar1.setText("Generar");
+        btn_Ingresar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Ingresar1.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Ingresar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Ingresar1ActionPerformed(evt);
             }
         });
 
@@ -566,21 +610,26 @@ return dias;
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(120, 120, 120)
                 .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(jc_seleccionarTxNoches)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox2)
-                .addGap(0, 71, Short.MAX_VALUE))
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_Ingresar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 4, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel32))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jc_seleccionarTxNoches, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(btn_Ingresar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, -1));
@@ -818,6 +867,11 @@ return dias;
                 jt_MontoManualaCobrarMouseClicked(evt);
             }
         });
+        jt_MontoManualaCobrar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jt_MontoManualaCobrarPropertyChange(evt);
+            }
+        });
         jt_MontoManualaCobrar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jt_MontoManualaCobrarKeyReleased(evt);
@@ -866,7 +920,7 @@ return dias;
                 jt_CargoExtraKeyTyped(evt);
             }
         });
-        jPanel3.add(jt_CargoExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 105, 70, 20));
+        jPanel3.add(jt_CargoExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 70, 20));
 
         jLabel42.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -876,10 +930,8 @@ return dias;
         lb_TotalGeneral.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         lb_TotalGeneral.setForeground(new java.awt.Color(153, 153, 153));
         lb_TotalGeneral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_TotalGeneral.setText("jLabel10");
+        lb_TotalGeneral.setText("0");
         jPanel3.add(lb_TotalGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 100, 80, 30));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, 280));
 
         pn_showFacturas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -956,8 +1008,6 @@ return dias;
         });
         pn_showFacturas.add(btn_SeleccionarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 30, 30));
 
-        jPanel1.add(pn_showFacturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 272, 310, 120));
-
         jPanel6.setBackground(new java.awt.Color(84, 110, 122));
 
         jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -1000,8 +1050,6 @@ return dias;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 242, -1, 30));
-
         jPanel8.setBackground(new java.awt.Color(233, 235, 238));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1039,8 +1087,6 @@ return dias;
         lb_nombreCliente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_nombreCliente.setText("Nombre");
         jPanel8.add(lb_nombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 190, -1));
-
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 62, -1, 150));
 
         jPanel5.setBackground(new java.awt.Color(233, 235, 238));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1107,8 +1153,6 @@ return dias;
         jPanel5.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 10, -1));
         jPanel5.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 120, 10));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 62, -1, 150));
-
         jPanel10.setBackground(new java.awt.Color(233, 235, 238));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1157,9 +1201,62 @@ return dias;
         lb_FechaIngreso.setText("Fecha ingreso");
         jPanel10.add(lb_FechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 190, -1));
 
-        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 62, -1, 150));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 215, 1030, 9));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 52, 1030, 10));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel16))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1368,9 +1465,9 @@ return dias;
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel7MouseEntered
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void jc_seleccionarTxNochesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jc_seleccionarTxNochesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    }//GEN-LAST:event_jc_seleccionarTxNochesActionPerformed
 
     private void jt_MontoManualaCobrarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarFocusGained
    cft.formFocusGain(jt_MontoManualaCobrar);        // TODO add your handling code here:
@@ -1388,16 +1485,18 @@ cft.formFocusGain(jt_MontoManualaCobrar);        // TODO add your handling code 
    ce.typedDigits(evt, jt_MontoManualaCobrar);        // TODO add your handling code here:
     }//GEN-LAST:event_jt_MontoManualaCobrarKeyTyped
 
-    private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
+    private void jc_seleccionarTxNochesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_seleccionarTxNochesItemStateChanged
 if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
-    
+    validadorTNoches = 1;
     jt_MontoManualaCobrar.setText(lb_TotalxNoches.getText());
+    lb_TotalGeneral.setText(lb_TotalxNoches.getText());
 }else{
+    validadorTNoches = 0;
       jt_MontoManualaCobrar.setText("0");
   
 }
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ItemStateChanged
+    }//GEN-LAST:event_jc_seleccionarTxNochesItemStateChanged
 
     private void jt_CargoExtraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_CargoExtraMouseClicked
   cft.formFocusGain(jt_CargoExtra);
@@ -1425,27 +1524,30 @@ if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jt_MontoManualaCobrarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarKeyReleased
-String numero = jt_MontoManualaCobrar.getText();
-       
-if(numero.equals("")==false && numero.matches("[0-9]*")){
-     int Monto = Integer.parseInt(jt_MontoManualaCobrar.getText());
-     int Cargo = Integer.parseInt(jt_CargoExtra.getText());
-     lb_TotalGeneral.setText(String.valueOf(Monto+Cargo));
-     
-}
+sumarCobroManual();
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_MontoManualaCobrarKeyReleased
 
     private void jt_CargoExtraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_CargoExtraKeyReleased
-String numeroCargo = jt_MontoManualaCobrar.getText();
-       
-if(numeroCargo.equals("")==false && numeroCargo.matches("[0-9]*")){
-     int Monto = Integer.parseInt(jt_MontoManualaCobrar.getText());
-     int Cargo = Integer.parseInt(jt_CargoExtra.getText());
-     lb_TotalGeneral.setText(String.valueOf(Monto+Cargo));
-     
-}        // TODO add your handling code here:
+sumarCargo();
+// TODO add your handling code here:
     }//GEN-LAST:event_jt_CargoExtraKeyReleased
+
+    private void btn_Ingresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Ingresar1ActionPerformed
+desbloquearCamposPago();
+        lb_TotalNoches.setText(String.valueOf(CalcularNoches()));
+        lb_TotalxNoches.setText(String.valueOf(CalcularNoches() * (Double.valueOf(lb_PrecioHabitacion.getText()))));
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_Ingresar1ActionPerformed
+
+    private void jt_MontoManualaCobrarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarPropertyChange
+if(validadorTNoches==1){
+    sumarCobroManual();
+}
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoManualaCobrarPropertyChange
 
     /**
      * @param args the command line arguments
@@ -1488,10 +1590,10 @@ if(numeroCargo.equals("")==false && numeroCargo.matches("[0-9]*")){
     private javax.swing.JLabel Celular4;
     private principal.MaterialButton btn_Cobrar;
     private principal.MaterialButton btn_Cobrar1;
+    public static principal.MaterialButton btn_Ingresar1;
     private principal.MaterialButton btn_Salir;
     private principal.MaterialButton btn_SeleccionarClientes;
     private javax.swing.JComboBox<String> cb_TipoPago;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -1548,6 +1650,7 @@ if(numeroCargo.equals("")==false && numeroCargo.matches("[0-9]*")){
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel jb_Cambio;
+    private javax.swing.JCheckBox jc_seleccionarTxNoches;
     private javax.swing.JCheckBox jch_facturacion;
     private javax.swing.JSeparator jsep_Email;
     private javax.swing.JSeparator jsep_RFC;
