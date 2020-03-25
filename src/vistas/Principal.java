@@ -598,6 +598,15 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                   new CambiaPanel(pnlPrincipal, new Pn_MovimientoCerrarCaja());
             }
         });
+          //submenu gastos 
+ MenuItem NuevoGasto = new MenuItem(subMenus, "Nuevo Gasto", 35, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Pn_Alert_NuevoGasto gasto = new Pn_Alert_NuevoGasto(Principal.this, true);
+                gasto.setVisible(true);
+
+            }
+        });
 //APARTADO DE TODOS LOS MENUS
         MenuItem CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35, new ActionListener() {
             @Override
@@ -614,15 +623,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
             }
         });
-//submenu gastos 
- MenuItem NuevoGasto = new MenuItem(iconRecepcion, "Nuevo Gasto", 35, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                Pn_Alert_NuevoGasto gasto = new Pn_Alert_NuevoGasto(Principal.this, true);
-                gasto.setVisible(true);
 
-            }
-        });
         MenuItem Clientes = new MenuItem(iconClientes, "Clientes", 35, null, AgregarCliente);
         Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
         MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);

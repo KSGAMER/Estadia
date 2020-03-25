@@ -27,14 +27,14 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     TimerTask task;
     int i = 32;
     DefaultTableModel NewTable;
- private ControladorFormularioTab cft = new ControladorFormularioTab();
- private ControladorGastos cega = new ControladorGastos();
- //para extraer la fecga actual
+    private ControladorFormularioTab cft = new ControladorFormularioTab();
+    private ControladorGastos cega = new ControladorGastos();
+    //para extraer la fecga actual
 
     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
     String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
 
- /**
+    /**
      * Creates new form AlertSuccess
      */
     public Pn_Alert_NuevoGasto(java.awt.Frame parent, boolean modal) {

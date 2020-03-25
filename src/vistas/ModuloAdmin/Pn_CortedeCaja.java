@@ -7,6 +7,11 @@ package vistas.ModuloAdmin;
 
 import vistas.*;
 import Utilerias.AWTUtilities;
+import controladores.ControladorCobros;
+import controladores.ControladorGastos;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.TimerTask;
 import java.util.Timer;
@@ -17,11 +22,13 @@ import javax.swing.JFrame;
  * @author fenix
  */
 public class Pn_CortedeCaja extends javax.swing.JDialog {
-
+ private ControladorGastos cega = new ControladorGastos();
+    private ControladorCobros ccob = new ControladorCobros();
     Timer timer = null;
     TimerTask task;
     int i = 32;
     private int sumaCobroReservaciones,sumaGastos,sumaTotalCobrosGastos;
+    
     /**
      * Creates new form AlertSuccess
      */
@@ -30,11 +37,66 @@ public class Pn_CortedeCaja extends javax.swing.JDialog {
         initComponents();
         AWTUtilities.setOpaque(this, false);
         Ubicar(0);
+         //APARIENCIA DE LA TABLA
+        RowHeaderApariencia();
+        RowApariencia();
+        cTablaCobros();
+        cTablaGastos();
         cargarSumas();
     }
-private void cargarSumas(){
-    
-}
+private void cargarSumas() {
+
+    }
+ private void RowApariencia() {
+
+        jtabla_Cobros.setFocusable(false);
+
+        //espacio entre comulnas
+        jtabla_Cobros.setIntercellSpacing(new Dimension(0, 1));
+        //altura de columnas 
+        jtabla_Cobros.setRowHeight(25);
+        //margen entre filas
+        jtabla_Cobros.setRowMargin(0);
+//sin lineas verticles
+        jtabla_Cobros.setShowVerticalLines(false);
+        jtabla_Cobros.setSelectionBackground(new Color(97, 212, 195));
+        
+        //MODIFICACION DE TABLA GASTOS
+        jtabla_Gastos.setFocusable(false);
+
+        //espacio entre comulnas
+        jtabla_Gastos.setIntercellSpacing(new Dimension(0, 1));
+        //altura de columnas 
+        jtabla_Gastos.setRowHeight(25);
+        //margen entre filas
+        jtabla_Gastos.setRowMargin(0);
+//sin lineas verticles
+        jtabla_Gastos.setShowVerticalLines(false);
+        jtabla_Gastos.setSelectionBackground(new Color(97, 212, 195));
+
+    }
+
+    private void RowHeaderApariencia() {
+        jtabla_Cobros.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
+        jtabla_Cobros.getTableHeader().setOpaque(false);
+        jtabla_Cobros.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Cobros.getTableHeader().setForeground(new Color(255, 255, 255));
+        
+        //APARIENCIA ROWS DE GASTOS
+        jtabla_Gastos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
+        jtabla_Gastos.getTableHeader().setOpaque(false);
+        jtabla_Gastos.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Gastos.getTableHeader().setForeground(new Color(255, 255, 255));
+
+    }
+
+    private void cTablaCobros() {
+        jtabla_Cobros.setModel(ccob.tablaCobros());
+    }
+
+    private void cTablaGastos() {
+        jtabla_Gastos.setModel(cega.tablaGastosCompleta());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
