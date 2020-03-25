@@ -65,14 +65,7 @@ public class ModeloCobros extends BD {
                         fila[1] = mtp.selectTipoPagos().get(i).getNombre();
                     }
                 }
-                //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
-                for (int i = 0; i < mr.selectReservaciones().size(); i++) {
-                    //Si el Id es igual al Id de la clase previamente cargada se prosigue
-                    if (rs.getInt("IdReservacion") == mr.selectReservaciones().get(i).getIdReservacion()) {
-                        //Se extrae el resultado y se remplaza por el nombre
-                        fila[2] = mr.selectReservaciones().get(i).getNombre();
-                    }
-                }
+                fila[2] = rs.getString("Nombre");
                 fila[3] = rs.getString("RFC");
                 fila[4] = rs.getString("Correo");
                 fila[5] = rs.getString("FechaCobro");
@@ -87,7 +80,7 @@ public class ModeloCobros extends BD {
                 //Se agrega el objeto fila a la tabla
                 tb.addRow(fila);
                 //Se agrega el resultado al arreglo
-                this.listPay.add(new ObjetoCobro(rs.getInt("IdReservacion"), rs.getInt("Monto"), rs.getInt("IdTipoPago"), rs.getString("RFC"), rs.getString("Correo"), rs.getString("FechaCobro"), rs.getInt("IdFacturacion")));
+                this.listPay.add(new ObjetoCobro(rs.getInt("Monto"), rs.getInt("IdTipoPago"), rs.getString("RFC"), rs.getString("Correo"), rs.getString("FechaCobro"), rs.getInt("IdFacturacion")));
             }
             //Se cierra la conexión
             conectar().close();
@@ -127,7 +120,7 @@ public class ModeloCobros extends BD {
                 //Se agrega el objeto fila a la tabla
                 tb.addRow(fila);
                 //Se agrega el resultado al arreglo
-                this.listPay.add(new ObjetoCobro(rs.getInt("IdReservacion"), rs.getInt("Monto"), rs.getInt("IdTipoPago"), rs.getString("RFC"), rs.getString("Correo"), rs.getString("FechaCobro"), rs.getInt("IdFacturacion")));
+                this.listPay.add(new ObjetoCobro(rs.getInt("Monto"), rs.getInt("IdTipoPago"), rs.getString("RFC"), rs.getString("Correo"), rs.getString("FechaCobro"), rs.getInt("IdFacturacion")));
             }
             //Se cierra la conexión
             conectar().close();

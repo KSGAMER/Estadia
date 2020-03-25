@@ -14,7 +14,7 @@ public class ObjetoCobro {
     //+---------------+-------+------------+-----+--------+------------+---------------+
     //| IdReservacion | Monto | IdTipoPago | RFC | Correo | FechaCobro | IdFacturacion | <- (Extracción de Base de Datos tabla Cobro)
     //+---------------+-------+------------+-----+--------+------------+---------------+
-    private int idReservacion;
+
     private double monto;
     private int idTipoPago;
     private String rfc;
@@ -23,8 +23,8 @@ public class ObjetoCobro {
     private int idFacturacion;
 
     //Constructor de Cobro e instanciar los valores de la Clase
-    public ObjetoCobro(int idReservacion, double monto, int idTipoPago, String rfc, String correo, String fechaCobro, int idFacturacion) {
-        this.idReservacion = idReservacion;
+    public ObjetoCobro( double monto, int idTipoPago, String rfc, String correo, String fechaCobro, int idFacturacion) {
+       
         this.monto = monto;
         this.idTipoPago = idTipoPago;
         this.rfc = rfc;
@@ -33,11 +33,7 @@ public class ObjetoCobro {
         this.idFacturacion = idFacturacion;
     }
 
-    //Método para obtener el "ID" del Cobro
-    public int getIdReservacion() {
-        return idReservacion;
-    }
-
+    
     //Método para obtener el "Monto" del Cobro
     public double getMonto() {
         return monto;

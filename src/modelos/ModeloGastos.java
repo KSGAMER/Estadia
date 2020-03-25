@@ -63,7 +63,7 @@ public class ModeloGastos extends BD{
     }
     
     public DefaultTableModel cargarGastos() {
-        String[] titulos = {"#", "Gasto", "Cantiadad", "Descripción", "Usuario", "Fecha"};
+        String[] titulos = {"#", "Gasto", "Cantidad", "Descripción", "Usuario", "Fecha"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[6];
         try {
