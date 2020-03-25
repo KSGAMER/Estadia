@@ -66,7 +66,7 @@ public class ModeloGastos extends BD{
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[6];
         try {
-            this.st = conectar().prepareStatement("SELECT * FROM Gastos");
+            this.st = conectar().prepareStatement("SELECT * FROM Gastos ORDER BY CONVERT(DATE, FechaActual, 103) DESC");
             this.rs = st.executeQuery();
             while (this.rs.next()) {
                 fila[0] = rs.getInt(1);
