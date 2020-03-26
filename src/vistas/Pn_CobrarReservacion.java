@@ -656,6 +656,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         cb_TipoPago.setBackground(new java.awt.Color(233, 235, 238));
         cb_TipoPago.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cb_TipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar T. Pago" }));
+        cb_TipoPago.setBorder(null);
         cb_TipoPago.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_TipoPagoItemStateChanged(evt);

@@ -318,6 +318,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
         cb_usuario.setBackground(new java.awt.Color(84, 110, 122));
         cb_usuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cb_usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Usuario" }));
+        cb_usuario.setBorder(null);
         cb_usuario.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_usuarioItemStateChanged(evt);

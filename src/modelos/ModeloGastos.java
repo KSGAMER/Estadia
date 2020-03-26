@@ -50,8 +50,8 @@ public class ModeloGastos extends BD{
             this.st.setString(1, usuario);
             this.rs = st.executeQuery();
             while (this.rs.next()) {
-                fila[0] = rs.getInt(1);
-                fila[1] = rs.getString(2);
+                fila[0] = rs.getString(1);
+                fila[1] = rs.getDouble(2);
                 fila[2] = rs.getString(3);
                 tb.addRow(fila);
             }

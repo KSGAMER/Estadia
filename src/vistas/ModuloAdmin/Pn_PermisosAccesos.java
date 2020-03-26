@@ -373,6 +373,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
         cb_modulo.setBackground(new java.awt.Color(84, 110, 122));
         cb_modulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Modulo" }));
+        cb_modulo.setBorder(null);
         cb_modulo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_moduloItemStateChanged(evt);
@@ -382,6 +383,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
         cb_usuario.setBackground(new java.awt.Color(84, 110, 122));
         cb_usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar usuario" }));
+        cb_usuario.setBorder(null);
         cb_usuario.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_usuarioItemStateChanged(evt);
@@ -409,6 +411,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
         cb_consultar.setBackground(new java.awt.Color(84, 110, 122));
         cb_consultar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
+        cb_consultar.setBorder(null);
         cb_consultar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_consultarItemStateChanged(evt);
@@ -424,6 +427,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
         cb_actualizar.setBackground(new java.awt.Color(84, 110, 122));
         cb_actualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
+        cb_actualizar.setBorder(null);
         cb_actualizar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_actualizarItemStateChanged(evt);
@@ -439,6 +443,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
         cb_agregar.setBackground(new java.awt.Color(84, 110, 122));
         cb_agregar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
+        cb_agregar.setBorder(null);
         cb_agregar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_agregarItemStateChanged(evt);
@@ -454,6 +459,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
         cb_eliminar.setBackground(new java.awt.Color(84, 110, 122));
         cb_eliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
+        cb_eliminar.setBorder(null);
         cb_eliminar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_eliminarItemStateChanged(evt);

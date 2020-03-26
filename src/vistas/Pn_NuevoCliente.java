@@ -493,6 +493,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
         cb_cfdi.setBackground(new java.awt.Color(84, 110, 122));
         cb_cfdi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar CFDI" }));
+        cb_cfdi.setBorder(null);
         cb_cfdi.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_cfdiItemStateChanged(evt);

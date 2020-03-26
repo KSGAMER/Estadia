@@ -513,6 +513,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
         cb_piso.setBackground(new java.awt.Color(84, 110, 122));
         cb_piso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
+        cb_piso.setBorder(null);
         cb_piso.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_pisoItemStateChanged(evt);
@@ -522,6 +523,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
         cb_status.setBackground(new java.awt.Color(84, 110, 122));
         cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estatus" }));
+        cb_status.setBorder(null);
         cb_status.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_statusItemStateChanged(evt);
@@ -572,6 +574,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
         cb_Categoria.setBackground(new java.awt.Color(84, 110, 122));
         cb_Categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Categoria" }));
+        cb_Categoria.setBorder(null);
         cb_Categoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_CategoriaItemStateChanged(evt);

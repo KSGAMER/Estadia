@@ -395,6 +395,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
         cb_Habitacion.setBackground(new java.awt.Color(84, 110, 122));
         cb_Habitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Habitacion" }));
+        cb_Habitacion.setBorder(null);
         cb_Habitacion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_HabitacionItemStateChanged(evt);
@@ -502,6 +503,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 190, -1));
 
         btn_clientes.setBackground(new java.awt.Color(233, 235, 238));
+        btn_clientes.setBorder(null);
         btn_clientes.setText("...");
         btn_clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_clientes.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N

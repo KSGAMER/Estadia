@@ -489,6 +489,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
 
         cb_status.setBackground(new java.awt.Color(84, 110, 122));
         cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estatus" }));
+        cb_status.setBorder(null);
         cb_status.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_statusItemStateChanged(evt);
