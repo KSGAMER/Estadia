@@ -1571,10 +1571,10 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     }
 
     private void Ubicar(int y) {
-         
-        Toolkit tk = Toolkit.getDefaultToolkit();
+       Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth()/3;
         this.setLocation(xsize, y - 120);
+        
         
     }
 }

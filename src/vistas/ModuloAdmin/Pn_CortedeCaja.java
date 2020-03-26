@@ -9,13 +9,17 @@ import vistas.*;
 import Utilerias.AWTUtilities;
 import controladores.ControladorCobros;
 import controladores.ControladorGastos;
+import controladores.ControladorUsuarios;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ItemEvent;
 import java.util.TimerTask;
 import java.util.Timer;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import objetos.ObjetoUsuario;
 
 /**
  *
@@ -24,6 +28,7 @@ import javax.swing.JFrame;
 public class Pn_CortedeCaja extends javax.swing.JDialog {
  private ControladorGastos cega = new ControladorGastos();
     private ControladorCobros ccob = new ControladorCobros();
+    private  ControladorUsuarios cuser = new ControladorUsuarios();
     Timer timer = null;
     TimerTask task;
     int i = 32;
@@ -38,10 +43,10 @@ public class Pn_CortedeCaja extends javax.swing.JDialog {
         AWTUtilities.setOpaque(this, false);
         Ubicar(0);
          //APARIENCIA DE LA TABLA
+        cuser.tablaUsuarios();
         RowHeaderApariencia();
         RowApariencia();
-        cTablaCobros();
-        cTablaGastos();
+        cargarUsuarios();
         cargarSumas();
     }
 private void cargarSumas() {
@@ -90,12 +95,22 @@ private void cargarSumas() {
 
     }
 
-    private void cTablaCobros() {
-        jtabla_Cobros.setModel(ccob.tablaCobros());
+    private void cTablaCobros(String user) {
+        jtabla_Cobros.setModel(ccob.tablaCobros(user));
     }
 
-    private void cTablaGastos() {
-        jtabla_Gastos.setModel(cega.tablaGastosCompleta());
+    private void cTablaGastos(String user) {
+        jtabla_Gastos.setModel(cega.tablaGastos(user));
+    }
+     private void cargarUsuarios() {
+
+        DefaultComboBoxModel cb = new DefaultComboBoxModel();
+        cb.addElement("Seleccionar Usuario");
+        for (ObjetoUsuario campos : cuser.selectUsuario()) {
+            cb.addElement(campos.getUsername());
+        }
+        cb_usuario.setModel(cb);
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,6 +138,8 @@ private void cargarSumas() {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        cb_usuario = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -143,6 +160,7 @@ private void cargarSumas() {
         lb_close.setBorder(null);
         lb_close.setBorderPainted(false);
         lb_close.setContentAreaFilled(false);
+        lb_close.setFocusPainted(false);
         lb_close.setRequestFocusEnabled(false);
         lb_close.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/icons8_Cancel_30px_3.png"))); // NOI18N
         lb_close.setVerifyInputWhenFocusTarget(false);
@@ -184,7 +202,7 @@ private void cargarSumas() {
         });
         jScrollPane1.setViewportView(jtabla_Cobros);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 440, 120));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 440, 120));
 
         jtabla_Gastos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,7 +227,7 @@ private void cargarSumas() {
         });
         jScrollPane2.setViewportView(jtabla_Gastos);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 440, 120));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 440, 120));
 
         btn_CorteCaja.setBackground(new java.awt.Color(40, 180, 99));
         btn_CorteCaja.setForeground(new java.awt.Color(255, 255, 255));
@@ -221,55 +239,74 @@ private void cargarSumas() {
                 btn_CorteCajaActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_CorteCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 326, 194, 40));
+        jPanel3.add(btn_CorteCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 194, 40));
 
         lb_titulo.setBackground(new java.awt.Color(204, 204, 204));
         lb_titulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb_titulo.setForeground(new java.awt.Color(204, 204, 204));
         lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_titulo.setText("0.00");
-        jPanel3.add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 71, 32));
+        jPanel3.add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 71, 32));
 
         lb_titulo2.setBackground(new java.awt.Color(204, 204, 204));
         lb_titulo2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb_titulo2.setForeground(new java.awt.Color(204, 204, 204));
         lb_titulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_titulo2.setText("TOTAL A RETIRAR  $");
-        jPanel3.add(lb_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 331, 162, 31));
+        jPanel3.add(lb_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 162, 31));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gastos Realizados");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 160, -1));
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("0.0");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 70, -1));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 70, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Reservaciones Cobradas");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, -1));
+        jLabel3.setText("Seleciona el usuario a realizar corte ");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 220, 10));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Total       $");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 70, -1));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 70, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Total       $");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 70, -1));
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 70, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("0.0");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 70, -1));
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, 70, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 470, 390));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Reservaciones Cobradas");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, -1));
+
+        cb_usuario.setBackground(new java.awt.Color(84, 110, 122));
+        cb_usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar usuario" }));
+        cb_usuario.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_usuarioItemStateChanged(evt);
+            }
+        });
+        cb_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_usuarioActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cb_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 180, 20));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 470, 440));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -336,6 +373,17 @@ private void cargarSumas() {
     Cerrar();
             
     }//GEN-LAST:event_lb_closeActionPerformed
+
+    private void cb_usuarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_usuarioItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED && !(cb_usuario.getSelectedIndex() == 0)) {
+            cTablaCobros(String.valueOf(cb_usuario.getSelectedItem()));
+            cTablaGastos(String.valueOf(cb_usuario.getSelectedItem()));
+        }
+    }//GEN-LAST:event_cb_usuarioItemStateChanged
+
+    private void cb_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_usuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1404,12 +1452,14 @@ private void cargarSumas() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static principal.MaterialButton btn_CorteCaja;
+    private javax.swing.JComboBox<String> cb_usuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

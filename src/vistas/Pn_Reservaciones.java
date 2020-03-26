@@ -32,6 +32,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import objetos.ObjetoCategoria;
 import objetos.ObjetoHabitacion;
+import vistas.ModuloAdmin.Pn_CortedeCaja;
 
 
 /**
@@ -47,7 +48,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private ControladorReservaciones cr = new ControladorReservaciones();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     private Pn_SeleccionarClientes select = new Pn_SeleccionarClientes();
-    private Pn_CobrarReservacion CobrarReserv = new Pn_CobrarReservacion();
+    //private Pn_CobrarReservacion1 CobrarReserv = new Pn_CobrarReservacion1();
     private DefaultTableModel NewTable;
 //FIN
     //necesario para obtener el numero de fila de la jtable
@@ -657,7 +658,8 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
         } else {
-            CobrarReserv.setVisible(true);
+            Pn_CobrarReservacion CobrarReserv = new Pn_CobrarReservacion(principal, true);
+       
             CobrarReserv.lb_FolioReservaciones.setText(lb_Id.getText());
             CobrarReserv.lb_nombreCliente.setText(jt_nombre.getText());
             CobrarReserv.lb_NombreHabitacion.setText(String.valueOf(cb_Habitacion.getSelectedItem()));
@@ -668,7 +670,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                     if (habitacion.getNombre().equals(String.valueOf(cb_Habitacion.getSelectedItem()))) {
                         if (habitacion.getIdCategoria() == categoria.getIdCategoria()) {
                             CobrarReserv.lb_PrecioHabitacion.setText(String.valueOf(habitacion.getPrecioSugerido()));
-                            CobrarReserv.lb_TotalxNoches.setText(String.valueOf(habitacion.getPrecioSugerido()));
+                           // CobrarReserv.lb_TotalxNoches.setText(String.valueOf(habitacion.getPrecioSugerido()));
                             CobrarReserv.lb_TipoHabitacion.setText(String.valueOf(categoria.getNombre()));
 
                         }
@@ -677,6 +679,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 }
 
             }
+             CobrarReserv.setVisible(true);
             datosIniciales();
         }
 

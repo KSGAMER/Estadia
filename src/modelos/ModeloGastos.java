@@ -22,15 +22,15 @@ public class ModeloGastos extends BD{
     private PreparedStatement st;
     
     public DefaultTableModel cargarTabla() {
-        String[] titulos = {"Gasto", "Cantiadad", "Descripción"};
+        String[] titulos = {"Gasto", "Cantidad", "Descripción"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[3];
         try {
             this.st = conectar().prepareStatement("SELECT Nombre, Cantidad, Descripcion FROM Gastos WHERE CONVERT(DATE, FechaActual, 103) = CONVERT(DATE, GETDATE(), 103) ORDER BY CONVERT(DATE, FechaActual, 103), Username DESC");
             this.rs = st.executeQuery();
             while (this.rs.next()) {
-                fila[0] = rs.getInt(1);
-                fila[1] = rs.getString(2);
+                fila[0] = rs.getString(1);
+                fila[1] = rs.getDouble(2);
                 fila[2] = rs.getString(3);
                 tb.addRow(fila);
             }
@@ -42,7 +42,7 @@ public class ModeloGastos extends BD{
     }
     
     public DefaultTableModel cargarTabla(String usuario) {
-        String[] titulos = {"Gasto", "Cantiadad", "Descripción"};
+        String[] titulos = {"Gasto", "Cantidad", "Descripción"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[3];
         try {

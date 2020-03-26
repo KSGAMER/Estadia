@@ -23,7 +23,7 @@ import ds.desktop.notify.DesktopNotify;
 public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
 //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
 
-    Frame Principal;
+    Frame principal;
     //validadores de escrituraa 
     ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
@@ -380,7 +380,7 @@ private void datosIniciales(){
 
     private void btn_AperturaCaja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AperturaCaja1ActionPerformed
 
-        Pn_CortedeCaja wa = new Pn_CortedeCaja(Principal, true);
+        Pn_CortedeCaja wa = new Pn_CortedeCaja(principal, true);
         wa.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_AperturaCaja1ActionPerformed
@@ -392,7 +392,7 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
 
             } else {
 
-                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
@@ -486,7 +486,7 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
 
             } else {
 
-                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
