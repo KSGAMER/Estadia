@@ -99,11 +99,11 @@ public class ModeloCobros extends BD {
         mh.cargarTabla();
         mcat.cargarTabla();
         //Se agregan los titulos de la tabla
-        String[] titulos = {"#", "Monto", "Tipo Pago", "Nombre", "RFC", "Correo", "Fecha Cobro", "Facturación"};
+        String[] titulos = {"Habitación", "Monto", "Cliente"};
         //Se crea una variable de tipo tabla pasando los titulos de la columna
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
-        Object[] fila = new Object[8];
+        Object[] fila = new Object[3];
 
         try {
             //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
