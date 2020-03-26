@@ -319,7 +319,6 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         btn_Ingresar = new principal.MaterialButton();
         btn_Modificar = new principal.MaterialButton();
         btn_Eliminar = new principal.MaterialButton();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cb_Categoria = new javax.swing.JComboBox<>();
         lb_Id = new javax.swing.JLabel();
@@ -333,6 +332,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jt_t_registros = new javax.swing.JTextField();
         jt_Buscar = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        jb_limpiarCampos2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -565,15 +565,6 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         });
         jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 540, 120, 40));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, -1, -1));
-
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Categoria de la Habitación :");
@@ -663,6 +654,22 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 110, -1, 40));
 
+        jb_limpiarCampos2.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos2.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarCampos2.setBorder(null);
+        jb_limpiarCampos2.setBorderPainted(false);
+        jb_limpiarCampos2.setContentAreaFilled(false);
+        jb_limpiarCampos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_limpiarCampos2.setFocusPainted(false);
+        jb_limpiarCampos2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarCampos2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarCampos2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 40, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -751,11 +758,6 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         cb_status.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 6));
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_habitacionesMouseClicked
-
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        datosIniciales();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel10MouseClicked
 
     private void cb_CategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_CategoriaItemStateChanged
         /*        if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -859,6 +861,10 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         cft.formTab(evt, jt_Buscar);
     }//GEN-LAST:event_jta_observacionesKeyPressed
 
+    private void jb_limpiarCampos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCampos2ActionPerformed
+        datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCampos2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static principal.MaterialButton btn_Eliminar;
@@ -868,7 +874,6 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cb_piso;
     private javax.swing.JComboBox<String> cb_status;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -887,6 +892,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JButton jb_limpiarCampos2;
     public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_habitaciones;
     private javax.swing.JTextField jt_nombre;

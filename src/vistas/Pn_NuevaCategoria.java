@@ -139,6 +139,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jb_limpiarCampos2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_categorias = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
@@ -160,12 +161,27 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         chk_mostrar = new javax.swing.JCheckBox();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jb_limpiarCampos2.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos2.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarCampos2.setBorder(null);
+        jb_limpiarCampos2.setBorderPainted(false);
+        jb_limpiarCampos2.setContentAreaFilled(false);
+        jb_limpiarCampos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_limpiarCampos2.setFocusPainted(false);
+        jb_limpiarCampos2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarCampos2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarCampos2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, 40, -1));
 
         jt_categorias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -391,15 +407,6 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         });
         jPanel1.add(chk_mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 120, 80, -1));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, -1));
-
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, -1, 40));
 
@@ -472,11 +479,6 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_IngresarActionPerformed
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        datosIniciales();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
         try {
@@ -593,6 +595,10 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         cft.formFocusGain(jt_Buscar);
     }//GEN-LAST:event_jt_BuscarFocusGained
 
+    private void jb_limpiarCampos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCampos2ActionPerformed
+        datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCampos2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static principal.MaterialButton btn_Eliminar;
@@ -605,7 +611,6 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -613,6 +618,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JButton jb_limpiarCampos2;
     public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_categorias;
     private javax.swing.JTextField jt_nombre;

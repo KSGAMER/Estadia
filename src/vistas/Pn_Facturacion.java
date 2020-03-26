@@ -204,10 +204,10 @@ public class Pn_Facturacion extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jb_limpiarCampos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_Facturacion = new javax.swing.JTable();
         btn_Ingresar = new principal.MaterialButton();
-        lb_limpiarCampos = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jt_t_registros = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -262,6 +262,22 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jb_limpiarCampos.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarCampos.setBorder(null);
+        jb_limpiarCampos.setBorderPainted(false);
+        jb_limpiarCampos.setContentAreaFilled(false);
+        jb_limpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_limpiarCampos.setFocusPainted(false);
+        jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarCamposActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, 40, -1));
+
         jt_Facturacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -298,15 +314,6 @@ public class Pn_Facturacion extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 250, 40));
-
-        lb_limpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        lb_limpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lb_limpiarCampos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lb_limpiarCamposMouseClicked(evt);
-            }
-        });
-        jPanel1.add(lb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -393,7 +400,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel4.setBackground(new java.awt.Color(36, 47, 65));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -700,7 +707,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel22.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("LImpia Nuevo Mensaje");
+        jLabel22.setText("LImpia \"Nuevo Mensaje\"");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, 190, 30));
 
         jLabel23.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -848,11 +855,6 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
 
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
-    private void lb_limpiarCamposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_limpiarCamposMouseClicked
-        datosIniciales();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lb_limpiarCamposMouseClicked
-
     private void jt_t_registrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_t_registrosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_t_registrosActionPerformed
@@ -978,6 +980,10 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
         //   
     }//GEN-LAST:event_jd_fechaCobroInicialPropertyChange
 
+    private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
+        datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCamposActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Celular1;
@@ -1015,6 +1021,7 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JButton jb_limpiarCampos;
     private com.toedter.calendar.JDateChooser jd_fechaCobroFinal;
     private com.toedter.calendar.JDateChooser jd_fechaCobroInicial;
     private javax.swing.JTextField jt_Asunto;
@@ -1033,7 +1040,6 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JLabel lb_errorAsunto;
     private javax.swing.JLabel lb_errorEmail;
     private javax.swing.JLabel lb_errorTelefono;
-    private javax.swing.JLabel lb_limpiarCampos;
     public static javax.swing.JLabel lb_monto;
     // End of variables declaration//GEN-END:variables
 }

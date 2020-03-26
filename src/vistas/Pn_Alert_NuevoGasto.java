@@ -113,7 +113,7 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         lb_errorDescripcion = new javax.swing.JLabel();
         lb_errorNombreGasto = new javax.swing.JLabel();
         lb_errorMontoGastado = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jb_limpiarCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -313,14 +313,21 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         lb_errorMontoGastado.setText("*");
         jPanel1.add(lb_errorMontoGastado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+        jb_limpiarCampos.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarCampos.setBorder(null);
+        jb_limpiarCampos.setBorderPainted(false);
+        jb_limpiarCampos.setContentAreaFilled(false);
+        jb_limpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_limpiarCampos.setFocusPainted(false);
+        jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarCamposActionPerformed(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
+        jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 40, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -463,10 +470,9 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jt_MontoGastadoKeyTyped
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        datosIniciales();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseClicked
+    private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
+        datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCamposActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1539,13 +1545,13 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static principal.MaterialButton jb_aceptar;
+    private javax.swing.JButton jb_limpiarCampos;
     public static javax.swing.JTextField jt_MontoGastado;
     public static javax.swing.JTextField jt_NombreGasto;
     private javax.swing.JTextArea jta_observaciones;

@@ -117,7 +117,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
     private void cargarTiposdePago() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Tipo de Pago");
+        cb.addElement("Seleccionar T. Pago");
         for (ObjetoTipoPago campos : ct.selectTipoPago()) {
             cb.addElement(campos.getNombre());
 
@@ -176,7 +176,9 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         this.jt_Clientes.setModel(NewTable);
     }*/
     private void datosIniciales() {
-        jt_MontoACobrar.setText("Ingresar Monto");
+        jt_MontoACobrar.setText("Ingresar Pago");
+        jt_CargoExtra.setText("Ingresar Cargo");
+        jt_MontoManualaCobrar.setText("Ingresar Monto");
         cb_TipoPago.setSelectedIndex(0);
   }
 
@@ -241,11 +243,23 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
         CostoAcumulado = Double.valueOf(lb_TotalGeneral.getText());
         MontoaCobrar = Double.valueOf(jt_MontoACobrar.getText());
         Boolean val = true;
-        if (!(jt_MontoACobrar.getText().equals("0")) && !(jt_MontoACobrar.getText().equals(""))) {
+        if (!(jt_MontoACobrar.getText().equals("Ingresar Pago")) && !(jt_MontoACobrar.getText().equals(""))) {
             lb_errorMontoCobrar.setForeground(new Color(233, 235, 238));
 
         } else {
             lb_errorMontoCobrar.setForeground(Color.RED);
+           DesktopNotify.showDesktopMessage("Error", "Debe ingresar una cantidad de cobro o seleccionar el total generado por noche", DesktopNotify.ERROR);
+           
+            val = false;
+        }
+        if (!(jt_MontoManualaCobrar.getText().equals("Ingresar Monto")) && !(jt_MontoManualaCobrar.getText().equals(""))) {
+            lb_errorTotalManual.setForeground(new Color(233, 235, 238));
+
+        } else {
+            lb_errorTotalManual.setForeground(Color.RED);
+            
+           DesktopNotify.showDesktopMessage("Error", "Debe ingresar una cantidad de pago", DesktopNotify.ERROR);
+           
             val = false;
         }
         if (!(MontoaCobrar < CostoAcumulado)) {
@@ -253,6 +267,8 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
         } else {
             lb_errorMontoCobrar.setForeground(Color.RED);
+            DesktopNotify.showDesktopMessage("Error", "El monto de Pago debe ser mayor al total general", DesktopNotify.ERROR);
+           
             val = false;
         }
 
@@ -261,7 +277,7 @@ public class Pn_CobrarReservacion extends javax.swing.JFrame {
 
     private Boolean validarTipoPago() {
         Boolean val = true;
-        if (!(cb_TipoPago.getSelectedItem().equals("Seleccionar Tipo de Pago"))) {
+        if (!(cb_TipoPago.getSelectedItem().equals("Seleccionar T. Pago"))) {
             lb_errorFormaPago.setForeground(new Color(233, 235, 238));
         } else {
             lb_errorFormaPago.setForeground(Color.RED);
@@ -382,26 +398,26 @@ return dias;
         jLabel37 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
+        lb_errorTotalManual = new javax.swing.JLabel();
+        Celular3 = new javax.swing.JLabel();
+        Celular4 = new javax.swing.JLabel();
         lb_TotalxNoches = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         lb_errorMontoCobrar = new javax.swing.JLabel();
-        lb_errorFormaPago = new javax.swing.JLabel();
         jt_MontoACobrar = new javax.swing.JTextField();
         btn_Cobrar1 = new principal.MaterialButton();
         jPanel13 = new javax.swing.JPanel();
-        Celular3 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        Celular4 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         jt_MontoManualaCobrar = new javax.swing.JTextField();
-        jSeparator12 = new javax.swing.JSeparator();
         lb_TotalNoches = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jt_CargoExtra = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
         lb_TotalGeneral = new javax.swing.JLabel();
+        lb_errorFormaPago = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
         pn_showFacturas = new javax.swing.JPanel();
         lb_NombreRazonSocial = new javax.swing.JLabel();
         lb_NombreRFC = new javax.swing.JLabel();
@@ -648,7 +664,8 @@ return dias;
         jPanel3.add(lb_FolioReservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 30, 20));
 
         cb_TipoPago.setBackground(new java.awt.Color(233, 235, 238));
-        cb_TipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo de Pago" }));
+        cb_TipoPago.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cb_TipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar T. Pago" }));
         cb_TipoPago.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_TipoPagoItemStateChanged(evt);
@@ -659,12 +676,12 @@ return dias;
                 cb_TipoPagoActionPerformed(evt);
             }
         });
-        jPanel3.add(cb_TipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 150, -1));
+        jPanel3.add(cb_TipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 150, 30));
 
         jLabel30.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel30.setText("$");
-        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 10, -1));
+        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 10, -1));
 
         jLabel28.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -705,25 +722,36 @@ return dias;
         jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel41.setText("Cargo Extra");
 
-        jLabel38.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel38.setText("TOTAL GENERAL");
+        lb_errorTotalManual.setText("*");
+
+        Celular3.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        Celular3.setForeground(new java.awt.Color(255, 255, 255));
+        Celular3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Celular3.setText("Monto de Pago");
+
+        Celular4.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        Celular4.setForeground(new java.awt.Color(255, 255, 255));
+        Celular4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Celular4.setText("Forma de pago");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(55, 55, 55)
+                .addComponent(lb_errorTotalManual)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel37)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addGap(40, 40, 40)
                 .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112)
-                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Celular3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addComponent(Celular4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -733,7 +761,9 @@ return dias;
                     .addComponent(jLabel37)
                     .addComponent(jLabel9)
                     .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lb_errorTotalManual)
+                    .addComponent(Celular3)
+                    .addComponent(Celular4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -750,24 +780,20 @@ return dias;
         jLabel27.setText("Folio de Reservación");
         jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 130, 20));
 
-        jLabel35.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel35.setFont(new java.awt.Font("Century Gothic", 1, 38)); // NOI18N
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel35.setText("Cambio $");
-        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 90, 20));
+        jLabel35.setText("$");
+        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 30, 70));
 
         lb_errorMontoCobrar.setForeground(new java.awt.Color(233, 235, 238));
         lb_errorMontoCobrar.setText("*");
-        jPanel3.add(lb_errorMontoCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 10, -1));
-
-        lb_errorFormaPago.setForeground(new java.awt.Color(233, 235, 238));
-        lb_errorFormaPago.setText("*");
-        jPanel3.add(lb_errorFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 10, -1));
+        jPanel3.add(lb_errorMontoCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 10, -1));
 
         jt_MontoACobrar.setBackground(new java.awt.Color(233, 235, 238));
         jt_MontoACobrar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jt_MontoACobrar.setForeground(new java.awt.Color(153, 153, 153));
         jt_MontoACobrar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jt_MontoACobrar.setText("0");
+        jt_MontoACobrar.setText("Ingresar Pago");
         jt_MontoACobrar.setBorder(null);
         jt_MontoACobrar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -787,7 +813,7 @@ return dias;
                 jt_MontoACobrarKeyTyped(evt);
             }
         });
-        jPanel3.add(jt_MontoACobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 110, 20));
+        jPanel3.add(jt_MontoACobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 110, 30));
 
         btn_Cobrar1.setBackground(new java.awt.Color(40, 180, 99));
         btn_Cobrar1.setForeground(new java.awt.Color(255, 255, 255));
@@ -804,24 +830,19 @@ return dias;
                 btn_Cobrar1ActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_Cobrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, 50, 40));
+        jPanel3.add(btn_Cobrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 150, 40));
 
         jPanel13.setBackground(new java.awt.Color(84, 110, 122));
-
-        Celular3.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        Celular3.setForeground(new java.awt.Color(255, 255, 255));
-        Celular3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Celular3.setText("Monto de Pago");
 
         jLabel36.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel36.setText("#");
 
-        Celular4.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        Celular4.setForeground(new java.awt.Color(255, 255, 255));
-        Celular4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Celular4.setText("Forma de pago");
+        jLabel38.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel38.setText("TOTAL GENERAL");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -830,34 +851,26 @@ return dias;
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Celular3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
-                .addComponent(Celular4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(454, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Celular4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Celular3)
-                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel38))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 640, 30));
 
-        jLabel39.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel39.setText("2.-");
-        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 20, -1));
-
         jt_MontoManualaCobrar.setBackground(new java.awt.Color(233, 235, 238));
         jt_MontoManualaCobrar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jt_MontoManualaCobrar.setForeground(new java.awt.Color(153, 153, 153));
         jt_MontoManualaCobrar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jt_MontoManualaCobrar.setText("0");
+        jt_MontoManualaCobrar.setText("Ingresar Monto");
         jt_MontoManualaCobrar.setBorder(null);
         jt_MontoManualaCobrar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -886,7 +899,6 @@ return dias;
             }
         });
         jPanel3.add(jt_MontoManualaCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 100, 30));
-        jPanel3.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 110, 10));
 
         lb_TotalNoches.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         lb_TotalNoches.setForeground(new java.awt.Color(153, 153, 153));
@@ -902,7 +914,7 @@ return dias;
         jt_CargoExtra.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jt_CargoExtra.setForeground(new java.awt.Color(153, 153, 153));
         jt_CargoExtra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jt_CargoExtra.setText("0");
+        jt_CargoExtra.setText("Ingresar Cargo");
         jt_CargoExtra.setBorder(null);
         jt_CargoExtra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -925,18 +937,27 @@ return dias;
                 jt_CargoExtraKeyTyped(evt);
             }
         });
-        jPanel3.add(jt_CargoExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 70, 20));
+        jPanel3.add(jt_CargoExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 90, 30));
 
         jLabel42.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel42.setText("$");
         jPanel3.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 10, 30));
 
-        lb_TotalGeneral.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lb_TotalGeneral.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         lb_TotalGeneral.setForeground(new java.awt.Color(153, 153, 153));
         lb_TotalGeneral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_TotalGeneral.setText("0");
-        jPanel3.add(lb_TotalGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 100, 80, 30));
+        jPanel3.add(lb_TotalGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 140, 70));
+
+        lb_errorFormaPago.setForeground(new java.awt.Color(233, 235, 238));
+        lb_errorFormaPago.setText("*");
+        jPanel3.add(lb_errorFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 10, -1));
+
+        jLabel39.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel39.setText("Cambio $");
+        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 90, 20));
 
         pn_showFacturas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1285,15 +1306,15 @@ return dias;
 
         try {
             if (!validaciones() == true && !validarTipoPago() == true ||!validaciones()==true) {
-                DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a monto calculado y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
+                DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a total general y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
             } else if (validaciones() == true && !validarTipoPago() == true) {
-                DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a monto calculado y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
+                DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a total general y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
 
             } else if (!validaciones() == true && validarTipoPago() == true) {
                 DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a monto calculado y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
 
             } else {
-                if (validador == 1 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
+                if (validador == 1 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago" ) {
                     // monto,  tipoPago,  rfc,  correo,  usuario,  Nombre, NombreHabitacion,  FechaIngreso,  FechaSalida,  IdFacturacion
                     cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_nombreCliente.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
                     cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
@@ -1430,7 +1451,7 @@ return dias;
     }//GEN-LAST:event_jt_MontoACobrarFocusGained
 
     private void jt_MontoACobrarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoACobrarFocusLost
-        cft.formFocusLostJTextField(jt_MontoACobrar, "0");
+        cft.formFocusLostJTextField(jt_MontoACobrar, "Ingresar Pago");
     }//GEN-LAST:event_jt_MontoACobrarFocusLost
 
     private void jt_MontoACobrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_MontoACobrarMouseClicked
@@ -1479,7 +1500,7 @@ return dias;
     }//GEN-LAST:event_jt_MontoManualaCobrarFocusGained
 
     private void jt_MontoManualaCobrarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarFocusLost
-  cft.formFocusLostJTextField(jt_MontoManualaCobrar, "0");        // TODO add your handling code here:
+  cft.formFocusLostJTextField(jt_MontoManualaCobrar, "Ingresar Monto");        // TODO add your handling code here:
     }//GEN-LAST:event_jt_MontoManualaCobrarFocusLost
 
     private void jt_MontoManualaCobrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarMouseClicked
@@ -1513,7 +1534,7 @@ if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
     }//GEN-LAST:event_jt_CargoExtraFocusGained
 
     private void jt_CargoExtraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CargoExtraFocusLost
- cft.formFocusLostJTextField(jt_CargoExtra, "0");
+ cft.formFocusLostJTextField(jt_CargoExtra, "Ingresar Cargo");
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_CargoExtraFocusLost
 
@@ -1646,7 +1667,6 @@ if(validadorTNoches==1){
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1678,6 +1698,7 @@ if(validadorTNoches==1){
     public static javax.swing.JLabel lb_TotalxNoches;
     private javax.swing.JLabel lb_errorFormaPago;
     private javax.swing.JLabel lb_errorMontoCobrar;
+    private javax.swing.JLabel lb_errorTotalManual;
     public static javax.swing.JLabel lb_nombreCliente;
     public static javax.swing.JLabel lb_razonSocial;
     public static javax.swing.JLabel lb_rfc;
