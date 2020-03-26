@@ -91,7 +91,7 @@ public class ModeloCobros extends BD {
         return tb;
     }
     
-    public DefaultTableModel cargarTabla(String usuario) {
+   public DefaultTableModel cargarTabla(String usuario) {
              //Se instancian los resultados a utilizar para reemplazarlos en la consulta
         mr.cargarTabla();
         mtp.cargarTabla();
@@ -107,7 +107,7 @@ public class ModeloCobros extends BD {
 
         try {
             //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
-            this.st = conectar().prepareStatement("SELECT h.Nombre, h.PrecioSugerido, c.Nombre FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE CONVERT(DATE, GETDATE(), 103) = CONVERT(DATE, c.FechaCobro, 103) and c.Username = ? ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC, c.Username");
+            this.st = conectar().prepareStatement("SELECT h.Nombre, h.PrecioSugerido, c.Nombre FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE CONVERT(DATE, GETDATE(), 103) = CONVERT(DATE, c.FechaCobro, 103) and c.Username like CONCAT('%',?,'%') ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC, c.Username");
             //Se pasan los parametros a la consulta
             this.st.setString(1, usuario);
             //Se ejecuta el Query
