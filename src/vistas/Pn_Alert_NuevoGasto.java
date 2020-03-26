@@ -319,6 +319,7 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         jb_limpiarCampos.setBorder(null);
         jb_limpiarCampos.setBorderPainted(false);
         jb_limpiarCampos.setContentAreaFilled(false);
+        jb_limpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jb_limpiarCampos.setFocusPainted(false);
         jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
         jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {

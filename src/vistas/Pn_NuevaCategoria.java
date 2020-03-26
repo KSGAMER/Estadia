@@ -173,6 +173,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         jb_limpiarCampos2.setBorder(null);
         jb_limpiarCampos2.setBorderPainted(false);
         jb_limpiarCampos2.setContentAreaFilled(false);
+        jb_limpiarCampos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jb_limpiarCampos2.setFocusPainted(false);
         jb_limpiarCampos2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
         jb_limpiarCampos2.addActionListener(new java.awt.event.ActionListener() {
@@ -617,8 +618,6 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JButton jb_limpiarCampos;
-    private javax.swing.JButton jb_limpiarCampos1;
     private javax.swing.JButton jb_limpiarCampos2;
     public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_categorias;

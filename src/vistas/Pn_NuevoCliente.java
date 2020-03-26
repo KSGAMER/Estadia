@@ -681,6 +681,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jb_limpiarCampos2.setBorder(null);
         jb_limpiarCampos2.setBorderPainted(false);
         jb_limpiarCampos2.setContentAreaFilled(false);
+        jb_limpiarCampos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jb_limpiarCampos2.setFocusPainted(false);
         jb_limpiarCampos2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
         jb_limpiarCampos2.addActionListener(new java.awt.event.ActionListener() {
