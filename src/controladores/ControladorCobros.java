@@ -18,8 +18,8 @@ import objetos.ObjetoCobro;
 public class ControladorCobros extends ModeloCobros {
 
     //Método que retorna una tabla
-    public DefaultTableModel tablaCobros() {
-        return cargarTabla();
+    public DefaultTableModel tablaCobros2(String buscar) {
+        return cargarTabla2(buscar);
     }
     
     public DefaultTableModel tablaCobros(String usuario) {

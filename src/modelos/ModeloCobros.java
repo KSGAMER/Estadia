@@ -35,7 +35,7 @@ public class ModeloCobros extends BD {
     private ModeloCategorias mcat = new ModeloCategorias();
 
     //Se declara un método que retorna una tabla usando sobrecarga de operadores
-    protected DefaultTableModel cargarTabla() {
+    protected DefaultTableModel cargarTabla2(String buscar) {
         //Se instancian los resultados a utilizar para reemplazarlos en la consulta
         mr.cargarTabla();
         mtp.cargarTabla();
@@ -51,7 +51,8 @@ public class ModeloCobros extends BD {
 
         try {
             //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
-            this.st = conectar().prepareStatement("SELECT * FROM Cobro");
+            this.st = conectar().prepareStatement("SELECT * FROM Cobro WHERE Username like CONCAT('%',?,'%')");
+            this.st.setString(1, buscar);
             //Se ejecuta el Query
             this.rs = st.executeQuery();
             //Se iteran los resultados obtenidos de la consulta preparada
