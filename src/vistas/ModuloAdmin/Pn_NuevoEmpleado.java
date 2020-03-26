@@ -192,7 +192,6 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         btn_Ingresar = new principal.MaterialButton();
         btnCancelar1 = new principal.MaterialButton();
         btnCancelar2 = new principal.MaterialButton();
@@ -225,6 +224,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         lb_errorTelefono = new javax.swing.JLabel();
         lb_errorDireccion = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jb_limpiarCampos = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -262,15 +262,6 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Total de registros ");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 480, 100, 20));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
         btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -611,6 +602,21 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, -1, 40));
 
+        jb_limpiarCampos.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarCampos.setBorder(null);
+        jb_limpiarCampos.setBorderPainted(false);
+        jb_limpiarCampos.setContentAreaFilled(false);
+        jb_limpiarCampos.setFocusPainted(false);
+        jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarCamposActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 40, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -637,11 +643,6 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         cb_status.getModel().setSelectedItem(jt_Empleados.getValueAt(seleccion, 5));
 // TODO add your handling code here:
     }//GEN-LAST:event_jt_EmpleadosMouseClicked
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        datosIniciales();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     private void btn_IngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_IngresarMouseClicked
 
@@ -856,6 +857,10 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_passwordKeyTyped
 
+    private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
+        datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCamposActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private principal.MaterialButton btnCancelar1;
@@ -872,7 +877,6 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -883,6 +887,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JButton jb_limpiarCampos;
     private javax.swing.JCheckBox jch_mostrar;
     private javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_Empleados;

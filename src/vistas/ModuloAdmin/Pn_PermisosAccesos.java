@@ -179,7 +179,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jt_Privilegios = new javax.swing.JTable();
         btn_Ingresar = new principal.MaterialButton();
         btn_Modificar = new principal.MaterialButton();
-        jLabel5 = new javax.swing.JLabel();
         btn_Eliminar = new principal.MaterialButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -214,6 +213,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
+        jb_limpiarCampos = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -318,15 +318,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         });
         jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 410, 140, 40));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, -1, -1));
-
         btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
         btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
         btn_Eliminar.setText("Eliminar");
@@ -343,7 +334,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jPanel3.setToolTipText("");
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel4.setBackground(new java.awt.Color(36, 47, 65));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -549,6 +540,20 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel30.setText("!IMPORTANTE!");
         jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 540, -1, 20));
 
+        jb_limpiarCampos.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarCampos.setBorder(null);
+        jb_limpiarCampos.setBorderPainted(false);
+        jb_limpiarCampos.setContentAreaFilled(false);
+        jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarCamposActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 40, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -649,6 +654,8 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         int seleccion = jt_Privilegios.rowAtPoint(evt.getPoint());
         btn_Ingresar.setEnabled(false); //se desactiva este boton para so
         //variable que guarda el id del la fila del los privilegios de algun modulo
+        btn_Eliminar.setEnabled(true);
+        btn_Modificar.setEnabled(true);
         lb_Id.setText(String.valueOf(jt_Privilegios.getValueAt(seleccion, 0)));
         cb_usuario.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 1));
         cb_modulo.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 2));
@@ -657,11 +664,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_actualizar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 5));
         cb_eliminar.getModel().setSelectedItem(jt_Privilegios.getValueAt(seleccion, 6));
     }//GEN-LAST:event_jt_PrivilegiosMouseClicked
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        datosIniciales();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
 
@@ -706,6 +708,10 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         }       // TODO add your handling code here:
     }//GEN-LAST:event_jch_facturacionItemStateChanged
 
+    private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
+ datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCamposActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private principal.MaterialButton btn_Eliminar;
@@ -738,7 +744,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -748,6 +753,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton jb_limpiarCampos;
     private javax.swing.JCheckBox jch_facturacion;
     private javax.swing.JTable jt_Privilegios;
     private javax.swing.JLabel lb_Id;

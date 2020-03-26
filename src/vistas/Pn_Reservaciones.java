@@ -246,7 +246,6 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         btn_Ingresar = new principal.MaterialButton();
         btn_Cobrar = new principal.MaterialButton();
         btn_Modificar = new principal.MaterialButton();
@@ -271,6 +270,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         lb_Id = new javax.swing.JLabel();
         jt_Buscar = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jb_limpiarCampos2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -340,15 +340,6 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Total de registros ");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 470, 100, 20));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
 
         btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -575,6 +566,21 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, -1, 40));
 
+        jb_limpiarCampos2.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos2.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarCampos2.setBorder(null);
+        jb_limpiarCampos2.setBorderPainted(false);
+        jb_limpiarCampos2.setContentAreaFilled(false);
+        jb_limpiarCampos2.setFocusPainted(false);
+        jb_limpiarCampos2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarCampos2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarCampos2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 40, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -613,11 +619,6 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private void jt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyTyped
         ce.typedCharsAndSpace(evt, jt_nombre);
     }//GEN-LAST:event_jt_nombreKeyTyped
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        datosIniciales();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     private void btn_IngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_IngresarMouseClicked
 
@@ -831,6 +832,10 @@ ale.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jd_SalidaPropertyChange
 
+    private void jb_limpiarCampos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCampos2ActionPerformed
+        datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCampos2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private principal.MaterialButton btn_Cobrar;
@@ -848,13 +853,13 @@ ale.dispose();
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JButton jb_limpiarCampos2;
     private com.toedter.calendar.JDateChooser jd_Ingreso;
     private com.toedter.calendar.JDateChooser jd_Salida;
     public static javax.swing.JTextField jt_Buscar;

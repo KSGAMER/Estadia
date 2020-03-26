@@ -5,26 +5,24 @@
  */
 package vistas.ModuloAdmin;
 
-import controladores.ControladorCategorias;
+import controladores.ControladorCaja;
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
+import controladores.ControladorUsuarios;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import ds.desktop.notify.DesktopNotify;
 import javax.swing.table.TableColumnModel;
-import controladores.*;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import javax.swing.DefaultComboBoxModel;
-import objetos.*;
+import objetos.ObjetoUsuario;
 import vistas.Pn_Alert_Eliminar;
-import vistas.Principal;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /*
     NOTA: SE DEBE CONFIGURAR GMAIL PARA PERMITIR EL ACCESO A APLICACIONES MENOS SEGURAS
     PASOS:
@@ -36,15 +34,19 @@ import vistas.Principal;
 public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
     ControladorUsuarios cuser = new ControladorUsuarios();
-
+ private ControladorFormularioTab cft = new ControladorFormularioTab();
     ControladorEscritura ce = new ControladorEscritura();
     DefaultTableModel NewTable = new DefaultTableModel();
+    ControladorCaja cecaja = new ControladorCaja();
 
     private int seleccion;
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
-    Frame Principal;
+    Frame principal;
 
     //fin
+    //necesario para obtener la fecha con hora para las nuevas cajas
+    Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
+    String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
     /**
      * Creates new form Pn_NuevaCategoria
      */
@@ -78,6 +80,10 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
     private void cTabla() {
 
+    }
+    private void bloquearBotones(){
+        btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
     }
 
     private void RowApariencia() {
@@ -145,10 +151,13 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
     private void datosIniciales() {
         lb_errorUsuario.setText("*");
         lb_errorMonto.setText("*");
+        lb_Id.setText("*");
         lb_errorUsuario.setForeground(new Color(84, 110, 122));
         lb_errorMonto.setForeground(new Color(84, 110, 122));
-        jt_MontoInicial.setText("Ingresar Monto Inicial");
+        jt_MontoInicial.setText("Ingresar Monto");
         cb_usuario.setSelectedIndex(0);
+         btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
     }
 
     private Boolean validarSeleccion() {
@@ -177,7 +186,6 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtabla_Cajas = new javax.swing.JTable();
         btn_AperturaCaja = new principal.MaterialButton();
@@ -196,19 +204,11 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
         lb_errorMonto = new javax.swing.JLabel();
         lb_errorUsuario = new javax.swing.JLabel();
         lb_Id = new javax.swing.JLabel();
+        jb_limpiarCampos = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1020, 10));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, -1, -1));
 
         jtabla_Cajas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -293,8 +293,26 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
         jt_MontoInicial.setBackground(new java.awt.Color(84, 110, 122));
         jt_MontoInicial.setForeground(new java.awt.Color(204, 204, 204));
-        jt_MontoInicial.setText("Ingresar Monto Inicial");
+        jt_MontoInicial.setText("Ingresar Monto");
         jt_MontoInicial.setBorder(null);
+        jt_MontoInicial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jt_MontoInicialFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jt_MontoInicialFocusLost(evt);
+            }
+        });
+        jt_MontoInicial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_MontoInicialMouseClicked(evt);
+            }
+        });
+        jt_MontoInicial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jt_MontoInicialKeyTyped(evt);
+            }
+        });
         jPanel3.add(jt_MontoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 190, -1));
 
         cb_usuario.setBackground(new java.awt.Color(84, 110, 122));
@@ -360,6 +378,21 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
         lb_Id.setText("*");
         jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
+        jb_limpiarCampos.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarCampos.setBorder(null);
+        jb_limpiarCampos.setBorderPainted(false);
+        jb_limpiarCampos.setContentAreaFilled(false);
+        jb_limpiarCampos.setFocusPainted(false);
+        jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarCamposActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 40, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -378,7 +411,11 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
     private void jtabla_CajasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_CajasMouseClicked
         seleccion = jtabla_Cajas.rowAtPoint(evt.getPoint());
-
+        btn_AperturaCaja.setEnabled(false); //se desactiva este boton para so
+        //variable que guarda el id del la fila del los privilegios de algun modulo
+        btn_Eliminar.setEnabled(true);
+        btn_Modificar.setEnabled(true);
+        lb_Id.setText(String.valueOf(jtabla_Cajas.getValueAt(seleccion, 0)));
         // TODO add your handling code here:
     }//GEN-LAST:event_jtabla_CajasMouseClicked
 
@@ -396,7 +433,11 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-
+                cecaja.insertCaja(fechaActual,Double.valueOf(jt_MontoInicial.getText()),"", 0.0,String.valueOf(cb_usuario.getSelectedItem()),"Abierto");
+                tamañoTabla();
+                NewTable = new DefaultTableModel();
+                cTabla();
+                datosIniciales();
             }
         } catch (Exception e) {
         }
@@ -404,22 +445,20 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_AperturaCajaActionPerformed
 
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
-        try {
-            if (!validarEscritura() == true || !validarSeleccion() == true) {
-
+          try {
+            if (!validarUsuario() == true || !validarMonto() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-
+                cecaja.updateCaja(Double.valueOf(jt_MontoInicial.getText()),String.valueOf(cb_usuario.getSelectedItem()),Integer.parseInt(lb_Id.getText()));
+                tamañoTabla();
                 NewTable = new DefaultTableModel();
                 cTabla();
-                tamañoTabla();
                 datosIniciales();
             }
-
         } catch (Exception e) {
-
         }
+
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_ModificarActionPerformed
@@ -432,12 +471,12 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
             } else {
 
-                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este Corte?");
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-
+                        cecaja.deleteCaja(Integer.parseInt(lb_Id.getText()));
                         tamañoTabla();
                         NewTable = new DefaultTableModel();
                         cTabla();
@@ -451,15 +490,28 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
         } catch (Exception e) {
 
         }
-        NewTable = new DefaultTableModel();
-        cTabla();
-        datosIniciales();        // TODO add your handling code here:
+             // TODO add your handling code here:
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        datosIniciales();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel5MouseClicked
+    private void jt_MontoInicialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoInicialFocusGained
+        cft.formFocusGain(jt_MontoInicial);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoInicialFocusGained
+
+    private void jt_MontoInicialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoInicialFocusLost
+        cft.formFocusLostJTextField(jt_MontoInicial, "Ingresar Monto");        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoInicialFocusLost
+
+    private void jt_MontoInicialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoInicialKeyTyped
+        ce.typedDigits(evt, jt_MontoInicial);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoInicialKeyTyped
+
+    private void jt_MontoInicialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_MontoInicialMouseClicked
+        cft.formFocusGain(jt_MontoInicial);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_MontoInicialMouseClicked
+
+    private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
+        datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCamposActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -472,13 +524,13 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JButton jb_limpiarCampos;
     private javax.swing.JTextField jt_MontoInicial;
     private javax.swing.JTable jtabla_Cajas;
     private javax.swing.JLabel lb_Id;

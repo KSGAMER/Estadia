@@ -285,7 +285,6 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jSeparator10 = new javax.swing.JSeparator();
         jt_t_registros = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         btn_Ingresar = new principal.MaterialButton();
         btn_Eliminar = new principal.MaterialButton();
         btn_Modificar = new principal.MaterialButton();
@@ -304,6 +303,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         lb_errorEmail = new javax.swing.JLabel();
         jt_Buscar = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jb_limpiarCampos2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(84, 110, 122));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -532,15 +532,6 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jLabel4.setText("Total de registros ");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 590, 100, 20));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/limpiarCampos 24x24.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, -1, -1));
-
         btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
         btn_Ingresar.setText("Agregar");
@@ -684,6 +675,21 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 110, -1, 40));
 
+        jb_limpiarCampos2.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos2.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarCampos2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarCampos2.setBorder(null);
+        jb_limpiarCampos2.setBorderPainted(false);
+        jb_limpiarCampos2.setContentAreaFilled(false);
+        jb_limpiarCampos2.setFocusPainted(false);
+        jb_limpiarCampos2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarCampos2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarCampos2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 40, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -776,10 +782,6 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
         cb_cfdi.getModel().setSelectedItem(jt_Clientes.getValueAt(seleccion, 6));
     }//GEN-LAST:event_jt_ClientesMouseClicked
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        datosIniciales();
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
 
@@ -915,6 +917,10 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         cft.formFocusLostJTextField(jt_Buscar);
     }//GEN-LAST:event_cb_cfdiFocusLost
 
+    private void jb_limpiarCampos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCampos2ActionPerformed
+        datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCampos2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Celular1;
@@ -931,7 +937,6 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -943,6 +948,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JButton jb_limpiarCampos2;
     public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_Clientes;
     private javax.swing.JTextField jt_direccion;
