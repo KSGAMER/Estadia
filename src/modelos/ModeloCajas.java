@@ -34,22 +34,23 @@ public class ModeloCajas extends BD{
     
     public DefaultTableModel cargarTabla() {
         mec.cargarTabla();
-        String[] titulos = {"#", "Fecha Apertura", "Monto Apertura", "Fecha Cierre", "Monto Cierre", "Usuario", "Estado"};
+        String[] titulos = {"#", "Fecha Apertura", "Monto Apertura", "Fecha Cierre", "Hora Cierre","Monto Cierre", "Usuario", "Estado"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
-        Object[] fila = new Object[7];
+        Object[] fila = new Object[8];
         try {
-            this.st = conectar().prepareStatement("SELECT c.IdCaja, CONVERT(DATE, c.FechaApertura, 103) as FechaApertura, c.MontoApertura, CONVERT(DATE, c.FechaCierre, 103) as FechaCierre, c.MontoCierre, c.Username, c.IdEstadoCaja FROM Caja c ORDER BY CONVERT(DATE, c.FechaApertura, 103) DESC");
+            this.st = conectar().prepareStatement("SELECT c.IdCaja, CONVERT(DATE, c.FechaApertura, 103) as FechaApertura, c.MontoApertura, CONVERT(DATE, c.FechaCierre, 103) as FechaCierre, c.HoraCierre, c.MontoCierre, c.Username, c.IdEstadoCaja FROM Caja c ORDER BY CONVERT(DATE, c.FechaApertura, 103) DESC");
             this.rs = st.executeQuery();
             while (this.rs.next()) {
                 fila[0] = rs.getInt(1);
                 fila[1] = rs.getString(2);
-                fila[2] = rs.getInt(3);
+                fila[2] = rs.getDouble(3);
                 fila[3] = rs.getString(4);
-                fila[4] = rs.getInt(5);
-                fila[5] = rs.getString(6);
+                fila[4] = rs.getString(5);
+                fila[5] = rs.getDouble(6);
+                fila[6] = rs.getString(7);
                 for (ObjetoEstadoCaja objetoEstadoCaja : mec.selectEstadoCaja()) {
-                    if(objetoEstadoCaja.getIdEstadoCaja() == rs.getInt(7)) {
-                        fila[6] = objetoEstadoCaja.getNombre();
+                    if(objetoEstadoCaja.getIdEstadoCaja() == rs.getInt(8)) {
+                        fila[7] = objetoEstadoCaja.getNombre();
                     }
                 }
                 tb.addRow(fila);
@@ -66,18 +67,19 @@ public class ModeloCajas extends BD{
         return this.list;
     }
     
-    public void insertCaja(String fechaApertura, double montoApertura, String fechaCierre, double montoCierre, String usuario, String estadoCaja) {
+    public void insertCaja(String fechaApertura, double montoApertura, String fechaCierre, String horaCierre,double montoCierre, String usuario, String estadoCaja) {
         mec.cargarTabla();
         try {
-            this.st = conectar().prepareStatement("INSERT INTO Caja(FechaApertura, MontoApertura, FechaCierre, MontoCierre, Username, IdEstadoCaja) VALUES (?,?,?,?,?,?)");
+            this.st = conectar().prepareStatement("INSERT INTO Caja(FechaApertura, MontoApertura, FechaCierre, HoraCierre, MontoCierre, Username, IdEstadoCaja) VALUES (?,?,?,?,?,?)");
             this.st.setString(1, fechaApertura);
             this.st.setDouble(2, montoApertura);
             this.st.setString(3, fechaCierre);
-            this.st.setDouble(4, montoCierre);
-            this.st.setString(5, usuario);
+            this.st.setString(4, horaCierre);
+            this.st.setDouble(5, montoCierre);
+            this.st.setString(6, usuario);
             for (ObjetoEstadoCaja objetoEstadoCaja : mec.selectEstadoCaja()) {
                 if(objetoEstadoCaja.getNombre().equals(estadoCaja)) {
-                    this.st.setInt(6, objetoEstadoCaja.getIdEstadoCaja());
+                    this.st.setInt(7, objetoEstadoCaja.getIdEstadoCaja());
                 }
             }
             this.st.execute();
@@ -91,19 +93,20 @@ public class ModeloCajas extends BD{
        }
     }
     
-    public void updateCierreCaja(String fechaCierre, Double montoCierre, String estadoCaja, String Usuario) {
+    public void updateCierreCaja(String fechaCierre, String horaCierre, Double montoCierre, String estadoCaja, String Usuario) {
         mec.cargarTabla();
         cuser.cargarTabla();
         try {
-            this.st = conectar().prepareStatement("UPDATE Caja SET FechaCierre = ?, MontoCierre = ?,IdEstadoCaja=? WHERE IdEstadoCaja=1  and Username = ?");
+            this.st = conectar().prepareStatement("UPDATE Caja SET FechaCierre = ?, HoraCierre = ?, MontoCierre = ?,IdEstadoCaja=? WHERE IdEstadoCaja=1  and Username = ?");
             this.st.setString(1, fechaCierre);
-            this.st.setDouble(2, montoCierre);
+            this.st.setString(2, horaCierre);
+            this.st.setDouble(3, montoCierre);
             for (ObjetoEstadoCaja objetoEstadoCaja : mec.selectEstadoCaja()) {
                 if (objetoEstadoCaja.getNombre().equals(estadoCaja)) {
-                    this.st.setInt(3, objetoEstadoCaja.getIdEstadoCaja());
+                    this.st.setInt(4, objetoEstadoCaja.getIdEstadoCaja());
                 }
             }            
-            this.st.setString(4, Usuario);
+            this.st.setString(5, Usuario);
             this.st.executeUpdate();
             conectar().close();
            DesktopNotify.showDesktopMessage("Exito", "Cierre de caja realizado correctamente", DesktopNotify.SUCCESS);

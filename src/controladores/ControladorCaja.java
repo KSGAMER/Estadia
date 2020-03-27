@@ -23,15 +23,15 @@ public class ControladorCaja extends ModeloCajas{
         return selectCaja();
     }
     
-    public void insertarCaja(String fechaApertura, double montoApertura, String fechaCierre, double montoCierre, String usuario, String estadoCaja) {
-        insertCaja(fechaApertura, montoApertura, fechaCierre, montoCierre, usuario, estadoCaja);
+    public void insertarCaja(String fechaApertura, double montoApertura, String fechaCierre, String horaCierre, double montoCierre, String usuario, String estadoCaja) {
+        insertCaja(fechaApertura, montoApertura, fechaCierre, horaCierre, montoCierre, usuario, estadoCaja);
     }
     
     public void actualizarAperturaCaja(double montoApertura, String usuario, int id) {
         updateAperturaCaja(montoApertura, usuario, id);
     }
-     public void actualizarCiereCaja(String fechaCierre, Double montoCierre,String estadoCaja, String Usuario) {
-        updateCierreCaja(fechaCierre, montoCierre,estadoCaja,Usuario);
+     public void actualizarCiereCaja(String fechaCierre, String horaCierre, Double montoCierre, String estadoCaja, String Usuario) {
+        updateCierreCaja(fechaCierre, horaCierre, montoCierre, estadoCaja, Usuario);
     }
     
     public void eliminarCaja(int id) {
