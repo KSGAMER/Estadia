@@ -62,12 +62,13 @@ public class ModeloGastos extends BD{
         return tb;
     }
     
-    public DefaultTableModel cargarGastos() {
+    public DefaultTableModel cargarGastos(String filtro) {
         String[] titulos = {"#", "Gasto", "Cantidad", "Descripción", "Usuario", "Fecha"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[6];
         try {
-            this.st = conectar().prepareStatement("SELECT * FROM Gastos ORDER BY CONVERT(DATE, FechaActual, 103) DESC");
+            this.st = conectar().prepareStatement("SELECT * FROM Gastos WHERE Username like CONCAT('%',?,'%') ORDER BY CONVERT(DATE, FechaActual, 103) DESC");
+            this.st.setString(1, filtro);
             this.rs = st.executeQuery();
             while (this.rs.next()) {
                 fila[0] = rs.getInt(1);

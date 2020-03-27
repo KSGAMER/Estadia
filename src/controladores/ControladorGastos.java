@@ -21,8 +21,8 @@ public class ControladorGastos extends ModeloGastos{
         return cargarTabla(usuario);
     }
     
-    public DefaultTableModel tablaGastosCompleta() {
-        return cargarGastos();
+    public DefaultTableModel tablaGastosCompleta(String filtro) {
+        return cargarGastos(filtro);
     }
     
     public void insertarGatos(String gasto, double cantidad, String descripcion, String usuario, String fecha) {

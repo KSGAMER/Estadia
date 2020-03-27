@@ -59,6 +59,10 @@ public class ModeloInventario extends BD{
         return tb;
     }
     
+    protected ArrayList<ObjetoInventario> selectInventario() {
+        return list;
+    }
+    
     protected void insertInventario(String producto, int cantidad, String observaciones) {
         try {
             this.st = conectar().prepareStatement("INSERT INTO Inventario(Nombre, Stock, Observaciones) VALUES (?,?,?)");

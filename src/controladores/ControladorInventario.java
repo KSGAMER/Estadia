@@ -5,8 +5,10 @@
  */
 package controladores;
 
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import modelos.ModeloInventario;
+import objetos.ObjetoInventario;
 
 /**
  *
@@ -15,6 +17,10 @@ import modelos.ModeloInventario;
 public class ControladorInventario extends ModeloInventario{
     public DefaultTableModel tablaInventario(String filtro) {
         return cargarTabla(filtro);
+    }
+    
+    public ArrayList<ObjetoInventario> seleccionarInventario() {
+        return selectInventario();
     }
     
     public void insertarInventario(String producto, int cantidad, String observaciones) {
