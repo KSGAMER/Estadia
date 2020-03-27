@@ -103,13 +103,13 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     private void tamañoTabla() {
         TableColumnModel columnModel = jt_habitaciones.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(5);
-        columnModel.getColumn(1).setPreferredWidth(30);
+        columnModel.getColumn(1).setPreferredWidth(50);
         columnModel.getColumn(2).setPreferredWidth(70);
-        columnModel.getColumn(3).setPreferredWidth(50);
-        columnModel.getColumn(4).setPreferredWidth(35);
-        columnModel.getColumn(5).setPreferredWidth(170);
-        columnModel.getColumn(6).setPreferredWidth(50);
-
+        columnModel.getColumn(3).setPreferredWidth(70);
+        columnModel.getColumn(4).setPreferredWidth(50);
+        columnModel.getColumn(5).setPreferredWidth(50);
+        columnModel.getColumn(6).setPreferredWidth(170);
+        columnModel.getColumn(7).setPreferredWidth(50);
     }
 
     private void cargarPisos() {
@@ -207,15 +207,18 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         lb_errorNombre.setText("*");
         lb_errorPiso.setText("*");
         lb_errorPrecioxNoche.setText("*");
+        lb_errorPrecioxHora.setText("*");
         lb_errorStatus.setText("*");
         lb_errorNombre.setForeground(new Color(84, 110, 122));
         lb_errorPrecioxNoche.setForeground(new Color(84, 110, 122));
+        lb_errorPrecioxHora.setForeground(new Color(84, 110, 122));
         lb_errorCaracteristicas.setForeground(new Color(84, 110, 122));
         lb_errorPiso.setForeground(new Color(84, 110, 122));
         lb_errorCategoria.setForeground(new Color(84, 110, 122));
         lb_errorStatus.setForeground(new Color(84, 110, 122));
         jt_nombre.setText("Ingresar Nombre");
         jt_precioxNoche.setText("Ingresar Precio");
+        jt_precioxHora.setText("Ingresar Precio");
         jta_observaciones.setText("Ingresar Caracteristicas");
         cb_piso.setSelectedIndex(0);
         cb_status.setSelectedIndex(0);
@@ -243,7 +246,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         if (!(jt_precioxHora.getText().equals("Ingresar Precio")) && !(jt_precioxNoche.getText().equals(""))) {
             lb_errorPrecioxHora.setForeground(new Color(84, 110, 122));
         } else {
-            lb_errorPrecioxNoche.setForeground(Color.RED);
+            lb_errorPrecioxHora.setForeground(Color.RED);
             val = false;
         }
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
@@ -259,7 +262,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
     private Boolean validarSeleccion() {
         Boolean val = true;
-        if (!(cb_piso.getSelectedIndex() == 0)) {
+        if (!(cb_piso.getSelectedItem().equals("Seleccionar Piso"))) {
 
             lb_errorPiso.setForeground(new Color(84, 110, 122));
         } else {
@@ -268,7 +271,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
             val = false;
         }
-        if (!(cb_Categoria.getSelectedIndex() == 0)) {
+        if (!(cb_Categoria.getSelectedItem().equals("Seleccionar Categoria"))) {
 
             lb_errorCategoria.setForeground(new Color(84, 110, 122));
         } else {
@@ -278,7 +281,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
             val = false;
         }
 
-        if (!(cb_status.getSelectedIndex() == 0)) {
+        if (!(cb_status.getSelectedItem().equals("Seleccionar Estatus"))) {
 
             lb_errorStatus.setForeground(new Color(84, 110, 122));
         } else {
@@ -649,12 +652,12 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         lb_errorCaracteristicas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorCaracteristicas.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorCaracteristicas.setText("*");
-        jPanel1.add(lb_errorCaracteristicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 10, -1));
+        jPanel1.add(lb_errorCaracteristicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 10, -1));
 
         lb_errorStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorStatus.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorStatus.setText("*");
-        jPanel1.add(lb_errorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 10, -1));
+        jPanel1.add(lb_errorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 10, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -794,7 +797,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
             if (!validarEscritura() == true || !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
-                ch.insertHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precioxNoche.getText()), jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()));
+                ch.insertHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precioxNoche.getText()),Double.parseDouble(jt_precioxHora.getText()) ,jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
@@ -835,7 +838,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
             if (!validarEscritura() == true || !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
-                ch.updateHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precioxNoche.getText()), jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()), Integer.valueOf(lb_Id.getText()));
+                ch.updateHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precioxNoche.getText()),Double.parseDouble(jt_precioxHora.getText()) , jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()), Integer.valueOf(lb_Id.getText()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
