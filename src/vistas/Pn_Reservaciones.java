@@ -129,7 +129,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         cb_Habitacion.setModel(cb);
     }
 
-    private void cTabla() {
+    public  void cTabla() {
         jt_Reservas.setModel(cr.tablaReservaciones());
         jt_t_registros.setText(String.valueOf(jt_Reservas.getRowCount()));
 

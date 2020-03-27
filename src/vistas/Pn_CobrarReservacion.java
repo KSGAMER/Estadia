@@ -60,6 +60,9 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
      int dias;
          //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA EN CLIENTES PARA FACTURA
     Frame principal;
+    
+    //para accder al metod de actualizar tabla en reservaciones y se actualize al hacer un cobro
+    Pn_Reservaciones pn_reser = new Pn_Reservaciones();
     /**
      * Creates new form Pn_SeleccionClientes
      */
@@ -275,6 +278,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
     private int CalcularNoches() {
         try {
+            //FECHA DE INGRESO
             Date FechaInicial = new SimpleDateFormat("dd/MM/yyyy").parse(lb_FechaIngreso.getText());
             String year = new SimpleDateFormat("yyyy").format(FechaInicial);
             String month = new SimpleDateFormat("MM").format(FechaInicial);
@@ -282,6 +286,15 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             int anio = Integer.parseInt(year);
             int mes = Integer.parseInt(month);
             int dia = Integer.parseInt(day);
+            //FECHA DE SALIDA
+            Date FechaFinal = new SimpleDateFormat("dd/MM/yyyy").parse(lb_FechaSalida.getText());
+            String yearOut = new SimpleDateFormat("yyyy").format(FechaFinal);
+            String monthOut = new SimpleDateFormat("MM").format(FechaFinal);
+            String dayOut = new SimpleDateFormat("dd").format(FechaFinal);
+            int anioSalida = Integer.parseInt(yearOut);
+            int mesSalida = Integer.parseInt(monthOut);
+            int diaSalida = Integer.parseInt(dayOut);
+
 
             //valores de la ficha inicial de la reservacion SIN IMPORTAR EL MES Y/O AÑO
             Calendar FechainicioReservacion = Calendar.getInstance();
@@ -291,8 +304,12 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             FechainicioReservacion.set(Calendar.MINUTE, 0);
             FechainicioReservacion.set(Calendar.SECOND, 0);
 
-            //representa el dia actual
+            //fecha de salida
+            
+            
+            //representa el dia actual o fecha de salida
             Calendar DiaActual = Calendar.getInstance();
+            DiaActual.set(anioSalida, mesSalida - 1, diaSalida);
             DiaActual.set(Calendar.HOUR, 0);
             DiaActual.set(Calendar.HOUR_OF_DAY, 0);
             DiaActual.set(Calendar.MINUTE, 0);
@@ -1405,11 +1422,13 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                     cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_nombreCliente.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
                     cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
                     ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
+                   
                     Cerrar();
                 } else if (validador == 0 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
                     cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", Principal.User, lb_nombreCliente.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Sin Factura");
                     cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
                     ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
+                   
                     Cerrar();
                 }
             }

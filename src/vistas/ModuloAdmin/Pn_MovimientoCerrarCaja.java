@@ -61,7 +61,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
     }
 
     private void cTablaCobros() {
-jtabla_Cobros.setModel(ccob.tablaCobros2(jt_BuscarCobrosHabitaciones.getText()));
+jtabla_Cobros.setModel(ccob.tablaCobros2(""));
     }
 
     private void cTablaGastos() {
@@ -499,7 +499,7 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
     }//GEN-LAST:event_jt_BuscarCobrosHabitacionesMouseClicked
 
     private void jt_BuscarCobrosHabitacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarCobrosHabitacionesKeyReleased
-//           jtabla_Cobros.setModel(ccob.tablaCobros(jt_BuscarCobrosHabitaciones.getText()));
+          jtabla_Cobros.setModel(ccob.tablaCobros2(jt_BuscarCobrosHabitaciones.getText()));
         //   tamañoTabla();
     }//GEN-LAST:event_jt_BuscarCobrosHabitacionesKeyReleased
 
