@@ -39,11 +39,11 @@ public class ModeloHabitaciones extends BD {
         cp.cargarTabla();
         meh.cargarTabla();
         //Se declaran los titulos de la tabla
-        String[] titulos = {"#", "Nombre", "Piso", "Categoria", "Precio Sugerido", "Caracteriscas", "Estatus"};
+        String[] titulos = {"#", "Nombre", "Piso", "Categoria", "Precio Dia", "Precio Hora", "Caracteriscas", "Estatus"};
         //Se declara la tabla pasando las columnas de la tabla
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
-        Object[] fila = new Object[7];
+        Object[] fila = new Object[8];
 
         try {
             //Se instancia la conexión a la base de datos pasando la consulta preparada
@@ -76,13 +76,14 @@ public class ModeloHabitaciones extends BD {
                     }
                 }
                 fila[4] = rs.getDouble("PrecioSugerido");
-                fila[5] = rs.getString("Caracteristicas");
+                fila[5] = rs.getDouble("PrecioHora");
+                fila[6] = rs.getString("Caracteristicas");
                 //Se recorre el resultado obtenido con un for
                 for (int i = 0; i < meh.selectEstadoHabitaciones().size(); i++) {
                     //Si el ID del resultado obtenido es igual al ID de la instancia se prosigue
                     if (meh.selectEstadoHabitaciones().get(i).getIdEstadoHabitacion() == rs.getInt("IdEstadoHabitacion")) {
                         //Se reemplaza el resultado por el nombre
-                        fila[6] = meh.selectEstadoHabitaciones().get(i).getNombre();
+                        fila[7] = meh.selectEstadoHabitaciones().get(i).getNombre();
                     }
                 }
                 //Se agrega el objeto a la tabla
@@ -106,11 +107,11 @@ public class ModeloHabitaciones extends BD {
         cp.cargarTabla();
         meh.cargarTabla();
         //Se declaran las columnas de la tabla
-        String[] titulos = {"#", "Nombre", "Piso", "Categoria", "Precio Sugerido", "Caracteriscas", "Estatus"};
+        String[] titulos = {"#", "Nombre", "Piso", "Categoria", "Precio Dia", "Precio Hora", "Caracteriscas", "Estatus"};
         //Se declara la tabla pasando las columnas
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
-        Object[] fila = new Object[7];
+        Object[] fila = new Object[8];
 
         try {
             //Se instancia la conexión a base de datos y se pasa la consulta preparada
@@ -139,13 +140,14 @@ public class ModeloHabitaciones extends BD {
                     }
                 }
                 fila[4] = rs.getDouble("PrecioSugerido");
-                fila[5] = rs.getString("Caracteristicas");
+                fila[5] = rs.getDouble("PrecioHora");
+                fila[6] = rs.getString("Caracteristicas");
                 //Se recorre el resultado obtenido con un for
                 for (int i = 0; i < meh.selectEstadoHabitaciones().size(); i++) {
                     //Si el ID del resultado obtenido es igual al ID de la instancia se prosigue
                     if (meh.selectEstadoHabitaciones().get(i).getIdEstadoHabitacion() == rs.getInt("IdEstadoHabitacion")) {
                         //Se reemplaza el resultado por el nombre
-                        fila[6] = meh.selectEstadoHabitaciones().get(i).getNombre();
+                        fila[7] = meh.selectEstadoHabitaciones().get(i).getNombre();
                     }
                 }
                 //Se agrega el objeto a la tabla
@@ -168,14 +170,14 @@ public class ModeloHabitaciones extends BD {
     }
 
     //Método que inserta una nueva habitación
-    protected void insertHabitaciones(String nombre, String piso, String categoria, double precioSugerido, String caracteristicas, String estatus) {
+    protected void insertHabitaciones(String nombre, String piso, String categoria, double precioSugerido, double precioHora, String caracteristicas, String estatus) {
         //Se cargan los resultados a utilizar
         cc.cargarTabla();
         cp.cargarTabla();
         meh.cargarTabla();
         try {
             //Se instancia la conexión a base de datos y se pasa la consulta preparada
-            this.st = conectar().prepareStatement("INSERT INTO Habitacion(Nombre, IdPiso, IdCategoria, PrecioSugerido, Caracteristicas, IdEstadoHabitacion) VALUES (?,?,?,?,?,?)");
+            this.st = conectar().prepareStatement("INSERT INTO Habitacion(Nombre, IdPiso, IdCategoria, PrecioSugerido, PrecioHora, Caracteristicas, IdEstadoHabitacion) VALUES (?,?,?,?,?,?,?)");
             //Se pasan los parametros a la consulta preparada
             this.st.setString(1, nombre);
             //Se recorre el resultado obtenido con un for
@@ -195,13 +197,14 @@ public class ModeloHabitaciones extends BD {
                 }
             }
             this.st.setDouble(4, precioSugerido);
-            this.st.setString(5, caracteristicas);
+            this.st.setDouble(5, precioHora);
+            this.st.setString(6, caracteristicas);
             //Se recorre el resultado obtenido con un for
             for (int i = 0; i < meh.selectEstadoHabitaciones().size(); i++) {
                 //Si el Nombre del resultado obtenido es igual al Nombre de la instancia se prosigue
                 if (estatus.equals(meh.selectEstadoHabitaciones().get(i).getNombre())) {
                     //Se reemplaza el resultado por el ID
-                    this.st.setInt(6, meh.selectEstadoHabitaciones().get(i).getIdEstadoHabitacion());
+                    this.st.setInt(7, meh.selectEstadoHabitaciones().get(i).getIdEstadoHabitacion());
                 }
             }
             //Se ejecuta el Query
@@ -215,14 +218,14 @@ public class ModeloHabitaciones extends BD {
     }
 
     //Método que actualiza una Habitación
-    protected void updateHabitaciones(String nombre, String piso, String categoria, double precioSugerido, String caracteristicas, String estatus, int id) {
+    protected void updateHabitaciones(String nombre, String piso, String categoria, double precioSugerido, double precioHora, String caracteristicas, String estatus, int id) {
         //Se cargan los resultados a utilizar
         cc.cargarTabla();
         cp.cargarTabla();
         meh.cargarTabla();
         try {
             //Se instancia la conexión a base de datos y se pasa la consulta preparada
-            this.st = conectar().prepareStatement("UPDATE Habitacion SET Nombre = ?, IdPiso = ?, IdCategoria = ?, PrecioSugerido = ?, Caracteristicas = ?, IdEstadoHabitacion = ? WHERE IdHabitacion = ?");
+            this.st = conectar().prepareStatement("UPDATE Habitacion SET Nombre = ?, IdPiso = ?, IdCategoria = ?, PrecioSugerido = ?, PrecioHora = ?, Caracteristicas = ?, IdEstadoHabitacion = ? WHERE IdHabitacion = ?");
             //Se pasan los parametros a la consulta preparada
             this.st.setString(1, nombre);
             //Se recorre el resultado obtenido con un for
@@ -242,13 +245,14 @@ public class ModeloHabitaciones extends BD {
                 }
             }
             this.st.setDouble(4, precioSugerido);
-            this.st.setString(5, caracteristicas);
+            this.st.setDouble(5, precioHora);
+            this.st.setString(6, caracteristicas);
             //Se recorre el resultado obtenido con un for
             for (int i = 0; i < meh.selectEstadoHabitaciones().size(); i++) {
                 //Si el Nombre del resultado obtenido es igual al Nombre de la instancia se prosigue
                 if (estatus.equals(meh.selectEstadoHabitaciones().get(i).getNombre())) {
                     //Se reemplaza el resultado por el ID
-                    this.st.setInt(6, meh.selectEstadoHabitaciones().get(i).getIdEstadoHabitacion());
+                    this.st.setInt(7, meh.selectEstadoHabitaciones().get(i).getIdEstadoHabitacion());
                 }
             }
             this.st.setInt(7, id);
