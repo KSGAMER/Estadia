@@ -34,13 +34,13 @@ public class ControladorHabitaciones extends ModeloHabitaciones{
     }
     
     //Método que inserta una nueva habitacion pasando el nombre de la habitacion, el piso de la habitacion, la categoria de habitacion, el precio sugerido, las caracteristicas de la habitacion y el estatus de la habitaci´n
-    public void insertHabitacion(String nombre, String piso, String categoria, double precioSugerido, String caracteristicas, String estatus) {
-        insertHabitaciones(nombre, piso, categoria, precioSugerido, caracteristicas, estatus);
+    public void insertHabitacion(String nombre, String piso, String categoria, double precioSugerido, double precioHora,String caracteristicas, String estatus) {
+        insertHabitaciones(nombre, piso, categoria, precioSugerido, precioHora, caracteristicas, estatus);
     }
     
     //Método que actualiza una habitacion pasando el nombre de la habotacion, el piso de la habitacion, la categoria de la habitacion, el precio sugerido, las caracteristicas de la habitacion, el estatus de la habitacion y el id de la habitacion
-    public void updateHabitacion(String nombre, String piso, String categoria, double precioSugerido, String caracteristicas, String estatus, int id) {
-        updateHabitaciones(nombre, piso, categoria, precioSugerido, caracteristicas, estatus, id);
+    public void updateHabitacion(String nombre, String piso, String categoria, double precioSugerido, double precioHora, String caracteristicas, String estatus, int id) {
+        updateHabitaciones(nombre, piso, categoria, precioSugerido, precioHora, caracteristicas, estatus, id);
     }
     
     //Método que actualiza una habitacion pasando el nombre de la habitacion y el estatus de la habitacion
