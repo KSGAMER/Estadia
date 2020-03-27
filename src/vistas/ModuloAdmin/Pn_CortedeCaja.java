@@ -44,7 +44,7 @@ public class Pn_CortedeCaja extends javax.swing.JDialog {
     ControladorCaja cecaja = new ControladorCaja();
     //necesario para obtener la fecha con hora para las nuevas cajas
     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
-    String fechaActual = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy").format(now);
+    String fechaActual = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(now);
 
     /**
      * Creates new form AlertSuccess
@@ -56,6 +56,7 @@ public class Pn_CortedeCaja extends javax.swing.JDialog {
         Ubicar(0);
         //APARIENCIA DE LA TABLA
         cuser.tablaUsuarios();
+       
         RowHeaderApariencia();
         RowApariencia();
         headerTablaCobros();

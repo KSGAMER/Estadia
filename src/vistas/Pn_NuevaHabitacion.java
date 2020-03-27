@@ -353,6 +353,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jt_precioxHora.setBackground(new java.awt.Color(84, 110, 122));
+        jt_precioxHora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_precioxHora.setForeground(new java.awt.Color(204, 204, 204));
         jt_precioxHora.setText("Ingresar Precio");
         jt_precioxHora.setBorder(null);
@@ -478,6 +479,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
 
         jt_nombre.setBackground(new java.awt.Color(84, 110, 122));
+        jt_nombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_nombre.setForeground(new java.awt.Color(204, 204, 204));
         jt_nombre.setText("Ingresar Nombre");
         jt_nombre.setBorder(null);
@@ -505,6 +507,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 190, 10));
 
         jt_precioxNoche.setBackground(new java.awt.Color(84, 110, 122));
+        jt_precioxNoche.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_precioxNoche.setForeground(new java.awt.Color(204, 204, 204));
         jt_precioxNoche.setText("Ingresar Precio");
         jt_precioxNoche.setBorder(null);
@@ -532,6 +535,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 150, 10));
 
         jta_observaciones.setColumns(20);
+        jta_observaciones.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jta_observaciones.setForeground(new java.awt.Color(153, 153, 153));
         jta_observaciones.setRows(5);
         jta_observaciones.setText("Ingresar Caracteristicas");

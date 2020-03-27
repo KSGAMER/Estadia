@@ -49,7 +49,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private ControladorCobros cco = new ControladorCobros();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
     DefaultTableModel NewTable;
-    private int validador = 0;
+    private int validador = 0,validadorHoras=0;
 
 //FIN
  private int validadorTNoches=0;   
@@ -894,6 +894,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
         lb_TotalNoches.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         lb_TotalNoches.setForeground(new java.awt.Color(153, 153, 153));
+        lb_TotalNoches.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_TotalNoches.setText("total Noches");
         jPanel3.add(lb_TotalNoches, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
 
@@ -985,6 +986,12 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             }
         });
         jPanel3.add(jc_seleccionarTxNoches, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, -1, 30));
+
+        jc_seleccionarTxHoras.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jc_seleccionarTxHorasItemStateChanged(evt);
+            }
+        });
         jPanel3.add(jc_seleccionarTxHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 90, -1, 30));
 
         jLabel29.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -1540,11 +1547,14 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private void jc_seleccionarTxNochesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_seleccionarTxNochesItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
             validadorTNoches = 1;
-            jt_MontoManualaCobrar.setText(lb_TotalxNoches.getText());
-            lb_TotalGeneral.setText(lb_TotalxNoches.getText());
+            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText())+Double.valueOf(lb_TotalxNoches.getText())));
+            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText())+Double.valueOf(lb_TotalxNoches.getText())));
         }else{
             validadorTNoches = 0;
-            jt_MontoManualaCobrar.setText("0");
+            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText())-Double.valueOf(lb_TotalxNoches.getText())));
+           lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText())-Double.valueOf(lb_TotalxNoches.getText())));
+       
+          //  lb_TotalGeneral.setText("0");
 
         }
         // TODO add your handling code here:
@@ -1770,11 +1780,26 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         if (!(numero.equals("")) && numero.matches("[0-9]*")) {
             Double PrecioHoras = Double.valueOf(lb_precioxHora.getText());
             Double HorasTotales = Double.valueOf(jt_TotalHoras.getText());
-            lb_TotalGeneral.setText(String.valueOf(PrecioHoras * HorasTotales));
+            lb_totalxHoras.setText(String.valueOf(PrecioHoras * HorasTotales));
 
+        }else{
+               lb_totalxHoras.setText("0");
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_TotalHorasKeyReleased
+
+    private void jc_seleccionarTxHorasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_seleccionarTxHorasItemStateChanged
+      if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+            validadorHoras = 1;
+            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText())+Double.valueOf(lb_totalxHoras.getText())));
+            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText())+Double.valueOf(lb_totalxHoras.getText())));
+        }else{
+            validadorHoras = 0;
+            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText())-Double.valueOf(lb_totalxHoras.getText())));
+            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText())-Double.valueOf(lb_totalxHoras.getText())));
+       
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jc_seleccionarTxHorasItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -6037,7 +6062,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth() / 7;
-        this.setLocation(xsize, y - 50);
+        this.setLocation(xsize, y - 250);
 
     }
 }

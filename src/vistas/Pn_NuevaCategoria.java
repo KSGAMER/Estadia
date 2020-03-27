@@ -212,6 +212,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 210, -1));
 
         jt_nombre.setBackground(new java.awt.Color(84, 110, 122));
+        jt_nombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_nombre.setForeground(new java.awt.Color(204, 204, 204));
         jt_nombre.setText("Ingresar Nombre");
         jt_nombre.setBorder(null);
@@ -242,6 +243,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 130, -1));
 
         jta_observaciones.setColumns(20);
+        jta_observaciones.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jta_observaciones.setForeground(new java.awt.Color(153, 153, 153));
         jta_observaciones.setRows(5);
         jta_observaciones.setText("Ingresar Observaciones");

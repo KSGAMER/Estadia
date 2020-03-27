@@ -7,7 +7,11 @@ package vistas;
 
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
-
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.table.TableColumnModel;
+import controladores.ControladorInventario;
 
 
 /*
@@ -20,16 +24,81 @@ import controladores.ControladorFormularioTab;
  */
 public class Pn_Inventario extends javax.swing.JPanel {
  private ControladorFormularioTab cft = new ControladorFormularioTab();
-   ControladorEscritura ce = new ControladorEscritura();
+   private ControladorEscritura ce = new ControladorEscritura();
+   private ControladorInventario cinv = new ControladorInventario();
     /**
      * Creates new form Pn_NuevaCategoria
      */
     public Pn_Inventario() {
         initComponents();
-     
+     //APARIENCIA DE LA TABLA
+        RowHeaderApariencia();
+        RowApariencia();
+        //FIN 
+        //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
+        datosIniciales();
+        //FIN
+        //CARGA LOS VALORES EN LA TABLA
+        cTabla();
+        //FIN
+        //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
+        tamañoTabla();
+        //FIN
+        //para ajustar el tecto al tamaño del jtextarea
+        jta_observaciones.setLineWrap(true);
+        //FIN
+    }
+
+    private void datosIniciales() {
+        lb_Id.setText("*");
+        lb_errorNombreProducto.setText("*");
+        lb_errorStock.setText("*");
+        lb_errorObservaciones.setText("*");
+        lb_errorNombreProducto.setForeground(new Color(84, 110, 122));
+        lb_errorStock.setForeground(new Color(84, 110, 122));
+        lb_errorObservaciones.setForeground(new Color(84, 110, 122));
+        jt_nombre.setText("Ingresar Nombre");
+        jt_CantidadStock.setText("Ingresar Cantidad");
+        jta_observaciones.setText("Ingresar Observaciones");
+    }
+
+    private void tamañoTabla() {
+        TableColumnModel columnModel = jtabla_Productos.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(5);
+        columnModel.getColumn(1).setPreferredWidth(50);
+        columnModel.getColumn(2).setPreferredWidth(250);
 
     }
 
+    private void cTabla() {
+        this.jtabla_Productos.setModel(cinv.tablaInventario(""));
+        jt_t_registros.setText(String.valueOf(this.jtabla_Productos.getRowCount()));
+
+    }
+
+    private void RowApariencia() {
+
+        jtabla_Productos.setFocusable(false);
+
+        //espacio entre comulnas
+        jtabla_Productos.setIntercellSpacing(new Dimension(0, 1));
+        //altura de columnas 
+        jtabla_Productos.setRowHeight(25);
+        //margen entre filas
+        jtabla_Productos.setRowMargin(0);
+//sin lineas verticles
+        jtabla_Productos.setShowVerticalLines(false);
+        jtabla_Productos.setSelectionBackground(new Color(97, 212, 195));
+
+    }
+
+    private void RowHeaderApariencia() {
+        jtabla_Productos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
+        jtabla_Productos.getTableHeader().setOpaque(false);
+        jtabla_Productos.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Productos.getTableHeader().setForeground(new Color(255, 255, 255));
+
+    }
 
 /*
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +111,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jt_categorias = new javax.swing.JTable();
+        jtabla_Productos = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jt_nombre = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -51,7 +120,6 @@ public class Pn_Inventario extends javax.swing.JPanel {
         btn_Ingresar = new principal.MaterialButton();
         btn_Modificar = new principal.MaterialButton();
         btn_Eliminar = new principal.MaterialButton();
-        lb_errorNombre = new javax.swing.JLabel();
         lb_Id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jt_t_registros = new javax.swing.JTextField();
@@ -67,11 +135,14 @@ public class Pn_Inventario extends javax.swing.JPanel {
         jt_CantidadStock = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jb_limpiarCampos = new javax.swing.JButton();
+        lb_errorObservaciones = new javax.swing.JLabel();
+        lb_errorNombreProducto = new javax.swing.JLabel();
+        lb_errorStock = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jt_categorias.setModel(new javax.swing.table.DefaultTableModel(
+        jtabla_Productos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -82,14 +153,14 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jt_categorias.getTableHeader().setResizingAllowed(false);
-        jt_categorias.getTableHeader().setReorderingAllowed(false);
-        jt_categorias.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtabla_Productos.getTableHeader().setResizingAllowed(false);
+        jtabla_Productos.getTableHeader().setReorderingAllowed(false);
+        jtabla_Productos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jt_categoriasMouseClicked(evt);
+                jtabla_ProductosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jt_categorias);
+        jScrollPane1.setViewportView(jtabla_Productos);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 150, 560, 350));
 
@@ -192,11 +263,6 @@ public class Pn_Inventario extends javax.swing.JPanel {
             }
         });
         jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 140, 40));
-
-        lb_errorNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorNombre.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorNombre.setText("*");
-        jPanel1.add(lb_errorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 10, -1));
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
         jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 30, 20));
@@ -341,6 +407,18 @@ public class Pn_Inventario extends javax.swing.JPanel {
         });
         jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 40, -1));
 
+        lb_errorObservaciones.setForeground(new java.awt.Color(84, 110, 122));
+        lb_errorObservaciones.setText("*");
+        jPanel1.add(lb_errorObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+
+        lb_errorNombreProducto.setForeground(new java.awt.Color(84, 110, 122));
+        lb_errorNombreProducto.setText("*");
+        jPanel1.add(lb_errorNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+
+        lb_errorStock.setForeground(new java.awt.Color(84, 110, 122));
+        lb_errorStock.setText("*");
+        jPanel1.add(lb_errorStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -353,14 +431,14 @@ public class Pn_Inventario extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jt_categoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_categoriasMouseClicked
-        int seleccion = jt_categorias.rowAtPoint(evt.getPoint());
-        lb_Id.setText(String.valueOf(jt_categorias.getValueAt(seleccion, 0)));
-        jt_nombre.setText(String.valueOf(jt_categorias.getValueAt(seleccion, 1)));
-        jta_observaciones.setText(String.valueOf(jt_categorias.getValueAt(seleccion, 2)));
+    private void jtabla_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_ProductosMouseClicked
+        int seleccion = jtabla_Productos.rowAtPoint(evt.getPoint());
+        lb_Id.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 0)));
+        jt_nombre.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 1)));
+        jta_observaciones.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 2)));
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jt_categoriasMouseClicked
+    }//GEN-LAST:event_jtabla_ProductosMouseClicked
 
     private void jt_nombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreFocusGained
         cft.formFocusGain(jt_nombre);
@@ -458,7 +536,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_jt_CantidadStockKeyTyped
 
     private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
-//        datosIniciales();        // TODO add your handling code here:
+        datosIniciales();        // TODO add your handling code here:
     }//GEN-LAST:event_jb_limpiarCamposActionPerformed
 
 
@@ -484,11 +562,13 @@ public class Pn_Inventario extends javax.swing.JPanel {
     private javax.swing.JButton jb_limpiarCampos;
     public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTextField jt_CantidadStock;
-    private javax.swing.JTable jt_categorias;
     private javax.swing.JTextField jt_nombre;
     private javax.swing.JTextField jt_t_registros;
     private javax.swing.JTextArea jta_observaciones;
+    private javax.swing.JTable jtabla_Productos;
     private javax.swing.JLabel lb_Id;
-    private javax.swing.JLabel lb_errorNombre;
+    private javax.swing.JLabel lb_errorNombreProducto;
+    private javax.swing.JLabel lb_errorObservaciones;
+    private javax.swing.JLabel lb_errorStock;
     // End of variables declaration//GEN-END:variables
 }

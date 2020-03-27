@@ -89,7 +89,7 @@ public class ModeloHabitaciones extends BD {
                 //Se agrega el objeto a la tabla
                 tb.addRow(fila);
                 //Se agregan los resultados al arreglo atraves de un nuevo objeto
-                this.listRoom.add(new ObjetoHabitacion(rs.getInt("IdHabitacion"), rs.getString("Nombre"), rs.getInt("IdPiso"), rs.getInt("IdCategoria"), rs.getDouble("PrecioSugerido"), rs.getDouble("PrecioHora") ,rs.getString("Caracteristicas"), rs.getInt("IdEstadoHabitacion")));
+                this.listRoom.add(new ObjetoHabitacion(rs.getInt("IdHabitacion"), rs.getString("Nombre"), rs.getInt("IdPiso"), rs.getInt("IdCategoria"), rs.getDouble("PrecioSugerido"),rs.getDouble("PrecioHora"),rs.getString("Caracteristicas"), rs.getInt("IdEstadoHabitacion")));
             }
             //Se cierra la conexión
             conectar().close();

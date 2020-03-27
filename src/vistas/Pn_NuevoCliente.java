@@ -342,6 +342,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 190, -1));
 
         jt_nombre.setBackground(new java.awt.Color(84, 110, 122));
+        jt_nombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_nombre.setForeground(new java.awt.Color(204, 204, 204));
         jt_nombre.setText("Ingresar Nombre");
         jt_nombre.setBorder(null);
@@ -372,6 +373,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 250, -1));
 
         jt_rfc.setBackground(new java.awt.Color(84, 110, 122));
+        jt_rfc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_rfc.setForeground(new java.awt.Color(204, 204, 204));
         jt_rfc.setText("Ingresar RFC");
         jt_rfc.setBorder(null);
@@ -402,6 +404,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 190, -1));
 
         jt_direccion.setBackground(new java.awt.Color(84, 110, 122));
+        jt_direccion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_direccion.setForeground(new java.awt.Color(204, 204, 204));
         jt_direccion.setText("Ingresar Direccion Fiscal");
         jt_direccion.setBorder(null);
@@ -432,6 +435,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 190, -1));
 
         jt_telefono.setBackground(new java.awt.Color(84, 110, 122));
+        jt_telefono.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_telefono.setForeground(new java.awt.Color(204, 204, 204));
         jt_telefono.setText("Ingresar Telefono");
         jt_telefono.setBorder(null);
@@ -462,6 +466,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jPanel1.add(Celular1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 190, -1));
 
         jt_email.setBackground(new java.awt.Color(84, 110, 122));
+        jt_email.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_email.setForeground(new java.awt.Color(204, 204, 204));
         jt_email.setText("Ingresar Email");
         jt_email.setBorder(null);
@@ -492,6 +497,7 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jPanel1.add(Celular2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 140, -1));
 
         cb_cfdi.setBackground(new java.awt.Color(84, 110, 122));
+        cb_cfdi.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cb_cfdi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar CFDI" }));
         cb_cfdi.setBorder(null);
         cb_cfdi.addItemListener(new java.awt.event.ItemListener() {

@@ -305,6 +305,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 190, -1));
 
         jt_nombre.setBackground(new java.awt.Color(84, 110, 122));
+        jt_nombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_nombre.setForeground(new java.awt.Color(204, 204, 204));
         jt_nombre.setText("Ingresar Nombre");
         jt_nombre.setBorder(null);
@@ -394,6 +395,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 95, 40));
 
         cb_Habitacion.setBackground(new java.awt.Color(84, 110, 122));
+        cb_Habitacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cb_Habitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Habitacion" }));
         cb_Habitacion.setBorder(null);
         cb_Habitacion.addItemListener(new java.awt.event.ItemListener() {
@@ -672,15 +674,17 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                     if (habitacion.getNombre().equals(String.valueOf(cb_Habitacion.getSelectedItem()))) {
                         if (habitacion.getIdCategoria() == categoria.getIdCategoria()) {
                             CobrarReserv.lb_PrecioHabitacion.setText(String.valueOf(habitacion.getPrecioSugerido()));
-                           // CobrarReserv.lb_TotalxNoches.setText(String.valueOf(habitacion.getPrecioSugerido()));
+                            // CobrarReserv.lb_TotalxNoches.setText(String.valueOf(habitacion.getPrecioSugerido()));
                             CobrarReserv.lb_TipoHabitacion.setText(String.valueOf(categoria.getNombre()));
                             CobrarReserv.lb_precioxHora.setText(String.valueOf(habitacion.getPrecioxHora()));
+                            
                         }
 
                     }
                 }
 
             }
+           
              CobrarReserv.setVisible(true);
             datosIniciales();
         }

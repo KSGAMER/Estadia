@@ -194,6 +194,7 @@ private ControladorClientes mc = new ControladorClientes();
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 190, -1));
 
         jt_nombre.setBackground(new java.awt.Color(84, 110, 122));
+        jt_nombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_nombre.setForeground(new java.awt.Color(204, 204, 204));
         jt_nombre.setText("Ingresar Nombre");
         jt_nombre.setBorder(null);
@@ -226,6 +227,7 @@ private ControladorClientes mc = new ControladorClientes();
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 250, -1));
 
         jt_rfc.setBackground(new java.awt.Color(84, 110, 122));
+        jt_rfc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_rfc.setForeground(new java.awt.Color(204, 204, 204));
         jt_rfc.setText("Ingresar RFC");
         jt_rfc.setBorder(null);
@@ -258,6 +260,7 @@ private ControladorClientes mc = new ControladorClientes();
         jPanel1.add(Celular1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 190, -1));
 
         jt_email.setBackground(new java.awt.Color(84, 110, 122));
+        jt_email.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_email.setForeground(new java.awt.Color(204, 204, 204));
         jt_email.setText("Ingresar Email");
         jt_email.setBorder(null);
@@ -2779,7 +2782,7 @@ private ControladorClientes mc = new ControladorClientes();
     private void Ubicar(int y) {
          
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth()/3;
+        int xsize = (int) tk.getScreenSize().getWidth()/6;
         this.setLocation(xsize, y - 120);
         
     }
