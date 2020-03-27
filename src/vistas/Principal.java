@@ -503,11 +503,12 @@ ControladorCaja cecaja = new ControladorCaja();
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if(!validarCajasAbiertas()==true){
-                     System.exit(0);
-                }else{
+                     
                      DesktopNotify.showDesktopMessage("Error", "PARA CERRAR CORRECTAMENTE EL SISTEMA, NO DEBEN EXISTIR CAJAS ABIERTAS"
                              + ", FAVOR DE REALIZAR EL CIERRE CORRESPONDIENTE DE LAS MISMAS", DesktopNotify.ERROR);
-                }
+                 }else{
+                    System.exit(0);
+               }
                         
                
             }
