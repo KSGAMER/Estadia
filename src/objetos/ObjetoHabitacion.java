@@ -21,9 +21,11 @@ public class ObjetoHabitacion {
     private double precioSugerido;
     private String caracteristicas;
     private int idEstadoHabitacion;
+    private int precioxHora;
 
+  
     //Creación del constructor para inicializar las variables idHabitación, nombre, idPiso, idCategoria, precioSugerido, caracteristicas e idEstadoHabitacion
-    public ObjetoHabitacion(int idHabitacion, String nombre, int idPiso, int idCategoria, double precioSugerido, String caracteristicas, int idEstadoHabitacion) {
+    public ObjetoHabitacion(int idHabitacion, String nombre, int idPiso, int idCategoria, double precioSugerido,Double precioxHora, String caracteristicas, int idEstadoHabitacion) {
         this.idHabitacion = idHabitacion;
         this.nombre = nombre;
         this.idPiso = idPiso;
@@ -67,5 +69,12 @@ public class ObjetoHabitacion {
     public int getIdEstadoHabitacion() {
         return idEstadoHabitacion;
     }
-    
+      public int getPrecioxHora() {
+        return precioxHora;
+    }
+
+    public void setPrecioxHora(int precioxHora) {
+        this.precioxHora = precioxHora;
+    }
+
 }

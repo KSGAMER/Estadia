@@ -422,6 +422,10 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jc_seleccionarTxHoras = new javax.swing.JCheckBox();
         jLabel29 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
+        lb_totalxHoras = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jt_TotalHoras = new javax.swing.JTextField();
         pn_showFacturas = new javax.swing.JPanel();
         lb_NombreRazonSocial = new javax.swing.JLabel();
         lb_NombreRFC = new javax.swing.JLabel();
@@ -455,6 +459,10 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         lb_NombreHabitacion = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        lb_precioxHora = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         lb_FechaSalida = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -662,7 +670,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel30.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel30.setText("$");
-        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 10, -1));
+        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 10, 30));
 
         jLabel28.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -719,7 +727,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         lb_TotalxNoches.setForeground(new java.awt.Color(153, 153, 153));
         lb_TotalxNoches.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_TotalxNoches.setText("0");
-        jPanel3.add(lb_TotalxNoches, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 100, 20));
+        jPanel3.add(lb_TotalxNoches, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 100, 30));
 
         jLabel35.setFont(new java.awt.Font("Century Gothic", 1, 38)); // NOI18N
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -892,7 +900,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel40.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel40.setText("$");
-        jPanel3.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 10, 20));
+        jPanel3.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 10, 30));
 
         jt_CargoExtra.setBackground(new java.awt.Color(233, 235, 238));
         jt_CargoExtra.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -988,6 +996,51 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel47.setText("3.-");
         jPanel3.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 20, 30));
+
+        lb_totalxHoras.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_totalxHoras.setForeground(new java.awt.Color(153, 153, 153));
+        lb_totalxHoras.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_totalxHoras.setText("0");
+        jPanel3.add(lb_totalxHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 94, 90, 20));
+
+        jLabel48.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel48.setText("$");
+        jPanel3.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 10, 30));
+
+        jLabel49.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        jLabel49.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel49.setText("$");
+        jPanel3.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, -1, 30));
+
+        jt_TotalHoras.setBackground(new java.awt.Color(233, 235, 238));
+        jt_TotalHoras.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jt_TotalHoras.setForeground(new java.awt.Color(153, 153, 153));
+        jt_TotalHoras.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jt_TotalHoras.setText("Ingresar Horas");
+        jt_TotalHoras.setBorder(null);
+        jt_TotalHoras.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jt_TotalHorasFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jt_TotalHorasFocusLost(evt);
+            }
+        });
+        jt_TotalHoras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_TotalHorasMouseClicked(evt);
+            }
+        });
+        jt_TotalHoras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jt_TotalHorasKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jt_TotalHorasKeyTyped(evt);
+            }
+        });
+        jPanel3.add(jt_TotalHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 110, 30));
 
         pn_showFacturas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1194,8 +1247,8 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
         jLabel22.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("Precio Habitación");
-        jPanel5.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 110, -1));
+        jLabel22.setText("Precio x Hora");
+        jPanel5.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 110, 20));
 
         lb_NombreHabitacion.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
         lb_NombreHabitacion.setForeground(new java.awt.Color(153, 153, 153));
@@ -1206,8 +1259,25 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel34.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel34.setText("$");
-        jPanel5.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 10, -1));
-        jPanel5.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 120, 10));
+        jPanel5.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 10, -1));
+        jPanel5.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 120, 0));
+
+        jLabel24.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel24.setText("Precio x Noche");
+        jPanel5.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 110, -1));
+
+        jLabel43.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel43.setText("$");
+        jPanel5.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 10, -1));
+        jPanel5.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 120, 10));
+
+        lb_precioxHora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_precioxHora.setForeground(new java.awt.Color(153, 153, 153));
+        lb_precioxHora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_precioxHora.setText("0.0");
+        jPanel5.add(lb_precioxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 120, -1));
 
         jPanel10.setBackground(new java.awt.Color(233, 235, 238));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1677,6 +1747,34 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private void jch_facturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jch_facturacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jch_facturacionActionPerformed
+
+    private void jt_TotalHorasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_TotalHorasFocusGained
+ cft.formFocusGain(jt_TotalHoras);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_TotalHorasFocusGained
+
+    private void jt_TotalHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_TotalHorasFocusLost
+  cft.formFocusLostJTextField(jt_TotalHoras, "Ingresar Horas");        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_TotalHorasFocusLost
+
+    private void jt_TotalHorasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_TotalHorasMouseClicked
+ cft.formFocusGain(jt_TotalHoras);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_TotalHorasMouseClicked
+
+    private void jt_TotalHorasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_TotalHorasKeyTyped
+   ce.typedDigits(evt, jt_TotalHoras);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_TotalHorasKeyTyped
+
+    private void jt_TotalHorasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_TotalHorasKeyReleased
+  String numero = jt_TotalHoras.getText();
+
+        if (!(numero.equals("")) && numero.matches("[0-9]*")) {
+            Double PrecioHoras = Double.valueOf(lb_precioxHora.getText());
+            Double HorasTotales = Double.valueOf(jt_TotalHoras.getText());
+            lb_TotalGeneral.setText(String.valueOf(PrecioHoras * HorasTotales));
+
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_TotalHorasKeyReleased
 
     /**
      * @param args the command line arguments
@@ -5833,6 +5931,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -5852,10 +5951,13 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -5877,6 +5979,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -5894,6 +5997,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private javax.swing.JTextField jt_CargoExtra;
     private javax.swing.JTextField jt_MontoACobrar;
     private javax.swing.JTextField jt_MontoManualaCobrar;
+    private javax.swing.JTextField jt_TotalHoras;
     public static javax.swing.JTextField jt_email;
     public static javax.swing.JLabel lb_FechaIngreso;
     public static javax.swing.JLabel lb_FechaSalida;
@@ -5911,8 +6015,10 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private javax.swing.JLabel lb_errorMontoCobrar;
     private javax.swing.JLabel lb_errorTotalManual;
     public static javax.swing.JLabel lb_nombreCliente;
+    public static javax.swing.JLabel lb_precioxHora;
     public static javax.swing.JLabel lb_razonSocial;
     public static javax.swing.JLabel lb_rfc;
+    private javax.swing.JLabel lb_totalxHoras;
     private javax.swing.JPanel pn_cerrar;
     private javax.swing.JPanel pn_showFacturas;
     // End of variables declaration//GEN-END:variables
@@ -5930,8 +6036,8 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private void Ubicar(int y) {
 
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth() / 6;
-        this.setLocation(xsize, y - 100);
+        int xsize = (int) tk.getScreenSize().getWidth() / 7;
+        this.setLocation(xsize, y - 50);
 
     }
 }
