@@ -48,6 +48,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
     //necesario para obtener la fecha con hora para las nuevas cajas
     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
     String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
+    String horaActual = new SimpleDateFormat("HH:mm:ss").format(now);
     /**
      * Creates new form Pn_NuevaCategoria
      */
@@ -444,7 +445,7 @@ jtabla_Cajas.setModel(cecaja.tablaCaja());
                 DesktopNotify.showDesktopMessage("Error", "EXISTE AÚN, UNA CAJA ABIERTA, REALIZE SU CORTE CORRESPONDIENTE"
                         + "E INTENTELO DE NUEVO", DesktopNotify.ERROR);
             } else {
-                cecaja.insertarCaja(fechaActual, Double.valueOf(jt_MontoInicial.getText()), "", 0.0, String.valueOf(cb_usuario.getSelectedItem()), "Abierto");
+                cecaja.insertarCaja(fechaActual, Double.valueOf(jt_MontoInicial.getText()), fechaActual,horaActual, 0.0, String.valueOf(cb_usuario.getSelectedItem()), "Abierto");
                 tamañoTabla();
                 NewTable = new DefaultTableModel();
                 cTabla();
