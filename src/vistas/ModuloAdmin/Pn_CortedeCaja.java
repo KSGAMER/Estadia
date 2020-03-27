@@ -512,12 +512,13 @@ private void sumarTotales(){
             cTablaGastos(String.valueOf(cb_usuario.getSelectedItem()));
             lb_totalCobros.setText(String.valueOf(totalizarTablaCobros()));
             lb_totalGastos.setText(String.valueOf(totalizarTablaGastos()));
+            sumarTotales();
             for (ObjetoCaja objetoCaja : cecaja.seleccionarCaja()) {
                 if(objetoCaja.getUsuario().equals(String.valueOf(cb_usuario.getSelectedItem())) && objetoCaja.getIdEstadoCaja()==1){
                     lb_montoAsignado.setText(String.valueOf(objetoCaja.getMontoApertura()));
                 }
             }
-            sumarTotales();
+           
         }
     }//GEN-LAST:event_cb_usuarioItemStateChanged
 

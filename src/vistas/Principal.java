@@ -114,17 +114,19 @@ ControladorCaja cecaja = new ControladorCaja();
         }
 
     }
-  private Boolean validarCajasAbiertas() {
+   private Boolean validarCajasAbiertas() {
         Boolean val = true;
         for (ObjetoCaja caja : cecaja.seleccionarCaja()) {
-            if (caja.getIdEstadoCaja() == 1) {
-                val = false;
+            if (!(caja.getIdEstadoCaja() == 1)) {
+             
             } else {
                 val = true;
             }
         }
         return val;
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -502,14 +504,15 @@ ControladorCaja cecaja = new ControladorCaja();
         wa.jb_aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if(!validarCajasAbiertas()==true){
-                     System.exit(0);
-                }else{
-                     DesktopNotify.showDesktopMessage("Error", "PARA CERRAR CORRECTAMENTE EL SISTEMA, NO DEBEN EXISTIR CAJAS ABIERTAS"
-                             + ", FAVOR DE REALIZAR EL CIERRE CORRESPONDIENTE DE LAS MISMAS", DesktopNotify.ERROR);
-                }
-                        
-               
+              //  if (validarCajasAbiertas() == true) {
+                   
+               //     DesktopNotify.showDesktopMessage("Error", "PARA CERRAR CORRECTAMENTE EL SISTEMA, NO DEBEN EXISTIR CAJAS ABIERTAS"
+              //              + ", FAVOR DE REALIZAR EL CIERRE CORRESPONDIENTE DE LAS MISMAS", DesktopNotify.ERROR);
+               // } else if(validarCajasAbiertas() == false) {
+                 
+                    System.exit(0);
+             //   }
+
             }
         });
         wa.setVisible(true);

@@ -104,7 +104,7 @@ public class ModeloGastos extends BD{
     
     public void deleteGastos(int id) {
         try {
-            this.st = conectar().prepareStatement("DELETE FROM Gastos WHERE IdGatos = ?");
+            this.st = conectar().prepareStatement("DELETE FROM Gastos WHERE IdGastos = ?");
             this.st.setInt(1, id);
             this.st.execute();
             this.st.close();
