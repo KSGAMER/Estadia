@@ -156,6 +156,7 @@ jtabla_Cajas.setModel(cecaja.tablaCaja());
         cb_usuario.setSelectedIndex(0);
          btn_Modificar.setEnabled(false);
         btn_Eliminar.setEnabled(false);
+        btn_AperturaCaja.setEnabled(true);
     }
 
     private Boolean validarCajasAbiertas() {
