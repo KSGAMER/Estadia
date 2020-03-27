@@ -54,7 +54,7 @@ public class ModeloCajas extends BD{
                     }
                 }
                 tb.addRow(fila);
-                this.list.add(new ObjetoCaja(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7)));
+                this.list.add(new ObjetoCaja(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDouble(5), rs.getString(6), rs.getInt(7)));
             }
             conectar().close();
         } catch (SQLException ex) {
