@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
    (3)CLICK EN "INICIO DE SESIÓN Y SEGURIDAD"
    (4)ACTIVAR "PERMITIR EL ACCESO DE APLICACIONES MENOS SEGURAS"
  */
-public class Pn_Inventario extends javax.swing.JPanel {
+public class Pn_InventarioxHabitacion extends javax.swing.JPanel {
 
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     private ControladorEscritura ce = new ControladorEscritura();
@@ -39,7 +39,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
     /**
      * Creates new form Pn_NuevaCategoria
      */
-    public Pn_Inventario() {
+    public Pn_InventarioxHabitacion() {
         initComponents();
      //APARIENCIA DE LA TABLA
         RowHeaderApariencia();

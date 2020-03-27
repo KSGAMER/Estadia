@@ -484,8 +484,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
                         NewTable = new DefaultTableModel();
                         cTabla();
                         datosIniciales();
-
-                    }
+                                      }
                 });
                 ale.setVisible(true);
             }
@@ -494,9 +493,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
    
         }
-        NewTable = new DefaultTableModel();
-        cTabla();
-        datosIniciales();        // TODO add your handling code here:
+            // TODO add your handling code here:
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed

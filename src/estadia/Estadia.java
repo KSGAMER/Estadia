@@ -29,10 +29,10 @@ public class Estadia {
             JFrame.setDefaultLookAndFeelDecorated(true);
             JDialog.setDefaultLookAndFeelDecorated(true);
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            //sesion s = new sesion();
-            //s.setVisible(true);
-            Principal p = new Principal();
-            p.setVisible(true);
+            sesion s = new sesion();
+            s.setVisible(true);
+           /* Principal p = new Principal();
+            p.setVisible(true);*/
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -11,6 +11,7 @@ import controladores.ControladorEventosSesion;
 import controladores.ControladorSesion;
 import controladores.ControladorUsuarios;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
 //para cambiar los valores de un boton 
 
 //para la fecha y la hora 
@@ -102,6 +103,7 @@ public class sesion extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         iniciar_sesion = new principal.MaterialButton();
         lb_Configs = new javax.swing.JLabel();
+        jch_mostrar = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -237,6 +239,11 @@ public class sesion extends javax.swing.JFrame {
                 iniciar_sesionMouseClicked(evt);
             }
         });
+        iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciar_sesionActionPerformed(evt);
+            }
+        });
         jPanel2.add(iniciar_sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 230, 40));
 
         lb_Configs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/configuracion-24x24.png"))); // NOI18N
@@ -247,6 +254,21 @@ public class sesion extends javax.swing.JFrame {
             }
         });
         jPanel2.add(lb_Configs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jch_mostrar.setBackground(new java.awt.Color(84, 110, 122));
+        jch_mostrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jch_mostrar.setForeground(new java.awt.Color(255, 255, 255));
+        jch_mostrar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jch_mostrarItemStateChanged(evt);
+            }
+        });
+        jch_mostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jch_mostrarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jch_mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 20, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 310, 400));
 
@@ -313,6 +335,25 @@ public class sesion extends javax.swing.JFrame {
         ale.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_lb_ConfigsMouseClicked
+
+    private void jch_mostrarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jch_mostrarItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+            contraseña.setEchoChar((char)0);
+
+        } else {//checkbox has been deselected
+            contraseña.setEchoChar('\u25cf');
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jch_mostrarItemStateChanged
+
+    private void jch_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jch_mostrarActionPerformed
+
+    }//GEN-LAST:event_jch_mostrarActionPerformed
+
+    private void iniciar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciar_sesionActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iniciar_sesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,6 +428,7 @@ public class sesion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JCheckBox jch_mostrar;
     private javax.swing.JPanel jp_imagen;
     private javax.swing.JLabel lb_Configs;
     private javax.swing.JLabel lb_fecha;

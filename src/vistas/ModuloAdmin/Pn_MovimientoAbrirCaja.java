@@ -77,7 +77,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
     private void tamañoTabla() {
         TableColumnModel columnModel = jtabla_Cajas.getColumnModel();
-        jtabla_Cajas.setEnabled(false);
+        //jtabla_Cajas.setEnabled(false);
          columnModel.getColumn(0).setPreferredWidth(30);
         columnModel.getColumn(1).setPreferredWidth(150);
         columnModel.getColumn(2).setPreferredWidth(150);

@@ -45,7 +45,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
     private ControladorModulos cmod = new ControladorModulos();
     private ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
 //    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
-    public static String User = "admin";//sesion.Username;
+    public static String User =sesion.Username;
     //necesario para el control del administrador unicamente
     MenuItem Administrador;
     MenuItem Configuracion;
@@ -135,7 +135,6 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         scrollPane_pnPrncipal = new javax.swing.JScrollPane();
         pnlPrincipal = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        lb_Configs = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lb_AcercaDe = new javax.swing.JLabel();
@@ -175,9 +174,6 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
 
         jPanel3.setBackground(new java.awt.Color(233, 235, 238));
         jPanel3.setToolTipText("");
-
-        lb_Configs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/configuracion-24x24.png"))); // NOI18N
-        lb_Configs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 34)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(28, 37, 47));
@@ -269,9 +265,9 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
                                 .addComponent(jLabel10)
                                 .addGap(40, 40, 40)
                                 .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 8, Short.MAX_VALUE)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lb_fecha)
@@ -279,10 +275,8 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lb_hora)
-                                .addGap(10, 10, 10)))
+                                .addGap(48, 48, 48)))
                         .addComponent(lb_AcercaDe)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lb_Configs, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(lb_min, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,11 +302,10 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
                                     .addComponent(jLabel11)
                                     .addComponent(lb_hora, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lb_fecha, javax.swing.GroupLayout.Alignment.LEADING)))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lb_Configs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lb_AcercaDe, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(lb_AcercaDe))
                                 .addGap(5, 5, 5))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
@@ -619,6 +612,20 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
 
             }
         });
+       /*submenu inventario SIN USO AUN 
+ MenuItem NuevoProducto = new MenuItem(subMenus, "Nuevo Producto", 35, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                  new CambiaPanel(pnlPrincipal, new Pn_Inventario());
+            }
+        });
+  MenuItem ProductoxHabitacion = new MenuItem(subMenus, "Asinación de Productos", 35, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                  new CambiaPanel(pnlPrincipal, new Pn_InventarioxHabitacion());
+            }
+        });
+  *///FIN SIN USO AUN 
 //APARTADO DE TODOS LOS MENUS
         MenuItem CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35, new ActionListener() {
             @Override
@@ -642,7 +649,9 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         MenuItem GastosHotel = new MenuItem(iconClientes, "Caja", 35, null, NuevoGasto);
         MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
         AdministracionCaja = new MenuItem(iconAdministrador, "Caja Admin", 35, null, AbrirCaja,CerrarCaja);
-
+       /*SIN USO AUN
+        MenuItem Inventario = new MenuItem(iconAdministrador, "Inventario", 35, null, NuevoProducto,ProductoxHabitacion);
+        */
         Administrador = new MenuItem(iconAdministrador, "Administrador", 35, null, NuevoEmpleado, ConfiguraciónServidor, Permisos);
         MenuItem Sesion = new MenuItem(iconSesion, "Cerrar Sesión", 35, new ActionListener() {
             @Override
@@ -806,7 +815,6 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel jl_Icon_User;
     private javax.swing.JLabel lb_AcercaDe;
-    private javax.swing.JLabel lb_Configs;
     private javax.swing.JButton lb_close;
     private javax.swing.JLabel lb_fecha;
     private javax.swing.JLabel lb_hora;

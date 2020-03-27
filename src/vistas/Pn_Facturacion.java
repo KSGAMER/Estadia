@@ -18,6 +18,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import ds.desktop.notify.DesktopNotify;
+import java.awt.Frame;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -60,7 +61,9 @@ public class Pn_Facturacion extends javax.swing.JPanel {
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private boolean flag = false;
-
+  //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    Frame Principal;
+//FIN
     /**
      * Creates new form Pn_NuevaCategoria
      */
@@ -214,6 +217,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
+        lb_Configs = new javax.swing.JLabel();
         jt_Buscar = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -342,6 +346,14 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Inicio > Facturación > Nueva Factura");
 
+        lb_Configs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/configuracion-24x24.png"))); // NOI18N
+        lb_Configs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lb_Configs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lb_ConfigsMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -353,6 +365,8 @@ public class Pn_Facturacion extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(lb_Configs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(75, 75, 75))
@@ -361,9 +375,11 @@ public class Pn_Facturacion extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel5))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel5))
+                    .addComponent(lb_Configs))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -984,6 +1000,12 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
         datosIniciales();        // TODO add your handling code here:
     }//GEN-LAST:event_jb_limpiarCamposActionPerformed
 
+    private void lb_ConfigsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_ConfigsMouseClicked
+        Pn_EmailConfiguracion ale = new Pn_EmailConfiguracion(Principal, true);
+        ale.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lb_ConfigsMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Celular1;
@@ -1032,6 +1054,7 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JTextField jt_telefono;
     private javax.swing.JTextArea jta_observaciones;
     public static javax.swing.JLabel lb_CFDI;
+    private javax.swing.JLabel lb_Configs;
     public static javax.swing.JLabel lb_Destinatario;
     public static javax.swing.JLabel lb_Direccion;
     public static javax.swing.JLabel lb_RFC;

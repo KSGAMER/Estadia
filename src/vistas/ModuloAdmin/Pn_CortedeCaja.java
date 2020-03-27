@@ -56,7 +56,7 @@ String horaActual = new SimpleDateFormat("HH:mm:ss").format(now);
         Ubicar(0);
         //APARIENCIA DE LA TABLA
         cuser.tablaUsuarios();
-       
+       cecaja.tablaCaja();
         RowHeaderApariencia();
         RowApariencia();
         headerTablaCobros();
@@ -187,17 +187,18 @@ private Double totalizarTablaCobros(){
         return t;
     }
 private void sumarTotales(){
-    lb_Total.setText(String.valueOf(totalizarTablaCobros()+totalizarTablaGastos()));
+    //se resta los gastos , porque es una salida de dinero 
+    lb_Total.setText(String.valueOf(totalizarTablaCobros()-totalizarTablaGastos()));
 }
   private Boolean validarCajasAbiertas() {
         Boolean val = true;
         for (ObjetoCaja caja : cecaja.seleccionarCaja()) {
             if (caja.getIdEstadoCaja() == 1 && caja.getUsuario().equals(String.valueOf(cb_usuario.getSelectedItem()))) {
-                val = false;
+               
             } else {
                  DesktopNotify.showDesktopMessage("Error", "No existe ninguna caja abierta para el usuario: "+String.valueOf(cb_usuario.getSelectedItem()), DesktopNotify.ERROR);
 
-                val = true;
+                val = false;
             }
         }
         return val;
@@ -205,8 +206,8 @@ private void sumarTotales(){
 
     private Boolean validarSeleccion() {
         Boolean val = true;
-        if (!(cb_usuario.getSelectedIndex() == 0)) {
-            val = true;
+        if (!(cb_usuario.getSelectedItem().equals("Seleccionar usuario"))) {
+          
         } else {
                DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un usuario para realizar el corte de caja", DesktopNotify.ERROR);
 
@@ -235,7 +236,6 @@ private void sumarTotales(){
         btn_CorteCaja = new principal.MaterialButton();
         lb_Total = new javax.swing.JLabel();
         lb_titulo2 = new javax.swing.JLabel();
-        lb_montoAsignado = new javax.swing.JLabel();
         lb_totalCobros = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -245,8 +245,6 @@ private void sumarTotales(){
         cb_usuario = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -281,7 +279,7 @@ private void sumarTotales(){
         lb_titulo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lb_titulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_titulo1.setText("CORTE POR TURNO");
-        jPanel1.add(lb_titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 53));
+        jPanel1.add(lb_titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 50));
 
         jPanel3.setBackground(new java.awt.Color(36, 47, 65));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -346,27 +344,21 @@ private void sumarTotales(){
                 btn_CorteCajaActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_CorteCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 490, 194, 40));
+        jPanel3.add(btn_CorteCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 194, 40));
 
         lb_Total.setBackground(new java.awt.Color(204, 204, 204));
         lb_Total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb_Total.setForeground(new java.awt.Color(204, 204, 204));
         lb_Total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_Total.setText("0.00");
-        jPanel3.add(lb_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 490, 71, 32));
+        jPanel3.add(lb_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, 71, 32));
 
         lb_titulo2.setBackground(new java.awt.Color(204, 204, 204));
         lb_titulo2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb_titulo2.setForeground(new java.awt.Color(204, 204, 204));
         lb_titulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_titulo2.setText("TOTAL A RETIRAR  $");
-        jPanel3.add(lb_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 162, 31));
-
-        lb_montoAsignado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_montoAsignado.setForeground(new java.awt.Color(255, 255, 255));
-        lb_montoAsignado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lb_montoAsignado.setText("Monto");
-        jPanel3.add(lb_montoAsignado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 100, -1));
+        jPanel3.add(lb_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 162, 31));
 
         lb_totalCobros.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_totalCobros.setForeground(new java.awt.Color(255, 255, 255));
@@ -421,17 +413,7 @@ private void sumarTotales(){
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, -1));
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 470, 10));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Descripcion General");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 160, -1));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Monto Asignado");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 100, -1));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 470, 540));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 470, 460));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -443,7 +425,7 @@ private void sumarTotales(){
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         pack();
@@ -452,11 +434,12 @@ private void sumarTotales(){
     private void btn_CorteCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CorteCajaActionPerformed
         try {
             if(!validarCajasAbiertas()==true || !validarSeleccion()==true){
-                   DesktopNotify.showDesktopMessage("Error", "", DesktopNotify.ERROR);
-
+         
+            } else {
+                cecaja.actualizarCiereCaja(fechaActual, horaActual, Double.valueOf(lb_Total.getText()), "Cerrado", String.valueOf(cb_usuario.getSelectedItem()));
+                Cerrar();
             }
-            cecaja.actualizarCiereCaja(fechaActual,horaActual, Double.valueOf(lb_Total.getText()), "Cerrado", String.valueOf(cb_usuario.getSelectedItem()));
-            Cerrar();
+
         } catch (Exception e) {
         }
 
@@ -509,17 +492,18 @@ private void sumarTotales(){
 
     private void cb_usuarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_usuarioItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED && !(cb_usuario.getSelectedIndex() == 0)) {
+           
             cTablaCobros(String.valueOf(cb_usuario.getSelectedItem()));
             cTablaGastos(String.valueOf(cb_usuario.getSelectedItem()));
             lb_totalCobros.setText(String.valueOf(totalizarTablaCobros()));
             lb_totalGastos.setText(String.valueOf(totalizarTablaGastos()));
             sumarTotales();
-            for (ObjetoCaja objetoCaja : cecaja.seleccionarCaja()) {
-                if(objetoCaja.getUsuario().equals(String.valueOf(cb_usuario.getSelectedItem())) && objetoCaja.getIdEstadoCaja()==1){
-                    lb_montoAsignado.setText(String.valueOf(objetoCaja.getMontoApertura()));
-                }
-            }
-           
+//            for (ObjetoCaja objetoCaja : cecaja.seleccionarCaja()) {
+//                if (objetoCaja.getUsuario().equals(cb_usuario.getSelectedItem()) && (objetoCaja.getIdEstadoCaja() == 1)) {
+//                    lb_montoAsignado.setText(String.valueOf(objetoCaja.getMontoApertura()));
+//                    System.out.println(objetoCaja.getMontoApertura());
+//                }
+//            }
         }
     }//GEN-LAST:event_cb_usuarioItemStateChanged
 
@@ -1599,9 +1583,7 @@ private void sumarTotales(){
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1611,7 +1593,6 @@ private void sumarTotales(){
     private javax.swing.JTable jtabla_Gastos;
     public static javax.swing.JLabel lb_Total;
     private javax.swing.JButton lb_close;
-    private javax.swing.JLabel lb_montoAsignado;
     public static javax.swing.JLabel lb_titulo1;
     public static javax.swing.JLabel lb_titulo2;
     private javax.swing.JLabel lb_totalCobros;
@@ -1632,7 +1613,7 @@ private void sumarTotales(){
 
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth() / 3;
-        this.setLocation(xsize, y - 120);
+        this.setLocation(xsize, y - 200);
 
     }
 }

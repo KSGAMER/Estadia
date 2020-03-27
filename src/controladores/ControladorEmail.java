@@ -59,7 +59,29 @@ public class ControladorEmail {
             Logger.getLogger(ControladorEmail.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+   //Método que actualiza los datos dentro del archivo JSON pasando el servidor, la instancia, el puerto de conexión, el nombre de la base de datos, la bandera de autentificación, el usuario de la base de datos y la contraseña
+    public void modificarDatosEmail(String Remitente, String contraseña, String Destinatario) {
+        //Se declara una variable de tipo JSONObjecto para poder armar el JSON
+        JSONObject obj = new JSONObject();
+        //Se formatea el JSON como se requiere y se pasan los valores
+        obj.put("REMITENTE", Remitente);
+        obj.put("PASSWORD", contraseña);
+        obj.put("DESTINATARIO", Destinatario);
+      
+        try {
+            //Se declara una variable de escritura pasando la ruta donde se encuentra el archivo JSON
+            FileWriter json = new FileWriter(fichero.getAbsoluteFile());
+            //Se escriben los valores previamente cargador
+            json.write(obj.toJSONString());
+            //Se establete la conexión para la escritura del archivo
+            json.flush();
+            //Se cierra la conexión
+            json.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ControladorConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }
     public String getEmailRemitente() {
         return EmailRemitente;
     }
