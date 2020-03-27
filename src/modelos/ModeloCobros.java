@@ -43,11 +43,11 @@ public class ModeloCobros extends BD {
         mh.cargarTabla();
         mcat.cargarTabla();
         //Se agregan los titulos de la tabla
-        String[] titulos = {"Monto", "Tipo Pago", "Nombre", "RFC", "Correo", "Fecha Cobro", "Facturación"};
+        String[] titulos = {"#","Monto", "Tipo Pago", "Nombre", "RFC", "Correo", "Fecha Cobro", "Facturación"};
         //Se crea una variable de tipo tabla pasando los titulos de la columna
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
-        Object[] fila = new Object[7];
+        Object[] fila = new Object[8];
 
         try {
             //Se instacia la conexión a la base de datos y se declara la consulta preparada a realizar
@@ -57,25 +57,26 @@ public class ModeloCobros extends BD {
             this.rs = st.executeQuery();
             //Se iteran los resultados obtenidos de la consulta preparada
             while (this.rs.next()) {
-                fila[0] = rs.getInt("Monto");
+                fila[0] = rs.getInt("IdCobro");
+                fila[1] = rs.getInt("Monto");
                 //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
                 for (int i = 0; i < mtp.selectTipoPagos().size(); i++) {
                     //Si el Id es igual al Id de la clase previamente cargada se prosigue
                     if (rs.getInt("IdTipoPago") == mtp.selectTipoPagos().get(i).getIdTipoPago()) {
                         //Se extrae el resultado y se remplaza por el nombre
-                        fila[1] = mtp.selectTipoPagos().get(i).getNombre();
+                        fila[2] = mtp.selectTipoPagos().get(i).getNombre();
                     }
                 }
-                fila[2] = rs.getString("Nombre");
-                fila[3] = rs.getString("RFC");
-                fila[4] = rs.getString("Correo");
-                fila[5] = rs.getString("FechaCobro");
+                fila[3] = rs.getString("Nombre");
+                fila[4] = rs.getString("RFC");
+                fila[5] = rs.getString("Correo");
+                fila[6] = rs.getString("FechaCobro");
                 //Se recorre el id obtenido de la consulta preparada y se compara con el resultado obtenido de la instancia de la variable cargada con el metodo cargarTabla()
                 for (int i = 0; i < mf.selectFacturaciones().size(); i++) {
                     //Si el Id es igual al Id de la clase previamente cargada se prosigue
                     if (rs.getInt("IdFacturacion") == mf.selectFacturaciones().get(i).getIdFacturacion()) {
                         //Se extrae el resultado y se remplaza por el nombre
-                        fila[6] = mf.selectFacturaciones().get(i).getNombre();
+                        fila[7] = mf.selectFacturaciones().get(i).getNombre();
                     }
                 }
                 //Se agrega el objeto fila a la tabla
