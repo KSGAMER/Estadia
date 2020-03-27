@@ -65,7 +65,7 @@ jtabla_Cobros.setModel(ccob.tablaCobros2(""));
     }
 
     private void cTablaGastos() {
-jtabla_Gastos.setModel(cega.tablaGastosCompleta());
+jtabla_Gastos.setModel(cega.tablaGastosCompleta(""));
     }
 
     private void RowApariencia() {
@@ -541,7 +541,7 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
     }//GEN-LAST:event_jt_BuscarGastosMouseClicked
 
     private void jt_BuscarGastosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarGastosKeyReleased
-        // TODO add your handling code here:
+jtabla_Gastos.setModel(cega.tablaGastosCompleta(jt_BuscarGastos.getText()));        // TODO add your handling code here:
     }//GEN-LAST:event_jt_BuscarGastosKeyReleased
 
     private void jt_BuscarGastosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarGastosKeyTyped

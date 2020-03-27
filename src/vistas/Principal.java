@@ -19,6 +19,7 @@ import java.util.GregorianCalendar;
 import controladores.*;
 import ds.desktop.notify.DesktopNotify;
 import objetos.ObjetoCaja;
+import objetos.ObjetoEstadoCaja;
 import vistas.ModuloAdmin.*;
 
 /**
@@ -28,6 +29,7 @@ import vistas.ModuloAdmin.*;
 public class Principal extends javax.swing.JFrame implements Runnable {
     //se isa en la validacion de cajas abiertas para que el sistema no se pueda cerrar 
 ControladorCaja cecaja = new ControladorCaja();
+ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
     private String hora, minutos, segundos;
     private Thread hilo;
     private ControladorRecepciones crp = new ControladorRecepciones();
@@ -52,6 +54,7 @@ ControladorCaja cecaja = new ControladorCaja();
     //para abrir la ventana de sesion al dar click en cerrar sesion 
     sesion se = new sesion();
 //fin
+    
 
     /**
      * Creates new form Main
@@ -87,6 +90,7 @@ ControladorCaja cecaja = new ControladorCaja();
         cperm.tablaPermisos();
         cmod.tablaModulos();
         eperm.tablaEstatusPermisos();
+       
         //muestra dependiendo del usuario, lo modulos que le corresponden
         comparadorPrivilegios();
         //fin
@@ -114,17 +118,7 @@ ControladorCaja cecaja = new ControladorCaja();
         }
 
     }
-   private Boolean validarCajasAbiertas() {
-        Boolean val = true;
-        for (ObjetoCaja caja : cecaja.seleccionarCaja()) {
-            if (!(caja.getIdEstadoCaja() == 1)) {
-             
-            } else {
-                val = true;
-            }
-        }
-        return val;
-    }
+ 
     
     
     /**
@@ -504,14 +498,9 @@ ControladorCaja cecaja = new ControladorCaja();
         wa.jb_aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-              //  if (validarCajasAbiertas() == true) {
-                   
-               //     DesktopNotify.showDesktopMessage("Error", "PARA CERRAR CORRECTAMENTE EL SISTEMA, NO DEBEN EXISTIR CAJAS ABIERTAS"
-              //              + ", FAVOR DE REALIZAR EL CIERRE CORRESPONDIENTE DE LAS MISMAS", DesktopNotify.ERROR);
-               // } else if(validarCajasAbiertas() == false) {
-                 
+             
                     System.exit(0);
-             //   }
+                
 
             }
         });

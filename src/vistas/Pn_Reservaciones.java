@@ -674,7 +674,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                             CobrarReserv.lb_PrecioHabitacion.setText(String.valueOf(habitacion.getPrecioSugerido()));
                            // CobrarReserv.lb_TotalxNoches.setText(String.valueOf(habitacion.getPrecioSugerido()));
                             CobrarReserv.lb_TipoHabitacion.setText(String.valueOf(categoria.getNombre()));
-
+                            CobrarReserv.lb_precioxHora.setText(String.valueOf(habitacion.getPrecioxHora()));
                         }
 
                     }
