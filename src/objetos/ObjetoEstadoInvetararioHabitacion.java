@@ -10,16 +10,16 @@ package objetos;
  * @author KSGAMER
  */
 public class ObjetoEstadoInvetararioHabitacion {
-    private int idEstadoHabitacion;
+    private int idEstadoInventarioHabitacion;
     private String nombre;
 
-    public ObjetoEstadoInvetararioHabitacion(int idEstadoHabitacion, String nombre) {
-        this.idEstadoHabitacion = idEstadoHabitacion;
+    public ObjetoEstadoInvetararioHabitacion(int idEstadoInventarioHabitacion, String nombre) {
+        this.idEstadoInventarioHabitacion = idEstadoInventarioHabitacion;
         this.nombre = nombre;
     }
 
-    public int getIdEstadoHabitacion() {
-        return idEstadoHabitacion;
+    public int getIdEstadoInventarioHabitacion() {
+        return idEstadoInventarioHabitacion;
     }
 
     public String getNombre() {

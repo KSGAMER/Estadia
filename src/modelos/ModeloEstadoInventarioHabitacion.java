@@ -26,11 +26,11 @@ public class ModeloEstadoInventarioHabitacion extends BD{
     
     protected DefaultTableModel cargarTabla() {
         //Se declaran los titulos de la tabla
-        String[] titulos = {"#", "Producto", "Cantidad", "Observaciones"};
+        String[] titulos = {"#", "Estado"};
         //Se declara la tabla pasando las columnas de la tabla
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
-        Object[] fila = new Object[4];
+        Object[] fila = new Object[2];
 
         try {
             //Se instancia la conexión a la base de datos pasando la consulta preparada
@@ -42,11 +42,10 @@ public class ModeloEstadoInventarioHabitacion extends BD{
                 //Se agregan los resultados al objeto
                 fila[0] = rs.getInt(1);
                 fila[1] = rs.getString(2);
-                fila[2] = rs.getInt(3);
-                fila[3] = rs.getString(4);
                 //Se agrega el objeto a la tabla
                 tb.addRow(fila);
                 //Se agregan los resultados al arreglo atraves de un nuevo objeto
+                this.list.add(new ObjetoEstadoInvetararioHabitacion(rs.getInt(1), rs.getString(2)));
             }
             //Se cierra la conexión
             conectar().close();
@@ -55,5 +54,9 @@ public class ModeloEstadoInventarioHabitacion extends BD{
         }
         //Se retona la tabla
         return tb;
+    }
+    
+    protected ArrayList<ObjetoEstadoInvetararioHabitacion> selectEstadoInventarioHabitacion() {
+        return this.list;
     }
 }
