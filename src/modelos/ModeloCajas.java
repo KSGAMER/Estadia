@@ -5,6 +5,8 @@
  */
 package modelos;
 
+import controladores.ControladorUsuarios;
+import ds.desktop.notify.DesktopNotify;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import objetos.ObjetoCaja;
 import objetos.ObjetoEstadoCaja;
+import objetos.ObjetoUsuario;
 
 /**
  *
@@ -22,6 +25,7 @@ import objetos.ObjetoEstadoCaja;
 public class ModeloCajas extends BD{
     
     private ModeloEstatusCaja mec = new ModeloEstatusCaja();
+    private ModeloUsuarios cuser = new ControladorUsuarios();
     
     private ResultSet rs;
     private PreparedStatement st;
@@ -30,7 +34,7 @@ public class ModeloCajas extends BD{
     
     public DefaultTableModel cargarTabla() {
         mec.cargarTabla();
-        String[] titulos = {"#", "Fecha de Apertura", "Monto de Apertura", "Fecha de Cierre", "Monto sin Cerrar", "Usuario Responsable", "Estado"};
+        String[] titulos = {"#", "Fecha Apertura", "Monto Apertura", "Fecha Cierre", "Monto Cierre", "Usuario", "Estado"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[7];
         try {
@@ -73,28 +77,58 @@ public class ModeloCajas extends BD{
             this.st.setString(5, usuario);
             for (ObjetoEstadoCaja objetoEstadoCaja : mec.selectEstadoCaja()) {
                 if(objetoEstadoCaja.getNombre().equals(estadoCaja)) {
-                    this.st.setInt(5, objetoEstadoCaja.getIdEstadoCaja());
+                    this.st.setInt(6, objetoEstadoCaja.getIdEstadoCaja());
                 }
             }
             this.st.execute();
             conectar().close();
+                        DesktopNotify.showDesktopMessage("Exito", "Apertura correcta de caja", DesktopNotify.SUCCESS);
+      
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloCajas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            System.out.println(ex);
+            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar "
+                    + "realizar la apertura de caja", DesktopNotify.ERROR);
+       }
     }
     
-    public void updateCaja(double montoApertura, String usuario, int id) {
+    public void updateCierreCaja(String fechaCierre, Double montoCierre, String estadoCaja, String Usuario) {
+        mec.cargarTabla();
+        cuser.cargarTabla();
+        try {
+            this.st = conectar().prepareStatement("UPDATE Caja SET FechaCierre = ?, MontoCierre = ?,IdEstadoCaja=? WHERE IdEstadoCaja=1  and Username = ?");
+            this.st.setString(1, fechaCierre);
+            this.st.setDouble(2, montoCierre);
+            for (ObjetoEstadoCaja objetoEstadoCaja : mec.selectEstadoCaja()) {
+                if (objetoEstadoCaja.getNombre().equals(estadoCaja)) {
+                    this.st.setInt(3, objetoEstadoCaja.getIdEstadoCaja());
+                }
+            }            
+            this.st.setString(4, Usuario);
+            this.st.executeUpdate();
+            conectar().close();
+           DesktopNotify.showDesktopMessage("Exito", "Cierre de caja realizado correctamente", DesktopNotify.SUCCESS);
+      
+        } catch (SQLException ex) {
+              DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar "
+                    + "el cierre de caja o no existe una caja abierta para este usuario", DesktopNotify.ERROR);
+      }
+    }
+    
+       public void updateAperturaCaja(double montoApertura, String usuario, int id) {
         mec.cargarTabla();
         try {
-            this.st = conectar().prepareStatement("UPDATE Caja SET MontoApertura = ?, Username = ? WHERE IdCaja = ?");
+            this.st = conectar().prepareStatement("UPDATE Caja SET MontoApertura = ?, Username = ? WHERE IdCaja = ? and IdEstadoCaja=?");
             this.st.setDouble(1, montoApertura);
             this.st.setString(2, usuario);
             this.st.setInt(3, id);
             this.st.executeUpdate();
             conectar().close();
+              DesktopNotify.showDesktopMessage("Exito", "Datos de caja actualizados correctamente", DesktopNotify.SUCCESS);
+      
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloCajas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+             DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar "
+                    + "actualizar los datos de la caja", DesktopNotify.ERROR);
+      }
     }
     
     public void deleteCaja(int id) {
@@ -103,8 +137,11 @@ public class ModeloCajas extends BD{
             this.st.setInt(1, id);
             this.st.execute();
             conectar().close();
+              DesktopNotify.showDesktopMessage("Exito", "Datos eliminados correctamente", DesktopNotify.SUCCESS);
+      
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloCajas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+              DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar "
+                    + "eliminar los detalles de la caja", DesktopNotify.ERROR);
+      }
     }
 }

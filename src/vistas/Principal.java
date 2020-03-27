@@ -17,6 +17,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import controladores.*;
+import ds.desktop.notify.DesktopNotify;
+import objetos.ObjetoCaja;
 import vistas.ModuloAdmin.*;
 
 /**
@@ -24,7 +26,8 @@ import vistas.ModuloAdmin.*;
  * @
  */
 public class Principal extends javax.swing.JFrame implements Runnable {
-
+    //se isa en la validacion de cajas abiertas para que el sistema no se pueda cerrar 
+ControladorCaja cecaja = new ControladorCaja();
     private String hora, minutos, segundos;
     private Thread hilo;
     private ControladorRecepciones crp = new ControladorRecepciones();
@@ -111,7 +114,17 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         }
 
     }
-
+  private Boolean validarCajasAbiertas() {
+        Boolean val = true;
+        for (ObjetoCaja caja : cecaja.seleccionarCaja()) {
+            if (caja.getIdEstadoCaja() == 1) {
+                val = false;
+            } else {
+                val = true;
+            }
+        }
+        return val;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -489,7 +502,14 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         wa.jb_aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                System.exit(0);
+                if(!validarCajasAbiertas()==true){
+                     System.exit(0);
+                }else{
+                     DesktopNotify.showDesktopMessage("Error", "PARA CERRAR CORRECTAMENTE EL SISTEMA, NO DEBEN EXISTIR CAJAS ABIERTAS"
+                             + ", FAVOR DE REALIZAR EL CIERRE CORRESPONDIENTE DE LAS MISMAS", DesktopNotify.ERROR);
+                }
+                        
+               
             }
         });
         wa.setVisible(true);
@@ -650,7 +670,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
-        addMenu(CalendarioReservas, Reservaciones, Recepcion, Clientes, Facturas, Reportes,GastosHotel, Configuracion, Administrador,AdministracionCaja, Sesion); //Configuracion);
+        addMenu(CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, Reportes,GastosHotel, Configuracion, Administrador,AdministracionCaja, Sesion); //Configuracion);
     }
 
     private void addMenu(MenuItem... menu) {

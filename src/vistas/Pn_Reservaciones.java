@@ -47,7 +47,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private ControladorClientes mc = new ControladorClientes();
     private ControladorReservaciones cr = new ControladorReservaciones();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-    private Pn_SeleccionarClientes select = new Pn_SeleccionarClientes();
+    
     //private Pn_CobrarReservacion1 CobrarReserv = new Pn_CobrarReservacion1();
     private DefaultTableModel NewTable;
 //FIN
@@ -704,7 +704,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_clientesMouseClicked
 
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
-
+Pn_SeleccionarClientes select = new Pn_SeleccionarClientes(principal, true);
         select.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_clientesActionPerformed

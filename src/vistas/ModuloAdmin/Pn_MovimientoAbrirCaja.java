@@ -23,6 +23,7 @@ import objetos.ObjetoUsuario;
 import vistas.Pn_Alert_Eliminar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import objetos.ObjetoCaja;
 /*
     NOTA: SE DEBE CONFIGURAR GMAIL PARA PERMITIR EL ACCESO A APLICACIONES MENOS SEGURAS
     PASOS:
@@ -76,10 +77,17 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
     private void tamañoTabla() {
         TableColumnModel columnModel = jtabla_Cajas.getColumnModel();
         jtabla_Cajas.setEnabled(false);
+         columnModel.getColumn(0).setPreferredWidth(30);
+        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(120);
+        columnModel.getColumn(4).setPreferredWidth(150);
+        columnModel.getColumn(5).setPreferredWidth(80);
+        columnModel.getColumn(6).setPreferredWidth(90);
     }
 
     private void cTabla() {
-
+jtabla_Cajas.setModel(cecaja.tablaCaja());
     }
     private void bloquearBotones(){
         btn_Modificar.setEnabled(false);
@@ -116,7 +124,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
             lb_errorMonto.setForeground(new Color(84, 110, 122));
 
         } else {
-            lb_errorUsuario.setForeground(Color.RED);
+            lb_errorMonto.setForeground(Color.RED);
             val = false;
         }
 
@@ -135,18 +143,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
         return val;
     }
 
-    private Boolean validarEscritura() {
-        Boolean val = true;
-        //si el textfield tiene algo diferente a Vacío aparecerá de color negro
-        if (!(jt_MontoInicial.getText().equals("Ingresar Monto Inicial")) && !(jt_MontoInicial.getText().equals(""))) {
-            lb_errorMonto.setForeground(new Color(84, 110, 122));
-        } else {
-            lb_errorMonto.setForeground(Color.RED);
-            val = false;
-        }
-
-        return val;
-    }
+    
 
     private void datosIniciales() {
         lb_errorUsuario.setText("*");
@@ -160,20 +157,20 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
         btn_Eliminar.setEnabled(false);
     }
 
-    private Boolean validarSeleccion() {
+    private Boolean validarCajasAbiertas() {
         Boolean val = true;
-        if (!(cb_usuario.getSelectedIndex() == 0)) {
-
-            lb_errorUsuario.setForeground(new Color(84, 110, 122));
-        } else {
-
-            lb_errorUsuario.setForeground(Color.RED);
-
-            val = false;
+        for (ObjetoCaja caja : cecaja.seleccionarCaja()) {
+            if (caja.getIdEstadoCaja() == 1) {
+                val = false;
+            } else {
+                val = true;
+            }
         }
         return val;
-
     }
+    
+    
+    
 
     /*
      * This method is called from within the constructor to initialize the form.
@@ -191,6 +188,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
         btn_AperturaCaja = new principal.MaterialButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -253,6 +251,10 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Modulo de Apertura y Cierre de Cajas");
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Inicio > Caja Admin > Apertura de Caja");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -260,13 +262,17 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(638, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(104, 104, 104))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -431,11 +437,14 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
     private void btn_AperturaCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AperturaCajaActionPerformed
         try {
-            if (!validarUsuario() == true || !validarMonto() == true) {
+            if (!validarUsuario() == true || !validarMonto() == true ) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
+            } else if (!validarCajasAbiertas() == true) {
+                DesktopNotify.showDesktopMessage("Error", "EXISTE AÚN, UNA CAJA ABIERTA, REALIZE SU CORTE CORRESPONDIENTE"
+                        + "E INTENTELO DE NUEVO", DesktopNotify.ERROR);
             } else {
-                cecaja.insertCaja(fechaActual,Double.valueOf(jt_MontoInicial.getText()),"", 0.0,String.valueOf(cb_usuario.getSelectedItem()),"Abierto");
+                cecaja.insertarCaja(fechaActual, Double.valueOf(jt_MontoInicial.getText()), "", 0.0, String.valueOf(cb_usuario.getSelectedItem()), "Abierto");
                 tamañoTabla();
                 NewTable = new DefaultTableModel();
                 cTabla();
@@ -452,7 +461,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-                cecaja.updateCaja(Double.valueOf(jt_MontoInicial.getText()),String.valueOf(cb_usuario.getSelectedItem()),Integer.parseInt(lb_Id.getText()));
+                cecaja.actualizarAperturaCaja(Double.valueOf(jt_MontoInicial.getText()), String.valueOf(cb_usuario.getSelectedItem()), Integer.parseInt(lb_Id.getText()));
                 tamañoTabla();
                 NewTable = new DefaultTableModel();
                 cTabla();
@@ -526,6 +535,7 @@ public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

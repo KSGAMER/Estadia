@@ -7,18 +7,24 @@ package vistas.ModuloAdmin;
 
 import vistas.*;
 import Utilerias.AWTUtilities;
+import controladores.ControladorCaja;
 import controladores.ControladorCobros;
 import controladores.ControladorGastos;
 import controladores.ControladorUsuarios;
+import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimerTask;
 import java.util.Timer;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import objetos.ObjetoCaja;
 import objetos.ObjetoUsuario;
 
 /**
@@ -26,14 +32,20 @@ import objetos.ObjetoUsuario;
  * @author fenix
  */
 public class Pn_CortedeCaja extends javax.swing.JDialog {
- private ControladorGastos cega = new ControladorGastos();
+
+    private ControladorGastos cega = new ControladorGastos();
     private ControladorCobros ccob = new ControladorCobros();
-    private  ControladorUsuarios cuser = new ControladorUsuarios();
+    private ControladorUsuarios cuser = new ControladorUsuarios();
     Timer timer = null;
     TimerTask task;
     int i = 32;
-    private int sumaCobroReservaciones,sumaGastos,sumaTotalCobrosGastos;
-    
+    private int sumaCobroReservaciones, sumaGastos, sumaTotalCobrosGastos;
+    DefaultTableModel modeloCobros, modeloGastos;
+    ControladorCaja cecaja = new ControladorCaja();
+    //necesario para obtener la fecha con hora para las nuevas cajas
+    Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
+    String fechaActual = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy").format(now);
+
     /**
      * Creates new form AlertSuccess
      */
@@ -42,17 +54,52 @@ public class Pn_CortedeCaja extends javax.swing.JDialog {
         initComponents();
         AWTUtilities.setOpaque(this, false);
         Ubicar(0);
-         //APARIENCIA DE LA TABLA
+        //APARIENCIA DE LA TABLA
         cuser.tablaUsuarios();
         RowHeaderApariencia();
         RowApariencia();
+        headerTablaCobros();
+        headerTablaGastos();
         cargarUsuarios();
-        cargarSumas();
+       
     }
-private void cargarSumas() {
+    private void headerTablaCobros() {
+        String titulos[] = new String[3];//cabeceras de la tabla
+        titulos[0] = "Habitación";
+        titulos[1] = "Monto";
+        titulos[2] = "Cliente";
+        /*  for (int i = 1; i <= titulos.length; i++) {
+            titulos[i] = String.valueOf(i);
+        }*/
 
+        modeloCobros = new DefaultTableModel(null, titulos) {
+            @Override
+            public boolean isCellEditable(int row, int column) {//para evitar que las celdas sean editables
+                return false;
+            }
+        };
+        jtabla_Cobros.setModel(modeloCobros);
     }
- private void RowApariencia() {
+
+    private void headerTablaGastos() {
+        String titulos[] = new String[3];//cabeceras de la tabla
+        titulos[0] = "Gasto";
+        titulos[1] = "Cantidad";
+        titulos[2] = "Descripción";
+
+        /*  for (int i = 1; i <= titulos.length; i++) {
+            titulos[i] = String.valueOf(i);
+        }*/
+        modeloGastos = new DefaultTableModel(null, titulos) {
+            @Override
+            public boolean isCellEditable(int row, int column) {//para evitar que las celdas sean editables
+                return false;
+            }
+        };
+        jtabla_Gastos.setModel(modeloGastos);
+    }
+
+    private void RowApariencia() {
 
         jtabla_Cobros.setFocusable(false);
 
@@ -65,7 +112,7 @@ private void cargarSumas() {
 //sin lineas verticles
         jtabla_Cobros.setShowVerticalLines(false);
         jtabla_Cobros.setSelectionBackground(new Color(97, 212, 195));
-        
+
         //MODIFICACION DE TABLA GASTOS
         jtabla_Gastos.setFocusable(false);
 
@@ -86,7 +133,7 @@ private void cargarSumas() {
         jtabla_Cobros.getTableHeader().setOpaque(false);
         jtabla_Cobros.getTableHeader().setBackground(Color.BLACK);
         jtabla_Cobros.getTableHeader().setForeground(new Color(255, 255, 255));
-        
+
         //APARIENCIA ROWS DE GASTOS
         jtabla_Gastos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jtabla_Gastos.getTableHeader().setOpaque(false);
@@ -102,7 +149,8 @@ private void cargarSumas() {
     private void cTablaGastos(String user) {
         jtabla_Gastos.setModel(cega.tablaGastos(user));
     }
-     private void cargarUsuarios() {
+
+    private void cargarUsuarios() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Usuario");
@@ -112,6 +160,60 @@ private void cargarSumas() {
         cb_usuario.setModel(cb);
 
     }
+private Double totalizarTablaCobros(){
+        double t = 0;
+        double p = 0;
+        if (jtabla_Cobros.getRowCount() > 0) {
+            for (int j = 0; j < jtabla_Cobros.getRowCount(); j++) {
+                p = Double.parseDouble(jtabla_Cobros.getValueAt(j, 1).toString());
+                t += p;
+            }
+         
+        }
+          return t;
+    }
+
+    private Double totalizarTablaGastos() {
+        double t = 0;
+        double p = 0;
+        if (jtabla_Gastos.getRowCount() > 0) {
+            for (int j = 0; j < jtabla_Gastos.getRowCount(); j++) {
+                p = Double.parseDouble(jtabla_Gastos.getValueAt(j, 1).toString());
+                t += p;
+            }
+      
+        }
+        return t;
+    }
+private void sumarTotales(){
+    lb_Total.setText(String.valueOf(totalizarTablaCobros()+totalizarTablaGastos()));
+}
+  private Boolean validarCajasAbiertas() {
+        Boolean val = true;
+        for (ObjetoCaja caja : cecaja.seleccionarCaja()) {
+            if (caja.getIdEstadoCaja() == 1 && caja.getUsuario().equals(String.valueOf(cb_usuario.getSelectedItem()))) {
+                val = false;
+            } else {
+                 DesktopNotify.showDesktopMessage("Error", "No existe ninguna caja abierta para el usuario: "+String.valueOf(cb_usuario.getSelectedItem()), DesktopNotify.ERROR);
+
+                val = true;
+            }
+        }
+        return val;
+    }
+
+    private Boolean validarSeleccion() {
+        Boolean val = true;
+        if (!(cb_usuario.getSelectedIndex() == 0)) {
+            val = true;
+        } else {
+               DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un usuario para realizar el corte de caja", DesktopNotify.ERROR);
+
+            val = false;
+        }
+        return val;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -130,16 +232,20 @@ private void cargarSumas() {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtabla_Gastos = new javax.swing.JTable();
         btn_CorteCaja = new principal.MaterialButton();
-        lb_titulo = new javax.swing.JLabel();
+        lb_Total = new javax.swing.JLabel();
         lb_titulo2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lb_montoAsignado = new javax.swing.JLabel();
+        lb_totalCobros = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lb_totalGastos = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cb_usuario = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -239,37 +345,38 @@ private void cargarSumas() {
                 btn_CorteCajaActionPerformed(evt);
             }
         });
-        jPanel3.add(btn_CorteCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 194, 40));
+        jPanel3.add(btn_CorteCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 490, 194, 40));
 
-        lb_titulo.setBackground(new java.awt.Color(204, 204, 204));
-        lb_titulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lb_titulo.setForeground(new java.awt.Color(204, 204, 204));
-        lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_titulo.setText("0.00");
-        jPanel3.add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 71, 32));
+        lb_Total.setBackground(new java.awt.Color(204, 204, 204));
+        lb_Total.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb_Total.setForeground(new java.awt.Color(204, 204, 204));
+        lb_Total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_Total.setText("0.00");
+        jPanel3.add(lb_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 490, 71, 32));
 
         lb_titulo2.setBackground(new java.awt.Color(204, 204, 204));
         lb_titulo2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb_titulo2.setForeground(new java.awt.Color(204, 204, 204));
         lb_titulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_titulo2.setText("TOTAL A RETIRAR  $");
-        jPanel3.add(lb_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 162, 31));
+        jPanel3.add(lb_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 162, 31));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Gastos Realizados");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, -1));
+        lb_montoAsignado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_montoAsignado.setForeground(new java.awt.Color(255, 255, 255));
+        lb_montoAsignado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_montoAsignado.setText("Monto");
+        jPanel3.add(lb_montoAsignado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 100, -1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("0.0");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 70, -1));
+        lb_totalCobros.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_totalCobros.setForeground(new java.awt.Color(255, 255, 255));
+        lb_totalCobros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_totalCobros.setText("0.0");
+        jPanel3.add(lb_totalCobros, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 70, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Seleciona el usuario a realizar corte ");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 220, 10));
+        jLabel3.setText("Seleciona el usuario a realizar corte -->");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -281,11 +388,11 @@ private void cargarSumas() {
         jLabel5.setText("Total       $");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 70, -1));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("0.0");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, 70, -1));
+        lb_totalGastos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_totalGastos.setForeground(new java.awt.Color(255, 255, 255));
+        lb_totalGastos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_totalGastos.setText("0.0");
+        jPanel3.add(lb_totalGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, 70, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -305,9 +412,25 @@ private void cargarSumas() {
                 cb_usuarioActionPerformed(evt);
             }
         });
-        jPanel3.add(cb_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 180, 20));
+        jPanel3.add(cb_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 180, 20));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 470, 440));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Gastos Realizados");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, -1));
+        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 470, 10));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Descripcion General");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 160, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Monto Asignado");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 100, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 470, 540));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -326,7 +449,16 @@ private void cargarSumas() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_CorteCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CorteCajaActionPerformed
- 
+        try {
+            if(!validarCajasAbiertas()==true || !validarSeleccion()==true){
+                   DesktopNotify.showDesktopMessage("Error", "", DesktopNotify.ERROR);
+
+            }
+            cecaja.actualizarCiereCaja(fechaActual, Double.valueOf(lb_Total.getText()), "Cerrado", String.valueOf(cb_usuario.getSelectedItem()));
+            Cerrar();
+        } catch (Exception e) {
+        }
+
     }//GEN-LAST:event_btn_CorteCajaActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -352,8 +484,7 @@ private void cargarSumas() {
     }//GEN-LAST:event_formWindowClosing
 
     private void jtabla_CobrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_CobrosMouseClicked
-      
-       
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jtabla_CobrosMouseClicked
 
@@ -371,14 +502,22 @@ private void cargarSumas() {
     }//GEN-LAST:event_jtabla_GastosMouseClicked
 
     private void lb_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lb_closeActionPerformed
-    Cerrar();
-            
+        Cerrar();
+
     }//GEN-LAST:event_lb_closeActionPerformed
 
     private void cb_usuarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_usuarioItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED && !(cb_usuario.getSelectedIndex() == 0)) {
             cTablaCobros(String.valueOf(cb_usuario.getSelectedItem()));
             cTablaGastos(String.valueOf(cb_usuario.getSelectedItem()));
+            lb_totalCobros.setText(String.valueOf(totalizarTablaCobros()));
+            lb_totalGastos.setText(String.valueOf(totalizarTablaGastos()));
+            for (ObjetoCaja objetoCaja : cecaja.seleccionarCaja()) {
+                if(objetoCaja.getUsuario().equals(String.valueOf(cb_usuario.getSelectedItem())) && objetoCaja.getIdEstadoCaja()==1){
+                    lb_montoAsignado.setText(String.valueOf(objetoCaja.getMontoApertura()));
+                }
+            }
+            sumarTotales();
         }
     }//GEN-LAST:event_cb_usuarioItemStateChanged
 
@@ -1454,23 +1593,27 @@ private void cargarSumas() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static principal.MaterialButton btn_CorteCaja;
     private javax.swing.JComboBox<String> cb_usuario;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jtabla_Cobros;
     private javax.swing.JTable jtabla_Gastos;
+    public static javax.swing.JLabel lb_Total;
     private javax.swing.JButton lb_close;
-    public static javax.swing.JLabel lb_titulo;
+    private javax.swing.JLabel lb_montoAsignado;
     public static javax.swing.JLabel lb_titulo1;
     public static javax.swing.JLabel lb_titulo2;
+    private javax.swing.JLabel lb_totalCobros;
+    private javax.swing.JLabel lb_totalGastos;
     // End of variables declaration//GEN-END:variables
 
     private void Cerrar() {
@@ -1484,10 +1627,10 @@ private void cargarSumas() {
     }
 
     private void Ubicar(int y) {
-         
+
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth()/3;
+        int xsize = (int) tk.getScreenSize().getWidth() / 3;
         this.setLocation(xsize, y - 120);
-        
+
     }
 }

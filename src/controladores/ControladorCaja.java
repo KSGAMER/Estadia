@@ -27,8 +27,11 @@ public class ControladorCaja extends ModeloCajas{
         insertCaja(fechaApertura, montoApertura, fechaCierre, montoCierre, usuario, estadoCaja);
     }
     
-    public void actualizarCaja(double montoApertura, String usuario, int id) {
-        updateCaja(montoApertura, usuario, id);
+    public void actualizarAperturaCaja(double montoApertura, String usuario, int id) {
+        updateAperturaCaja(montoApertura, usuario, id);
+    }
+     public void actualizarCiereCaja(String fechaCierre, Double montoCierre,String estadoCaja, String Usuario) {
+        updateCierreCaja(fechaCierre, montoCierre,estadoCaja,Usuario);
     }
     
     public void eliminarCaja(int id) {

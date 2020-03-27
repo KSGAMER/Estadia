@@ -16,6 +16,7 @@ import controladores.ControladorReservaciones;
 import controladores.ControladorTipoPagos;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
@@ -44,7 +45,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private ControladorCFDI cf = new ControladorCFDI();
     private ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-    private Pn_SeleccionarClientesCobro selectCC = new Pn_SeleccionarClientesCobro();
     private ControladorTipoPagos ct = new ControladorTipoPagos();
     private ControladorCobros cco = new ControladorCobros();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
@@ -58,6 +58,8 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     Double CostoAcumulado, MontoaCobrar;
 //variable de retorno de diferencia entre fechas
      int dias;
+         //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA EN CLIENTES PARA FACTURA
+    Frame principal;
     /**
      * Creates new form Pn_SeleccionClientes
      */
@@ -1540,7 +1542,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_SeleccionarClientesMouseClicked
 
     private void btn_SeleccionarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SeleccionarClientesActionPerformed
-
+        Pn_SeleccionarClientesCobro selectCC = new Pn_SeleccionarClientesCobro(principal, true);
         selectCC.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_SeleccionarClientesActionPerformed

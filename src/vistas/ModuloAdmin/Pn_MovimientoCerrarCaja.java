@@ -90,10 +90,21 @@ jtabla_Gastos.setModel(cega.tablaGastosCompleta());
         jtabla_Cobros.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
-private void datosIniciales(){
-    lb_idGasto.setText("*");
-    lb_idCobroReservacion.setText("*");
-}
+private void datosIniciales() {
+        lb_idGasto.setText("*");
+        lb_idCobroReservacion.setText("*");
+    }
+
+    private void datosInicialesGastos() {
+        lb_idGasto.setText("*");
+        btn_EliminarGasto.setEnabled(false);
+    }
+
+    private void datosInicialesCobros() {
+        lb_idCobroReservacion.setText("*");
+        btn_EliminarCobro.setEnabled(false);
+    }
+
 
     /*
      * This method is called from within the constructor to initialize the form.
@@ -105,11 +116,13 @@ private void datosIniciales(){
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jb_limpiarFolioGastos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtabla_Cobros = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel9 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btn_AperturaCaja1 = new principal.MaterialButton();
@@ -125,9 +138,30 @@ private void datosIniciales(){
         btn_EliminarCobro = new principal.MaterialButton();
         lb_idGasto = new javax.swing.JLabel();
         lb_idCobroReservacion = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel8 = new javax.swing.JLabel();
+        jb_limpiarFolioCobros = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jb_limpiarFolioGastos.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarFolioGastos.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarFolioGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarFolioGastos.setBorder(null);
+        jb_limpiarFolioGastos.setBorderPainted(false);
+        jb_limpiarFolioGastos.setContentAreaFilled(false);
+        jb_limpiarFolioGastos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_limpiarFolioGastos.setFocusPainted(false);
+        jb_limpiarFolioGastos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarFolioGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarFolioGastosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarFolioGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 440, 40, -1));
 
         jtabla_Cobros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,6 +194,10 @@ private void datosIniciales(){
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CORTE DE CAJA");
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Inicio > Caja Admin > Cierre de Caja");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -167,15 +205,22 @@ private void datosIniciales(){
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(42, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addGap(116, 116, 116))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -347,13 +392,43 @@ private void datosIniciales(){
         });
         jPanel1.add(btn_EliminarCobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 220, 40));
 
-        lb_idGasto.setForeground(new java.awt.Color(84, 110, 122));
+        lb_idGasto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_idGasto.setForeground(new java.awt.Color(255, 255, 255));
+        lb_idGasto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_idGasto.setText("*");
-        jPanel1.add(lb_idGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 440, 10, -1));
+        jPanel1.add(lb_idGasto, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 440, 20, 20));
 
-        lb_idCobroReservacion.setForeground(new java.awt.Color(84, 110, 122));
+        lb_idCobroReservacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_idCobroReservacion.setForeground(new java.awt.Color(255, 255, 255));
+        lb_idCobroReservacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_idCobroReservacion.setText("*");
-        jPanel1.add(lb_idCobroReservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 10, -1));
+        jPanel1.add(lb_idCobroReservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 20, 20));
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Folio de Cobro");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 210, -1, 40));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 240, 20, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 460, 20, 10));
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Folio de Cobro");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 430, -1, 40));
+
+        jb_limpiarFolioCobros.setBackground(new java.awt.Color(84, 110, 122));
+        jb_limpiarFolioCobros.setForeground(new java.awt.Color(84, 110, 122));
+        jb_limpiarFolioCobros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/clean24x24.png"))); // NOI18N
+        jb_limpiarFolioCobros.setBorder(null);
+        jb_limpiarFolioCobros.setBorderPainted(false);
+        jb_limpiarFolioCobros.setContentAreaFilled(false);
+        jb_limpiarFolioCobros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_limpiarFolioCobros.setFocusPainted(false);
+        jb_limpiarFolioCobros.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
+        jb_limpiarFolioCobros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_limpiarFolioCobrosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_limpiarFolioCobros, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 210, 40, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -424,7 +499,7 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
     }//GEN-LAST:event_jt_BuscarCobrosHabitacionesMouseClicked
 
     private void jt_BuscarCobrosHabitacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarCobrosHabitacionesKeyReleased
-           jtabla_Cobros.setModel(ccob.tablaCobros(jt_BuscarCobrosHabitaciones.getText()));
+//           jtabla_Cobros.setModel(ccob.tablaCobros(jt_BuscarCobrosHabitaciones.getText()));
         //   tamañoTabla();
     }//GEN-LAST:event_jt_BuscarCobrosHabitacionesKeyReleased
 
@@ -506,6 +581,14 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_EliminarCobroActionPerformed
 
+    private void jb_limpiarFolioGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarFolioGastosActionPerformed
+        datosInicialesGastos();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarFolioGastosActionPerformed
+
+    private void jb_limpiarFolioCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarFolioCobrosActionPerformed
+    datosInicialesCobros();      // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarFolioCobrosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private principal.MaterialButton btn_AperturaCaja1;
@@ -514,8 +597,11 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
@@ -523,6 +609,10 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton jb_limpiarFolioCobros;
+    private javax.swing.JButton jb_limpiarFolioGastos;
     public static javax.swing.JTextField jt_BuscarCobrosHabitaciones;
     public static javax.swing.JTextField jt_BuscarGastos;
     private javax.swing.JTable jtabla_Cobros;
