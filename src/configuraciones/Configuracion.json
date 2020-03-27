@@ -1,9 +1,8 @@
-
 {
     "PORT": "1433",
     "DATABASE": "Estadia",
     "PASSWORD": "1234",
-    "SERVER": "192.168.0.4",
+    "SERVER": "192.168.0.5",
     "AUTH": "false",
     "INSTANCE": "KSGAMER17",
     "USER": "Estadia"

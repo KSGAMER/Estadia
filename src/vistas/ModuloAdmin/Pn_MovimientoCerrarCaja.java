@@ -61,7 +61,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
     }
 
     private void cTablaCobros() {
-jtabla_Cobros.setModel(ccob.tablaCobros());
+jtabla_Cobros.setModel(ccob.tablaCobros2(jt_BuscarCobrosHabitaciones.getText()));
     }
 
     private void cTablaGastos() {
