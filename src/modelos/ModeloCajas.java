@@ -70,7 +70,7 @@ public class ModeloCajas extends BD{
     public void insertCaja(String fechaApertura, double montoApertura, String fechaCierre, String horaCierre,double montoCierre, String usuario, String estadoCaja) {
         mec.cargarTabla();
         try {
-            this.st = conectar().prepareStatement("INSERT INTO Caja(FechaApertura, MontoApertura, FechaCierre, HoraCierre, MontoCierre, Username, IdEstadoCaja) VALUES (?,?,?,?,?,?)");
+            this.st = conectar().prepareStatement("INSERT INTO Caja(FechaApertura, MontoApertura, FechaCierre, HoraCierre, MontoCierre, Username, IdEstadoCaja) VALUES (?,?,?,?,?,?,?)");
             this.st.setString(1, fechaApertura);
             this.st.setDouble(2, montoApertura);
             this.st.setString(3, fechaCierre);
@@ -97,7 +97,7 @@ public class ModeloCajas extends BD{
         mec.cargarTabla();
         cuser.cargarTabla();
         try {
-            this.st = conectar().prepareStatement("UPDATE Caja SET FechaCierre = ?, HoraCierre = ?, MontoCierre = ?,IdEstadoCaja=? WHERE IdEstadoCaja=1  and Username = ?");
+            this.st = conectar().prepareStatement("UPDATE Caja SET FechaCierre = ?, HoraCierre = ?, MontoCierre = ?, IdEstadoCaja=? WHERE IdEstadoCaja=1  and Username = ?");
             this.st.setString(1, fechaCierre);
             this.st.setString(2, horaCierre);
             this.st.setDouble(3, montoCierre);
