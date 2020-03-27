@@ -5912,7 +5912,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth() / 6;
-        this.setLocation(xsize, y - 120);
+        this.setLocation(xsize, y - 100);
 
     }
 }

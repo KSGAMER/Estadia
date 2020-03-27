@@ -107,7 +107,7 @@ public class ModeloHabitaciones extends BD {
         cp.cargarTabla();
         meh.cargarTabla();
         //Se declaran las columnas de la tabla
-        String[] titulos = {"#", "Nombre", "Piso", "Categoria", "Precio Dia", "Precio Hora", "Caracteriscas", "Estatus"};
+        String[] titulos = {"#", "Nombre", "Piso", "Categoria", "P/Dia", "P/Hora", "Caracteriscas", "Estatus"};
         //Se declara la tabla pasando las columnas
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
