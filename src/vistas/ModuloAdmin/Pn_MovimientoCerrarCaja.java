@@ -411,7 +411,7 @@ private void datosIniciales() {
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 460, 20, 10));
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Folio de Cobro");
+        jLabel8.setText("Folio de Gasto");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 430, -1, 40));
 
         jb_limpiarFolioCobros.setBackground(new java.awt.Color(84, 110, 122));
@@ -472,7 +472,7 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-                        cega.deleteGastos(Integer.parseInt(lb_idGasto.getText()));
+                        cega.eliminarGatos(Integer.parseInt(lb_idGasto.getText()));
                         tamañoTablaGastos();
                         NewTable = new DefaultTableModel();
                         cTablaGastos();
@@ -517,7 +517,7 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
     private void jtabla_GastosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_GastosMouseClicked
         seleccionGastos = jtabla_Gastos.rowAtPoint(evt.getPoint());
         btn_EliminarGasto.setEnabled(true);
-        lb_idCobroReservacion.setText(String.valueOf(jtabla_Gastos.getValueAt(seleccionGastos, 0)));
+        lb_idGasto.setText(String.valueOf(jtabla_Gastos.getValueAt(seleccionGastos, 0)));
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jtabla_GastosMouseClicked

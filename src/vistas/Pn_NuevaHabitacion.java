@@ -206,16 +206,16 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         lb_errorCategoria.setText("*");
         lb_errorNombre.setText("*");
         lb_errorPiso.setText("*");
-        lb_errorPrecio.setText("*");
+        lb_errorPrecioxNoche.setText("*");
         lb_errorStatus.setText("*");
         lb_errorNombre.setForeground(new Color(84, 110, 122));
-        lb_errorPrecio.setForeground(new Color(84, 110, 122));
+        lb_errorPrecioxNoche.setForeground(new Color(84, 110, 122));
         lb_errorCaracteristicas.setForeground(new Color(84, 110, 122));
         lb_errorPiso.setForeground(new Color(84, 110, 122));
         lb_errorCategoria.setForeground(new Color(84, 110, 122));
         lb_errorStatus.setForeground(new Color(84, 110, 122));
         jt_nombre.setText("Ingresar Nombre");
-        jt_precio.setText("Ingresar Precio");
+        jt_precioxNoche.setText("Ingresar Precio");
         jta_observaciones.setText("Ingresar Caracteristicas");
         cb_piso.setSelectedIndex(0);
         cb_status.setSelectedIndex(0);
@@ -233,10 +233,17 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
             val = false;
         }
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
-        if (!(jt_precio.getText().equals("Ingresar Precio")) && !(jt_precio.getText().equals(""))) {
-            lb_errorPrecio.setForeground(new Color(84, 110, 122));
+        if (!(jt_precioxNoche.getText().equals("Ingresar Precio")) && !(jt_precioxNoche.getText().equals(""))) {
+            lb_errorPrecioxNoche.setForeground(new Color(84, 110, 122));
         } else {
-            lb_errorPrecio.setForeground(Color.RED);
+            lb_errorPrecioxNoche.setForeground(Color.RED);
+            val = false;
+        }
+         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
+        if (!(jt_precioxHora.getText().equals("Ingresar Precio")) && !(jt_precioxNoche.getText().equals(""))) {
+            lb_errorPrecioxHora.setForeground(new Color(84, 110, 122));
+        } else {
+            lb_errorPrecioxNoche.setForeground(Color.RED);
             val = false;
         }
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
@@ -295,6 +302,8 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jt_precioxHora = new javax.swing.JTextField();
+        lb_errorPrecioxHora = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -311,7 +320,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jt_nombre = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
-        jt_precio = new javax.swing.JTextField();
+        jt_precioxNoche = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
         jta_observaciones = new javax.swing.JTextArea();
         cb_piso = new javax.swing.JComboBox<>();
@@ -325,7 +334,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         lb_errorNombre = new javax.swing.JLabel();
         lb_errorPiso = new javax.swing.JLabel();
         lb_errorCategoria = new javax.swing.JLabel();
-        lb_errorPrecio = new javax.swing.JLabel();
+        lb_errorPrecioxNoche = new javax.swing.JLabel();
         lb_errorCaracteristicas = new javax.swing.JLabel();
         lb_errorStatus = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -333,9 +342,41 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jt_Buscar = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jb_limpiarCampos2 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jt_precioxHora.setBackground(new java.awt.Color(84, 110, 122));
+        jt_precioxHora.setForeground(new java.awt.Color(204, 204, 204));
+        jt_precioxHora.setText("Ingresar Precio");
+        jt_precioxHora.setBorder(null);
+        jt_precioxHora.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jt_precioxHoraFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jt_precioxHoraFocusLost(evt);
+            }
+        });
+        jt_precioxHora.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_precioxHoraMouseClicked(evt);
+            }
+        });
+        jt_precioxHora.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jt_precioxHoraKeyTyped(evt);
+            }
+        });
+        jPanel1.add(jt_precioxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 150, -1));
+
+        lb_errorPrecioxHora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_errorPrecioxHora.setForeground(new java.awt.Color(84, 110, 122));
+        lb_errorPrecioxHora.setText("*");
+        jPanel1.add(lb_errorPrecioxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 10, -1));
 
         jPanel2.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -416,22 +457,22 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Estatus:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Precio Sugerido de la Habitación :");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        jLabel7.setText("Precio Por Hora :");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Caracteristicas de la Habitación :");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("$");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
 
         jt_nombre.setBackground(new java.awt.Color(84, 110, 122));
         jt_nombre.setForeground(new java.awt.Color(204, 204, 204));
@@ -460,32 +501,32 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 190, 10));
 
-        jt_precio.setBackground(new java.awt.Color(84, 110, 122));
-        jt_precio.setForeground(new java.awt.Color(204, 204, 204));
-        jt_precio.setText("Ingresar Precio");
-        jt_precio.setBorder(null);
-        jt_precio.addFocusListener(new java.awt.event.FocusAdapter() {
+        jt_precioxNoche.setBackground(new java.awt.Color(84, 110, 122));
+        jt_precioxNoche.setForeground(new java.awt.Color(204, 204, 204));
+        jt_precioxNoche.setText("Ingresar Precio");
+        jt_precioxNoche.setBorder(null);
+        jt_precioxNoche.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jt_precioFocusGained(evt);
+                jt_precioxNocheFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jt_precioFocusLost(evt);
+                jt_precioxNocheFocusLost(evt);
             }
         });
-        jt_precio.addMouseListener(new java.awt.event.MouseAdapter() {
+        jt_precioxNoche.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jt_precioMouseClicked(evt);
+                jt_precioxNocheMouseClicked(evt);
             }
         });
-        jt_precio.addKeyListener(new java.awt.event.KeyAdapter() {
+        jt_precioxNoche.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jt_precioKeyTyped(evt);
+                jt_precioxNocheKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 150, -1));
+        jPanel1.add(jt_precioxNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 150, -1));
 
         jSeparator7.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 150, 10));
+        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 150, 10));
 
         jta_observaciones.setColumns(20);
         jta_observaciones.setForeground(new java.awt.Color(153, 153, 153));
@@ -509,7 +550,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 jta_observacionesKeyPressed(evt);
             }
         });
-        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 310, 140));
+        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 310, 140));
 
         cb_piso.setBackground(new java.awt.Color(84, 110, 122));
         cb_piso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
@@ -529,7 +570,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 cb_statusItemStateChanged(evt);
             }
         });
-        jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 190, -1));
+        jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 190, -1));
 
         btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -541,7 +582,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 btn_IngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 120, 40));
+        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 120, 40));
 
         btn_Modificar.setBackground(new java.awt.Color(255, 153, 0));
         btn_Modificar.setForeground(new java.awt.Color(255, 255, 255));
@@ -553,7 +594,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 btn_ModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 540, 120, 40));
+        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 570, 120, 40));
 
         btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
         btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -565,7 +606,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 btn_EliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 540, 120, 40));
+        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 570, 120, 40));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -600,10 +641,10 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         lb_errorCategoria.setText("*");
         jPanel1.add(lb_errorCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 10, -1));
 
-        lb_errorPrecio.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorPrecio.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorPrecio.setText("*");
-        jPanel1.add(lb_errorPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 10, -1));
+        lb_errorPrecioxNoche.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_errorPrecioxNoche.setForeground(new java.awt.Color(84, 110, 122));
+        lb_errorPrecioxNoche.setText("*");
+        jPanel1.add(lb_errorPrecioxNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 10, -1));
 
         lb_errorCaracteristicas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorCaracteristicas.setForeground(new java.awt.Color(84, 110, 122));
@@ -673,6 +714,19 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         });
         jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 40, -1));
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Precio Por Noche :");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("$");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, -1, -1));
+
+        jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 150, 10));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -701,24 +755,24 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jt_nombreKeyTyped
 
-    private void jt_precioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_precioFocusLost
-        cft.formFocusLostJTextField(jt_precio, "Ingresar Precio");
-    }//GEN-LAST:event_jt_precioFocusLost
+    private void jt_precioxNocheFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_precioxNocheFocusLost
+        cft.formFocusLostJTextField(jt_precioxNoche, "Ingresar Precio");
+    }//GEN-LAST:event_jt_precioxNocheFocusLost
 
-    private void jt_precioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_precioMouseClicked
+    private void jt_precioxNocheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_precioxNocheMouseClicked
         // TODO add your handling code here:
         // t_control.setText("");
-        if (!jt_precio.getText().equals("Ingresar Precio")) {
+        if (!jt_precioxNoche.getText().equals("Ingresar Precio")) {
 
         } else {
-            jt_precio.setText("");
+            jt_precioxNoche.setText("");
         }
-    }//GEN-LAST:event_jt_precioMouseClicked
+    }//GEN-LAST:event_jt_precioxNocheMouseClicked
 
-    private void jt_precioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_precioKeyTyped
+    private void jt_precioxNocheKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_precioxNocheKeyTyped
 
-        ce.typedMoney(evt, jt_precio);
-    }//GEN-LAST:event_jt_precioKeyTyped
+        ce.typedMoney(evt, jt_precioxNoche);
+    }//GEN-LAST:event_jt_precioxNocheKeyTyped
 
     private void jta_observacionesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusLost
         cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Caracteristicas");
@@ -740,7 +794,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
             if (!validarEscritura() == true || !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
-                ch.insertHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precio.getText()), jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()));
+                ch.insertHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precioxNoche.getText()), jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
@@ -756,7 +810,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jt_nombre.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 1)));
         cb_piso.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 2));
         cb_Categoria.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 3));
-        jt_precio.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 4)));
+        jt_precioxNoche.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 4)));
         jta_observaciones.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 5)));
         cb_status.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 6));
         // TODO add your handling code here:
@@ -781,7 +835,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
             if (!validarEscritura() == true || !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
-                ch.updateHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precio.getText()), jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()), Integer.valueOf(lb_Id.getText()));
+                ch.updateHabitacion(jt_nombre.getText(), String.valueOf(cb_piso.getSelectedItem()), String.valueOf(cb_Categoria.getSelectedItem()), Double.parseDouble(jt_precioxNoche.getText()), jta_observaciones.getText(), String.valueOf(cb_status.getSelectedItem()), Integer.valueOf(lb_Id.getText()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
@@ -848,9 +902,9 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         cft.formFocusGain(jt_nombre);
     }//GEN-LAST:event_jt_nombreFocusGained
 
-    private void jt_precioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_precioFocusGained
-        cft.formFocusGain(jt_precio);
-    }//GEN-LAST:event_jt_precioFocusGained
+    private void jt_precioxNocheFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_precioxNocheFocusGained
+        cft.formFocusGain(jt_precioxNoche);
+    }//GEN-LAST:event_jt_precioxNocheFocusGained
 
     private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
         cft.formFocusGainJTextArea(jta_observaciones);
@@ -868,6 +922,22 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         datosIniciales();        // TODO add your handling code here:
     }//GEN-LAST:event_jb_limpiarCampos2ActionPerformed
 
+    private void jt_precioxHoraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_precioxHoraFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_precioxHoraFocusGained
+
+    private void jt_precioxHoraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_precioxHoraFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_precioxHoraFocusLost
+
+    private void jt_precioxHoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_precioxHoraMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_precioxHoraMouseClicked
+
+    private void jt_precioxHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_precioxHoraKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_precioxHoraKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static principal.MaterialButton btn_Eliminar;
@@ -877,10 +947,12 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cb_piso;
     private javax.swing.JComboBox<String> cb_status;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -895,11 +967,13 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JButton jb_limpiarCampos2;
     public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTable jt_habitaciones;
     private javax.swing.JTextField jt_nombre;
-    private javax.swing.JTextField jt_precio;
+    private javax.swing.JTextField jt_precioxHora;
+    private javax.swing.JTextField jt_precioxNoche;
     private javax.swing.JTextField jt_t_registros;
     private javax.swing.JTextArea jta_observaciones;
     private javax.swing.JLabel lb_Id;
@@ -907,7 +981,8 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     private javax.swing.JLabel lb_errorCategoria;
     private javax.swing.JLabel lb_errorNombre;
     private javax.swing.JLabel lb_errorPiso;
-    private javax.swing.JLabel lb_errorPrecio;
+    private javax.swing.JLabel lb_errorPrecioxHora;
+    private javax.swing.JLabel lb_errorPrecioxNoche;
     private javax.swing.JLabel lb_errorStatus;
     // End of variables declaration//GEN-END:variables
 }
