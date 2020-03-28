@@ -202,9 +202,9 @@ public class ModeloReservaciones extends BD {
             this.st.execute();
             //Se cierra la conexión
             conectar().close();
-            DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion eliminados con éxito.", DesktopNotify.SUCCESS);
+          //  DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion eliminados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
-            DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar  los datos de la reservación, por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
+         //   DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar  los datos de la reservación, por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
         }
     }
 }

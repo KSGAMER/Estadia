@@ -97,7 +97,15 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         cperm.tablaPermisos();
         cmod.tablaModulos();
         eperm.tablaEstatusPermisos();
-       
+        cr.tablaReservaciones();
+        cf.tablaCFDI();
+        cc.tablaCategorias();
+        ccl.tablaClientes();
+        ch.tablaHabitaciones();
+        cp.tablaPisos();
+        cesHabi.tablaEstadoHabiaciones();
+        ccobro.tablaCobros2("");
+
         //muestra dependiendo del usuario, lo modulos que le corresponden
         comparadorPrivilegios();
         //fin
@@ -105,12 +113,9 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         mostrarFecha();
         mostrarHora();
         //fin
-        cr.tablaReservaciones();
-        cf.tablaCFDI();
-        cc.tablaCategorias();
-        ccl.tablaClientes();
-        ch.tablaHabitaciones();
-        cp.tablaPisos();
+    
+
+
     }
 
     public void comparadorPrivilegios() {
@@ -763,20 +768,20 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         for (ObjetoReservacion objectoReservacion : cr.selectReservacion()) {
             for (ObjetoHabitacion objetoHabitacion : ch.selectHabitacion()) {
                 for (ObjetoEstadoHabitacion objectoEstadoHabi : cesHabi.selectEstadoHabitacion()) {
-                    for (ObjetoCobro oCobro :ccobro.selectCobro()) {
-                          if (objectoReservacion.getIdHabitacion() == objetoHabitacion.getIdHabitacion()) {
-                        if (objetoHabitacion.getIdEstadoHabitacion() == objectoEstadoHabi.getIdEstadoHabitacion()) {
-                            if(oCobro.getIdHabitacion()==objetoHabitacion.getIdHabitacion()){
-                             if (objectoReservacion.getFechaSalidaCompleta().equals(fechaActual)) {
-                                cr.deleteReservacion(objectoReservacion.getIdReservacion());
+                    for (ObjetoCobro oCobro : ccobro.selectCobro()) {
+                        if (objectoReservacion.getIdHabitacion() == objetoHabitacion.getIdHabitacion()) {
+                            if (objetoHabitacion.getIdEstadoHabitacion() == objectoEstadoHabi.getIdEstadoHabitacion()) {
+                                if (oCobro.getIdHabitacion() == objetoHabitacion.getIdHabitacion()) {
+                                    if (objectoReservacion.getFechaSalidaCompleta().equals(fechaActual)) {
+                                        cr.deleteReservacion(objectoReservacion.getIdReservacion());
 
-                            }    
+                                    }
+                                }
+
                             }
-                           
                         }
-                    }   
                     }
-               
+
                 }
             }
         }
