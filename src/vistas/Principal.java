@@ -19,7 +19,11 @@ import java.util.GregorianCalendar;
 import controladores.*;
 import ds.desktop.notify.DesktopNotify;
 import objetos.ObjetoCaja;
+import objetos.ObjetoCobro;
 import objetos.ObjetoEstadoCaja;
+import objetos.ObjetoEstadoHabitacion;
+import objetos.ObjetoHabitacion;
+import objetos.ObjetoReservacion;
 import vistas.ModuloAdmin.*;
 
 /**
@@ -40,6 +44,8 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
     private ControladorPisos cp = new ControladorPisos();
     private ControladorReservaciones cr = new ControladorReservaciones();
+    private ControladorCobros ccobro = new ControladorCobros();
+    private ControladorEstatusHabitaciones cesHabi = new ControladorEstatusHabitaciones();
     //necesario para validar permisos
     private ControladorPermisos cperm = new ControladorPermisos();
     private ControladorModulos cmod = new ControladorModulos();
@@ -54,7 +60,8 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
     //para abrir la ventana de sesion al dar click en cerrar sesion 
     sesion se = new sesion();
 //fin
-    
+     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
+    String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
 
     /**
      * Creates new form Main
@@ -512,6 +519,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         ImageIcon iconReportes = new ImageIcon(getClass().getResource("/Imagenes/reporte32x32.png"));
         ImageIcon iconFacturas = new ImageIcon(getClass().getResource("/Imagenes/icons/facturas32x32.png"));
         ImageIcon iconAdministrador = new ImageIcon(getClass().getResource("/Imagenes/icons/administrador32x32.png"));
+        ImageIcon iconAdminCaja = new ImageIcon(getClass().getResource("/Imagenes/icons/cajaAdmin32x32.png"));
         ImageIcon iconSesion = new ImageIcon(getClass().getResource("/Imagenes/icons/cerrarSesion32x32.png"));
         //ICONO PARA LOS SUBMENUS
         ImageIcon subMenus = new ImageIcon(getClass().getResource("/Imagenes/newarrow20x20.png"));
@@ -648,7 +656,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);
         MenuItem GastosHotel = new MenuItem(iconClientes, "Caja", 35, null, NuevoGasto);
         MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
-        AdministracionCaja = new MenuItem(iconAdministrador, "Caja Admin", 35, null, AbrirCaja,CerrarCaja);
+        AdministracionCaja = new MenuItem(iconAdminCaja, "Caja Admin", 35, null, AbrirCaja,CerrarCaja);
        /*SIN USO AUN
         MenuItem Inventario = new MenuItem(iconAdministrador, "Inventario", 35, null, NuevoProducto,ProductoxHabitacion);
         */
@@ -730,6 +738,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
             if (i > 0) {
                 //  validarPermisos();
                 hora();
+                EliminarReservacion();
                 lb_hora.setText(hora + ":" + minutos + ":" + segundos);
             }
         }
@@ -748,6 +757,29 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         hora = calendario.get(Calendar.HOUR_OF_DAY) > 9 ? "" + calendario.get(Calendar.HOUR_OF_DAY) : "0" + calendario.get(Calendar.HOUR_OF_DAY);
         minutos = calendario.get(Calendar.MINUTE) > 9 ? "" + calendario.get(Calendar.MINUTE) : "0" + calendario.get(Calendar.MINUTE);
         segundos = calendario.get(Calendar.SECOND) > 9 ? "" + calendario.get(Calendar.SECOND) : "0" + calendario.get(Calendar.SECOND);
+
+    }
+    private void EliminarReservacion() {
+        for (ObjetoReservacion objectoReservacion : cr.selectReservacion()) {
+            for (ObjetoHabitacion objetoHabitacion : ch.selectHabitacion()) {
+                for (ObjetoEstadoHabitacion objectoEstadoHabi : cesHabi.selectEstadoHabitacion()) {
+                    for (ObjetoCobro oCobro :ccobro.selectCobro()) {
+                          if (objectoReservacion.getIdHabitacion() == objetoHabitacion.getIdHabitacion()) {
+                        if (objetoHabitacion.getIdEstadoHabitacion() == objectoEstadoHabi.getIdEstadoHabitacion()) {
+                            if(oCobro.getIdHabitacion()==objetoHabitacion.getIdHabitacion()){
+                             if (objectoReservacion.getFechaSalidaCompleta().equals(fechaActual)) {
+                                cr.deleteReservacion(objectoReservacion.getIdReservacion());
+
+                            }    
+                            }
+                           
+                        }
+                    }   
+                    }
+               
+                }
+            }
+        }
 
     }
 

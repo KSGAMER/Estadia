@@ -1497,15 +1497,13 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                 if (validador == 1 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago" ) {
                     // monto,  tipoPago,  rfc,  correo,  usuario,  Nombre, NombreHabitacion,  FechaIngreso,  FechaSalida,  IdFacturacion
                     cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_razonSocial.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
-                    cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
+                    //cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
                     ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
-                   
                     Cerrar();
                 } else if (validador == 0 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
                     cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", Principal.User, "----", lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Sin Factura");
-                    cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
+                    //cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
                     ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
-                   
                     Cerrar();
                 }
             }
