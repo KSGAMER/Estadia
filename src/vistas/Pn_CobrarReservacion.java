@@ -60,9 +60,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
      int dias;
          //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA EN CLIENTES PARA FACTURA
     Frame principal;
-    
-    //para accder al metod de actualizar tabla en reservaciones y se actualize al hacer un cobro
-    Pn_Reservaciones pn_reser = new Pn_Reservaciones();
+
     /**
      * Creates new form Pn_SeleccionClientes
      */
@@ -650,7 +648,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel50.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel50.setForeground(new java.awt.Color(255, 255, 255));
         jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel50.setText("Seleccion Preferencia de Cobro");
+        jLabel50.setText("Seleccionar Preferencia de Cobro");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -663,8 +661,8 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                 .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(76, 76, 76)
                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jLabel50)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -682,6 +680,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         cb_TipoPago.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cb_TipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar T. Pago" }));
         cb_TipoPago.setBorder(null);
+        cb_TipoPago.setFocusable(false);
         cb_TipoPago.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_TipoPagoItemStateChanged(evt);
@@ -924,7 +923,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         lb_TotalNoches.setForeground(new java.awt.Color(153, 153, 153));
         lb_TotalNoches.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_TotalNoches.setText("total Noches");
-        jPanel3.add(lb_TotalNoches, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+        jPanel3.add(lb_TotalNoches, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 100, -1));
 
         jLabel40.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

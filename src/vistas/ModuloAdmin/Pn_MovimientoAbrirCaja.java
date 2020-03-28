@@ -327,6 +327,7 @@ jtabla_Cajas.setModel(cecaja.tablaCaja());
         cb_usuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cb_usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Usuario" }));
         cb_usuario.setBorder(null);
+        cb_usuario.setFocusable(false);
         cb_usuario.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_usuarioItemStateChanged(evt);
@@ -395,6 +396,7 @@ jtabla_Cajas.setModel(cecaja.tablaCaja());
         jb_limpiarCampos.setContentAreaFilled(false);
         jb_limpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jb_limpiarCampos.setFocusPainted(false);
+        jb_limpiarCampos.setFocusable(false);
         jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
         jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

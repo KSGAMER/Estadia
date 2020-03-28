@@ -86,6 +86,14 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
      jt_telefono.setText("Ingresar Telefono");
      jt_direccion.setText("Ingresar Dirección");
      cb_status.setSelectedIndex(0);
+     
+     lb_errorUsuario.setForeground(new Color(84, 110, 122));
+     lb_errorPassword.setForeground(new Color(84, 110, 122));
+     lb_errorNombre.setForeground(new Color(84, 110, 122));
+     lb_errorTelefono.setForeground(new Color(84, 110, 122));
+     lb_errorDireccion.setForeground(new Color(84, 110, 122));
+     lb_errorStatus.setForeground(new Color(84, 110, 122));
+ 
     
     
     }
@@ -499,6 +507,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         cb_status.setBackground(new java.awt.Color(84, 110, 122));
         cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estatus" }));
         cb_status.setBorder(null);
+        cb_status.setFocusable(false);
         cb_status.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_statusItemStateChanged(evt);
@@ -519,7 +528,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
 
         jt_password.setBackground(new java.awt.Color(84, 110, 122));
         jt_password.setForeground(new java.awt.Color(204, 204, 204));
-        jt_password.setText("jPasswordField1");
+        jt_password.setText("Ingresar Password");
         jt_password.setBorder(null);
         jt_password.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -540,6 +549,9 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jch_mostrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jch_mostrar.setForeground(new java.awt.Color(255, 255, 255));
         jch_mostrar.setText("Mostrar");
+        jch_mostrar.setContentAreaFilled(false);
+        jch_mostrar.setFocusPainted(false);
+        jch_mostrar.setFocusable(false);
         jch_mostrar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jch_mostrarItemStateChanged(evt);
@@ -602,7 +614,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         lb_errorTelefono.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorTelefono.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorTelefono.setText("*");
-        jPanel1.add(lb_errorTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 10, -1));
+        jPanel1.add(lb_errorTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 10, -1));
 
         lb_errorDireccion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorDireccion.setForeground(new java.awt.Color(84, 110, 122));
@@ -620,6 +632,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jb_limpiarCampos.setContentAreaFilled(false);
         jb_limpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jb_limpiarCampos.setFocusPainted(false);
+        jb_limpiarCampos.setFocusable(false);
         jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
         jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -661,6 +674,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
 
+        
         try {
             if (!validarEscritura() == true && !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);

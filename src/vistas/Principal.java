@@ -197,6 +197,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
 
         lb_AcercaDe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/about32x32.png"))); // NOI18N
         lb_AcercaDe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lb_AcercaDe.setFocusable(false);
         lb_AcercaDe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lb_AcercaDeMouseClicked(evt);
@@ -228,6 +229,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         lb_min.setBorderPainted(false);
         lb_min.setContentAreaFilled(false);
         lb_min.setFocusPainted(false);
+        lb_min.setFocusable(false);
         lb_min.setRequestFocusEnabled(false);
         lb_min.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/icons8_Minus_30px_3.png"))); // NOI18N
         lb_min.setVerifyInputWhenFocusTarget(false);
@@ -247,6 +249,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         lb_close.setBorder(null);
         lb_close.setBorderPainted(false);
         lb_close.setContentAreaFilled(false);
+        lb_close.setFocusable(false);
         lb_close.setRequestFocusEnabled(false);
         lb_close.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/icons8_Cancel_30px_3.png"))); // NOI18N
         lb_close.setVerifyInputWhenFocusTarget(false);

@@ -51,10 +51,9 @@
           <Color blue="86" green="7a" red="6f" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="16" style="1"/>
+          <Font name="Century Gothic" size="15" style="1"/>
         </Property>
         <Property name="hideActionText" type="boolean" value="true"/>
-        <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
       <Events>
         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbAccesosMousePressed"/>

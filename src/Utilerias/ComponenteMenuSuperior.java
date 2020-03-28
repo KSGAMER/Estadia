@@ -67,9 +67,8 @@ public class ComponenteMenuSuperior extends javax.swing.JPanel {
         lbAccesos.setColorHover(new java.awt.Color(111, 122, 134));
         lbAccesos.setColorNormal(new java.awt.Color(111, 122, 134));
         lbAccesos.setColorPressed(new java.awt.Color(111, 122, 134));
-        lbAccesos.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        lbAccesos.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         lbAccesos.setHideActionText(true);
-        lbAccesos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbAccesos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lbAccesosMousePressed(evt);

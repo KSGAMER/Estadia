@@ -155,6 +155,7 @@ private void datosIniciales() {
         jb_limpiarFolioGastos.setContentAreaFilled(false);
         jb_limpiarFolioGastos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jb_limpiarFolioGastos.setFocusPainted(false);
+        jb_limpiarFolioGastos.setFocusable(false);
         jb_limpiarFolioGastos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
         jb_limpiarFolioGastos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,6 +423,7 @@ private void datosIniciales() {
         jb_limpiarFolioCobros.setContentAreaFilled(false);
         jb_limpiarFolioCobros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jb_limpiarFolioCobros.setFocusPainted(false);
+        jb_limpiarFolioCobros.setFocusable(false);
         jb_limpiarFolioCobros.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
         jb_limpiarFolioCobros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

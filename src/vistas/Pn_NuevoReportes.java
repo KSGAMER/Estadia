@@ -451,7 +451,8 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         jp_central.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTab_Reportes.setBackground(new java.awt.Color(255, 255, 255));
-        jTab_Reportes.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jTab_Reportes.setFocusable(false);
+        jTab_Reportes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jTab_Reportes.setPreferredSize(new java.awt.Dimension(1090, 710));
 
         ScrollEstadisticas.setBackground(new java.awt.Color(204, 204, 204));

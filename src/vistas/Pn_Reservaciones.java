@@ -147,14 +147,16 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     private void datosIniciales() {
 
-        jt_nombre.setText("Ingresar Nombre");
+       // jt_nombre.setText("Ingresar Nombre");
         cb_Habitacion.setSelectedIndex(0);
         jd_Ingreso.setCalendar(null);
         jd_Salida.setCalendar(null);
-        lb_errorNombre.setBackground(new Color(84, 110, 122));
-        lb_errorHabitacion.setBackground(new Color(84, 110, 122));
-        lb_errorFechaIngreso.setBackground(new Color(84, 110, 122));
-        lb_errorFechaSalida.setBackground(new Color(84, 110, 122));
+  
+        
+        lb_errorNombre.setForeground(new Color(84, 110, 122));
+        lb_errorHabitacion.setForeground(new Color(84, 110, 122));
+        lb_errorFechaIngreso.setForeground(new Color(84, 110, 122));
+        lb_errorFechaSalida.setForeground(new Color(84, 110, 122));
     }
 
     private void RowApariencia() {
@@ -398,6 +400,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         cb_Habitacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cb_Habitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Habitacion" }));
         cb_Habitacion.setBorder(null);
+        cb_Habitacion.setFocusable(false);
         cb_Habitacion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_HabitacionItemStateChanged(evt);
@@ -508,6 +511,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         btn_clientes.setBorder(null);
         btn_clientes.setText("...");
         btn_clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_clientes.setFocusable(false);
         btn_clientes.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         btn_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -585,7 +589,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 jb_limpiarCampos2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 40, -1));
+        jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 40, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -843,7 +847,21 @@ ale.dispose();
     }//GEN-LAST:event_jd_SalidaPropertyChange
 
     private void jb_limpiarCampos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCampos2ActionPerformed
-        datosIniciales();        // TODO add your handling code here:
+   
+        jt_nombre.setText("Ingresar Nombre");
+        cb_Habitacion.setSelectedIndex(0);
+        jd_Ingreso.setCalendar(null);
+        jd_Salida.setCalendar(null);
+        
+        lb_errorNombre.setText("*");
+        lb_errorHabitacion.setText("*");
+        lb_errorFechaIngreso.setText("*");
+        lb_errorFechaSalida.setText("*");
+        
+        lb_errorNombre.setForeground(new Color(84, 110, 122));
+        lb_errorHabitacion.setForeground(new Color(84, 110, 122));
+        lb_errorFechaIngreso.setForeground(new Color(84, 110, 122));
+        lb_errorFechaSalida.setForeground(new Color(84, 110, 122));        // TODO add your handling code here:
     }//GEN-LAST:event_jb_limpiarCampos2ActionPerformed
 
 

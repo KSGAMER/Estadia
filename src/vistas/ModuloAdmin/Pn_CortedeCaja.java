@@ -395,6 +395,7 @@ private void sumarTotales(){
         cb_usuario.setBackground(new java.awt.Color(84, 110, 122));
         cb_usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar usuario" }));
         cb_usuario.setBorder(null);
+        cb_usuario.setFocusable(false);
         cb_usuario.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_usuarioItemStateChanged(evt);

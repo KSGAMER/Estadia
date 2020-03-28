@@ -218,7 +218,7 @@ public class Pn_Recepcion extends javax.swing.JPanel {
         lbAccesos.setColorNormal(new java.awt.Color(111, 122, 134));
         lbAccesos.setColorPressed(new java.awt.Color(111, 122, 134));
         lbAccesos.setFocusPainted(false);
-        lbAccesos.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        lbAccesos.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         lbAccesos.setHideActionText(true);
         lbAccesos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbAccesos.addActionListener(new java.awt.event.ActionListener() {
@@ -247,24 +247,27 @@ public class Pn_Recepcion extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pn_MenuPisoDinamico, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pn_MenuPisoDinamico, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbAccesos, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         Pn_PisosLayout.setVerticalGroup(
             Pn_PisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Pn_PisosLayout.createSequentialGroup()
                 .addGroup(Pn_PisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pn_MenuPisoDinamico, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Pn_PisosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(Pn_PisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Pn_PisosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pn_MenuPisoDinamico, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                        .addGroup(Pn_PisosLayout.createSequentialGroup()
+                            .addContainerGap()
                             .addComponent(jLabel2)
-                            .addComponent(cb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbAccesos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(8, 8, 8))
+                        .addGroup(Pn_PisosLayout.createSequentialGroup()
+                            .addComponent(lbAccesos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(2, 2, 2)))
+                    .addComponent(cb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

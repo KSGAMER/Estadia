@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import objetos.*;
 import controladores.*;
 import ds.desktop.notify.DesktopNotify;
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -156,6 +157,67 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
  
         cb_eliminar.setModel(cb);
     }
+    private Boolean validarSeleccion() {
+        Boolean val = true;
+        if (!(cb_usuario.getSelectedIndex() == 0)) {
+
+            lb_errorUsuario.setForeground(new Color(233, 235, 238));//[233,235,238]
+        } else {
+
+            lb_errorUsuario.setForeground(Color.RED);
+
+            val = false;
+        }
+        if (!(cb_modulo.getSelectedIndex() == 0)) {
+
+            lb_errorModulo.setForeground(new Color(233, 235, 238));//[233,235,238]
+        } else {
+
+            lb_errorModulo.setForeground(Color.RED);
+
+            val = false;
+        }
+        if (!(cb_consultar.getSelectedIndex() == 0)) {
+
+            lb_errorConsultar.setForeground(new Color(233, 235, 238));//[233,235,238]
+        } else {
+
+            lb_errorConsultar.setForeground(Color.RED);
+
+            val = false;
+        }
+        if (!(cb_agregar.getSelectedIndex() == 0)) {
+
+            lb_errorAgregar.setForeground(new Color(233, 235, 238));//[233,235,238]
+        } else {
+
+            lb_errorAgregar.setForeground(Color.RED);
+
+            val = false;
+        }
+        if (!(cb_actualizar.getSelectedIndex() == 0)) {
+
+            lb_errorModificar.setForeground(new Color(233, 235, 238));//[233,235,238]
+        } else {
+
+            lb_errorModificar.setForeground(Color.RED);
+
+            val = false;
+        }
+        if (!(cb_eliminar.getSelectedIndex() == 0)) {
+
+            lb_errorEliminar.setForeground(new Color(233, 235, 238));//[233,235,238]
+        } else {
+
+            lb_errorEliminar.setForeground(Color.RED);
+
+            val = false;
+        }
+
+        return val;
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -170,12 +232,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        lb_errorStatus = new javax.swing.JLabel();
-        lb_errorUsuario = new javax.swing.JLabel();
-        lb_errorPassword = new javax.swing.JLabel();
-        lb_errorNombre = new javax.swing.JLabel();
-        lb_errorTelefono = new javax.swing.JLabel();
-        lb_errorDireccion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_Privilegios = new javax.swing.JTable();
         btn_Ingresar = new principal.MaterialButton();
@@ -199,6 +255,12 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_agregar = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         cb_eliminar = new javax.swing.JComboBox<>();
+        lb_errorUsuario = new javax.swing.JLabel();
+        lb_errorEliminar = new javax.swing.JLabel();
+        lb_errorModulo = new javax.swing.JLabel();
+        lb_errorAgregar = new javax.swing.JLabel();
+        lb_errorConsultar = new javax.swing.JLabel();
+        lb_errorModificar = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -252,36 +314,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1010, 10));
-
-        lb_errorStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorStatus.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorStatus.setText("*");
-        jPanel1.add(lb_errorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 10, -1));
-
-        lb_errorUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorUsuario.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorUsuario.setText("*");
-        jPanel1.add(lb_errorUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 10, -1));
-
-        lb_errorPassword.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorPassword.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorPassword.setText("*");
-        jPanel1.add(lb_errorPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 10, -1));
-
-        lb_errorNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorNombre.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorNombre.setText("*");
-        jPanel1.add(lb_errorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 10, -1));
-
-        lb_errorTelefono.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorTelefono.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorTelefono.setText("*");
-        jPanel1.add(lb_errorTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 10, -1));
-
-        lb_errorDireccion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorDireccion.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorDireccion.setText("*");
-        jPanel1.add(lb_errorDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 10, -1));
 
         jt_Privilegios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -378,11 +410,12 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel17.setForeground(new java.awt.Color(51, 51, 51));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel17.setText("Modulo");
-        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 150, -1));
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 50, -1));
 
         cb_modulo.setBackground(new java.awt.Color(84, 110, 122));
         cb_modulo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Modulo" }));
         cb_modulo.setBorder(null);
+        cb_modulo.setFocusable(false);
         cb_modulo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_moduloItemStateChanged(evt);
@@ -393,6 +426,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_usuario.setBackground(new java.awt.Color(84, 110, 122));
         cb_usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar usuario" }));
         cb_usuario.setBorder(null);
+        cb_usuario.setFocusable(false);
         cb_usuario.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_usuarioItemStateChanged(evt);
@@ -409,18 +443,19 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel21.setForeground(new java.awt.Color(51, 51, 51));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel21.setText("Usuario");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 150, -1));
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 50, -1));
         jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 390, 10));
 
         jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(51, 51, 51));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel18.setText("Consultar");
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 170, -1));
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 60, -1));
 
         cb_consultar.setBackground(new java.awt.Color(84, 110, 122));
         cb_consultar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
         cb_consultar.setBorder(null);
+        cb_consultar.setFocusable(false);
         cb_consultar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_consultarItemStateChanged(evt);
@@ -432,11 +467,12 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel20.setForeground(new java.awt.Color(51, 51, 51));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel20.setText("Modificar");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 170, -1));
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 60, -1));
 
         cb_actualizar.setBackground(new java.awt.Color(84, 110, 122));
         cb_actualizar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
         cb_actualizar.setBorder(null);
+        cb_actualizar.setFocusable(false);
         cb_actualizar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_actualizarItemStateChanged(evt);
@@ -448,11 +484,12 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel19.setForeground(new java.awt.Color(51, 51, 51));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("Agregar");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 170, -1));
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 60, -1));
 
         cb_agregar.setBackground(new java.awt.Color(84, 110, 122));
         cb_agregar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
         cb_agregar.setBorder(null);
+        cb_agregar.setFocusable(false);
         cb_agregar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_agregarItemStateChanged(evt);
@@ -464,17 +501,42 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jLabel15.setForeground(new java.awt.Color(51, 51, 51));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel15.setText("Eliminar");
-        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 170, -1));
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 50, -1));
 
         cb_eliminar.setBackground(new java.awt.Color(84, 110, 122));
         cb_eliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Privilegio" }));
         cb_eliminar.setBorder(null);
+        cb_eliminar.setFocusable(false);
         cb_eliminar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_eliminarItemStateChanged(evt);
             }
         });
         jPanel3.add(cb_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 170, -1));
+
+        lb_errorUsuario.setForeground(new java.awt.Color(233, 235, 238));
+        lb_errorUsuario.setText("*");
+        jPanel3.add(lb_errorUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, 20));
+
+        lb_errorEliminar.setForeground(new java.awt.Color(233, 235, 238));
+        lb_errorEliminar.setText("*");
+        jPanel3.add(lb_errorEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, 20));
+
+        lb_errorModulo.setForeground(new java.awt.Color(233, 235, 238));
+        lb_errorModulo.setText("*");
+        jPanel3.add(lb_errorModulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, 20));
+
+        lb_errorAgregar.setForeground(new java.awt.Color(233, 235, 238));
+        lb_errorAgregar.setText("*");
+        jPanel3.add(lb_errorAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, -1, 20));
+
+        lb_errorConsultar.setForeground(new java.awt.Color(233, 235, 238));
+        lb_errorConsultar.setText("*");
+        jPanel3.add(lb_errorConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, 20));
+
+        lb_errorModificar.setForeground(new java.awt.Color(233, 235, 238));
+        lb_errorModificar.setText("*");
+        jPanel3.add(lb_errorModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, 20));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 390, 280));
 
@@ -562,6 +624,8 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         jb_limpiarCampos.setBorderPainted(false);
         jb_limpiarCampos.setContentAreaFilled(false);
         jb_limpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_limpiarCampos.setFocusPainted(false);
+        jb_limpiarCampos.setFocusable(false);
         jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
         jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -619,7 +683,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         try {
-            if (btn_Ingresar.getText().equals("Generar")) {
+            if (btn_Ingresar.getText().equals("Generar") && !validarSeleccion()==true ) {
                 
                 //codigo de generacion
                 for (ObjetoUsuario user : cuser.selectUsuario()) {
@@ -632,12 +696,15 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
                     }
 
                 }
-            } else {
+            } else if(btn_Ingresar.getText().equals("Agregar") && validarSeleccion()==true) {
                          
                 cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 
+            }else if(btn_Ingresar.getText().equals("Agregar") && !validarSeleccion()==true){
+                  DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
+
             }
 
         } catch (Exception e) {
@@ -774,11 +841,11 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     private javax.swing.JCheckBox jch_facturacion;
     private javax.swing.JTable jt_Privilegios;
     private javax.swing.JLabel lb_Id;
-    private javax.swing.JLabel lb_errorDireccion;
-    private javax.swing.JLabel lb_errorNombre;
-    private javax.swing.JLabel lb_errorPassword;
-    private javax.swing.JLabel lb_errorStatus;
-    private javax.swing.JLabel lb_errorTelefono;
+    private javax.swing.JLabel lb_errorAgregar;
+    private javax.swing.JLabel lb_errorConsultar;
+    private javax.swing.JLabel lb_errorEliminar;
+    private javax.swing.JLabel lb_errorModificar;
+    private javax.swing.JLabel lb_errorModulo;
     private javax.swing.JLabel lb_errorUsuario;
     // End of variables declaration//GEN-END:variables
 }

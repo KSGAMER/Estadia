@@ -14,14 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import objetos.ObjetoReservacion;
-
 /**
  *
- * @author KSGAMER
+ * @author fenix
  */
 //Se aplica Herencia de la clase padre BD
 public class ModeloReservaciones extends BD {
-
+    
     //Se declaran las variables de datos
     private ModeloClientes mc = new ModeloClientes();
     private ModeloHabitaciones mh = new ModeloHabitaciones();

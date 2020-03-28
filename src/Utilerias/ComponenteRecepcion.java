@@ -25,7 +25,7 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
 
     }
 
-    public JPanel ComponenteRecepcionDatos(String Habitacion, String TipoHabitacion, String StatusHabitacion, String Precio, ActionListener act, Color background) {
+    public JPanel ComponenteRecepcionDatos(String Habitacion, String TipoHabitacion, String StatusHabitacion, String PrecioNoche, ActionListener act, Color background) {
         ImageIcon IconCama = new ImageIcon(getClass().getResource("/Imagenes/icons/bed.png"));
 
         //MODIFICACIONES DEL BOTON VISUALES
@@ -34,7 +34,8 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
             lb_Habitacion.setText(Habitacion);
             lb_TipoHabitacion.setText(TipoHabitacion);
             lb_StatusHabitacion.setText(StatusHabitacion);
-            lb_Precio.setText("$" + Precio + "0");
+            lb_Precio.setText("$" + PrecioNoche + "0");
+           
             this.setBackground(background);
         } else {
             lb_Habitacion.setText("");
