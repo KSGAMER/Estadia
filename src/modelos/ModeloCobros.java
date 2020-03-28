@@ -82,7 +82,7 @@ public class ModeloCobros extends BD {
                 //Se agrega el objeto fila a la tabla
                 tb.addRow(fila);
                 //Se agrega el resultado al arreglo
-                this.listPay.add(new ObjetoCobro(rs.getInt("Monto"), rs.getInt("IdTipoPago"), rs.getString("RFC"), rs.getString("Correo"), rs.getString("FechaCobro"), rs.getInt("IdFacturacion")));
+                this.listPay.add(new ObjetoCobro(rs.getInt("Monto"), rs.getInt("IdTipoPago"), rs.getString("RFC"), rs.getString("Correo"), rs.getString("FechaCobro"), rs.getInt("IdFacturacion"), rs.getInt("IdHabitacion")));
             }
             //Se cierra la conexión
             conectar().close();

@@ -21,18 +21,23 @@ public class ObjetoCobro {
     private String correo;
     private String fechaCobro;
     private int idFacturacion;
+    private int idHabitacion;
 
     //Constructor de Cobro e instanciar los valores de la Clase
-    public ObjetoCobro( double monto, int idTipoPago, String rfc, String correo, String fechaCobro, int idFacturacion) {
-       
+
+    public ObjetoCobro(double monto, int idTipoPago, String rfc, String correo, String fechaCobro, int idFacturacion, int idHabitacion) {
         this.monto = monto;
         this.idTipoPago = idTipoPago;
         this.rfc = rfc;
         this.correo = correo;
         this.fechaCobro = fechaCobro;
         this.idFacturacion = idFacturacion;
+        this.idHabitacion = idHabitacion;
     }
 
+    public int getIdHabitacion() {
+        return idHabitacion;
+    }
     
     //Método para obtener el "Monto" del Cobro
     public double getMonto() {

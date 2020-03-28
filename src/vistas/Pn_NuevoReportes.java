@@ -688,12 +688,12 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         PorcentajeGanancias.add(jLabel14);
         jLabel14.setBounds(10, 11, 280, 32);
 
-        lbGananciaHoy.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lbGananciaHoy.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lbGananciaHoy.setForeground(new java.awt.Color(51, 153, 255));
         lbGananciaHoy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbGananciaHoy.setText("jLabel16");
         PorcentajeGanancias.add(lbGananciaHoy);
-        lbGananciaHoy.setBounds(60, 70, 190, 29);
+        lbGananciaHoy.setBounds(10, 70, 310, 29);
 
         lbPorcentajeGanancias.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbPorcentajeGanancias.setForeground(new java.awt.Color(0, 191, 95));
@@ -736,12 +736,12 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         PorcentajeReservaciones.add(jLabel17);
         jLabel17.setBounds(10, 40, 110, 16);
 
-        lbReservacionesHoy.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lbReservacionesHoy.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lbReservacionesHoy.setForeground(new java.awt.Color(51, 153, 255));
         lbReservacionesHoy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbReservacionesHoy.setText("jLabel18");
         PorcentajeReservaciones.add(lbReservacionesHoy);
-        lbReservacionesHoy.setBounds(80, 60, 160, 44);
+        lbReservacionesHoy.setBounds(20, 60, 300, 29);
 
         lbPorcentajeReservaciones.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbPorcentajeReservaciones.setForeground(new java.awt.Color(0, 191, 95));
