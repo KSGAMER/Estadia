@@ -274,23 +274,23 @@ public class ModeloHabitaciones extends BD {
         try {
             //Se instancia la conexión a base de datos y se pasa la consulta preparada
             this.st = conectar().prepareStatement("UPDATE Habitacion SET IdEstadoHabitacion = ? WHERE IdHabitacion = ?");
-            //Se pasan los parametros a la consulta preparada
+                //Se recorre el resultado obtenido con un for
+            for (int i = 0; i < meh.selectEstadoHabitaciones().size(); i++) {
+                //Si el Nombre del resultado obtenido es igual al Nombre de la instancia se prosigue
+                if (meh.selectEstadoHabitaciones().get(i).getNombre().equals(estatusHabitacion)) {
+                    //Se reemplaza el resultado por el ID
+                    this.st.setInt(1, meh.selectEstadoHabitaciones().get(i).getIdEstadoHabitacion());
+                }
+            }  //Se pasan los parametros a la consulta preparada
             //Se recorre el resultado obtenido con un for
             for (int i = 0; i < this.selectHabitaciones().size(); i++) {
                 //Si el Nombre del resultado obtenido es igual al Nombre de la instancia se prosigue
                 if (this.selectHabitaciones().get(i).getNombre().equals(habitacion)) {
                     //Se reemplaza el resultado por el ID
-                    this.st.setInt(1, this.selectHabitaciones().get(i).getIdHabitacion());
+                    this.st.setInt(2, this.selectHabitaciones().get(i).getIdHabitacion());
                 }
             }
-            //Se recorre el resultado obtenido con un for
-            for (int i = 0; i < meh.selectEstadoHabitaciones().size(); i++) {
-                //Si el Nombre del resultado obtenido es igual al Nombre de la instancia se prosigue
-                if (meh.selectEstadoHabitaciones().get(i).getNombre().equals(estatusHabitacion)) {
-                    //Se reemplaza el resultado por el ID
-                    this.st.setInt(2, meh.selectEstadoHabitaciones().get(i).getIdEstadoHabitacion());
-                }
-            }
+      
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión

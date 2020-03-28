@@ -55,7 +55,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
  private int validadorTNoches=0;   
 
     //variables que guardan la cantidad a cobrar o/y el monto acumulado 
-    Double CostoAcumulado, MontoaCobrar;
+    Double CostoAcumulado, MontoaCobrar,cargo;
 //variable de retorno de diferencia entre fechas
      int dias;
          //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA EN CLIENTES PARA FACTURA
@@ -681,7 +681,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jb_Cambio.setForeground(new java.awt.Color(153, 153, 153));
         jb_Cambio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jb_Cambio.setText("0.0");
-        jPanel3.add(jb_Cambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, 50, 20));
+        jPanel3.add(jb_Cambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 280, 110, 20));
 
         jPanel12.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -950,7 +950,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel39.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel39.setText("Cambio $");
-        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 90, 20));
+        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 90, 20));
 
         jPanel14.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -1496,13 +1496,13 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             } else {
                 if (validador == 1 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago" ) {
                     // monto,  tipoPago,  rfc,  correo,  usuario,  Nombre, NombreHabitacion,  FechaIngreso,  FechaSalida,  IdFacturacion
-                    cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_nombreCliente.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
+                    cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_razonSocial.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
                     cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
                     ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
                    
                     Cerrar();
                 } else if (validador == 0 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
-                    cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", Principal.User, lb_nombreCliente.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Sin Factura");
+                    cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", Principal.User, "----", lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Sin Factura");
                     cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
                     ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
                    
@@ -1616,10 +1616,11 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                     + "no debe estar vacio o en ceros", DesktopNotify.ERROR);
 
             } else {
-                CostoAcumulado = Double.valueOf(lb_TotalxNoches.getText());
+                CostoAcumulado = Double.valueOf(jt_MontoManualaCobrar.getText());
+                cargo = Double.valueOf(jt_CargoExtra.getText());
                 MontoaCobrar = Double.valueOf(jt_MontoACobrar.getText());
                 jb_Cambio.setText("");
-                jb_Cambio.setText(String.valueOf(MontoaCobrar - CostoAcumulado));
+                jb_Cambio.setText(String.valueOf(MontoaCobrar - CostoAcumulado-cargo));
             }
         } catch (Exception e) {
         }

@@ -255,7 +255,7 @@ public class sesion extends javax.swing.JFrame {
         });
         jPanel2.add(lb_Configs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jch_mostrar.setBackground(new java.awt.Color(84, 110, 122));
+        jch_mostrar.setBackground(new java.awt.Color(28, 37, 47));
         jch_mostrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jch_mostrar.setForeground(new java.awt.Color(255, 255, 255));
         jch_mostrar.addItemListener(new java.awt.event.ItemListener() {
