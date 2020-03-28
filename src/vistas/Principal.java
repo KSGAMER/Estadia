@@ -107,7 +107,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
     }
 
     public void comparadorPrivilegios() {
-        if (!(User == "admin")) { //para cualquier otro usuario
+        if (!(User.equals("admin"))) { //para cualquier otro usuario
             Administrador.setVisible(false);
             Configuracion.setVisible(false);
             AdministracionCaja.setVisible(false);

@@ -265,7 +265,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             lbPorcentajeGanancias.setForeground(new Color(153, 153, 153));
             //Se elimina el icono del label
             lbPorcentajeReservaciones.setIcon(new ImageIcon());
-        } else {//En caso contrario
+        } else if (reportes.porcentajeGanancias().getRowCount() >= 2) {//En caso contrario
             //Se asigna el valor extraido de la tabla al label
             lbReservacionesHoy.setText(String.valueOf(Integer.parseInt(reportes.porcentajeReservacion().getValueAt(0, 1).toString())));
             //Se declara una variable que actuara como el porcentaje
@@ -284,6 +284,15 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
                 //Se cambia el icono por el siguiente
                 lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
             }
+        } else {
+            //Se asigna el siguiente valor al label
+            lbReservacionesHoy.setText("0");
+            //Se asigna el siguiente valor al label
+            lbPorcentajeReservaciones.setText("0%");
+            //Se cambia el color de la letra del label por el siguiente
+            lbPorcentajeGanancias.setForeground(new Color(153, 153, 153));
+            //Se elimina el icono del label
+            lbPorcentajeReservaciones.setIcon(new ImageIcon());
         }
     }
 
@@ -827,7 +836,7 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         );
 
         JPanel6.add(contenedorGananciasFechasHabitacion);
-        contenedorGananciasFechasHabitacion.setBounds(0, 60, 450, 250);
+        contenedorGananciasFechasHabitacion.setBounds(0, 70, 450, 250);
 
         jPanel5.add(JPanel6);
         JPanel6.setBounds(10, 10, 450, 350);
@@ -926,11 +935,11 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
         );
         contenedorGananciasHabitacionLayout.setVerticalGroup(
             contenedorGananciasHabitacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 290, Short.MAX_VALUE)
+            .addGap(0, 280, Short.MAX_VALUE)
         );
 
         JPanel7.add(contenedorGananciasHabitacion);
-        contenedorGananciasHabitacion.setBounds(0, 60, 450, 290);
+        contenedorGananciasHabitacion.setBounds(0, 70, 450, 280);
 
         jPanel5.add(JPanel7);
         JPanel7.setBounds(10, 380, 450, 380);
