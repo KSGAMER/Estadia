@@ -6,6 +6,7 @@
 package Utilerias;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
         initComponents();
 
     }
-
-    public JPanel ComponenteRecepcionDatos(String Habitacion, String TipoHabitacion, String StatusHabitacion, String PrecioNoche, ActionListener act, Color background) {
+ private ActionListener act;
+    public JPanel ComponenteRecepcionDatos(String Habitacion, String TipoHabitacion, String StatusHabitacion, String PrecioNoche,String PrecioxHora, ActionListener act, Color background) {
         ImageIcon IconCama = new ImageIcon(getClass().getResource("/Imagenes/icons/bed.png"));
 
         //MODIFICACIONES DEL BOTON VISUALES
@@ -34,17 +35,29 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
             lb_Habitacion.setText(Habitacion);
             lb_TipoHabitacion.setText(TipoHabitacion);
             lb_StatusHabitacion.setText(StatusHabitacion);
+            lb_NombrexNoche.setText("x Noche");
+            lb_NombrexHora.setText("x Hora");
             lb_Precio.setText("$" + PrecioNoche + "0");
-           
+            lb_PrecioxHora.setText("$" + PrecioxHora + "0");
+           this.setCursor(new Cursor(Cursor.HAND_CURSOR));
             this.setBackground(background);
+              ///TERMINA MODIFICACIONES DEL BOTON
+        if (act != null) {
+            this.act = act;
+        }
         } else {
             lb_Habitacion.setText("");
             lb_TipoHabitacion.setText("");
             lb_StatusHabitacion.setText("");
+             lb_NombrexNoche.setText("");
+            lb_NombrexHora.setText("");
             lb_Precio.setText("");
+            lb_PrecioxHora.setText("");
             this.setBackground(background);
+            this.setCursor( new Cursor(Cursor.DEFAULT_CURSOR));
         }
 
+    
         return this;
     }
 
@@ -61,9 +74,21 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
         lb_Habitacion = new javax.swing.JLabel();
         lb_TipoHabitacion = new javax.swing.JLabel();
         lb_StatusHabitacion = new javax.swing.JLabel();
+        lb_PrecioxHora = new javax.swing.JLabel();
         lb_Precio = new javax.swing.JLabel();
+        lb_NombrexHora = new javax.swing.JLabel();
+        lb_NombrexNoche = new javax.swing.JLabel();
 
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(230, 155));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lb_IconoCama.setForeground(new java.awt.Color(255, 255, 255));
@@ -86,17 +111,49 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
         lb_StatusHabitacion.setText("Tip de Habitacion");
         add(lb_StatusHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 130, 20));
 
-        lb_Precio.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lb_PrecioxHora.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lb_PrecioxHora.setForeground(new java.awt.Color(255, 255, 255));
+        lb_PrecioxHora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_PrecioxHora.setText("jLabel1");
+        add(lb_PrecioxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 50, -1));
+
+        lb_Precio.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lb_Precio.setForeground(new java.awt.Color(255, 255, 255));
+        lb_Precio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_Precio.setText("jLabel1");
-        add(lb_Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+        add(lb_Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 50, -1));
+
+        lb_NombrexHora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_NombrexHora.setForeground(new java.awt.Color(255, 255, 255));
+        lb_NombrexHora.setText("x Hora");
+        add(lb_NombrexHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
+
+        lb_NombrexNoche.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_NombrexNoche.setForeground(new java.awt.Color(255, 255, 255));
+        lb_NombrexNoche.setText("x Noche ");
+        add(lb_NombrexNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+  if (act != null) {
+            act.actionPerformed(null);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+  if (act != null) {
+            act.actionPerformed(null);
+        }          // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lb_Habitacion;
     private javax.swing.JLabel lb_IconoCama;
+    private javax.swing.JLabel lb_NombrexHora;
+    private javax.swing.JLabel lb_NombrexNoche;
     private javax.swing.JLabel lb_Precio;
+    private javax.swing.JLabel lb_PrecioxHora;
     private javax.swing.JLabel lb_StatusHabitacion;
     private javax.swing.JLabel lb_TipoHabitacion;
     // End of variables declaration//GEN-END:variables

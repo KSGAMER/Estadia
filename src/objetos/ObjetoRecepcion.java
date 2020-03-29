@@ -20,16 +20,22 @@ public class ObjetoRecepcion {
     private String estatusHabitacion;
     private String nombre;
     private double precioSugerido;
+    private double precioxHora;
+    private String Descripcion;
+
 
     //Creación del constructor para inicializar las variables idHabitacion, categoria (Pre-Procesado), idPiso, estatusHabitacion (Pre-Procesado), nombre, precioSugerido
-    public ObjetoRecepcion(int idHabitacion, String categoria, int idPiso, String estatusHabitacion, String nombre, double precioSugerido) {
+    public ObjetoRecepcion(int idHabitacion, String categoria, int idPiso, String estatusHabitacion, String nombre, double precioSugerido, double precioxHora,String Descripcion) {
         this.idHabitacion = idHabitacion;
         this.categoria = categoria;
         this.idPiso = idPiso;
         this.estatusHabitacion = estatusHabitacion;
         this.nombre = nombre;
         this.precioSugerido = precioSugerido;
+        this.precioxHora= precioxHora;
+        this.Descripcion= Descripcion;
     }
+    
 
     //Método que devuelve el "ID" de la Habitación dentro de la consulta Recepción
     public int getIdHabitacion() {
@@ -61,5 +67,13 @@ public class ObjetoRecepcion {
     public double getPrecioSugerido() {
         return precioSugerido;
     }
-    
+     public double getPrecioxHora() {
+        return precioxHora;
+    }
+     
+    public String getDescripcion() {
+        return Descripcion;
+    }
+
+   
 }

@@ -6,6 +6,7 @@
 package vistas;
 
 import Utilerias.AWTUtilities;
+import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
@@ -30,7 +31,7 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     private ControladorGastos cega = new ControladorGastos();
     //para extraer la fecga actual
-
+ private ControladorEscritura ce = new ControladorEscritura();
     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
     String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
 
@@ -433,14 +434,8 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_NombreGastoKeyReleased
 
     private void jt_NombreGastoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_NombreGastoKeyTyped
-
-        char tecla;
-        tecla = evt.getKeyChar();
-        //Convertir a letras mayusculas
-        if (Character.isLetter(tecla)) {
-            evt.setKeyChar(Character.toUpperCase(tecla));
-
-        }
+ ce.typedAddress(evt, jt_NombreGasto);
+    
     }//GEN-LAST:event_jt_NombreGastoKeyTyped
 
     private void jt_MontoGastadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoGastadoFocusGained
@@ -460,7 +455,7 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_MontoGastadoKeyReleased
 
     private void jt_MontoGastadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoGastadoKeyTyped
-
+ ce.typedDigits(evt, jt_MontoGastado);
         char tecla;
         tecla = evt.getKeyChar();
         //Convertir a letras mayusculas

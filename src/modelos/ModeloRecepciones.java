@@ -46,7 +46,7 @@ public class ModeloRecepciones extends BD {
 
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
-            this.st = conectar().prepareStatement("SELECT h.IdHabitacion, c.Nombre, h.IdPiso, eh.Nombre, h.Nombre, h.PrecioSugerido FROM Habitacion as h INNER JOIN Categoria as c on c.IdCategoria = h.IdCategoria INNER JOIN EstadoHabitacion as eh on eh.IdEstadoHabitacion = h.IdEstadoHabitacion ORDER BY h.IdHabitacion ASC");
+            this.st = conectar().prepareStatement("SELECT h.IdHabitacion, c.Nombre, h.IdPiso, eh.Nombre, h.Nombre, h.PrecioSugerido, h.PrecioHora,h.Caracteristicas FROM Habitacion as h INNER JOIN Categoria as c on c.IdCategoria = h.IdCategoria INNER JOIN EstadoHabitacion as eh on eh.IdEstadoHabitacion = h.IdEstadoHabitacion ORDER BY h.IdHabitacion ASC");
             //Se ejecuta el Query
             this.rs = st.executeQuery();
             //Se iteran los resultados
@@ -58,10 +58,12 @@ public class ModeloRecepciones extends BD {
                 fila[3] = rs.getString(4);
                 fila[4] = rs.getString(5);
                 fila[5] = rs.getDouble(6);
+                fila[6] = rs.getDouble(7);
+                fila[7]= rs.getString(8);
                 //Se agrega el objeto a la tabla
                 tb.addRow(fila);
                 //Se agregan los resultados al arreglo atraves de un nuevo objeto
-                this.list.add(new ObjetoRecepcion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDouble(6)));
+                this.list.add(new ObjetoRecepcion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDouble(6),rs.getDouble(7),rs.getString(8)));
             }
             //Se cierra la conexión
             conectar().close();

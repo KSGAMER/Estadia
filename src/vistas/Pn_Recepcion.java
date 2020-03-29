@@ -267,7 +267,9 @@ public class Pn_Recepcion extends javax.swing.JPanel {
                         .addGroup(Pn_PisosLayout.createSequentialGroup()
                             .addComponent(lbAccesos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(2, 2, 2)))
-                    .addComponent(cb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Pn_PisosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

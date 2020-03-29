@@ -712,7 +712,14 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jt_rfcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_rfcKeyTyped
-        ce.typedCharsAndDigits(evt, jt_rfc);
+        //ce.typedCharsAndDigits(evt, jt_rfc);
+            char tecla;
+        tecla = evt.getKeyChar();
+        //Convertir a letras mayusculas
+        if (Character.isLetter(tecla)) {
+            evt.setKeyChar(Character.toUpperCase(tecla));
+
+        }
           if (jt_rfc.getText().length() == limiteRFC) {
             evt.consume();
         }
