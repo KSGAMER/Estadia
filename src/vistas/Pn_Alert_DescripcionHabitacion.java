@@ -6,6 +6,8 @@
 package vistas;
 
 import Utilerias.AWTUtilities;
+import controladores.ControladorHabitaciones;
+import ds.desktop.notify.DesktopNotify;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.Toolkit;
@@ -15,7 +17,7 @@ import java.awt.Toolkit;
  * @author fenix
  */
 public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
-
+ControladorHabitaciones ch = new ControladorHabitaciones();
     Timer timer = null;
     TimerTask task;
     int i = 32;
@@ -30,6 +32,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         initComponents();
         AWTUtilities.setOpaque(this, false);
         Ubicar(0);
+        validarCambioEstado();
         jta_observaciones.setEnabled(false);
   //para ajustar el tecto al tamaño del jtextarea
         jta_observaciones.setLineWrap(true);
@@ -44,8 +47,13 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         this.setResizable(false);
 
     }
-
-  
+    private void validarCambioEstado(){
+        if(!(lb_Estado.equals("Limpieza"))){
+            cb_status.setEnabled(false);
+        }else{
+            cb_status.setEnabled(true);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +64,8 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        cb_status = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         materialButton1 = new principal.MaterialButton();
         jPanel3 = new javax.swing.JPanel();
@@ -68,6 +78,8 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         jta_observaciones = new javax.swing.JTextArea();
         jLabel18 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -82,6 +94,23 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cb_status.setBackground(new java.awt.Color(84, 110, 122));
+        cb_status.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estatus", "Disponible" }));
+        cb_status.setBorder(null);
+        cb_status.setFocusable(false);
+        cb_status.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_statusItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 190, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(58, 159, 171));
+        jLabel6.setText("Estatus:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(36, 47, 65));
 
@@ -113,7 +142,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 320, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 320, 70));
 
         jPanel3.setBackground(new java.awt.Color(36, 47, 65));
 
@@ -121,7 +150,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Descripción");
+        jLabel2.setText("Descripción General");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -156,7 +185,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(58, 159, 171));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("Habitación Número:");
+        jLabel20.setText("Nombre Habitación");
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 130, -1));
 
         lb_NombreHabitacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -208,6 +237,14 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         jLabel21.setText("Categoria:");
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 90, -1));
 
+        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel1.setText("igual a limpieza.");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+
+        jLabel3.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel3.setText("Solo puede cambiar el estado, si el \"Estado Actual\" es ");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -216,7 +253,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
         );
 
         pack();
@@ -237,29 +274,54 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         };
         timer = new java.util.Timer();
         timer.schedule(task, 0, 2);
-        
+
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-               setVisible(false);
+        setVisible(false);
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
     private void materialButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton1ActionPerformed
-task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 0) {
-                    Cerrar();
-                } else {
-                    Ubicar(i);
-                    i -= 32;
-                    Trasparencia((float) i / 352);
+
+        if (cb_status.isEnabled() == true && cb_status.getSelectedIndex() == 1) {
+            task = new TimerTask() {
+                @Override
+                public void run() {
+                    if (i == 0) {
+                        ch.updateHabitacion(lb_NombreHabitacion.getText(), String.valueOf(cb_status.getSelectedItem()));
+                        Cerrar();
+                    } else {
+                        Ubicar(i);
+                        i -= 32;
+                        Trasparencia((float) i / 352);
+                    }
                 }
-            }
-        };
-        timer = new Timer();
-        timer.schedule(task, 0, 2);                          
+            };
+            timer = new Timer();
+            timer.schedule(task, 0, 2);
+        } else if (cb_status.isEnabled() == false && cb_status.getSelectedIndex() == 0) {
+            task = new TimerTask() {
+                @Override
+                public void run() {
+                    if (i == 0) {
+
+                        Cerrar();
+                    } else {
+                        Ubicar(i);
+                        i -= 32;
+                        Trasparencia((float) i / 352);
+                    }
+                }
+            };
+            timer = new Timer();
+            timer.schedule(task, 0, 2);
+        } else if (cb_status.isEnabled() == true && cb_status.getSelectedIndex() == 0) {
+            DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un estado valido", DesktopNotify.ERROR);
+
+        }
+
+             
                
     }//GEN-LAST:event_materialButton1ActionPerformed
 
@@ -278,6 +340,13 @@ task = new TimerTask() {
     private void jta_observacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jta_observacionesKeyPressed
      
     }//GEN-LAST:event_jta_observacionesKeyPressed
+
+    private void cb_statusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_statusItemStateChanged
+
+        /* if (evt.getStateChange() == ItemEvent.SELECTED) {
+            this.idStatus = cb_status.getSelectedIndex();
+        }*/
+    }//GEN-LAST:event_cb_statusItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -322,11 +391,15 @@ task = new TimerTask() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cb_status;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
