@@ -81,10 +81,6 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        org.jdesktop.swingx.border.DropShadowBorder dropShadowBorder1 = new org.jdesktop.swingx.border.DropShadowBorder();
-        dropShadowBorder1.setShowLeftShadow(true);
-        dropShadowBorder1.setShowTopShadow(true);
-        jPanel1.setBorder(dropShadowBorder1);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(36, 47, 65));
@@ -112,12 +108,12 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(materialButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 350, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 320, 70));
 
         jPanel3.setBackground(new java.awt.Color(36, 47, 65));
 
@@ -141,21 +137,21 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, -1));
 
         lb_NombreCategoria.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_NombreCategoria.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_NombreCategoria.setText("Categoria");
-        jPanel1.add(lb_NombreCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 90, -1));
+        jPanel1.add(lb_NombreCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 90, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(58, 159, 171));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("Descripción:");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 80, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 80, -1));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(58, 159, 171));
@@ -166,12 +162,12 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         lb_NombreHabitacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_NombreHabitacion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_NombreHabitacion.setText("Habitacion");
-        jPanel1.add(lb_NombreHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 130, -1));
+        jPanel1.add(lb_NombreHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 130, -1));
 
         lb_Estado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_Estado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_Estado.setText("Estado");
-        jPanel1.add(lb_Estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 130, -1));
+        jPanel1.add(lb_Estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 130, -1));
 
         jta_observaciones.setColumns(20);
         jta_observaciones.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -198,7 +194,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
                 jta_observacionesKeyPressed(evt);
             }
         });
-        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 320, -1));
+        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 280, -1));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(58, 159, 171));
@@ -216,7 +212,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

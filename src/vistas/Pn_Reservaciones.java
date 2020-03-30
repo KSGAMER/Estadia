@@ -81,6 +81,8 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     int año = Integer.parseInt(year);
     int mes = Integer.parseInt(month);  
     int dia = Integer.parseInt(day); 
+    String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
+
     
  
     /**
@@ -146,8 +148,8 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     }
 
     private void datosIniciales() {
-
-       // jt_nombre.setText("Ingresar Nombre");
+        btn_Cobrar.setEnabled(false);
+        jt_nombre.setText("Ingresar Nombre");
         cb_Habitacion.setSelectedIndex(0);
         jd_Ingreso.setCalendar(null);
         jd_Salida.setCalendar(null);
@@ -612,6 +614,12 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         try {
             jd_Ingreso.setDate(dateFormat.parse((String) jt_Reservas.getValueAt(seleccion, 3).toString()));
             jd_Salida.setDate(dateFormat.parse((String) jt_Reservas.getValueAt(seleccion, 4).toString()));
+            if(((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual)) {
+                
+                btn_Cobrar.setEnabled(true);
+            } else {
+                btn_Cobrar.setEnabled(false);
+            }
         } catch (ParseException ex) {
             Logger.getLogger(Pn_Reservaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -891,7 +899,7 @@ ale.dispose();
     private com.toedter.calendar.JDateChooser jd_Ingreso;
     private com.toedter.calendar.JDateChooser jd_Salida;
     public static javax.swing.JTextField jt_Buscar;
-    private javax.swing.JTable jt_Reservas;
+    public static javax.swing.JTable jt_Reservas;
     public static javax.swing.JTextField jt_nombre;
     private javax.swing.JLabel jt_t_registros;
     private javax.swing.JLabel lb_Id;

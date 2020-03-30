@@ -49,6 +49,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private ControladorCobros cco = new ControladorCobros();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
     DefaultTableModel NewTable;
+    private Pn_Reservaciones reservacion;
     private int validador = 0,validadorHoras=0;
 
 //FIN
@@ -162,6 +163,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private void datosIniciales() {
         jt_MontoACobrar.setText("0");
         jt_CargoExtra.setText("0");
+        jt_TotalHoras.setText("0");
         jt_MontoManualaCobrar.setText("0");
         cb_TipoPago.setSelectedIndex(0);
         lb_TotalGeneral.setText("0");
@@ -180,6 +182,8 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jc_seleccionarTxNoches.setEnabled(false);
          jc_seleccionarTxHoras.setEnabled(false);
         jt_MontoManualaCobrar.setEnabled(false);
+        jt_TotalHoras.setEnabled(false);
+        jt_TotalHoras.setEditable(false);
         jt_CargoExtra.setEnabled(false);
         jt_MontoACobrar.setEnabled(false);
         cb_TipoPago.setEnabled(false);
@@ -190,8 +194,9 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jt_MontoManualaCobrar.setEnabled(true);
         jt_CargoExtra.setEnabled(true);
         jt_MontoACobrar.setEnabled(true);
+        jt_TotalHoras.setEnabled(true);
+        jt_TotalHoras.setEditable(true);
         cb_TipoPago.setEnabled(true);
-        jc_seleccionarTxHoras.setEnabled(true);
 }
     private void mostrarElementosFacturas() {
         pn_showFacturas.setVisible(true);
@@ -1530,13 +1535,15 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                 if (validador == 1 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago" ) {
                     // monto,  tipoPago,  rfc,  correo,  usuario,  Nombre, NombreHabitacion,  FechaIngreso,  FechaSalida,  IdFacturacion
                     cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_razonSocial.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
-                    //cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
+                    cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
                     ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
+                    reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
                     Cerrar();
                 } else if (validador == 0 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
                     cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", Principal.User, "----", lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Sin Factura");
-                    //cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
+                    cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
                     ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
+                    reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
                     Cerrar();
                 }
             }
@@ -1633,7 +1640,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_MontoACobrarMouseClicked
 
     private void jt_MontoACobrarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoACobrarKeyTyped
-        ce.typedDigits(evt, jt_MontoACobrar);
+        ce.typedMoney(evt, jt_MontoACobrar);
     }//GEN-LAST:event_jt_MontoACobrarKeyTyped
 
     private void jt_MontoManualaCobrarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarFocusGained
@@ -1662,7 +1669,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_MontoManualaCobrarKeyReleased
 
     private void jt_MontoManualaCobrarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarKeyTyped
-        ce.typedDigits(evt, jt_MontoManualaCobrar);        // TODO add your handling code here:
+        ce.typedMoney(evt, jt_MontoManualaCobrar);        // TODO add your handling code here:
     }//GEN-LAST:event_jt_MontoManualaCobrarKeyTyped
 
     private void jt_CargoExtraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CargoExtraFocusGained
@@ -1685,7 +1692,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_CargoExtraKeyReleased
 
     private void jt_CargoExtraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_CargoExtraKeyTyped
-        ce.typedDigits(evt, jt_CargoExtra);        // TODO add your handling code here:
+        ce.typedMoney(evt, jt_CargoExtra);        // TODO add your handling code here:
     }//GEN-LAST:event_jt_CargoExtraKeyTyped
 
     private void jt_emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_emailFocusLost
@@ -1781,19 +1788,21 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_TotalHorasMouseClicked
 
     private void jt_TotalHorasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_TotalHorasKeyTyped
-   ce.typedDigits(evt, jt_TotalHoras);        // TODO add your handling code here:
+   ce.typedMoney(evt, jt_TotalHoras);        // TODO add your handling code here:
     }//GEN-LAST:event_jt_TotalHorasKeyTyped
 
     private void jt_TotalHorasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_TotalHorasKeyReleased
   String numero = jt_TotalHoras.getText();
 
-        if (!(numero.equals("")) && numero.matches("[0-9]*")) {
+        if (!(numero.equals("")) && numero.matches("[0-9]*") && !(numero.equals("0"))) {
             Double PrecioHoras = Double.valueOf(lb_precioxHora.getText());
             Double HorasTotales = Double.valueOf(jt_TotalHoras.getText());
             lb_totalxHoras.setText(String.valueOf(PrecioHoras * HorasTotales));
+            jc_seleccionarTxHoras.setEnabled(true);
 
         }else{
                lb_totalxHoras.setText("0");
+               jc_seleccionarTxHoras.setEnabled(false);
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_TotalHorasKeyReleased

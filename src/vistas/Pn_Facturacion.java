@@ -53,7 +53,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
     private ControladorEmail cemail = new ControladorEmail();
     private ControladorCategorias ccat = new ControladorCategorias();
     private ControladorEscritura ce = new ControladorEscritura();
-    DefaultTableModel NewTable = new DefaultTableModel();
+    private DefaultTableModel NewTable = new DefaultTableModel();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     private String correoRemitente, passwordRemitente, correoReceptor, asunto, mensaje;
 

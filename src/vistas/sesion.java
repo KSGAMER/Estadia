@@ -23,11 +23,11 @@ import javax.swing.ImageIcon;
  */
 public class sesion extends javax.swing.JFrame {
 
-    
     private ControladorEventosSesion ce = new ControladorEventosSesion();
     private ControladorSesion cs = new ControladorSesion();
     private ControladorUsuarios cu = new ControladorUsuarios();
     public static String Username;
+    public static boolean ventana = false;
 
     /**
      * Creates new form sesion
@@ -42,9 +42,11 @@ public class sesion extends javax.swing.JFrame {
 //jp_imagen.setBackground(new Color(0,0,0,1));
         ajustarImagen();
     }
- private void setIconSystem() {
+
+    private void setIconSystem() {
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/logosmall.png")).getImage());
     }
+
     private void setPantalla() {
 
         //para eliminar el tittle bar
@@ -58,9 +60,6 @@ public class sesion extends javax.swing.JFrame {
         //para dejar el menu centrado y estatico
         this.setLocationRelativeTo(null);
     }
-
-
-
 
     private void ajustarImagen() {
         //se utiliza para obtener la ruta de la imagen 
@@ -232,16 +231,10 @@ public class sesion extends javax.swing.JFrame {
         iniciar_sesion.setBackground(new java.awt.Color(40, 180, 99));
         iniciar_sesion.setForeground(new java.awt.Color(255, 255, 255));
         iniciar_sesion.setText("Ingresar");
-        iniciar_sesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         iniciar_sesion.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         iniciar_sesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iniciar_sesionMouseClicked(evt);
-            }
-        });
-        iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                iniciar_sesionActionPerformed(evt);
             }
         });
         jPanel2.add(iniciar_sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 230, 40));
@@ -292,8 +285,7 @@ public class sesion extends javax.swing.JFrame {
             usuario.setText("Ingresa tu usuario");
             usuario.setForeground(new Color(153, 153, 153));
         }*/
-        
-        
+
     }//GEN-LAST:event_usuarioFocusLost
 
     private void contraseñaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contraseñaFocusLost
@@ -302,7 +294,7 @@ public class sesion extends javax.swing.JFrame {
             contraseña.setText("Ingresa tu usuario");
             contraseña.setForeground(new Color(153, 153, 153));
         }*/
-        
+
     }//GEN-LAST:event_contraseñaFocusLost
 
     private void cerrar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrar_sesionMouseClicked
@@ -326,8 +318,7 @@ public class sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaKeyPressed
 
     private void iniciar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciar_sesionMouseClicked
-  cs.autentificarUsuario(usuario, contraseña, Lb_notificacion, this);
-  // TODO add your handling code here:
+        cs.autentificarUsuario(usuario, contraseña, Lb_notificacion, this);
     }//GEN-LAST:event_iniciar_sesionMouseClicked
 
     private void lb_ConfigsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_ConfigsMouseClicked
@@ -338,7 +329,7 @@ public class sesion extends javax.swing.JFrame {
 
     private void jch_mostrarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jch_mostrarItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
-            contraseña.setEchoChar((char)0);
+            contraseña.setEchoChar((char) 0);
 
         } else {//checkbox has been deselected
             contraseña.setEchoChar('\u25cf');
@@ -349,11 +340,6 @@ public class sesion extends javax.swing.JFrame {
     private void jch_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jch_mostrarActionPerformed
 
     }//GEN-LAST:event_jch_mostrarActionPerformed
-
-    private void iniciar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciar_sesionActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iniciar_sesionActionPerformed
 
     /**
      * @param args the command line arguments

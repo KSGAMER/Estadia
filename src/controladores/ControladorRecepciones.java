@@ -75,19 +75,52 @@ public class ControladorRecepciones extends ModeloRecepciones {
                         //Si el estado es igual a "Disponible" prosigue
                         case "Disponible": {
                             //Se agrega al contenedor un nuevo componente con los datos previamente cargados y mostrando el estado "Disponible"
-                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), null, disponible));
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.setVisible(true);
+                                }
+                            }, disponible));
                             break;
                         }
                         //Si el estado es igual a "Reservado" prosigue
                         case "Reservado": {
                             //Se agrega al contenedor un nuevo componente con los datos previamente cargados y mostrando el estado "Reservado"
-                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), null, reservado));
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.setVisible(true);
+                                }
+                            }, reservado));
                             break;
                         }
                         //Si el estado es igual a "Limpieza" prosigue
                         case "Limpieza": {
                             //Se agrega al contenedor un nuevo componente con los datos previamente cargados y mostrando el estado "Limpieza"
-                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), null, limpieza));
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.setVisible(true);
+                                }
+                            }, limpieza));
                             break;
                         }
                     }

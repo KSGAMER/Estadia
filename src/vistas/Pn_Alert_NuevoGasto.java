@@ -439,15 +439,15 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_NombreGastoKeyTyped
 
     private void jt_MontoGastadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoGastadoFocusGained
-        cft.formFocusGain(jt_NombreGasto);
+        cft.formFocusGain(jt_MontoGastado);
     }//GEN-LAST:event_jt_MontoGastadoFocusGained
 
     private void jt_MontoGastadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_MontoGastadoFocusLost
-        cft.formFocusLostJTextField(jt_NombreGasto, "Ingresar Gasto");
+        cft.formFocusLostJTextField(jt_MontoGastado, "Ingresar Gasto");
     }//GEN-LAST:event_jt_MontoGastadoFocusLost
 
     private void jt_MontoGastadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_MontoGastadoMouseClicked
-        cft.formFocusGain(jt_NombreGasto);
+        cft.formFocusGain(jt_MontoGastado);
     }//GEN-LAST:event_jt_MontoGastadoMouseClicked
 
     private void jt_MontoGastadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoGastadoKeyReleased

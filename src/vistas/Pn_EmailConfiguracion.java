@@ -8,6 +8,7 @@ package vistas;
 import controladores.ControladorConfiguracion;
 import controladores.ControladorEmail;
 import java.awt.event.ItemEvent;
+import vistas.Pn_Facturacion;
 /**
  *
  * @author fenix
@@ -16,6 +17,7 @@ public class Pn_EmailConfiguracion extends javax.swing.JDialog {
 
 
     ControladorEmail cemail =   new ControladorEmail();
+    private Pn_Facturacion s;
     /**
      * Creates new form Pruebas
      */
@@ -229,6 +231,7 @@ public class Pn_EmailConfiguracion extends javax.swing.JDialog {
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         cemail.modificarDatosEmail(jt_remitente.getText(), String.valueOf(jt_contraseña.getPassword()), jt_destinatario.getText());
+        s.lb_Destinatario.setText(jt_destinatario.getText());
         this.dispose();
     }//GEN-LAST:event_btnAceptarMouseClicked
 

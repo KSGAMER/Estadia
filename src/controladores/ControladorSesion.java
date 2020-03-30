@@ -10,18 +10,19 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import vistas.Principal;
-import static vistas.sesion.Username;
+import vistas.sesion;
 
 /**
  *
  * @author KSGAMER
  */
 public class ControladorSesion {
+
     //Se declaran las clases a utilizar
     private ControladorUsuarios cu = new ControladorUsuarios();
-    
+
     //Método que autentifica el usuario y la contraseña
-    public void autentificarUsuario(JTextField usuario, JPasswordField contraseña, JLabel Lb_notificacion, JFrame sesion) {
+    public void autentificarUsuario(JTextField usuario, JPasswordField contraseña, JLabel Lb_notificacion, JFrame login) {
         //Se cargan los datos a utilizar
         cu.tablaUsuarios();
         //Se recorre el arreglo de usuarios
@@ -33,13 +34,15 @@ public class ControladorSesion {
                     //Si el usuario y la contraseña son iguales al usuario y contraseña extraidos de base de datos prosigue
                     if (cu.selectUsuario().get(i).getUsername().equals(usuario.getText()) && cu.selectUsuario().get(i).getPassword().equals(contraseña.getText())) {
                         //Guarda el usuario en la variable publica Username
-                        Username = usuario.getText();
+                        Principal.User = usuario.getText();
                         //Instancia la ventana princial
-                        Principal p = new Principal();
-                        //Muestra la ventana principal
-                        p.setVisible(true);
-                        //Oculta la venta de sesion
-                        sesion.setVisible(false);
+                        if (sesion.ventana == false) {
+                            Principal p = new Principal();
+                            //Muestra la ventana principal
+                            p.setVisible(true);
+                            //Oculta la venta de sesion
+                            login.setVisible(false);
+                        }
                         //Rompe el ciclo
                         break;
                     } else {//De lo contrario manda la siguiente notificación

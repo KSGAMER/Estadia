@@ -17,13 +17,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import controladores.*;
-import ds.desktop.notify.DesktopNotify;
-import objetos.ObjetoCaja;
-import objetos.ObjetoCobro;
-import objetos.ObjetoEstadoCaja;
-import objetos.ObjetoEstadoHabitacion;
-import objetos.ObjetoHabitacion;
-import objetos.ObjetoReservacion;
 import vistas.ModuloAdmin.*;
 
 /**
@@ -32,8 +25,9 @@ import vistas.ModuloAdmin.*;
  */
 public class Principal extends javax.swing.JFrame implements Runnable {
     //se isa en la validacion de cajas abiertas para que el sistema no se pueda cerrar 
-ControladorCaja cecaja = new ControladorCaja();
-ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
+
+    ControladorCaja cecaja = new ControladorCaja();
+    ControladorEstadoCaja cescaja = new ControladorEstadoCaja();
     private String hora, minutos, segundos;
     private Thread hilo;
     private ControladorRecepciones crp = new ControladorRecepciones();
@@ -51,7 +45,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
     private ControladorModulos cmod = new ControladorModulos();
     private ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
 //    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
-    public static String User =sesion.Username;
+    public static String User = sesion.Username;
     //necesario para el control del administrador unicamente
     MenuItem Administrador;
     MenuItem Configuracion;
@@ -60,7 +54,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
     //para abrir la ventana de sesion al dar click en cerrar sesion 
     sesion se = new sesion();
 //fin
-     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
+    Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
     String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
 
     /**
@@ -71,6 +65,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         //la posibilidad de arrastrar la aplicacion dentro del escritorio
         setPantalla();
         //fin
+        sesion.ventana = true;
         initComponents();
         //PARA QUE APAREZCA LA PANTALLE DE INICIO AL COMENZAR LA APLICACION
         //new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
@@ -113,8 +108,6 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         mostrarFecha();
         mostrarHora();
         //fin
-    
-
 
     }
 
@@ -130,9 +123,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         }
 
     }
- 
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -506,10 +497,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         wa.jb_aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-             
-                    System.exit(0);
-                
-
+                System.exit(0);
             }
         });
         wa.setVisible(true);
@@ -604,23 +592,23 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
                 new CambiaPanel(pnlPrincipal, new Pn_PermisosAccesos());
             }
         });
-           //  SUBMENU PARA Administracion de caja
+        //  SUBMENU PARA Administracion de caja
         MenuItem AbrirCaja = new MenuItem(subMenus, "Apertura de Caja", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
-                  new CambiaPanel(pnlPrincipal, new Pn_MovimientoAbrirCaja());
+                new CambiaPanel(pnlPrincipal, new Pn_MovimientoAbrirCaja());
             }
         });
-          MenuItem CerrarCaja = new MenuItem(subMenus, "Cierre de Caja", 10, new ActionListener() {
+        MenuItem CerrarCaja = new MenuItem(subMenus, "Cierre de Caja", 10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
-                  new CambiaPanel(pnlPrincipal, new Pn_MovimientoCerrarCaja());
+                new CambiaPanel(pnlPrincipal, new Pn_MovimientoCerrarCaja());
             }
         });
-          //submenu gastos 
- MenuItem NuevoGasto = new MenuItem(subMenus, "Nuevo Gasto", 35, new ActionListener() {
+        //submenu gastos 
+        MenuItem NuevoGasto = new MenuItem(subMenus, "Nuevo Gasto", 35, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Pn_Alert_NuevoGasto gasto = new Pn_Alert_NuevoGasto(Principal.this, true);
@@ -628,7 +616,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
 
             }
         });
-       /*submenu inventario SIN USO AUN 
+        /*submenu inventario SIN USO AUN 
  MenuItem NuevoProducto = new MenuItem(subMenus, "Nuevo Producto", 35, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -641,7 +629,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
                   new CambiaPanel(pnlPrincipal, new Pn_InventarioxHabitacion());
             }
         });
-  *///FIN SIN USO AUN 
+         *///FIN SIN USO AUN 
 //APARTADO DE TODOS LOS MENUS
         MenuItem CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35, new ActionListener() {
             @Override
@@ -662,12 +650,12 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         MenuItem Clientes = new MenuItem(iconClientes, "Clientes", 35, null, AgregarCliente);
         Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
         MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);
-        MenuItem GastosHotel = new MenuItem(iconClientes, "Caja", 35, null, NuevoGasto);
+        MenuItem GastosHotel = new MenuItem(iconAdminCaja, "Caja", 35, null, NuevoGasto);
         MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
-        AdministracionCaja = new MenuItem(iconAdminCaja, "Caja Admin", 35, null, AbrirCaja,CerrarCaja);
-       /*SIN USO AUN
+        AdministracionCaja = new MenuItem(iconAdminCaja, "Caja Admin", 35, null, AbrirCaja, CerrarCaja);
+        /*SIN USO AUN
         MenuItem Inventario = new MenuItem(iconAdministrador, "Inventario", 35, null, NuevoProducto,ProductoxHabitacion);
-        */
+         */
         Administrador = new MenuItem(iconAdministrador, "Administrador", 35, null, NuevoEmpleado, ConfiguraciónServidor, Permisos);
         MenuItem Sesion = new MenuItem(iconSesion, "Cerrar Sesión", 35, new ActionListener() {
             @Override
@@ -677,8 +665,8 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
                 wa.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-
                         Principal.this.dispose();
+                        sesion.ventana = false;
                         se.setVisible(true);
 
                     }
@@ -687,7 +675,7 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
             }
         });
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
-        addMenu(CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, Reportes,GastosHotel, Configuracion, Administrador,AdministracionCaja, Sesion); //Configuracion);
+        addMenu(CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, Reportes, GastosHotel, Configuracion, Administrador, AdministracionCaja, Sesion); //Configuracion);
     }
 
     private void addMenu(MenuItem... menu) {
@@ -746,7 +734,6 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
             if (i > 0) {
                 //  validarPermisos();
                 hora();
-                EliminarReservacion();
                 lb_hora.setText(hora + ":" + minutos + ":" + segundos);
             }
         }
@@ -765,29 +752,6 @@ ControladorEstadoCaja cescaja= new ControladorEstadoCaja();
         hora = calendario.get(Calendar.HOUR_OF_DAY) > 9 ? "" + calendario.get(Calendar.HOUR_OF_DAY) : "0" + calendario.get(Calendar.HOUR_OF_DAY);
         minutos = calendario.get(Calendar.MINUTE) > 9 ? "" + calendario.get(Calendar.MINUTE) : "0" + calendario.get(Calendar.MINUTE);
         segundos = calendario.get(Calendar.SECOND) > 9 ? "" + calendario.get(Calendar.SECOND) : "0" + calendario.get(Calendar.SECOND);
-
-    }
-    private void EliminarReservacion() {
-        for (ObjetoReservacion objectoReservacion : cr.selectReservacion()) {
-            for (ObjetoHabitacion objetoHabitacion : ch.selectHabitacion()) {
-                for (ObjetoEstadoHabitacion objectoEstadoHabi : cesHabi.selectEstadoHabitacion()) {
-                    for (ObjetoCobro oCobro : ccobro.selectCobro()) {
-                        if (objectoReservacion.getIdHabitacion() == objetoHabitacion.getIdHabitacion()) {
-                            if (objetoHabitacion.getIdEstadoHabitacion() == objectoEstadoHabi.getIdEstadoHabitacion()) {
-                                if (oCobro.getIdHabitacion() == objetoHabitacion.getIdHabitacion()) {
-                                    if (objectoReservacion.getFechaSalidaCompleta().equals(fechaActual)) {
-                                        cr.deleteReservacion(objectoReservacion.getIdReservacion());
-
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
 
     }
 
