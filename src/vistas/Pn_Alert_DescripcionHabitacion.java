@@ -69,6 +69,7 @@ ControladorHabitaciones ch = new ControladorHabitaciones();
         materialButton1 = new principal.MaterialButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        lb_close = new javax.swing.JButton();
         lb_NombreCategoria = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -91,7 +92,7 @@ ControladorHabitaciones ch = new ControladorHabitaciones();
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(36, 47, 65));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cb_status.setBackground(new java.awt.Color(84, 110, 122));
@@ -143,34 +144,54 @@ ControladorHabitaciones ch = new ControladorHabitaciones();
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 320, 70));
 
-        jPanel3.setBackground(new java.awt.Color(36, 47, 65));
+        jPanel3.setBackground(new java.awt.Color(233, 235, 238));
 
         jLabel2.setBackground(new java.awt.Color(36, 47, 65));
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Descripción General");
+
+        lb_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/icons8_Cancel_32px.png"))); // NOI18N
+        lb_close.setToolTipText("Close");
+        lb_close.setBorder(null);
+        lb_close.setBorderPainted(false);
+        lb_close.setContentAreaFilled(false);
+        lb_close.setFocusable(false);
+        lb_close.setRequestFocusEnabled(false);
+        lb_close.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/icons8_Cancel_30px_3.png"))); // NOI18N
+        lb_close.setVerifyInputWhenFocusTarget(false);
+        lb_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lb_closeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(60, 60, 60))
+                .addGap(51, 51, 51)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
+                .addComponent(lb_close, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(lb_close, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 50));
 
         lb_NombreCategoria.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_NombreCategoria.setForeground(new java.awt.Color(255, 255, 255));
         lb_NombreCategoria.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_NombreCategoria.setText("Categoria");
         jPanel1.add(lb_NombreCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 90, -1));
@@ -188,11 +209,13 @@ ControladorHabitaciones ch = new ControladorHabitaciones();
         jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 130, -1));
 
         lb_NombreHabitacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_NombreHabitacion.setForeground(new java.awt.Color(255, 255, 255));
         lb_NombreHabitacion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_NombreHabitacion.setText("Habitacion");
         jPanel1.add(lb_NombreHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 130, -1));
 
         lb_Estado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lb_Estado.setForeground(new java.awt.Color(255, 255, 255));
         lb_Estado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_Estado.setText("Estado");
         jPanel1.add(lb_Estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 130, -1));
@@ -347,6 +370,10 @@ ControladorHabitaciones ch = new ControladorHabitaciones();
         }*/
     }//GEN-LAST:event_cb_statusItemStateChanged
 
+    private void lb_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lb_closeActionPerformed
+     Cerrar();
+    }//GEN-LAST:event_lb_closeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -406,6 +433,7 @@ ControladorHabitaciones ch = new ControladorHabitaciones();
     public static javax.swing.JLabel lb_Estado;
     public static javax.swing.JLabel lb_NombreCategoria;
     public static javax.swing.JLabel lb_NombreHabitacion;
+    private javax.swing.JButton lb_close;
     private principal.MaterialButton materialButton1;
     // End of variables declaration//GEN-END:variables
 
