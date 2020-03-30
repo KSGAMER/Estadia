@@ -16,19 +16,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 import vistas.*;
+
 /**
  *
  * @author fenix
  */
 public class Pn_PermisosAccesos extends javax.swing.JPanel {
 //NECESARIO PARA FUNCIONES DE ESTE MODULO 
+
     ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
     ControladorPermisos cperm = new ControladorPermisos();
     ControladorUsuarios cuser = new ControladorUsuarios();
     ControladorModulos cmod = new ControladorModulos();
     DefaultTableModel NewTable = new DefaultTableModel();
     //fin
-  
+
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
     //FIN
@@ -100,7 +102,6 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         cb_usuario.setModel(cb);
 
     }
-  
 
     private void cargarModulo() {
 
@@ -121,40 +122,44 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
             cb.addElement(campos.getNombre());
         }
         cb_consultar.setModel(cb);
-     
+
     }
-     private void cargarAgregar() {
+
+    private void cargarAgregar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
-      
+
         cb_agregar.setModel(cb);
-      
+
     }
-      private void cargarActualizar() {
+
+    private void cargarActualizar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
-       
+
         cb_actualizar.setModel(cb);
-      
+
     }
-       private void cargarEliminar() {
+
+    private void cargarEliminar() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Permiso");
         for (ObjetoEstatusPermiso campos : eperm.selectEstatusPermiso()) {
             cb.addElement(campos.getNombre());
         }
- 
+
         cb_eliminar.setModel(cb);
     }
+
     private Boolean validarSeleccion() {
         Boolean val = true;
         if (!(cb_usuario.getSelectedIndex() == 0)) {
@@ -219,25 +224,25 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     private Boolean validarCajasAbiertas() {
         Boolean val = true;
 
-        
-            for (ObjetoPermiso objetoPermiso : cperm.selectPermiso()) {
-                
-                if (objetoPermiso.getUsermane().equals(String.valueOf(cb_usuario.getSelectedItem()))) {
-                    if (cperm.selectPermiso().size() == 2) {
-                        DesktopNotify.showDesktopMessage("Error", "Ya se han generado todos"
-                                + "los permisos para este usuario", DesktopNotify.ERROR);
-                        val = true;
-                        break;
-                    } else {
-                        DesktopNotify.showDesktopMessage("NOTA", "Falta por agregar 1 o mas permisos", DesktopNotify.TIP);
+        for (ObjetoPermiso objetoPermiso : cperm.selectPermiso()) {
 
-                        val = false;
-                    }
+            if (objetoPermiso.getUsermane().equals(String.valueOf(cb_usuario.getSelectedItem()))) {
+                if (objetoPermiso.getIdModulo() == 1 && objetoPermiso.getIdModulo() == 2) {
+                    DesktopNotify.showDesktopMessage("Error", "Ya se han generado todos"
+                            + "los permisos para este usuario", DesktopNotify.ERROR);
+                    val = true;
+                    break;
+                } else {
+                    DesktopNotify.showDesktopMessage("NOTA", "Falta por agregar 1 o mas permisos", DesktopNotify.TIP);
+
+                    val = false;
                 }
+            }
         }
 
         return val;
- }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -703,33 +708,27 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         try {
-            if (btn_Ingresar.getText().equals("Generar") && !validarSeleccion()==true ) {
-                
-                //codigo de generacion
-                for (ObjetoUsuario user : cuser.selectUsuario()) {
+            if (btn_Ingresar.getText().equals("Generar") && !validarSeleccion() == true) {
+                if (!validarCajasAbiertas() == true) {
+                    System.out.println("entro");
+                } else {
+//codigo de generacion
                     for (ObjetoModulo mod : cmod.selectModulo()) {
 
-                        cperm.insertPermiso(user.getUsername(), mod.getNombre(), "Permitido", "Permitido", "Permitido", "Permitido");
+                        cperm.insertPermiso(cb_usuario.getSelectedItem().toString(), mod.getNombre(), "Permitido", "Permitido", "Permitido", "Permitido");
                         NewTable = new DefaultTableModel();
                         cTabla();
 
                     }
-
                 }
+
             } else if (btn_Ingresar.getText().equals("Agregar") && validarSeleccion() == true) {
+                cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
+                NewTable = new DefaultTableModel();
+                cTabla();
 
-                if (validarCajasAbiertas() == true) {
-                    
-                } else {
-                    cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
-                    NewTable = new DefaultTableModel();
-                    cTabla();
-                }
-
-
-                
-            }else if(btn_Ingresar.getText().equals("Agregar") && !validarSeleccion()==true){
-                  DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
+            } else if (btn_Ingresar.getText().equals("Agregar") && !validarSeleccion() == true) {
+                DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             }
 
@@ -784,7 +783,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
             } else {
                 Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
-                  ale.jb_aceptar.addActionListener(new ActionListener() {
+                ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
                         cperm.deletePermiso(Integer.parseInt(lb_Id.getText()));
@@ -799,10 +798,9 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-    
         }
 
-      
+
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
     private void jch_facturacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jch_facturacionItemStateChanged
@@ -812,13 +810,13 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
             bloquearComponentes();
         } else {//checkbox has been deselected
             btn_Ingresar.setText("Agregar");
-    //        validador = 0;
+            //        validador = 0;
             desbloquearComponentes();
         }       // TODO add your handling code here:
     }//GEN-LAST:event_jch_facturacionItemStateChanged
 
     private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
- datosIniciales();        // TODO add your handling code here:
+        datosIniciales();        // TODO add your handling code here:
     }//GEN-LAST:event_jb_limpiarCamposActionPerformed
 
 
