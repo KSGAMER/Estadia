@@ -84,6 +84,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, disponible));
@@ -101,6 +102,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, reservado));
@@ -118,6 +120,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
@@ -140,6 +143,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, disponible));
@@ -157,6 +161,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, reservado));
@@ -174,6 +179,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
@@ -199,6 +205,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, disponible));
@@ -216,6 +223,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, reservado));
@@ -233,6 +241,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
@@ -255,6 +264,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, disponible));
@@ -272,6 +282,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, reservado));
@@ -289,6 +300,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));

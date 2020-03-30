@@ -32,7 +32,6 @@ ControladorHabitaciones ch = new ControladorHabitaciones();
         initComponents();
         AWTUtilities.setOpaque(this, false);
         Ubicar(0);
-        validarCambioEstado();
         jta_observaciones.setEnabled(false);
   //para ajustar el tecto al tamaño del jtextarea
         jta_observaciones.setLineWrap(true);
@@ -47,8 +46,8 @@ ControladorHabitaciones ch = new ControladorHabitaciones();
         this.setResizable(false);
 
     }
-    private void validarCambioEstado(){
-        if(!(lb_Estado.equals("Limpieza"))){
+    public void validarCambioEstado(){
+        if(!(lb_Estado.getText().equals("Limpieza"))){
             cb_status.setEnabled(false);
         }else{
             cb_status.setEnabled(true);
