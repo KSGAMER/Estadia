@@ -7,6 +7,7 @@ package vistas;
 
 import Utilerias.AWTUtilities;
 import controladores.ControladorHabitaciones;
+import controladores.ControladorRecepciones;
 import ds.desktop.notify.DesktopNotify;
 import java.util.TimerTask;
 import java.util.Timer;
@@ -17,17 +18,16 @@ import java.awt.Toolkit;
  * @author fenix
  */
 public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
-ControladorHabitaciones ch = new ControladorHabitaciones();
-    Timer timer = null;
-    TimerTask task;
-    int i = 32;
+    private ControladorHabitaciones ch = new ControladorHabitaciones();
+    private Timer timer = null;
+    private TimerTask task;
+    private int i = 32;
 
     /**
      * Creates new form AlertSuccess
      */
     public Pn_Alert_DescripcionHabitacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-
         setPantalla();
         initComponents();
         AWTUtilities.setOpaque(this, false);

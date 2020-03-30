@@ -313,7 +313,7 @@ public class Pn_Recepcion extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private Utilerias.RSButtonMetro lbAccesos;
     private javax.swing.JPanel pn_MenuPisoDinamico;
-    private javax.swing.JPanel pn_VistaReservaciones;
+    private static javax.swing.JPanel pn_VistaReservaciones;
     // End of variables declaration//GEN-END:variables
 
 }

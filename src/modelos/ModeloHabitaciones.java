@@ -255,7 +255,7 @@ public class ModeloHabitaciones extends BD {
                     this.st.setInt(7, meh.selectEstadoHabitaciones().get(i).getIdEstadoHabitacion());
                 }
             }
-            this.st.setInt(7, id);
+            this.st.setInt(8, id);
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión

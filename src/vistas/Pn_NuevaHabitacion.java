@@ -828,8 +828,9 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         cb_piso.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 2));
         cb_Categoria.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 3));
         jt_precioxNoche.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 4)));
-        jta_observaciones.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 5)));
-        cb_status.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 6));
+        jt_precioxHora.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 5)));
+        jta_observaciones.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 6)));
+        cb_status.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 7));
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_habitacionesMouseClicked
 
