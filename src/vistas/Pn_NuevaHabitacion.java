@@ -223,6 +223,9 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         cb_piso.setSelectedIndex(0);
         cb_status.setSelectedIndex(0);
         cb_Categoria.setSelectedIndex(0);
+        btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
+        btn_Ingresar.setEnabled(true);
 
     }
 
@@ -817,6 +820,9 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
     private void jt_habitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_habitacionesMouseClicked
         int seleccion = jt_habitaciones.rowAtPoint(evt.getPoint());
+        btn_Modificar.setEnabled(true);
+        btn_Eliminar.setEnabled(true);
+        btn_Ingresar.setEnabled(false);
         lb_Id.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 0)));
         jt_nombre.setText(String.valueOf(jt_habitaciones.getValueAt(seleccion, 1)));
         cb_piso.getModel().setSelectedItem(jt_habitaciones.getValueAt(seleccion, 2));

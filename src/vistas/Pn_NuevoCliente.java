@@ -196,6 +196,9 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
         jt_telefono.setText("Ingresar Telefono");
         jt_email.setText("Ingresar Email");
         cb_cfdi.setSelectedIndex(0);
+        btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
+        btn_Ingresar.setEnabled(true);
     }
 
     private Boolean validarEscritura() {
@@ -789,6 +792,9 @@ public class Pn_NuevoCliente extends javax.swing.JPanel {
 
     private void jt_ClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ClientesMouseClicked
         seleccion = jt_Clientes.rowAtPoint(evt.getPoint());
+        btn_Modificar.setEnabled(true);
+        btn_Eliminar.setEnabled(true);
+        btn_Ingresar.setEnabled(false);
         lb_Id.setText(String.valueOf(jt_Clientes.getValueAt(seleccion, 0)));
         jt_nombre.setText(String.valueOf(jt_Clientes.getValueAt(seleccion, 1)));
         jt_rfc.setText(String.valueOf(jt_Clientes.getValueAt(seleccion, 2)));

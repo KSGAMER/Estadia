@@ -114,6 +114,9 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
         lb_errorNombre.setForeground(new Color(84, 110, 122));
         jt_nombre.setText("Ingresar Nombre");
         jta_observaciones.setText("Ingresar Observaciones");
+        btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
+        btn_Ingresar.setEnabled(true);
     }
 
     private Boolean validarEscritura() {
@@ -451,6 +454,9 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
 
     private void jt_categoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_categoriasMouseClicked
         int seleccion = jt_categorias.rowAtPoint(evt.getPoint());
+        btn_Modificar.setEnabled(true);
+        btn_Eliminar.setEnabled(true);
+        btn_Ingresar.setEnabled(false);
         lb_Id.setText(String.valueOf(jt_categorias.getValueAt(seleccion, 0)));
         jt_nombre.setText(String.valueOf(jt_categorias.getValueAt(seleccion, 1)));
         jta_observaciones.setText(String.valueOf(jt_categorias.getValueAt(seleccion, 2)));

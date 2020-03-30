@@ -143,6 +143,9 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
         lb_Id.setText("*");
         jt_nombre.setText("Ingresar Nombre");
         jta_observaciones.setText("Ingresar Observaciones");
+        btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
+        btn_Ingresar.setEnabled(true);
     }
 
     private Boolean validarEscritura() {
@@ -565,6 +568,9 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
     private void jt_pisosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_pisosMouseClicked
         int seleccion = jt_pisos.rowAtPoint(evt.getPoint());
+        btn_Modificar.setEnabled(true);
+        btn_Eliminar.setEnabled(true);
+        btn_Ingresar.setEnabled(false);
         lb_Id.setText(String.valueOf(jt_pisos.getValueAt(seleccion, 0)));
         jt_nombre.setText(String.valueOf(jt_pisos.getValueAt(seleccion, 1)));
         jta_observaciones.setText(String.valueOf(jt_pisos.getValueAt(seleccion, 2)));

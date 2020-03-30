@@ -63,11 +63,9 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
         btn_Ingresar.setEnabled(true);
         btn_Modificar.setEnabled(false);
         btn_Eliminar.setEnabled(false);
-    
     }
 
     private void bloquearComponentes() {
-        
         cb_modulo.setEnabled(false);
         cb_consultar.setEnabled(false);
         cb_agregar.setEnabled(false);
@@ -218,6 +216,28 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     }
 
+    private Boolean validarCajasAbiertas() {
+        Boolean val = true;
+
+        
+            for (ObjetoPermiso objetoPermiso : cperm.selectPermiso()) {
+                
+                if (objetoPermiso.getUsermane().equals(String.valueOf(cb_usuario.getSelectedItem()))) {
+                    if (cperm.selectPermiso().size() == 2) {
+                        DesktopNotify.showDesktopMessage("Error", "Ya se han generado todos"
+                                + "los permisos para este usuario", DesktopNotify.ERROR);
+                        val = true;
+                        break;
+                    } else {
+                        DesktopNotify.showDesktopMessage("NOTA", "Falta por agregar 1 o mas permisos", DesktopNotify.TIP);
+
+                        val = false;
+                    }
+                }
+        }
+
+        return val;
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -696,11 +716,17 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
                     }
 
                 }
-            } else if(btn_Ingresar.getText().equals("Agregar") && validarSeleccion()==true) {
-                         
-                cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
-                NewTable = new DefaultTableModel();
-                cTabla();
+            } else if (btn_Ingresar.getText().equals("Agregar") && validarSeleccion() == true) {
+
+                if (validarCajasAbiertas() == true) {
+                    
+                } else {
+                    cperm.insertPermiso(String.valueOf(cb_usuario.getSelectedItem()), String.valueOf(cb_modulo.getSelectedItem()), String.valueOf(cb_consultar.getSelectedItem()), String.valueOf(cb_agregar.getSelectedItem()), String.valueOf(cb_actualizar.getSelectedItem()), String.valueOf(cb_eliminar.getSelectedItem()));
+                    NewTable = new DefaultTableModel();
+                    cTabla();
+                }
+
+
                 
             }else if(btn_Ingresar.getText().equals("Agregar") && !validarSeleccion()==true){
                   DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
