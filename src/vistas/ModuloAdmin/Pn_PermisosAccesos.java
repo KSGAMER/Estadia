@@ -708,7 +708,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         try {
-            if (btn_Ingresar.getText().equals("Generar") && !validarSeleccion() == true) {
+            if (btn_Ingresar.getText().equals("Generar")) {
                 if (!validarCajasAbiertas() == true) {
                     System.out.println("entro");
                 } else {
