@@ -75,7 +75,6 @@ public class ModeloClientes extends BD {
                 this.listClient.add(new ObjetoCliente(rs.getInt("IdCliente"), rs.getString("Nombre"), rs.getString("RFC"), rs.getString("Direccion"), rs.getString("Telefono"), rs.getString("Email"), rs.getInt("IdCFDI")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -122,7 +121,6 @@ public class ModeloClientes extends BD {
                 this.listClient.add(new ObjetoCliente(rs.getInt("IdCliente"), rs.getString("Nombre"), rs.getString("RFC"), rs.getString("Direccion"), rs.getString("Telefono"), rs.getString("Email"), rs.getInt("IdCFDI")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -161,7 +159,6 @@ public class ModeloClientes extends BD {
             //Se ejecuta la consulta
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             //Notificación de éxito si este no ha generado ningun problema
             DesktopNotify.showDesktopMessage("Exito", "Los datos del cliente han sido insertados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
@@ -195,7 +192,6 @@ public class ModeloClientes extends BD {
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
-            conectar().close();
             //Notificación de éxito si este no ha generado ningun problema
             DesktopNotify.showDesktopMessage("Exito", "Los datos del cliente han sido actualizados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
@@ -214,7 +210,6 @@ public class ModeloClientes extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             //Notificación de éxito si este no ha generado ningun problema
             DesktopNotify.showDesktopMessage("Exito", "Los datos del cliente han sido eliminados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {

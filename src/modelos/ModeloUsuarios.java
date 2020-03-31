@@ -68,7 +68,6 @@ public class ModeloUsuarios extends BD {
                 this.listUsers.add(new ObjetoUsuario(rs.getString("Username"), rs.getString("Password"), rs.getString("Empleado"), rs.getString("Telefono"), rs.getString("Direccion"), rs.getInt("IdEstatusUsuario")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -105,7 +104,6 @@ public class ModeloUsuarios extends BD {
             //Se ejecuta la consulta
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Datos del empleado agregados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar agregar los datos del nuevo empleado, por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
@@ -136,7 +134,6 @@ public class ModeloUsuarios extends BD {
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Datos del empleado actualizados con éxito.", DesktopNotify.SUCCESS);
 
         } catch (SQLException ex) {
@@ -154,7 +151,6 @@ public class ModeloUsuarios extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Datos del empleado eliminados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar los datos del empleado por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);

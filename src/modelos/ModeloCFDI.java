@@ -99,7 +99,6 @@ public class ModeloCFDI extends BD {
             /**
              * Se cierra la conexión
              */
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }

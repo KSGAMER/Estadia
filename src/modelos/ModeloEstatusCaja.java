@@ -37,7 +37,6 @@ public class ModeloEstatusCaja extends BD{
                 tb.addRow(fila);
                 this.list.add(new ObjetoEstadoCaja(rs.getInt(1), rs.getString(2)));
             }
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -90,7 +90,6 @@ public class ModeloPermisos extends BD {
                 this.listAccess.add(new ObjetoPermiso(rs.getInt("IdPermiso"), rs.getString("Username"), rs.getInt("IdModulo"), rs.getInt("Consultar"), rs.getInt("Insertar"), rs.getInt("Actualizar"), rs.getInt("Eliminar")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -147,7 +146,6 @@ public class ModeloPermisos extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido agregados con éxito.", DesktopNotify.SUCCESS);
 
         } catch (SQLException ex) {
@@ -202,7 +200,6 @@ public class ModeloPermisos extends BD {
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido actualizados con éxito.", DesktopNotify.SUCCESS);
 
         } catch (SQLException ex) {
@@ -221,7 +218,6 @@ public class ModeloPermisos extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Los datos del privilegio han sido eliminados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             // Logger.getLogger(ModeloPermisos.class.getName()).log(Level.SEVERE, null, ex);

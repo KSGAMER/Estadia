@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import objetos.ObjetoEstatusUsuario;
 
@@ -35,7 +36,6 @@ public class ModeloEstatusUsuarios extends BD{
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
         Object[] fila = new Object[2];
-
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
             this.st = conectar().prepareStatement("SELECT * FROM EstatusUsuario");
@@ -52,7 +52,6 @@ public class ModeloEstatusUsuarios extends BD{
                 this.listStatusUser.add(new ObjetoEstatusUsuario(rs.getInt("IdEstatusUsuario"), rs.getString("Nombre")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -70,7 +70,6 @@ public class ModeloReservaciones extends BD {
                 this.listReservations.add(new ObjetoReservacion(rs.getInt("IdReservacion"), rs.getString("Nombre"), rs.getInt("IdHabitacion"), rs.getString("FechaIngreso"), rs.getString("FechaSalida")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloReservaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -116,7 +115,6 @@ public class ModeloReservaciones extends BD {
                 this.listReservations.add(new ObjetoReservacion(rs.getInt("IdReservacion"), rs.getString("Nombre"), rs.getInt("IdHabitacion"), rs.getString("FechaIngreso"), rs.getString("FechaSalida")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloReservaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -152,7 +150,6 @@ public class ModeloReservaciones extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion agregados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar ingresar los datos de la nueva reservación,"
@@ -183,7 +180,6 @@ public class ModeloReservaciones extends BD {
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion actualizados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar actualizar los datos de la reservación, por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);
@@ -200,7 +196,6 @@ public class ModeloReservaciones extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
           //  DesktopNotify.showDesktopMessage("Exito", "Datos de la reservacion eliminados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
          //   DesktopNotify.showDesktopMessage("Error", "Ocurrió un error al intentar eliminar  los datos de la reservación, por favor intente de nuevo o revise su conexión", DesktopNotify.ERROR);

@@ -85,7 +85,6 @@ public class ModeloCobros extends BD {
                 this.listPay.add(new ObjetoCobro(rs.getInt("Monto"), rs.getInt("IdTipoPago"), rs.getString("RFC"), rs.getString("Correo"), rs.getString("FechaCobro"), rs.getInt("IdFacturacion"), rs.getInt("IdHabitacion")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -125,7 +124,6 @@ public class ModeloCobros extends BD {
               //  this.listPay.add(new ObjetoCobro(rs.getInt("Monto"), rs.getInt("IdTipoPago"), rs.getString("RFC"), rs.getString("Correo"), rs.getString("FechaCobro"), rs.getInt("IdFacturacion")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -200,7 +198,6 @@ public class ModeloCobros extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -253,7 +250,6 @@ public class ModeloCobros extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCobros.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -52,7 +52,6 @@ public class ModeloTipoPagos extends BD{
                 this.listTypePayment.add(new ObjetoTipoPago(rs.getInt("IdTipoPago"), rs.getString("Nombre")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }

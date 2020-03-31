@@ -57,7 +57,6 @@ public class ModeloPisos extends BD{
                 this.listBackground.add(new ObjetoPiso(rs.getInt("IdPiso"), rs.getString("Nombre"), rs.getString("Observaciones")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,7 +90,6 @@ public class ModeloPisos extends BD{
                 this.listBackground.add(new ObjetoPiso(rs.getInt("IdPiso"), rs.getString("Nombre"), rs.getString("Observaciones")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -115,7 +113,6 @@ public class ModeloPisos extends BD{
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Los datos del piso han sido insertados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar insertar los datos del piso, intentelo nuevamente y asegurese de que todos los campos obligatorios este llenos", DesktopNotify.ERROR);
@@ -134,7 +131,6 @@ public class ModeloPisos extends BD{
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Los datos del piso han sido actualizados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar actualizar los datos del piso, intentelo nuevamente y asegurese de que todos los campos obligatorios este llenos", DesktopNotify.ERROR);
@@ -151,7 +147,6 @@ public class ModeloPisos extends BD{
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Los datos del piso han sido eliminados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar eliminar los datos del piso, un piso previamente utilizado no puede ser eliminado", DesktopNotify.ERROR);

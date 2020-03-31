@@ -74,7 +74,6 @@ public class ModeloInventarioHabitacion extends BD {
                 this.list.add(new ObjetoInventarioHabitacion(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5)));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloInventario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,7 +108,6 @@ public class ModeloInventarioHabitacion extends BD {
                 }
             }
             this.st.execute();
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloInventarioHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -139,7 +137,6 @@ public class ModeloInventarioHabitacion extends BD {
             }
             this.st.setInt(5, id);
             this.st.executeUpdate();
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloInventarioHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -150,7 +147,6 @@ public class ModeloInventarioHabitacion extends BD {
             this.st = conectar().prepareStatement("DELETE FROM InventarioHabitacion WHERE IdInventarioHabitacion = ?");
             this.st.setInt(1, id);
             this.st.execute();
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloInventarioHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }

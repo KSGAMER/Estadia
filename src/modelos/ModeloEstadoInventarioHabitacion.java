@@ -48,7 +48,6 @@ public class ModeloEstadoInventarioHabitacion extends BD{
                 this.list.add(new ObjetoEstadoInvetararioHabitacion(rs.getInt(1), rs.getString(2)));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloInventario.class.getName()).log(Level.SEVERE, null, ex);
         }

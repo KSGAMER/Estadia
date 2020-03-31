@@ -52,7 +52,6 @@ public class ModeloModulos extends BD{
                 this.listModule.add(new ObjetoModulo(rs.getInt("IdModulo"), rs.getString("Nombre")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -65,7 +65,6 @@ public class ModeloReportes extends BD {
                 tb.addRow(fila);
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -96,7 +95,6 @@ public class ModeloReportes extends BD {
                 tb.addRow(fila);
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,7 +124,6 @@ public class ModeloReportes extends BD {
                 tb.addRow(fila);
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -157,7 +154,6 @@ public class ModeloReportes extends BD {
                 tb.addRow(fila);
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -187,7 +183,6 @@ public class ModeloReportes extends BD {
                 tb.addRow(fila);
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -217,7 +212,6 @@ public class ModeloReportes extends BD {
                 tb.addRow(fila);
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -253,7 +247,6 @@ public class ModeloReportes extends BD {
                     tb.addRow(fila);
                 }
                 //Se cierra la conexión
-                conectar().close();
             } catch (SQLException ex) {
                 Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -284,7 +277,6 @@ public class ModeloReportes extends BD {
                     tb.addRow(fila);
                 }
                 //Se cierra la conexión
-                conectar().close();
             } catch (SQLException ex) {
                 Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -320,7 +312,6 @@ public class ModeloReportes extends BD {
                     tb.addRow(fila);
                 }
                 //Se cierra la conexión
-                conectar().close();
             } catch (SQLException ex) {
                 Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -349,8 +340,6 @@ public class ModeloReportes extends BD {
                     //Se agrega el objeto a la tabla
                     tb.addRow(fila);
                 }
-                //Se cierra la conexión
-                conectar().close();
             } catch (SQLException ex) {
                 Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -387,7 +376,6 @@ public class ModeloReportes extends BD {
                     tb.addRow(fila);
                 }
                 //Se cierra la conexión
-                conectar().close();
             } catch (SQLException ex) {
                 Logger.getLogger(ModeloReportes.class.getName()).log(Level.SEVERE, null, ex);
             }

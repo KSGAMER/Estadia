@@ -92,7 +92,6 @@ public class ModeloHabitaciones extends BD {
                 this.listRoom.add(new ObjetoHabitacion(rs.getInt("IdHabitacion"), rs.getString("Nombre"), rs.getInt("IdPiso"), rs.getInt("IdCategoria"), rs.getDouble("PrecioSugerido"),rs.getDouble("PrecioHora"),rs.getString("Caracteristicas"), rs.getInt("IdEstadoHabitacion")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -156,7 +155,6 @@ public class ModeloHabitaciones extends BD {
                 this.listRoom.add(new ObjetoHabitacion(rs.getInt("IdHabitacion"), rs.getString("Nombre"), rs.getInt("IdPiso"), rs.getInt("IdCategoria"), rs.getDouble("PrecioSugerido"),rs.getDouble("PrecioHora"), rs.getString("Caracteristicas"), rs.getInt("IdEstadoHabitacion")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -210,7 +208,6 @@ public class ModeloHabitaciones extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Los datos de la habitación han sido insertados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar insertar los datos de la habitación, intentelo nuevamente y asegurese de que todos los campos obligatorios este llenos", DesktopNotify.ERROR);
@@ -259,7 +256,6 @@ public class ModeloHabitaciones extends BD {
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
-            conectar().close();
             DesktopNotify.showDesktopMessage("Exito", "Los datos de la habitación han sido actualizados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar actualizar los datos de la habitación, intentelo nuevamente y asegurese de que todos los campos obligatorios este llenos", DesktopNotify.ERROR);
@@ -294,7 +290,6 @@ public class ModeloHabitaciones extends BD {
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
-            conectar().close();
 //            DesktopNotify.showDesktopMessage("Exito", "Los datos de la habitación han sido actualizados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
             DesktopNotify.showDesktopMessage("Error", "Ocurrio un error al intentar actualizar los datos de la habitación, intentelo nuevamente y asegurese de que todos los campos obligatorios este llenos", DesktopNotify.ERROR);
@@ -322,7 +317,6 @@ public class ModeloHabitaciones extends BD {
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
         }
     }
@@ -337,7 +331,6 @@ public class ModeloHabitaciones extends BD {
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
         }
     }

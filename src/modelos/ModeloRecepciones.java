@@ -66,7 +66,6 @@ public class ModeloRecepciones extends BD {
                 this.list.add(new ObjetoRecepcion(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDouble(6),rs.getDouble(7),rs.getString(8)));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }

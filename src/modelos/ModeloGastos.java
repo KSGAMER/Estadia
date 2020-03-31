@@ -34,7 +34,6 @@ public class ModeloGastos extends BD{
                 fila[2] = rs.getString(3);
                 tb.addRow(fila);
             }
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,7 +54,6 @@ public class ModeloGastos extends BD{
                 fila[2] = rs.getString(3);
                 tb.addRow(fila);
             }
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,7 +77,6 @@ public class ModeloGastos extends BD{
                 fila[5] = rs.getString(6);
                 tb.addRow(fila);
             }
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -95,7 +92,6 @@ public class ModeloGastos extends BD{
             this.st.setString(4, usuario);
             this.st.setString(5, fecha);
             this.st.execute();
-            conectar().close();
                   DesktopNotify.showDesktopMessage("Exito", "Gasto Creado con exito", DesktopNotify.SUCCESS);
 
         } catch (SQLException ex) {
@@ -108,7 +104,6 @@ public class ModeloGastos extends BD{
             this.st = conectar().prepareStatement("DELETE FROM Gastos WHERE IdGastos = ?");
             this.st.setInt(1, id);
             this.st.execute();
-            this.st.close();
                 DesktopNotify.showDesktopMessage("Exito", "Gasto eliminado con exito", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
              DesktopNotify.showDesktopMessage("Error", "Error al eliminar el gasto, intente de nuevo", DesktopNotify.ERROR);

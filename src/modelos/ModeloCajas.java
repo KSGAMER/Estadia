@@ -56,7 +56,6 @@ public class ModeloCajas extends BD{
                 tb.addRow(fila);
                 this.list.add(new ObjetoCaja(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDouble(6), rs.getString(7), rs.getInt(8)));
             }
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,7 +82,6 @@ public class ModeloCajas extends BD{
                 }
             }
             this.st.execute();
-            conectar().close();
                         DesktopNotify.showDesktopMessage("Exito", "Apertura correcta de caja", DesktopNotify.SUCCESS);
       
         } catch (SQLException ex) {
@@ -108,7 +106,6 @@ public class ModeloCajas extends BD{
             }            
             this.st.setString(5, Usuario);
             this.st.executeUpdate();
-            conectar().close();
            DesktopNotify.showDesktopMessage("Exito", "Cierre de caja realizado correctamente", DesktopNotify.SUCCESS);
       
         } catch (SQLException ex) {
@@ -125,7 +122,6 @@ public class ModeloCajas extends BD{
             this.st.setString(2, usuario);
             this.st.setInt(3, id);
             this.st.executeUpdate();
-            conectar().close();
               DesktopNotify.showDesktopMessage("Exito", "Datos de caja actualizados correctamente", DesktopNotify.SUCCESS);
       
         } catch (SQLException ex) {
@@ -139,7 +135,6 @@ public class ModeloCajas extends BD{
             this.st = conectar().prepareStatement("DELETE FROM Caja WHERE IdCaja = ?");
             this.st.setInt(1, id);
             this.st.execute();
-            conectar().close();
               DesktopNotify.showDesktopMessage("Exito", "Datos eliminados correctamente", DesktopNotify.SUCCESS);
       
         } catch (SQLException ex) {

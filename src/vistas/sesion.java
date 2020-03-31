@@ -10,12 +10,14 @@ package vistas;
 import controladores.ControladorEventosSesion;
 import controladores.ControladorSesion;
 import controladores.ControladorUsuarios;
+import ds.desktop.notify.DesktopNotify;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 //para cambiar los valores de un boton 
 
 //para la fecha y la hora 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,12 +35,11 @@ public class sesion extends javax.swing.JFrame {
      * Creates new form sesion
      */
     public sesion() {
-
         setPantalla();//se debe mandar a llamar primero
         initComponents();
+        cu.tablaUsuarios();
         setIconSystem();
         centrarPantalla();
-        cu.tablaUsuarios();
 //jp_imagen.setBackground(new Color(0,0,0,1));
         ajustarImagen();
     }

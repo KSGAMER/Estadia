@@ -51,7 +51,6 @@ public class ModeloInventario extends BD{
                 this.list.add(new ObjetoInventario(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloInventario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,7 +69,6 @@ public class ModeloInventario extends BD{
             this.st.setInt(2, cantidad);
             this.st.setString(3, observaciones);
             this.st.execute();
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloInventario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,7 +82,6 @@ public class ModeloInventario extends BD{
             this.st.setString(3, observaciones);
             this.st.setInt(4, id);
             this.st.executeUpdate();
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloInventario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -95,7 +92,6 @@ public class ModeloInventario extends BD{
             this.st = conectar().prepareStatement("DELETE FROM Inventario WHERE IdInventario = ?");
             this.st.setInt(1, id);
             this.st.execute();
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloInventario.class.getName()).log(Level.SEVERE, null, ex);
         }

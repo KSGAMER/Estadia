@@ -52,7 +52,6 @@ public class ModeloEstatusPermisos extends BD{
                 this.listStatusAccess.add(new ObjetoEstatusPermiso(rs.getInt("IdEstatusPermiso"), rs.getString("Nombre")));
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }

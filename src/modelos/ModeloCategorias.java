@@ -75,7 +75,6 @@ public class ModeloCategorias extends BD {
                 }
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
 
         }
@@ -111,7 +110,6 @@ public class ModeloCategorias extends BD {
                 }
             }
             //Se cierra la conexión
-            conectar().close();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -137,7 +135,6 @@ public class ModeloCategorias extends BD {
             //Ejcutamos el Query
             this.st.execute();
             //Cerramos la conexión
-            conectar().close();
             //Notificación de éxito cuando la consulta no haya provado algun error inesperado
             DesktopNotify.showDesktopMessage("Exito", "Los datos de la categoria han sido insertados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
@@ -159,7 +156,6 @@ public class ModeloCategorias extends BD {
             //Ejecutamos la consulta
             this.st.executeUpdate();
             //Cerramos la conexión
-            conectar().close();
             //Notificación de éxito cuando la consulta no haya provado algun error inesperado
             DesktopNotify.showDesktopMessage("Exito", "Los datos de la categoria han sido actualizados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {
@@ -178,7 +174,6 @@ public class ModeloCategorias extends BD {
             //Ejcutamos la consulta
             this.st.executeUpdate();
             //Cerramos la conexión
-            conectar().close();
             //Notificación de éxito cuando la consulta no haya provado algun error inesperado
             DesktopNotify.showDesktopMessage("Exito", "Los datos de la categoria han sido eliminados con éxito.", DesktopNotify.SUCCESS);
         } catch (SQLException ex) {

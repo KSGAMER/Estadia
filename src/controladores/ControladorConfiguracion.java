@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import ds.desktop.notify.DesktopNotify;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -32,8 +34,7 @@ public class ControladorConfiguracion {
     private String password;
 
     //Se declara una variable que contiene la ruta del archivo de configuración
-    private File fichero = new File("src/configuraciones/Configuracion.json");
-
+    private File fichero = new File("Configuracion.json");
     //Constructor que inicializa las variables
     public ControladorConfiguracion() {
         try {

@@ -26,8 +26,9 @@ import vistas.ModuloAdmin.*;
 public class Principal extends javax.swing.JFrame implements Runnable {
     //se isa en la validacion de cajas abiertas para que el sistema no se pueda cerrar 
 
-    ControladorCaja cecaja = new ControladorCaja();
-    ControladorEstadoCaja cescaja = new ControladorEstadoCaja();
+    private ControladorCaja cecaja = new ControladorCaja();
+    private ControladorEstadoCaja cescaja = new ControladorEstadoCaja();
+    private Pn_NuevaCategoria p = new Pn_NuevaCategoria();
     private String hora, minutos, segundos;
     private Thread hilo;
     private ControladorRecepciones crp = new ControladorRecepciones();

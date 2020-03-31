@@ -5,20 +5,16 @@
  */
 package estadia;
 
-import controladores.*;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import vistas.Principal;
-
-import vistas.*;
+import vistas.sesion;
 
 /**
  *
  * @author KSGAMER
  */
-public class Estadia {
+public class estadia {
 
     /**
      * @param args the command line arguments
@@ -31,11 +27,8 @@ public class Estadia {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             sesion s = new sesion();
             s.setVisible(true);
-           /* Principal p = new Principal();
-            p.setVisible(true);*/
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
