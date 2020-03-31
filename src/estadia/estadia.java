@@ -7,6 +7,7 @@ package estadia;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import vistas.sesion;
 
@@ -24,6 +25,7 @@ public class estadia {
 
             JFrame.setDefaultLookAndFeelDecorated(true);
             JDialog.setDefaultLookAndFeelDecorated(true);
+            ToolTipManager.sharedInstance().setEnabled(false);
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             sesion s = new sesion();
             s.setVisible(true);

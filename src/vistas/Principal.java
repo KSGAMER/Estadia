@@ -355,6 +355,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         panelMenu.setBackground(new java.awt.Color(28, 37, 47));
         panelMenu.setPreferredSize(new java.awt.Dimension(250, 384));
 
+        scroll_Menu.setBackground(new java.awt.Color(28, 37, 47));
         scroll_Menu.setBorder(null);
 
         menus.setBackground(new java.awt.Color(28, 37, 47));
@@ -388,7 +389,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jl_Icon_User)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Bienvenida))

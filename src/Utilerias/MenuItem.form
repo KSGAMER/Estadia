@@ -5,6 +5,7 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="2f" green="25" red="1c" type="rgb"/>
     </Property>
+    <Property name="focusable" type="boolean" value="false"/>
   </Properties>
   <Events>
     <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMousePressed"/>
@@ -46,6 +47,7 @@
             <MatteColorBorder/>
           </Border>
         </Property>
+        <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Century Gothic" size="16" style="0"/>
         </Property>

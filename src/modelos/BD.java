@@ -23,12 +23,11 @@ public class BD extends ObjetoConfiguracion {
 
     //Declaración de la clase ModeloConfiguracion para inicializar
     private ObjetoConfiguracion ObjConfig = new ObjetoConfiguracion();
+    //Creación de variable de conexion a la Base de Datos
     private Connection conect = null;
 
     //Creación del metodo conectar encargado de la conexion a la base de datos SQL Server = Estadia
     protected Connection conectar() {
-        //Creación de variable de conexion a la Base de Datos
-
         try {
             //Variable que contiene la cadena de conexión a Base de Datos
             //Se extraen los valores apartir de un JSON alojado dentro de la aplicación en la carpeta configuraciones

@@ -68,6 +68,7 @@ public class MenuItem extends javax.swing.JPanel {
         lbAccesos = new Utilerias.RSButtonMetro();
 
         setBackground(new java.awt.Color(28, 37, 47));
+        setFocusable(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
@@ -77,6 +78,7 @@ public class MenuItem extends javax.swing.JPanel {
         lbAccesos.setText("  boton vario");
         lbAccesos.setToolTipText("");
         lbAccesos.setColorBorde(new javax.swing.border.MatteBorder(null));
+        lbAccesos.setFocusPainted(false);
         lbAccesos.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         lbAccesos.setHideActionText(true);
         lbAccesos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
