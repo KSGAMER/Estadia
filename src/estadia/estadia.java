@@ -30,7 +30,7 @@ public class estadia {
             sesion s = new sesion();
             s.setVisible(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
     }
 }

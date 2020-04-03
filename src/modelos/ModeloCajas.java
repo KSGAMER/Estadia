@@ -117,7 +117,7 @@ public class ModeloCajas extends BD{
        public void updateAperturaCaja(double montoApertura, String usuario, int id) {
         mec.cargarTabla();
         try {
-            this.st = conectar().prepareStatement("UPDATE Caja SET MontoApertura = ?, Username = ? WHERE IdCaja = ? and IdEstadoCaja=?");
+            this.st = conectar().prepareStatement("UPDATE Caja SET MontoApertura = ?, Username = ? WHERE IdCaja = ?");
             this.st.setDouble(1, montoApertura);
             this.st.setString(2, usuario);
             this.st.setInt(3, id);

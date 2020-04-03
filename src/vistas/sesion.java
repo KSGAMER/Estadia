@@ -37,7 +37,6 @@ public class sesion extends javax.swing.JFrame {
     public sesion() {
         setPantalla();//se debe mandar a llamar primero
         initComponents();
-        cu.tablaUsuarios();
         setIconSystem();
         centrarPantalla();
 //jp_imagen.setBackground(new Color(0,0,0,1));

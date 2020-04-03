@@ -428,6 +428,8 @@ jtabla_Cajas.setModel(cecaja.tablaCaja());
         btn_Eliminar.setEnabled(true);
         btn_Modificar.setEnabled(true);
         lb_Id.setText(String.valueOf(jtabla_Cajas.getValueAt(seleccion, 0)));
+        cb_usuario.setSelectedItem(jtabla_Cajas.getValueAt(seleccion, 6));
+        jt_MontoInicial.setText(jtabla_Cajas.getValueAt(seleccion, 2).toString());
         // TODO add your handling code here:
     }//GEN-LAST:event_jtabla_CajasMouseClicked
 

@@ -407,7 +407,7 @@ public class ModeloReportes extends BD {
     protected void generarReporte(String report, HashMap parametros) {
         try {
             //Se declara la variable con la ubicación del reporte y se castea a tipo JasperReport
-            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("src\\reportes\\" + report + ".jasper");
+            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes\\" + report + ".jasper");
             //Se declara la variable para poder extraer la información de base de datos pasando el reporte, los parametros y la conexión a base de datos
             JasperPrint imprimir = JasperFillManager.fillReport(reporte, parametros, conectar());
             //Se declara la variable para previsualizar el informe pasando la variable imprimir ya cargada con los datos

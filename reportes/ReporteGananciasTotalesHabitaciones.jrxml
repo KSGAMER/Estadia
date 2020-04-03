@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6a5a4a6-f236-4aa9-b3a4-b125c1579808">
+	<property name="ireport.zoom" value="1.3310000000000026"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="48"/>
+	<parameter name="habitacion" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT CONVERT(DATE, c.FechaCobro, 103) as Fecha, h.Nombre as Habitacion, SUM(Monto) as Ganancia FROM Cobro c INNER JOIN Habitacion h on h.IdHabitacion = c.IdHabitacion WHERE h.Nombre like CONCAT('%', $P{habitacion} ,'%') GROUP BY CONVERT(DATE, c.FechaCobro, 103), h.Nombre ORDER BY CONVERT(DATE, c.FechaCobro, 103) DESC]]>
+	</queryString>
+	<field name="Fecha" class="java.sql.Date"/>
+	<field name="Habitacion" class="java.lang.String"/>
+	<field name="Ganancia" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="59" y="12" width="419" height="54" uuid="1f582ce5-5a29-42f9-bb46-77f7bc882d20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Reporte de Hotel Paraíso Inn]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="37" width="419" height="22" uuid="e128c8d2-2ac9-424e-ba54-43bad732b897"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Tabla de Ganancias por Rango de Fechas]]></text>
+			</staticText>
+			<textField pattern="EEEEEE dd &apos;de&apos; MMMMM &apos;del&apos; yyyy HH:mm:ss aaa">
+				<reportElement x="348" y="19" width="205" height="20" uuid="ba0eeb6c-e090-4d11-8430-ca350d33b3de"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="0" width="119" height="20" uuid="c06d8ffd-df7b-4ade-97e4-841cda00872b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="0" width="119" height="20" uuid="00e484b3-d189-4167-a983-d874f2054141"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Habitación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="268" y="0" width="119" height="20" uuid="b5e381db-16d7-47cd-a1bf-d8f82b64e792"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ganancia]]></text>
+			</staticText>
+			<line>
+				<reportElement x="30" y="19" width="357" height="1" uuid="23ab03b6-362e-4d0e-ba72-59a2f2cf763c"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="119" height="20" uuid="3d670c22-9c34-4162-b8b3-bb6a3aa9731d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="0" width="119" height="20" uuid="3b93838d-2b78-4bb0-b749-54b1a4301396"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Habitacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="268" y="0" width="119" height="20" uuid="06e66ecc-cc49-43db-8989-c1eb33ad3172"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Ganancia}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="30" y="19" width="357" height="1" uuid="9e4240ae-b188-469b-a158-84a60cc660fd"/>
+			</line>
+			<line>
+				<reportElement x="149" y="0" width="1" height="19" uuid="850d55be-4a23-41d1-ac6f-cae8f70e08fb"/>
+			</line>
+			<line>
+				<reportElement x="268" y="0" width="1" height="19" uuid="8400f25b-bac8-4e63-9199-f0074afff3a8"/>
+			</line>
+			<staticText>
+				<reportElement x="269" y="0" width="17" height="19" uuid="c1c6fbda-9b28-4dd3-b2cd-66e1a4ea6e6f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="212" y="17" width="80" height="20" uuid="da67703b-7ce6-4808-ae5d-4d05c3437c8b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="292" y="17" width="40" height="20" uuid="211eb49c-d9b0-4e2c-9338-8068d76770c4"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="307" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="30" y="54" width="509" height="238" uuid="d2a72c25-f13b-4005-9b60-06039c3c9ebb"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{Habitacion}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Fecha}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{Ganancia}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<staticText>
+				<reportElement x="30" y="24" width="249" height="20" uuid="8a5a7936-e1a6-48d7-a81e-e0d7a2ad17df"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Gráfica de Reservaciones]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

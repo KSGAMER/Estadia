@@ -53,7 +53,9 @@ public class ModeloEstatusPermisos extends BD{
             }
             //Se cierra la conexión
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloCategorias.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch(java.lang.NullPointerException e) {
+            
         }
         //Se retorna la tabla
         return tb;
