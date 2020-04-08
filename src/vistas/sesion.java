@@ -10,7 +10,6 @@ package vistas;
 import controladores.ControladorEventosSesion;
 import controladores.ControladorSesion;
 import controladores.ControladorUsuarios;
-import ds.desktop.notify.DesktopNotify;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 //para cambiar los valores de un boton 
@@ -83,9 +82,6 @@ public class sesion extends javax.swing.JFrame {
     private void initComponents() {
 
         jp_imagen = new javax.swing.JPanel();
-        lb_hora = new javax.swing.JLabel();
-        lb_fecha = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         IconImage = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -113,21 +109,6 @@ public class sesion extends javax.swing.JFrame {
         jp_imagen.setBackground(new java.awt.Color(211, 211, 211));
         jp_imagen.setForeground(new java.awt.Color(97, 212, 195));
         jp_imagen.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lb_hora.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lb_hora.setForeground(new java.awt.Color(255, 255, 255));
-        lb_hora.setText("00:00:00");
-        jp_imagen.add(lb_hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, -1, -1));
-
-        lb_fecha.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lb_fecha.setForeground(new java.awt.Color(255, 255, 255));
-        lb_fecha.setText("dd/mm/yy");
-        jp_imagen.add(lb_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Fecha y hora actual");
-        jp_imagen.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, -1));
         jp_imagen.add(IconImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 400));
 
         getContentPane().add(jp_imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 400));
@@ -406,7 +387,6 @@ public class sesion extends javax.swing.JFrame {
     public static principal.MaterialButton iniciar_sesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -417,8 +397,6 @@ public class sesion extends javax.swing.JFrame {
     private javax.swing.JCheckBox jch_mostrar;
     private javax.swing.JPanel jp_imagen;
     private javax.swing.JLabel lb_Configs;
-    private javax.swing.JLabel lb_fecha;
-    private javax.swing.JLabel lb_hora;
     private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 }

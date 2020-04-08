@@ -36,6 +36,7 @@ public class ControladorSesion {
                     if (cu.selectUsuario().get(i).getUsername().equals(usuario.getText()) && cu.selectUsuario().get(i).getPassword().equals(contraseña.getText())) {
                         //Guarda el usuario en la variable publica Username
                         Principal.User = usuario.getText();
+                       
                         //Instancia la ventana princial
                         if (sesion.ventana == false) {
                             Principal p = new Principal();

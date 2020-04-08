@@ -17,6 +17,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import controladores.*;
+import java.awt.Color;
+import java.awt.Image;
 import vistas.ModuloAdmin.*;
 
 /**
@@ -51,13 +53,17 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     MenuItem Administrador;
     MenuItem Configuracion;
     MenuItem AdministracionCaja;
+    MenuItem Reportes;
     //fin 
     //para abrir la ventana de sesion al dar click en cerrar sesion 
     sesion se = new sesion();
 //fin
     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
     String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
-
+//color del menu del administrador
+private Color admin = new Color(40, 180, 99);    
+//color de letras del menu de otros usuarios
+private Color general = new Color(255,255,255); 
     /**
      * Creates new form Main
      */
@@ -73,6 +79,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         //PARA QUE APARECA LA PANTALLA DEL CALENDARIO AL INICAR LA APLICACION 
         new CambiaPanel(pnlPrincipal, new Pn_CalendarioReservaciones());
         //asigna la imagen de icono de la aplicacion que se muestra en la barra de tareas
+    
         setIconSystem();
         //fin
         //metodo para asignar el tamaño de la aplicacion 
@@ -86,6 +93,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         //fin
         //muestra el nombre del usuario logueado dentro de la aplicacion
         Bienvenida.setText("Bienvenido " + User);
+        
         //
         //ejecuta la funciones necesarias para crear el menu lateral con todos los accesos
         execute();
@@ -104,12 +112,13 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
         //muestra dependiendo del usuario, lo modulos que le corresponden
         comparadorPrivilegios();
-        //fin
+        //fin 
+        //  ajustarImagen();
         //muestra datos de fecha y tiempo actuales
         mostrarFecha();
         mostrarHora();
         //fin
-
+ajustarImagen();
     }
 
     public void comparadorPrivilegios() {
@@ -117,12 +126,25 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             Administrador.setVisible(false);
             Configuracion.setVisible(false);
             AdministracionCaja.setVisible(false);
+            Reportes.setVisible(false);
         } else {
             Administrador.setVisible(true);
             Configuracion.setVisible(true);
             AdministracionCaja.setVisible(true);
+            Reportes.setVisible(true);
         }
 
+    }
+    private void ajustarImagen() {
+        //se utiliza para obtener la ruta de la imagen 
+        ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/ImagenFondo/img_Hotel.jpg"));
+
+        //se utilizar para obtener el tamaño de jlaben que contendra la imagen y 
+        //despues se reacomda la imagen automaticamente 
+        Image image = icon.getImage().getScaledInstance(IconImage.getWidth(), IconImage.getHeight(), Image.SCALE_SMOOTH);
+//AQUI AGREGAMOS LAS IMAGENES AL LABEL COMO ICONO
+        IconImage.setIcon(new ImageIcon(image));
+        this.repaint();
     }
 
     /**
@@ -155,7 +177,9 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         menus = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Bienvenida = new javax.swing.JLabel();
-        jl_Icon_User = new javax.swing.JLabel();
+        jp_imagen = new javax.swing.JPanel();
+        IconImage = new LIB.FSLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -367,32 +391,54 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
         Bienvenida.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         Bienvenida.setForeground(new java.awt.Color(128, 128, 131));
+        Bienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Bienvenida.setText("HOTEL PARAISO INN");
 
-        jl_Icon_User.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/archivodepartamento.png"))); // NOI18N
-        jl_Icon_User.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jp_imagen.setBackground(new java.awt.Color(28, 37, 47));
+        jp_imagen.setForeground(new java.awt.Color(28, 37, 47));
+        jp_imagen.setToolTipText("");
+        jp_imagen.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        IconImage.setBackground(new java.awt.Color(28, 37, 47));
+        IconImage.setForeground(new java.awt.Color(28, 37, 47));
+        IconImage.setText("");
+        IconImage.setLineColor(new java.awt.Color(28, 37, 47));
+        jp_imagen.add(IconImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 160, 140));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/closeSession24x24.png"))); // NOI18N
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jl_Icon_User))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(Bienvenida)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Bienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jp_imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jl_Icon_User)
+                .addComponent(jp_imagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Bienvenida))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Bienvenida)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(1, 1, 1)))
+                .addContainerGap())
         );
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -463,11 +509,11 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuLayout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addGap(4, 4, 4)
-                .addComponent(scroll_Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scroll_Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98))
@@ -505,6 +551,23 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         wa.setVisible(true);
 
     }//GEN-LAST:event_lb_closeActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(Principal.this, true);
+        wa.lb_titulo.setText("¿ESTAS SEGURO DE CERRAR SESIÓN?");
+        wa.jb_aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Principal.this.dispose();
+                sesion.ventana = false;
+                se.setVisible(true);
+
+            }
+        });
+        wa.setVisible(true);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1MouseClicked
 //inicializa el menu lateral 
 
     private void execute() {
@@ -522,7 +585,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         //ICONO PARA LOS SUBMENUS
         ImageIcon subMenus = new ImageIcon(getClass().getResource("/Imagenes/newarrow20x20.png"));
         //  SUBMENU PARA RESERVACIONES
-        MenuItem NuevaReservacion = new MenuItem(subMenus, "Nueva Reservación", 10, new ActionListener() {
+        MenuItem NuevaReservacion = new MenuItem(subMenus, "Nueva Reservación", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_Reservaciones());
@@ -531,7 +594,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         });
 //  SUBMENU PARA CLIENTES
 
-        MenuItem AgregarCliente = new MenuItem(subMenus, "Nuevo Cliente", 10, new ActionListener() {
+        MenuItem AgregarCliente = new MenuItem(subMenus, "Nuevo Cliente", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoCliente());
@@ -539,55 +602,33 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         });
 
 // SUBMENU DE CONFIGURACION
-        MenuItem NuevoNivel = new MenuItem(subMenus, "Nuevo Piso", 10, new ActionListener() {
+        MenuItem NuevoNivel = new MenuItem(subMenus, "Nuevo Piso", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoPiso());
             }
         });
-        MenuItem NuevaCategoria = new MenuItem(subMenus, "Nueva Categoria", 10, new ActionListener() {
+        MenuItem NuevaCategoria = new MenuItem(subMenus, "Nueva Categoria", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevaCategoria());
             }
         });
-        MenuItem NuevaHabitacion = new MenuItem(subMenus, "Nueva Habitación", 10, new ActionListener() {
+        MenuItem NuevaHabitacion = new MenuItem(subMenus, "Nueva Habitación", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevaHabitacion());
             }
         });
-        //  SUBMENU PARA FACTURACION
-        MenuItem NuevaFactura = new MenuItem(subMenus, "Nueva Factura", 10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                new CambiaPanel(pnlPrincipal, new Pn_Facturacion());
-            }
-        });
-        //  SUBMENU PARA REPORTES
-        MenuItem GenerarReportes = new MenuItem(subMenus, "Reportes/Estadisticas", 10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                new CambiaPanel(pnlPrincipal, new Pn_NuevoReportes());
-                //  new CambiaPanel(pnlPrincipal, new Pn_CalendarioReservaciones());
-            }
-        });
         //  SUBMENU PARA Administrador
-        MenuItem NuevoEmpleado = new MenuItem(subMenus, "Nuevo Empleado", 10, new ActionListener() {
+        MenuItem NuevoEmpleado = new MenuItem(subMenus, "Nuevo Empleado", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoEmpleado());
             }
         });
-        MenuItem ConfiguraciónServidor = new MenuItem(subMenus, "Conexión", 10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-
-                new CambiaPanel(pnlPrincipal, new Pn_ConfServer());
-            }
-        });
-        MenuItem Permisos = new MenuItem(subMenus, "Permisos", 10, new ActionListener() {
+        MenuItem Permisos = new MenuItem(subMenus, "Permisos", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
@@ -595,14 +636,14 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
         //  SUBMENU PARA Administracion de caja
-        MenuItem AbrirCaja = new MenuItem(subMenus, "Apertura de Caja", 10, new ActionListener() {
+        MenuItem AbrirCaja = new MenuItem(subMenus, "Apertura de Caja", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
                 new CambiaPanel(pnlPrincipal, new Pn_MovimientoAbrirCaja());
             }
         });
-        MenuItem CerrarCaja = new MenuItem(subMenus, "Cierre de Caja", 10, new ActionListener() {
+        MenuItem CerrarCaja = new MenuItem(subMenus, "Cierre de Caja", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
@@ -610,7 +651,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
         //submenu gastos 
-        MenuItem NuevoGasto = new MenuItem(subMenus, "Nuevo Gasto", 35, new ActionListener() {
+        MenuItem NuevoGasto = new MenuItem(subMenus, "Nuevo Gasto", 35,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Pn_Alert_NuevoGasto gasto = new Pn_Alert_NuevoGasto(Principal.this, true);
@@ -633,51 +674,62 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         });
          *///FIN SIN USO AUN 
 //APARTADO DE TODOS LOS MENUS
-        MenuItem CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35, new ActionListener() {
+        MenuItem CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_CalendarioReservaciones());
             }
         });
 
-        MenuItem Reservaciones = new MenuItem(iconReservaciones, "Reservaciones", 35, null, NuevaReservacion);
+        MenuItem Reservaciones = new MenuItem(iconReservaciones, "Reservaciones", 35,general, null, NuevaReservacion);
 
-        MenuItem Recepcion = new MenuItem(iconRecepcion, "Recepción", 35, new ActionListener() {
+        MenuItem Recepcion = new MenuItem(iconRecepcion, "Recepción", 35,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
             }
         });
 
-        MenuItem Clientes = new MenuItem(iconClientes, "Clientes", 35, null, AgregarCliente);
-        Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
-        MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35, null, NuevaFactura);
-        MenuItem GastosHotel = new MenuItem(iconAdminCaja, "Caja", 35, null, NuevoGasto);
-        MenuItem Reportes = new MenuItem(iconReportes, "Reportes", 35, null, GenerarReportes);
-        AdministracionCaja = new MenuItem(iconAdminCaja, "Caja Admin", 35, null, AbrirCaja, CerrarCaja);
+        MenuItem Clientes = new MenuItem(iconClientes, "Clientes", 35,general, null, AgregarCliente);
+        Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35,admin, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
+        MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35,general, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                new CambiaPanel(pnlPrincipal, new Pn_Facturacion());
+            }
+        });
+        MenuItem GastosHotel = new MenuItem(iconAdminCaja, "Caja", 35,general, null, NuevoGasto);
+        Reportes = new MenuItem(iconReportes, "Reportes", 35,admin,  new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                new CambiaPanel(pnlPrincipal, new Pn_NuevoReportes());
+        
+            }
+        });
+        AdministracionCaja = new MenuItem(iconAdminCaja, "Caja Admin", 35,admin, null, AbrirCaja, CerrarCaja);
         /*SIN USO AUN
         MenuItem Inventario = new MenuItem(iconAdministrador, "Inventario", 35, null, NuevoProducto,ProductoxHabitacion);
          */
-        Administrador = new MenuItem(iconAdministrador, "Administrador", 35, null, NuevoEmpleado, ConfiguraciónServidor, Permisos);
-        MenuItem Sesion = new MenuItem(iconSesion, "Cerrar Sesión", 35, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(Principal.this, true);
-                wa.lb_titulo.setText("¿ESTAS SEGURO DE CERRAR SESIÓN?");
-                wa.jb_aceptar.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        Principal.this.dispose();
-                        sesion.ventana = false;
-                        se.setVisible(true);
-
-                    }
-                });
-                wa.setVisible(true);
-            }
-        });
+        Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35,admin, null, NuevoEmpleado,Permisos);
+//        MenuItem Sesion = new MenuItem(iconSesion, "Cerrar Sesión", 35,general, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(Principal.this, true);
+//                wa.lb_titulo.setText("¿ESTAS SEGURO DE CERRAR SESIÓN?");
+//                wa.jb_aceptar.addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent ae) {
+//                        Principal.this.dispose();
+//                        sesion.ventana = false;
+//                        se.setVisible(true);
+//
+//                    }
+//                });
+//                wa.setVisible(true);
+//            }
+//        });
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
-        addMenu(CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, Reportes, GastosHotel, Configuracion, Administrador, AdministracionCaja, Sesion); //Configuracion);
+        addMenu(CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, GastosHotel,Reportes, Configuracion, Administrador, AdministracionCaja/*, Sesion*/); //Configuracion);
     }
 
     private void addMenu(MenuItem... menu) {
@@ -805,6 +857,8 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bienvenida;
+    private LIB.FSLabel IconImage;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -819,7 +873,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JLabel jl_Icon_User;
+    private javax.swing.JPanel jp_imagen;
     private javax.swing.JLabel lb_AcercaDe;
     private javax.swing.JButton lb_close;
     private javax.swing.JLabel lb_fecha;

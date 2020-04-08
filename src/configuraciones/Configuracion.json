@@ -1,9 +1,9 @@
 {
     "PORT": "1433",
     "DATABASE": "Estadia",
-    "PASSWORD": "",
+    "PASSWORD": "1234",
     "SERVER": "localhost",
     "AUTH": "true",
-    "INSTANCE": "KSGAMER17",
-    "USER": "sa"
+    "INSTANCE": "fenix",
+    "USER": "Fenix"
 }

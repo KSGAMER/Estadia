@@ -455,14 +455,8 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_MontoGastadoKeyReleased
 
     private void jt_MontoGastadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoGastadoKeyTyped
- ce.typedDigits(evt, jt_MontoGastado);
-        char tecla;
-        tecla = evt.getKeyChar();
-        //Convertir a letras mayusculas
-        if (Character.isDigit(tecla)) {
-            evt.setKeyChar(Character.toUpperCase(tecla));
-
-        }
+ ce.typedMoney(evt, jt_MontoGastado);
+ 
     }//GEN-LAST:event_jt_MontoGastadoKeyTyped
 
     private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed

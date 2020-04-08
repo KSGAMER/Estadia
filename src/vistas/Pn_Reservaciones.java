@@ -110,6 +110,9 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         //CARGA LOS VALORES EN LA TABLA
         cTabla();
         //FIN
+        //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
+        tamañoTabla();
+        //FIN
         //CARGA EL CB CON LAS HABITACIONES
         cargarHabitaciones();
         //FIN

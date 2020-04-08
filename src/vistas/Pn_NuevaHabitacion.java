@@ -441,6 +441,8 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jt_habitaciones.setEditingColumn(1);
+        jt_habitaciones.setEditingRow(1);
         jt_habitaciones.getTableHeader().setResizingAllowed(false);
         jt_habitaciones.getTableHeader().setReorderingAllowed(false);
         jt_habitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -774,13 +776,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     }//GEN-LAST:event_jt_precioxNocheFocusLost
 
     private void jt_precioxNocheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_precioxNocheMouseClicked
-        // TODO add your handling code here:
-        // t_control.setText("");
-        if (!jt_precioxNoche.getText().equals("Ingresar Precio")) {
-
-        } else {
-            jt_precioxNoche.setText("");
-        }
+      cft.formFocusGain(jt_precioxNoche);
     }//GEN-LAST:event_jt_precioxNocheMouseClicked
 
     private void jt_precioxNocheKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_precioxNocheKeyTyped
@@ -941,19 +937,19 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_limpiarCampos2ActionPerformed
 
     private void jt_precioxHoraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_precioxHoraFocusGained
-        // TODO add your handling code here:
+      cft.formFocusGain(jt_precioxHora);   // TODO add your handling code here:
     }//GEN-LAST:event_jt_precioxHoraFocusGained
 
     private void jt_precioxHoraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_precioxHoraFocusLost
-        // TODO add your handling code here:
+  cft.formFocusLostJTextField(jt_precioxHora, "Ingresar Precio");        // TODO add your handling code here:
     }//GEN-LAST:event_jt_precioxHoraFocusLost
 
     private void jt_precioxHoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_precioxHoraMouseClicked
-        // TODO add your handling code here:
+    cft.formFocusGain(jt_precioxHora);
     }//GEN-LAST:event_jt_precioxHoraMouseClicked
 
     private void jt_precioxHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_precioxHoraKeyTyped
-        // TODO add your handling code here:
+  ce.typedMoney(evt, jt_precioxHora);        // TODO add your handling code here:
     }//GEN-LAST:event_jt_precioxHoraKeyTyped
 
 

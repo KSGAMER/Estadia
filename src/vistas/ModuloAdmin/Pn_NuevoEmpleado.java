@@ -20,6 +20,10 @@ import ds.desktop.notify.DesktopNotify;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import javax.swing.JFileChooser;
 import vistas.Pn_Alert_Eliminar;
 /**
  *
@@ -42,6 +46,13 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
   //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
+    //necesario para ectraer la ruta e informacion de las imagenes de usuario
+    JFileChooser seleccionar = new JFileChooser();
+    File archivo;
+    byte[] imagen;
+    FileInputStream entrada;
+    FileOutputStream salida;
+    //fin 
     private int limitePass=20;
     
     
@@ -75,7 +86,12 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
 
     public void tamañoTabla() {
         TableColumnModel columnModel = jt_Empleados.getColumnModel();
-
+        columnModel.getColumn(0).setPreferredWidth(50);
+        columnModel.getColumn(1).setPreferredWidth(50);
+        columnModel.getColumn(2).setPreferredWidth(50);
+        columnModel.getColumn(3).setPreferredWidth(70);
+        columnModel.getColumn(4).setPreferredWidth(150);
+        columnModel.getColumn(5).setPreferredWidth(50);
     }
 
     public void datosIniciales() {

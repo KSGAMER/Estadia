@@ -36,8 +36,10 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
 
     public Pn_MovimientoCerrarCaja() {
         initComponents();
-        RowHeaderApariencia();
-        RowApariencia();
+        RowHeaderAparienciaTCobros();
+        RowAparienciaTCobros();
+        RowHeaderAparienciaTGastos();
+        RowAparienciaTGastos();
         cTablaCobros();
         cTablaGastos();
         bloquearEliminadores();
@@ -61,11 +63,12 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
     }
 
     private void cTablaCobros() {
-jtabla_Cobros.setModel(ccob.tablaCobros2(""));
+        jtabla_Cobros.setModel(ccob.tablaCobros2(""));
+        
     }
 
     private void cTablaGastos() {
-jtabla_Gastos.setModel(cega.tablaGastosCompleta(""));
+        jtabla_Gastos.setModel(cega.tablaGastosCompleta(""));
     }
 
     private void RowApariencia() {
@@ -90,7 +93,58 @@ jtabla_Gastos.setModel(cega.tablaGastosCompleta(""));
         jtabla_Cobros.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
-private void datosIniciales() {
+
+    private void RowAparienciaTCobros() {
+
+        jtabla_Cobros.setFocusable(false);
+
+        //espacio entre comulnas
+        jtabla_Cobros.setIntercellSpacing(new Dimension(0, 1));
+        //altura de columnas 
+        jtabla_Cobros.setRowHeight(25);
+        //margen entre filas
+        jtabla_Cobros.setRowMargin(0);
+        //sin lineas verticles
+        jtabla_Cobros.setShowVerticalLines(false);
+        jtabla_Cobros.setSelectionBackground(new Color(97, 212, 195));
+
+    }
+
+    private void RowHeaderAparienciaTCobros() {
+        jtabla_Cobros.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
+        jtabla_Cobros.getTableHeader().setOpaque(false);
+        jtabla_Cobros.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Cobros.getTableHeader().setForeground(new Color(255, 255, 255));
+
+    }
+
+    private void RowAparienciaTGastos() {
+
+        //MODIFICACION DE TABLA GASTOS
+        jtabla_Gastos.setFocusable(false);
+
+        //espacio entre comulnas
+        jtabla_Gastos.setIntercellSpacing(new Dimension(0, 1));
+        //altura de columnas 
+        jtabla_Gastos.setRowHeight(25);
+        //margen entre filas
+        jtabla_Gastos.setRowMargin(0);
+//sin lineas verticles
+        jtabla_Gastos.setShowVerticalLines(false);
+        jtabla_Gastos.setSelectionBackground(new Color(97, 212, 195));
+
+    }
+
+    private void RowHeaderAparienciaTGastos() {
+        //APARIENCIA ROWS DE GASTOS
+        jtabla_Gastos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
+        jtabla_Gastos.getTableHeader().setOpaque(false);
+        jtabla_Gastos.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Gastos.getTableHeader().setForeground(new Color(255, 255, 255));
+
+    }
+
+    private void datosIniciales() {
         lb_idGasto.setText("*");
         lb_idCobroReservacion.setText("*");
     }
@@ -465,7 +519,7 @@ private void datosIniciales() {
     private void btn_EliminarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarGastoActionPerformed
         try {
             if (lb_idGasto.getText().equals("*")) {
-DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado", DesktopNotify.ERROR);
+                DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado", DesktopNotify.ERROR);
 
             } else {
 
@@ -501,7 +555,7 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
     }//GEN-LAST:event_jt_BuscarCobrosHabitacionesMouseClicked
 
     private void jt_BuscarCobrosHabitacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarCobrosHabitacionesKeyReleased
-          jtabla_Cobros.setModel(ccob.tablaCobros2(jt_BuscarCobrosHabitaciones.getText()));
+        jtabla_Cobros.setModel(ccob.tablaCobros2(jt_BuscarCobrosHabitaciones.getText()));
         //   tamañoTabla();
     }//GEN-LAST:event_jt_BuscarCobrosHabitacionesKeyReleased
 
@@ -543,7 +597,7 @@ DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un gastos realizado"
     }//GEN-LAST:event_jt_BuscarGastosMouseClicked
 
     private void jt_BuscarGastosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarGastosKeyReleased
-jtabla_Gastos.setModel(cega.tablaGastosCompleta(jt_BuscarGastos.getText()));        // TODO add your handling code here:
+        jtabla_Gastos.setModel(cega.tablaGastosCompleta(jt_BuscarGastos.getText()));        // TODO add your handling code here:
     }//GEN-LAST:event_jt_BuscarGastosKeyReleased
 
     private void jt_BuscarGastosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarGastosKeyTyped
@@ -559,7 +613,7 @@ jtabla_Gastos.setModel(cega.tablaGastosCompleta(jt_BuscarGastos.getText()));    
     private void btn_EliminarCobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarCobroActionPerformed
         try {
             if (lb_idCobroReservacion.getText().equals("*")) {
- DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un cobro realizado", DesktopNotify.ERROR);
+                DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un cobro realizado", DesktopNotify.ERROR);
 
             } else {
 
@@ -588,7 +642,7 @@ jtabla_Gastos.setModel(cega.tablaGastosCompleta(jt_BuscarGastos.getText()));    
     }//GEN-LAST:event_jb_limpiarFolioGastosActionPerformed
 
     private void jb_limpiarFolioCobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarFolioCobrosActionPerformed
-    datosInicialesCobros();      // TODO add your handling code here:
+        datosInicialesCobros();      // TODO add your handling code here:
     }//GEN-LAST:event_jb_limpiarFolioCobrosActionPerformed
 
 

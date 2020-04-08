@@ -33,17 +33,17 @@ public class MenuItem extends javax.swing.JPanel {
     private final ArrayList<MenuItem> subMenu = new ArrayList<>();
     private ActionListener act;
 
-    public MenuItem(Icon icon,String menuName,int Separacion, ActionListener act, MenuItem... subMenu) {
+    public MenuItem(Icon icon,String menuName,int Separacion,Color foreground, ActionListener act, MenuItem... subMenu) {
         initComponents();
     
        //MODIFICACIONES DEL BOTON VISUALES
      
       lbAccesos.setIcon(icon);
-      lbAccesos.setText(menuName);
-      lbAccesos.setIconTextGap(Separacion);
-   
-      
-      ///TERMINA MODIFICACIONES DEL BOTON
+        lbAccesos.setText(menuName);
+        lbAccesos.setIconTextGap(Separacion);
+        lbAccesos.setColorTextNormal(foreground);
+
+        ///TERMINA MODIFICACIONES DEL BOTON
         if (act != null) {
             this.act = act;
         }
