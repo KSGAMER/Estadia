@@ -129,7 +129,7 @@ String horaActual = new SimpleDateFormat("HH:mm:ss").format(now);
     private void RowHeaderAparienciaTCobros() {
         jtabla_Cobros.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jtabla_Cobros.getTableHeader().setOpaque(false);
-        jtabla_Cobros.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Cobros.getTableHeader().setBackground(new Color(32, 136, 203));
         jtabla_Cobros.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
@@ -155,7 +155,7 @@ String horaActual = new SimpleDateFormat("HH:mm:ss").format(now);
          //APARIENCIA ROWS DE GASTOS
         jtabla_Gastos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jtabla_Gastos.getTableHeader().setOpaque(false);
-        jtabla_Gastos.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Gastos.getTableHeader().setBackground(new Color(32, 136, 203));
         jtabla_Gastos.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }

@@ -103,7 +103,7 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
     private void RowHeaderApariencia() {
         jt_categorias.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_categorias.getTableHeader().setOpaque(false);
-        jt_categorias.getTableHeader().setBackground(Color.BLACK);
+        jt_categorias.getTableHeader().setBackground(new Color(32, 136, 203));
         jt_categorias.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }

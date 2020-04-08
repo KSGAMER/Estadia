@@ -71,29 +71,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
         jtabla_Gastos.setModel(cega.tablaGastosCompleta(""));
     }
 
-    private void RowApariencia() {
-
-        jtabla_Cobros.setFocusable(false);
-        //espacio entre comulnas
-        jtabla_Cobros.setIntercellSpacing(new Dimension(0, 1));
-        //altura de columnas 
-        jtabla_Cobros.setRowHeight(25);
-        //margen entre filas
-        jtabla_Cobros.setRowMargin(0);
-        //sin lineas verticles
-        jtabla_Cobros.setShowVerticalLines(false);
-        jtabla_Cobros.setSelectionBackground(new Color(97, 212, 195));
-
-    }
-
-    private void RowHeaderApariencia() {
-        jtabla_Cobros.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
-        jtabla_Cobros.getTableHeader().setOpaque(false);
-        jtabla_Cobros.getTableHeader().setBackground(Color.BLACK);
-        jtabla_Cobros.getTableHeader().setForeground(new Color(255, 255, 255));
-
-    }
-
+ 
     private void RowAparienciaTCobros() {
 
         jtabla_Cobros.setFocusable(false);
@@ -113,7 +91,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
     private void RowHeaderAparienciaTCobros() {
         jtabla_Cobros.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jtabla_Cobros.getTableHeader().setOpaque(false);
-        jtabla_Cobros.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Cobros.getTableHeader().setBackground(new Color(32, 136, 203));
         jtabla_Cobros.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
@@ -139,7 +117,7 @@ public class Pn_MovimientoCerrarCaja extends javax.swing.JPanel {
         //APARIENCIA ROWS DE GASTOS
         jtabla_Gastos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jtabla_Gastos.getTableHeader().setOpaque(false);
-        jtabla_Gastos.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Gastos.getTableHeader().setBackground(new Color(32, 136, 203));
         jtabla_Gastos.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }

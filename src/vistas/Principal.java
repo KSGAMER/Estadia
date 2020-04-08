@@ -50,11 +50,14 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 //    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
     public static String User = sesion.Username;
     //necesario para el control del administrador unicamente
-    MenuItem Administrador;
-    MenuItem Configuracion;
-    MenuItem AdministracionCaja;
-    MenuItem Reportes;
+    MenuItem Administrador,Configuracion,AdministracionCaja,Reportes;
     //fin 
+    //Necesarios para Otros Usuarios
+     MenuItem CalendarioReservas ,Reservaciones,Recepcion,Clientes,Facturas,GastosHotel;
+    //
+    //necesario para camarista
+    MenuItem  RecepcionCamarista;
+    //
     //para abrir la ventana de sesion al dar click en cerrar sesion 
     sesion se = new sesion();
 //fin
@@ -118,7 +121,7 @@ private Color general = new Color(255,255,255);
         mostrarFecha();
         mostrarHora();
         //fin
-ajustarImagen();
+        ajustarImagen();
     }
 
     public void comparadorPrivilegios() {
@@ -127,11 +130,25 @@ ajustarImagen();
             Configuracion.setVisible(false);
             AdministracionCaja.setVisible(false);
             Reportes.setVisible(false);
-        } else {
+            CalendarioReservas.setVisible(true);
+            Reservaciones.setVisible(true);
+            Recepcion.setVisible(true);
+            Clientes.setVisible(true);
+            Facturas.setVisible(true);
+            GastosHotel.setVisible(true);
+        } else if(User.equals("Camarista")) {
+            
+        }else if(User.equals("admin")){
             Administrador.setVisible(true);
             Configuracion.setVisible(true);
             AdministracionCaja.setVisible(true);
             Reportes.setVisible(true);
+            CalendarioReservas.setVisible(true);
+            Reservaciones.setVisible(true);
+            Recepcion.setVisible(true);
+            Clientes.setVisible(true);
+            Facturas.setVisible(true);
+            GastosHotel.setVisible(true);
         }
 
     }
@@ -581,8 +598,7 @@ ajustarImagen();
         ImageIcon iconFacturas = new ImageIcon(getClass().getResource("/Imagenes/icons/facturas32x32.png"));
         ImageIcon iconAdministrador = new ImageIcon(getClass().getResource("/Imagenes/icons/administrador32x32.png"));
         ImageIcon iconAdminCaja = new ImageIcon(getClass().getResource("/Imagenes/icons/cajaAdmin32x32.png"));
-        ImageIcon iconSesion = new ImageIcon(getClass().getResource("/Imagenes/icons/cerrarSesion32x32.png"));
-        //ICONO PARA LOS SUBMENUS
+       //ICONO PARA LOS SUBMENUS
         ImageIcon subMenus = new ImageIcon(getClass().getResource("/Imagenes/newarrow20x20.png"));
         //  SUBMENU PARA RESERVACIONES
         MenuItem NuevaReservacion = new MenuItem(subMenus, "Nueva Reservación", 10,general, new ActionListener() {
@@ -674,31 +690,33 @@ ajustarImagen();
         });
          *///FIN SIN USO AUN 
 //APARTADO DE TODOS LOS MENUS
-        MenuItem CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35,general, new ActionListener() {
+         CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_CalendarioReservaciones());
             }
         });
 
-        MenuItem Reservaciones = new MenuItem(iconReservaciones, "Reservaciones", 35,general, null, NuevaReservacion);
+         Reservaciones = new MenuItem(iconReservaciones, "Reservaciones", 35,general, null, NuevaReservacion);
 
-        MenuItem Recepcion = new MenuItem(iconRecepcion, "Recepción", 35,general, new ActionListener() {
+         Recepcion = new MenuItem(iconRecepcion, "Recepción", 35,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
             }
         });
 
-        MenuItem Clientes = new MenuItem(iconClientes, "Clientes", 35,general, null, AgregarCliente);
-        Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35,admin, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
-        MenuItem Facturas = new MenuItem(iconFacturas, "Facturacion", 35,general, new ActionListener() {
+         Clientes = new MenuItem(iconClientes, "Clientes", 35,general, null, AgregarCliente);
+         Facturas = new MenuItem(iconFacturas, "Facturacion", 35,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_Facturacion());
             }
         });
-        MenuItem GastosHotel = new MenuItem(iconAdminCaja, "Caja", 35,general, null, NuevoGasto);
+         GastosHotel = new MenuItem(iconAdminCaja, "Caja", 35,general, null, NuevoGasto); 
+        ///MENU EXTRA PARA ADMINISTRADOR 
+        Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35,admin, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
+       
         Reportes = new MenuItem(iconReportes, "Reportes", 35,admin,  new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -711,23 +729,7 @@ ajustarImagen();
         MenuItem Inventario = new MenuItem(iconAdministrador, "Inventario", 35, null, NuevoProducto,ProductoxHabitacion);
          */
         Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35,admin, null, NuevoEmpleado,Permisos);
-//        MenuItem Sesion = new MenuItem(iconSesion, "Cerrar Sesión", 35,general, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent ae) {
-//                Pn_Alert_Warning_Salir wa = new Pn_Alert_Warning_Salir(Principal.this, true);
-//                wa.lb_titulo.setText("¿ESTAS SEGURO DE CERRAR SESIÓN?");
-//                wa.jb_aceptar.addActionListener(new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent ae) {
-//                        Principal.this.dispose();
-//                        sesion.ventana = false;
-//                        se.setVisible(true);
-//
-//                    }
-//                });
-//                wa.setVisible(true);
-//            }
-//        });
+//    
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
         addMenu(CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, GastosHotel,Reportes, Configuracion, Administrador, AdministracionCaja/*, Sesion*/); //Configuracion);
     }

@@ -106,10 +106,10 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         columnModel.getColumn(1).setPreferredWidth(50);
         columnModel.getColumn(2).setPreferredWidth(70);
         columnModel.getColumn(3).setPreferredWidth(70);
-        columnModel.getColumn(4).setPreferredWidth(50);
-        columnModel.getColumn(5).setPreferredWidth(50);
-        columnModel.getColumn(6).setPreferredWidth(170);
-        columnModel.getColumn(7).setPreferredWidth(50);
+        columnModel.getColumn(4).setPreferredWidth(40);
+        columnModel.getColumn(5).setPreferredWidth(40);
+        columnModel.getColumn(6).setPreferredWidth(200);
+        columnModel.getColumn(7).setPreferredWidth(30);
     }
 
     private void cargarPisos() {
@@ -196,26 +196,12 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     public void RowHeaderApariencia() {
         jt_habitaciones.getTableHeader().setFont(new Font("Centaury Gotich", Font.BOLD, 14));
         jt_habitaciones.getTableHeader().setOpaque(false);
-        jt_habitaciones.getTableHeader().setBackground(Color.black);
+        jt_habitaciones.getTableHeader().setBackground(new Color(32, 136, 203));
         jt_habitaciones.getTableHeader().setForeground(new Color(255, 255, 255));
     }
 
     private void datosIniciales() {
         lb_Id.setText("*");
-        lb_errorCaracteristicas.setText("*");
-        lb_errorCategoria.setText("*");
-        lb_errorNombre.setText("*");
-        lb_errorPiso.setText("*");
-        lb_errorPrecioxNoche.setText("*");
-        lb_errorPrecioxHora.setText("*");
-        lb_errorStatus.setText("*");
-        lb_errorNombre.setForeground(new Color(84, 110, 122));
-        lb_errorPrecioxNoche.setForeground(new Color(84, 110, 122));
-        lb_errorPrecioxHora.setForeground(new Color(84, 110, 122));
-        lb_errorCaracteristicas.setForeground(new Color(84, 110, 122));
-        lb_errorPiso.setForeground(new Color(84, 110, 122));
-        lb_errorCategoria.setForeground(new Color(84, 110, 122));
-        lb_errorStatus.setForeground(new Color(84, 110, 122));
         jt_nombre.setText("Ingresar Nombre");
         jt_precioxNoche.setText("Ingresar Precio");
         jt_precioxHora.setText("Ingresar Precio");
@@ -226,6 +212,17 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         btn_Modificar.setEnabled(false);
         btn_Eliminar.setEnabled(false);
         btn_Ingresar.setEnabled(true);
+
+        
+        
+        lb_errorNombre.setForeground(new Color(84, 110, 122));
+        lb_errorPrecioxNoche.setForeground(new Color(84, 110, 122));
+        lb_errorPrecioxHora.setForeground(new Color(84, 110, 122));
+        lb_errorCaracteristicas.setForeground(new Color(84, 110, 122));
+        lb_errorPiso.setForeground(new Color(84, 110, 122));
+        lb_errorCategoria.setForeground(new Color(84, 110, 122));
+        lb_errorStatus.setForeground(new Color(84, 110, 122));
+    
 
     }
 
@@ -265,7 +262,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
     private Boolean validarSeleccion() {
         Boolean val = true;
-        if (!(cb_piso.getSelectedItem().equals("Seleccionar Piso"))) {
+        if (!(cb_piso.getSelectedIndex()==0)) {
 
             lb_errorPiso.setForeground(new Color(84, 110, 122));
         } else {
@@ -274,7 +271,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
 
             val = false;
         }
-        if (!(cb_Categoria.getSelectedItem().equals("Seleccionar Categoria"))) {
+        if (!(cb_Categoria.getSelectedIndex()==0)) {
 
             lb_errorCategoria.setForeground(new Color(84, 110, 122));
         } else {
@@ -284,7 +281,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
             val = false;
         }
 
-        if (!(cb_status.getSelectedItem().equals("Seleccionar Estatus"))) {
+        if (!(cb_status.getSelectedIndex()==0)) {
 
             lb_errorStatus.setForeground(new Color(84, 110, 122));
         } else {
@@ -379,12 +376,12 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 jt_precioxHoraKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_precioxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 150, -1));
+        jPanel1.add(jt_precioxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 570, 170, -1));
 
         lb_errorPrecioxHora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorPrecioxHora.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorPrecioxHora.setText("*");
-        jPanel1.add(lb_errorPrecioxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 10, -1));
+        jPanel1.add(lb_errorPrecioxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 10, -1));
 
         jPanel2.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -422,13 +419,13 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Detalle de Habitaciones");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Formulario de Cambios");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1030, 10));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 320, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1030, 10));
 
         jt_habitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -452,37 +449,37 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jt_habitaciones);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 660, 370));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 960, 170));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nombre de la Habitación :");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Piso de la Habitación :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Estatus:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Precio Por Hora :");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Caracteristicas de la Habitación :");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("$");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, -1, -1));
 
         jt_nombre.setBackground(new java.awt.Color(84, 110, 122));
         jt_nombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -507,10 +504,10 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 jt_nombreKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 190, -1));
+        jPanel1.add(jt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 190, -1));
 
         jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 190, 10));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 190, 10));
 
         jt_precioxNoche.setBackground(new java.awt.Color(84, 110, 122));
         jt_precioxNoche.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -535,10 +532,10 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 jt_precioxNocheKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_precioxNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 150, -1));
+        jPanel1.add(jt_precioxNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 520, 170, -1));
 
         jSeparator7.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 150, 10));
+        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 540, 170, 10));
 
         jta_observaciones.setColumns(20);
         jta_observaciones.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -563,7 +560,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 jta_observacionesKeyPressed(evt);
             }
         });
-        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 310, 140));
+        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 460, 310, 140));
 
         cb_piso.setBackground(new java.awt.Color(84, 110, 122));
         cb_piso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Piso" }));
@@ -574,7 +571,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 cb_pisoItemStateChanged(evt);
             }
         });
-        jPanel1.add(cb_piso, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 190, -1));
+        jPanel1.add(cb_piso, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 190, -1));
 
         cb_status.setBackground(new java.awt.Color(84, 110, 122));
         cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estatus" }));
@@ -585,7 +582,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 cb_statusItemStateChanged(evt);
             }
         });
-        jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 190, -1));
+        jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, 190, -1));
 
         btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -597,7 +594,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 btn_IngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 120, 40));
+        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 170, 40));
 
         btn_Modificar.setBackground(new java.awt.Color(255, 153, 0));
         btn_Modificar.setForeground(new java.awt.Color(255, 255, 255));
@@ -609,7 +606,7 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 btn_ModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 570, 120, 40));
+        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 440, 170, 40));
 
         btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
         btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -621,12 +618,12 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 btn_EliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 570, 120, 40));
+        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 510, 170, 40));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Categoria de la Habitación :");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, -1, -1));
 
         cb_Categoria.setBackground(new java.awt.Color(84, 110, 122));
         cb_Categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Categoria" }));
@@ -637,52 +634,52 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 cb_CategoriaItemStateChanged(evt);
             }
         });
-        jPanel1.add(cb_Categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 190, -1));
+        jPanel1.add(cb_Categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 190, -1));
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
-        jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 30, 20));
+        jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 30, 20));
 
         lb_errorNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorNombre.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorNombre.setText("*");
-        jPanel1.add(lb_errorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 10, -1));
+        jPanel1.add(lb_errorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 10, -1));
 
         lb_errorPiso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorPiso.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorPiso.setText("*");
-        jPanel1.add(lb_errorPiso, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 10, -1));
+        jPanel1.add(lb_errorPiso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 10, -1));
 
         lb_errorCategoria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorCategoria.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorCategoria.setText("*");
-        jPanel1.add(lb_errorCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 10, -1));
+        jPanel1.add(lb_errorCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 10, -1));
 
         lb_errorPrecioxNoche.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorPrecioxNoche.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorPrecioxNoche.setText("*");
-        jPanel1.add(lb_errorPrecioxNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 10, -1));
+        jPanel1.add(lb_errorPrecioxNoche, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 10, -1));
 
         lb_errorCaracteristicas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorCaracteristicas.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorCaracteristicas.setText("*");
-        jPanel1.add(lb_errorCaracteristicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 10, -1));
+        jPanel1.add(lb_errorCaracteristicas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 430, 10, -1));
 
         lb_errorStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lb_errorStatus.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorStatus.setText("*");
-        jPanel1.add(lb_errorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 10, -1));
+        jPanel1.add(lb_errorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 380, 10, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Total de registros ");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 550, 100, 20));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 320, 100, 20));
 
         jt_t_registros.setEditable(false);
         jt_t_registros.setBackground(new java.awt.Color(84, 110, 122));
         jt_t_registros.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jt_t_registros.setForeground(new java.awt.Color(255, 255, 255));
         jt_t_registros.setBorder(null);
-        jPanel1.add(jt_t_registros, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 550, 30, 20));
+        jPanel1.add(jt_t_registros, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 320, 30, 20));
 
         jt_Buscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_Buscar.setForeground(new java.awt.Color(102, 102, 102));
@@ -709,10 +706,10 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 jt_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 120, 150, 20));
+        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, 150, 20));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 110, -1, 40));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 90, -1, 40));
 
         jb_limpiarCampos2.setBackground(new java.awt.Color(84, 110, 122));
         jb_limpiarCampos2.setForeground(new java.awt.Color(84, 110, 122));
@@ -728,20 +725,20 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
                 jb_limpiarCampos2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 40, -1));
+        jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, 40, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Precio Por Noche :");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("$");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, -1, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 570, -1, -1));
 
         jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 150, 10));
+        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 170, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

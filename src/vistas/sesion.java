@@ -38,7 +38,6 @@ public class sesion extends javax.swing.JFrame {
         initComponents();
         setIconSystem();
         centrarPantalla();
-//jp_imagen.setBackground(new Color(0,0,0,1));
         ajustarImagen();
     }
 
@@ -218,6 +217,11 @@ public class sesion extends javax.swing.JFrame {
                 iniciar_sesionMouseClicked(evt);
             }
         });
+        iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciar_sesionActionPerformed(evt);
+            }
+        });
         jPanel2.add(iniciar_sesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 230, 40));
 
         lb_Configs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/configuracion-24x24.png"))); // NOI18N
@@ -300,6 +304,7 @@ public class sesion extends javax.swing.JFrame {
 
     private void iniciar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciar_sesionMouseClicked
         cs.autentificarUsuario(usuario, contraseña, Lb_notificacion, this);
+       
     }//GEN-LAST:event_iniciar_sesionMouseClicked
 
     private void lb_ConfigsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_ConfigsMouseClicked
@@ -321,6 +326,11 @@ public class sesion extends javax.swing.JFrame {
     private void jch_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jch_mostrarActionPerformed
 
     }//GEN-LAST:event_jch_mostrarActionPerformed
+
+    private void iniciar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciar_sesionActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iniciar_sesionActionPerformed
 
     /**
      * @param args the command line arguments

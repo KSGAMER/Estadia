@@ -113,7 +113,7 @@ jtabla_Cajas.setModel(cecaja.tablaCaja());
     private void RowHeaderApariencia() {
         jtabla_Cajas.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jtabla_Cajas.getTableHeader().setOpaque(false);
-        jtabla_Cajas.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Cajas.getTableHeader().setBackground(new Color(32, 136, 203));
         jtabla_Cajas.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }

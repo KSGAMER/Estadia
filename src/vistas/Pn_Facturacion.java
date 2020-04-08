@@ -86,7 +86,13 @@ public class Pn_Facturacion extends javax.swing.JPanel {
 
     private void tamañoTabla() {
         TableColumnModel columnModel = jt_Facturacion.getColumnModel();
-
+        columnModel.getColumn(0).setPreferredWidth(150);
+        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(50);
+        columnModel.getColumn(3).setPreferredWidth(60);
+        columnModel.getColumn(4).setPreferredWidth(60);
+        columnModel.getColumn(5).setPreferredWidth(60);
+        columnModel.getColumn(6).setPreferredWidth(30);
     }
 
     private void cTabla() {
@@ -112,7 +118,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
     private void RowHeaderApariencia() {
         jt_Facturacion.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_Facturacion.getTableHeader().setOpaque(false);
-        jt_Facturacion.getTableHeader().setBackground(Color.BLACK);
+        jt_Facturacion.getTableHeader().setBackground(new Color(32, 136, 203));
         jt_Facturacion.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
@@ -250,6 +256,14 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         lb_errorEmail = new javax.swing.JLabel();
         lb_errorTelefono = new javax.swing.JLabel();
         lb_errorAsunto = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator6 = new javax.swing.JSeparator();
+        jSeparator7 = new javax.swing.JSeparator();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        jSeparator12 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -598,7 +612,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         lb_monto.setForeground(new java.awt.Color(153, 153, 153));
         lb_monto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_monto.setText("Monto");
-        jPanel3.add(lb_monto, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 70, 20));
+        jPanel3.add(lb_monto, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 130, 20));
 
         jLabel29.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -619,7 +633,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         lb_TipoPago.setForeground(new java.awt.Color(153, 153, 153));
         lb_TipoPago.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb_TipoPago.setText("Tipo de pago");
-        jPanel3.add(lb_TipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 90, -1));
+        jPanel3.add(lb_TipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 130, -1));
 
         Celular1.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
         Celular1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -630,6 +644,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jta_observaciones.setForeground(new java.awt.Color(153, 153, 153));
         jta_observaciones.setRows(5);
         jta_observaciones.setText("Ingresar Observaciones");
+        jta_observaciones.setBorder(null);
         jta_observaciones.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jta_observacionesFocusGained(evt);
@@ -664,6 +679,30 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         lb_errorAsunto.setForeground(new java.awt.Color(255, 255, 255));
         lb_errorAsunto.setText("*");
         jPanel3.add(lb_errorAsunto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 10, -1));
+
+        jSeparator2.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 190, 10));
+
+        jSeparator3.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 130, 10));
+
+        jSeparator5.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel3.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 130, 10));
+
+        jSeparator6.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel3.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 190, 10));
+
+        jSeparator7.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel3.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 190, 10));
+
+        jSeparator9.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel3.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 190, 10));
+
+        jSeparator10.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel3.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 190, 10));
+
+        jSeparator12.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel3.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 190, 10));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 530, 330));
 
@@ -853,10 +892,10 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
                 t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
                 //se cierra la conexion
                 t.close();
-
+                datosIniciales();
                 DesktopNotify.showDesktopMessage("Exito", "Datos de Facturación enviados correctamente al correo " + correoReceptor, DesktopNotify.SUCCESS);
 
-                datosIniciales();
+               
             }
         } catch (AuthenticationFailedException ex) {
             // Logger.getLogger(Pn_Facturacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -1041,8 +1080,16 @@ Caused by: javax.net.ssl.SSLHandshakeException: sun.security.validator.Validator
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JButton jb_limpiarCampos;
     private com.toedter.calendar.JDateChooser jd_fechaCobroFinal;
     private com.toedter.calendar.JDateChooser jd_fechaCobroInicial;

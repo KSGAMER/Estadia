@@ -131,7 +131,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
     private void RowHeaderApariencia() {
         jt_pisos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jt_pisos.getTableHeader().setOpaque(false);
-        jt_pisos.getTableHeader().setBackground(Color.BLACK);
+        jt_pisos.getTableHeader().setBackground(new Color(32, 136, 203));
         jt_pisos.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
