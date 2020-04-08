@@ -5,10 +5,8 @@
  */
 package vistas;
 
-import controladores.ControladorConfiguracion;
 import controladores.ControladorEmail;
 import java.awt.event.ItemEvent;
-import vistas.Pn_Facturacion;
 /**
  *
  * @author fenix

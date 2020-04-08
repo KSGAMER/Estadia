@@ -31,7 +31,7 @@ public class ControladorEmail {
     private String password;
 
     
-    private File fichero = new File("DatosEmail.json");
+    private File fichero = new File("src/configuraciones/DatosEmail.json");
 
     public ControladorEmail() {
         try {
