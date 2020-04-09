@@ -255,6 +255,7 @@ public void abrirArchivoImagen(){
                 if (archivo.getName().endsWith("jpg") || archivo.getName().endsWith("png") || archivo.getName().endsWith("jpeg") || archivo.getName().endsWith("JPG") || archivo.getName().endsWith("PNG") || archivo.getName().endsWith("JPEG")) {
                    //se asigna la ruta completa del archivo
                     ruta = archivo.getAbsolutePath();
+                    System.out.println(archivo.getName());
                     //se muetra un previo ajustando la imagen y mostrandola en un jlabel llamado "lb_imagenPrevia"
                     ajustarImagen(ruta);
                     //se asigna la ruta completa de la imagen a un jlabel para ser observado

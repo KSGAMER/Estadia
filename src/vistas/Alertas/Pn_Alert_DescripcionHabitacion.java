@@ -8,7 +8,10 @@ package vistas.Alertas;
 import Utilerias.AWTUtilities;
 import controladores.ControladorHabitaciones;
 import controladores.ControladorRecepciones;
+import vistas.ModuloCamarista.Pn_Alert_DesHabitacionVistaCamarista;
+import vistas.Alertas.Pn_Alert_TabladeIncidencias;
 import ds.desktop.notify.DesktopNotify;
+import java.awt.Frame;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.Toolkit;
@@ -22,7 +25,9 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
     private Timer timer = null;
     private TimerTask task;
     private int i = 32;
-
+ //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    Frame Principal;
+//FIN
     /**
      * Creates new form AlertSuccess
      */
@@ -65,8 +70,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         cb_status = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        materialButton1 = new principal.MaterialButton();
+        cancelar = new principal.MaterialButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lb_close = new javax.swing.JButton();
@@ -80,6 +84,11 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         jLabel21 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        materialButton1 = new principal.MaterialButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cancelar1 = new principal.MaterialButton();
+        cancelar2 = new principal.MaterialButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -105,44 +114,24 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
                 cb_statusItemStateChanged(evt);
             }
         });
-        jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 190, -1));
+        jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 190, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(58, 159, 171));
         jLabel6.setText("Estatus:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(36, 47, 65));
-
-        materialButton1.setBackground(new java.awt.Color(97, 212, 195));
-        materialButton1.setForeground(new java.awt.Color(255, 255, 255));
-        materialButton1.setText("ACEPTAR");
-        materialButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        materialButton1.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
-        materialButton1.addActionListener(new java.awt.event.ActionListener() {
+        cancelar.setBackground(new java.awt.Color(211, 18, 18));
+        cancelar.setForeground(new java.awt.Color(255, 255, 255));
+        cancelar.setText("CANCELAR");
+        cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelar.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                materialButton1ActionPerformed(evt);
+                cancelarActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(materialButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(materialButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 320, 70));
+        jPanel1.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 180, 46));
 
         jPanel3.setBackground(new java.awt.Color(233, 235, 238));
 
@@ -172,7 +161,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addGap(21, 21, 21)
                 .addComponent(lb_close, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -182,43 +171,43 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(lb_close, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 50));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 50));
 
         lb_NombreCategoria.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_NombreCategoria.setForeground(new java.awt.Color(255, 255, 255));
         lb_NombreCategoria.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_NombreCategoria.setText("Categoria");
-        jPanel1.add(lb_NombreCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 90, -1));
+        jPanel1.add(lb_NombreCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 90, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(58, 159, 171));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("Descripción:");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 80, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 80, -1));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(58, 159, 171));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel20.setText("Nombre Habitación");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 130, -1));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 130, -1));
 
         lb_NombreHabitacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_NombreHabitacion.setForeground(new java.awt.Color(255, 255, 255));
         lb_NombreHabitacion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_NombreHabitacion.setText("Habitacion");
-        jPanel1.add(lb_NombreHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 130, -1));
+        jPanel1.add(lb_NombreHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 130, -1));
 
         lb_Estado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_Estado.setForeground(new java.awt.Color(255, 255, 255));
         lb_Estado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_Estado.setText("Estado");
-        jPanel1.add(lb_Estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 130, -1));
+        jPanel1.add(lb_Estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 130, -1));
 
         jta_observaciones.setColumns(20);
         jta_observaciones.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -245,37 +234,85 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
                 jta_observacionesKeyPressed(evt);
             }
         });
-        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 280, -1));
+        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 370, -1));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(58, 159, 171));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Estado Actual:");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, -1));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 90, -1));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(58, 159, 171));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel21.setText("Categoria:");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 90, -1));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 90, -1));
 
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setText("igual a limpieza.");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
         jLabel3.setForeground(new java.awt.Color(255, 51, 51));
         jLabel3.setText("Solo puede cambiar el estado, si el \"Estado Actual\" es ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
+
+        materialButton1.setBackground(new java.awt.Color(40, 180, 99));
+        materialButton1.setForeground(new java.awt.Color(255, 255, 255));
+        materialButton1.setText("ACEPTAR");
+        materialButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        materialButton1.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
+        materialButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                materialButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(materialButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 180, 46));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Cambio de estado");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Informacion x Habitación");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, -1));
+
+        cancelar1.setBackground(new java.awt.Color(204, 0, 204));
+        cancelar1.setForeground(new java.awt.Color(255, 255, 255));
+        cancelar1.setText("Ver Incidencias");
+        cancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelar1.setFont(new java.awt.Font("Roboto Medium", 3, 11)); // NOI18N
+        cancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 120, 40));
+
+        cancelar2.setBackground(new java.awt.Color(204, 0, 204));
+        cancelar2.setForeground(new java.awt.Color(255, 255, 255));
+        cancelar2.setText("Incidencia +");
+        cancelar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelar2.setFont(new java.awt.Font("Roboto Medium", 3, 11)); // NOI18N
+        cancelar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelar2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cancelar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 120, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -374,6 +411,25 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
      Cerrar();
     }//GEN-LAST:event_lb_closeActionPerformed
 
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+     Cerrar();
+    }//GEN-LAST:event_cancelarActionPerformed
+
+    private void cancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelar1ActionPerformed
+this.dispose();
+Pn_Alert_TabladeIncidencias aleTablain = new Pn_Alert_TabladeIncidencias(Principal, false);
+aleTablain.setVisible(true);
+// TODO add your handling code here:
+    }//GEN-LAST:event_cancelar1ActionPerformed
+
+    private void cancelar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelar2ActionPerformed
+this.dispose();
+Pn_Alert_DesHabitacionVistaCamarista aleDesc= new Pn_Alert_DesHabitacionVistaCamarista(Principal, false);
+aleDesc.setVisible(true);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelar2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -417,6 +473,9 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private principal.MaterialButton cancelar;
+    private principal.MaterialButton cancelar1;
+    private principal.MaterialButton cancelar2;
     private javax.swing.JComboBox<String> cb_status;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
@@ -425,9 +484,10 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     public static javax.swing.JTextArea jta_observaciones;
     public static javax.swing.JLabel lb_Estado;

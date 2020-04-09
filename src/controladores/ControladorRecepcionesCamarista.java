@@ -82,8 +82,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, disponible));
@@ -100,8 +98,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, reservado));
@@ -118,8 +114,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
@@ -141,8 +135,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, disponible));
@@ -159,8 +151,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
+
                                     aleDesc.setVisible(true);
                                 }
                             }, reservado));
@@ -177,8 +168,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
@@ -203,8 +192,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, disponible));
@@ -221,8 +208,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, reservado));
@@ -239,8 +224,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
@@ -262,8 +245,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, disponible));
@@ -280,8 +261,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, reservado));
@@ -298,8 +277,6 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
-                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));

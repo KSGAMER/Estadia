@@ -20,11 +20,12 @@ public class ControladorPrivilegioMenuInicial {
     private ControladorCargos ccargo = new ControladorCargos();
     private ControladorUsuarios cuser = new ControladorUsuarios();
 
-    public void comparadorPrivilegios() {
+    public void comparadorPrivilegios(String Usuario) {
         for (ObjetoUsuario objetoUsuario : cuser.selectUsuario()) {
             for (ObjetoCargo objetoCargo : ccargo.seleccionarCargo()) {
-                if (objetoUsuario.getIdCargo() == objetoCargo.getIdCargo()) {
-                    if (User.equals(objetoUsuario.getUsername())) {
+                 if (objetoUsuario.getUsername().equals(Usuario)) { 
+                     if (objetoUsuario.getIdCargo() == objetoCargo.getIdCargo()) {
+                  
                         if (!(objetoCargo.equals("Administrador") && !(objetoCargo.equals("Camarista")))) { //para cualquier otro usuario
                             Administrador.setVisible(false);
                             Configuracion.setVisible(false);
@@ -51,7 +52,7 @@ public class ControladorPrivilegioMenuInicial {
                             GastosHotel.setVisible(false);
                             RecepcionCamarista.setVisible(true);
                             break;
-                        } else if (User.equals("Administrador")) {
+                        } else if (objetoCargo.equals("Administrador")) {
                             Administrador.setVisible(true);
                             Configuracion.setVisible(true);
                             AdministracionCaja.setVisible(true);
@@ -65,10 +66,7 @@ public class ControladorPrivilegioMenuInicial {
                             RecepcionCamarista.setVisible(false);
                             break;
                         }
-                    } else {
-
                     }
-
                 }
             }
         }

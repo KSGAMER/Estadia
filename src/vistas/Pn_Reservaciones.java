@@ -125,14 +125,15 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
    
     private void cargarHabitaciones() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
-        cb.addElement("Seleccionar Habitacion");
+        cb.addElement("Seleccionar Habitación");
 
         for (ObjetoHabitacion campos : ch.selectHabitacion()) {
-           /* if (campos.getIdEstadoHabitacion() != 1) {
-
-            } else {*/
+            if (!(campos.getIdEstadoHabitacion() == 1)) {
+                //break;
+            } else {
                 cb.addElement(campos.getNombre());
-            //}
+                
+            }
         }
         cb_Habitacion.setModel(cb);
     }
