@@ -9,6 +9,7 @@ import Utilerias.AWTUtilities;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.Toolkit;
+import java.util.Locale;
 
 /**
  *
@@ -16,30 +17,20 @@ import java.awt.Toolkit;
  */
 public class Pn_About extends javax.swing.JDialog {
 
-    Timer timer = null;
-    TimerTask task;
-    int i = 32;
-
     /**
      * Creates new form AlertSuccess
      */
     public Pn_About(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
-        setPantalla();
+        
         initComponents();
         AWTUtilities.setOpaque(this, false);
-        Ubicar(0);
-
+        centrarPantalla();
     }
 
-    public void setPantalla() {
-
-        //para eliminar el tittle bar
-        this.setUndecorated(true);
-        //para que no le cambien el tamaño
-        this.setResizable(false);
-
+    public void centrarPantalla() {
+        this.setLocationRelativeTo(null);
     }
 
   
@@ -178,44 +169,16 @@ public class Pn_About extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 352) {
-                    timer.cancel();
-                } else {
-                    Ubicar(i);
-                    i += 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new java.util.Timer();
-        timer.schedule(task, 0, 2);
-        
+    
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-               setVisible(false);
+        setVisible(false);
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
     private void materialButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton1ActionPerformed
-task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 0) {
-                    Cerrar();
-                } else {
-                    Ubicar(i);
-                    i -= 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new Timer();
-        timer.schedule(task, 0, 2);                          
-               
+      this.dispose();
     }//GEN-LAST:event_materialButton1ActionPerformed
 
     /**
@@ -272,19 +235,4 @@ task = new TimerTask() {
     private principal.MaterialButton materialButton1;
     // End of variables declaration//GEN-END:variables
 
-    private void Cerrar() {
-        this.dispose();
-     
-    }
-
-    private void Ubicar(int y) {
-
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth() / 3;
-        this.setLocation(xsize, y - 120);
-
-    }
-   private void Trasparencia(float trasp) {
-        AWTUtilities.setOpacity(this, trasp);
-    }
-}
+   }

@@ -24,9 +24,6 @@ import java.util.Date;
  */
 public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
 
-    Timer timer = null;
-    TimerTask task;
-    int i = 32;
     DefaultTableModel NewTable;
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     private ControladorGastos cega = new ControladorGastos();
@@ -42,11 +39,13 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         AWTUtilities.setOpaque(this, false);
-        Ubicar(0);
-       //para ajustar el tecto al tamaño del jtextarea
-        jta_observaciones.setLineWrap(true);
-        //FIN
+        centrarPantalla();
+        datosIniciales();
     }
+        public void centrarPantalla() {
+        this.setLocationRelativeTo(null);
+    }
+
   private Boolean validarEscritura() {//[233,235,238]
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
@@ -79,14 +78,16 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         lb_errorDescripcion.setText("*");
   
         //colores
-        lb_errorNombreGasto.setForeground(new Color(84, 110, 122));
-        lb_errorMontoGastado.setForeground(new Color(84, 110, 122));
-        lb_errorDescripcion.setForeground(new Color(84, 110, 122));
+        lb_errorNombreGasto.setForeground(new Color(233,235,238));//[233,235,238]
+        lb_errorMontoGastado.setForeground(new Color(233,235,238));
+        lb_errorDescripcion.setForeground(new Color(233,235,238));
         
         jt_NombreGasto.setText("Ingresar Nombre");
         jt_MontoGastado.setText("Ingresar Gasto");
         jta_observaciones.setText("Ingresar Observaciones");
-       
+                //para ajustar el tecto al tamaño del jtextarea
+        jta_observaciones.setLineWrap(true);
+        //FIN 
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -363,20 +364,7 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     }//GEN-LAST:event_jb_aceptarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 352) {
-                    timer.cancel();
-                } else {
-                    Ubicar(i);
-                    i += 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new java.util.Timer();
-        timer.schedule(task, 0, 2);
+      
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -385,20 +373,7 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 0) {
-                    Cerrar();
-                } else {
-                    Ubicar(i);
-                    i -= 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new Timer();
-        timer.schedule(task, 0, 2);
+                  Cerrar();         
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
@@ -1551,19 +1526,8 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
 
     private void Cerrar() {
         this.dispose();
-        timer = null;
-        task = null;
+       
     }
 
-    private void Trasparencia(float trasp) {
-        AWTUtilities.setOpacity(this, trasp);
-    }
-
-    private void Ubicar(int y) {
-       Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth()/3;
-        this.setLocation(xsize, y - 120);
-        
-        
-    }
+ 
 }

@@ -651,6 +651,13 @@ private Color general = new Color(255,255,255);
                 new CambiaPanel(pnlPrincipal, new Pn_PermisosAccesos());
             }
         });
+        MenuItem Puestos = new MenuItem(subMenus, "Nuevo Puesto", 10,general, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                new CambiaPanel(pnlPrincipal, new Pn_NuevosCargos());
+            }
+        });
         //  SUBMENU PARA Administracion de caja
         MenuItem AbrirCaja = new MenuItem(subMenus, "Apertura de Caja", 10,general, new ActionListener() {
             @Override
@@ -728,7 +735,7 @@ private Color general = new Color(255,255,255);
         /*SIN USO AUN
         MenuItem Inventario = new MenuItem(iconAdministrador, "Inventario", 35, null, NuevoProducto,ProductoxHabitacion);
          */
-        Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35,admin, null, NuevoEmpleado,Permisos);
+        Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35,admin, null, NuevoEmpleado,Permisos,Puestos);
 //    
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
         addMenu(CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, GastosHotel,Reportes, Configuracion, Administrador, AdministracionCaja/*, Sesion*/); //Configuracion);

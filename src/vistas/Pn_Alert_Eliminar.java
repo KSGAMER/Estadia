@@ -6,10 +6,6 @@
 package vistas;
 
 import Utilerias.AWTUtilities;
-import java.awt.Toolkit;
-import java.util.TimerTask;
-import java.util.Timer;
-import javax.swing.JFrame;
 
 /**
  *
@@ -17,19 +13,19 @@ import javax.swing.JFrame;
  */
 public class Pn_Alert_Eliminar extends javax.swing.JDialog {
 
-    Timer timer = null;
-    TimerTask task;
-    int i = 32;
-
-    /**
+       /**
      * Creates new form AlertSuccess
      */
     public Pn_Alert_Eliminar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         AWTUtilities.setOpaque(this, false);
-      
-        Ubicar(0);
+        centrarPantalla();
+
+    }
+
+    public void centrarPantalla() {
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -156,24 +152,11 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarActionPerformed
-   Cerrar();
+        Cerrar();
     }//GEN-LAST:event_jb_aceptarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 352) {
-                    timer.cancel();
-                } else {
-                    Ubicar(i);
-                    i += 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new java.util.Timer();
-        timer.schedule(task, 0, 2);
+ 
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -182,20 +165,7 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 0) {
-                    Cerrar();
-                } else {
-                    Ubicar(i);
-                    i -= 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new Timer();
-        timer.schedule(task, 0, 2);
+         Cerrar();  
     }//GEN-LAST:event_cancelarActionPerformed
 
     /**
@@ -762,19 +732,7 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
 
     private void Cerrar() {
         this.dispose();
-        timer = null;
-        task = null;
+       
     }
 
-    private void Trasparencia(float trasp) {
-        AWTUtilities.setOpacity(this, trasp);
-    }
-
-    private void Ubicar(int y) {
-         
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth()/3;
-        this.setLocation(xsize, y - 120);
-        
-    }
 }
