@@ -19,7 +19,6 @@ import controladores.*;
 import controladores.ValidadorDePrivilegios.ControladorIconAvatar;
 import controladores.ValidadorDePrivilegios.ControladorPrivilegioMenuInicial;
 import java.awt.Color;
-import java.awt.Image;
 import vistas.ModuloAdmin.*;
 import vistas.ModuloCamarista.Pn_RecepcionVistaCamarista;
 
@@ -61,6 +60,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     //
     //necesario para camarista
     public static MenuItem RecepcionCamarista;
+    
     //
     //para abrir la ventana de sesion al dar click en cerrar sesion 
     sesion se = new sesion();
@@ -82,7 +82,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         //fin
         sesion.ventana = true;
         initComponents();
-        
+       
         //PARA QUE APAREZCA LA PANTALLE DE INICIO AL COMENZAR LA APLICACION
         //new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
         //PARA QUE APARECA LA PANTALLA DEL CALENDARIO AL INICAR LA APLICACION 
@@ -102,11 +102,14 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         //fin
         //muestra el nombre del usuario logueado dentro de la aplicacion
         Bienvenida.setText("Bienvenido " + User);
-        
         //
         //ejecuta la funciones necesarias para crear el menu lateral con todos los accesos
         execute();
         //
+        RecepcionCamarista.setVisible(false);
+       //muestra dependiendo del usuario, lo modulos que le corresponden
+        cpinicial.comparadorPrivilegios(User);
+        //fin  
         cperm.tablaPermisos();
         cmod.tablaModulos();
         eperm.tablaEstatusPermisos();
@@ -118,18 +121,13 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         cp.tablaPisos();
         cesHabi.tablaEstadoHabiaciones();
         ccobro.tablaCobros2("");
-        //muestra dependiendo del usuario, lo modulos que le corresponden
-//        comparadorPrivilegios();
-        cpinicial.comparadorPrivilegios();
        
-        //fin 
         //muestra datos de fecha y tiempo actuales
         mostrarFecha();
         mostrarHora();
         //fin
         //sirve para mostrar la imagen de avatar del usuario
         ciavatar.ajustarImagen();
-        
     }
 
 
@@ -666,7 +664,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         });
          *///FIN SIN USO AUN 
 //APARTADO DE TODOS LOS MENUS
-        RecepcionCamarista = new MenuItem(iconCalendario, "Recepción", 35, general, new ActionListener() {
+        RecepcionCamarista = new MenuItem(iconRecepcion, "Recepción", 35, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_RecepcionVistaCamarista());
