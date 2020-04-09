@@ -19,17 +19,23 @@ public class ObjetoUsuario {
     private String empleado;
     private String telefono;
     private String direccion;
+    private String imagen;
     private int idEstatusUsuario;
+    private int idCargo;
 
     //Creación del constructor para inicializar las variables username, passoword, empleado, telefono, dirección, idEstatusUsuario
-    public ObjetoUsuario(String username, String password, String empleado, String telefono, String direccion, int idEstatusUsuario) {
+
+    public ObjetoUsuario(String username, String password, String empleado, String telefono, String direccion, String imagen, int idEstatusUsuario, int idCargo) {
         this.username = username;
         this.password = password;
         this.empleado = empleado;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.imagen = imagen;
         this.idEstatusUsuario = idEstatusUsuario;
+        this.idCargo = idCargo;
     }
+    
 
     //Método que devuelve el "Usuario" de la tabla Usuario
     public String getUsername() {
@@ -59,6 +65,14 @@ public class ObjetoUsuario {
     //Método que devuelve el "ID" del Estatus del Usuario de la tabla Usuario
     public int getIdEstatusUsuario() {
         return idEstatusUsuario;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public int getIdCargo() {
+        return idCargo;
     }
     
 }

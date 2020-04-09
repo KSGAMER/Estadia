@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import objetos.ObjetoCargo;
 import objetos.ObjetoUsuario;
 
 /**
@@ -24,6 +25,7 @@ public class ModeloUsuarios extends BD {
 
     //Se declaran las variables de reemplazo de informacion
     private ModeloEstatusUsuarios meu = new ModeloEstatusUsuarios();
+    private ModeloCargos mc = new ModeloCargos();
     //Se declaran las variables de resultado y de consultas preparadas
     private ResultSet rs;
     private PreparedStatement st;
@@ -34,12 +36,13 @@ public class ModeloUsuarios extends BD {
     protected DefaultTableModel cargarTabla() {
         //Se cargan los datos a utilizar
         meu.cargarTabla();
+        mc.cargarTabla();
         //Se declaran las columnas de la tabla
-        String[] titulos = {"Usuario", "Password", "Empleado", "Telefono", "Direccion", "Estatus"};
+        String[] titulos = {"Usuario", "Password", "Empleado", "Telefono", "Direccion", "Imagen", "Cargo", "Estatus"};
         //Se declara la tabla pasando las columnas
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
-        Object[] fila = new Object[6];
+        Object[] fila = new Object[8];
 
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
@@ -54,18 +57,27 @@ public class ModeloUsuarios extends BD {
                 fila[2] = rs.getString("Empleado");
                 fila[3] = rs.getString("Telefono");
                 fila[4] = rs.getString("Direccion");
+                fila[5] = rs.getString("Imagen");
+                //Se recorre el resultado con un for
+                for (ObjetoCargo cargo : mc.selectCargos()) {
+                    //Si el Id del resultado es igual al de la clase prosigue
+                    if(rs.getInt("IdCargo") == cargo.getIdCargo()) {
+                        //Se reemplaza el valor por el nombre
+                        fila[6] = cargo.getNombre();
+                    }
+                }
                 //Se recorre el resultado con un for
                 for (int i = 0; i < meu.selectEstatusUsuarios().size(); i++) {
                     //Si el Id del resultado es igual al de la clase prosigue
                     if (rs.getInt("IdEstatusUsuario") == meu.selectEstatusUsuarios().get(i).getIdEstatusUsuario()) {
                         //Se reemplaza el valor por el nombre
-                        fila[5] = meu.selectEstatusUsuarios().get(i).getNombre();
+                        fila[7] = meu.selectEstatusUsuarios().get(i).getNombre();
                     }
                 }
                 //Se agrega el objeto a la tabla
                 tb.addRow(fila);
                 //Se agregan los resultados al arreglo atraves de un nuevo objeto
-                this.listUsers.add(new ObjetoUsuario(rs.getString("Username"), rs.getString("Password"), rs.getString("Empleado"), rs.getString("Telefono"), rs.getString("Direccion"), rs.getInt("IdEstatusUsuario")));
+                this.listUsers.add(new ObjetoUsuario(rs.getString("Username"), rs.getString("Password"), rs.getString("Empleado"), rs.getString("Telefono"), rs.getString("Direccion"), rs.getString("Imagen"), rs.getInt("IdEstatusUsuario"), rs.getInt("IdCargo")));
             }
             //Se cierra la conexión
         } catch (SQLException ex) {
@@ -81,24 +93,31 @@ public class ModeloUsuarios extends BD {
     }
 
     //Método que inserta un nuevo usuario
-    protected void insertUsuarios(String username, String password, String empleado, String telefono, String direccion, String estatusUsuario) {
+    protected void insertUsuarios(String username, String password, String empleado, String telefono, String direccion, String imagen, String cargo, String estatusUsuario) {
         //Se cargan los datos a utlizar
         meu.cargarTabla();
+        mc.cargarTabla();
         try {
             //Se instancia la conexión a base de datos y se pasa la consulta preparada
-            this.st = conectar().prepareStatement("INSERT INTO Usuario(Username, Password, Empleado, Telefono, Direccion, IdEstatusUsuario) VALUES (?,?,?,?,?,?)");
+            this.st = conectar().prepareStatement("INSERT INTO Usuario(Username, Password, Empleado, Telefono, Direccion, Imagen, IdCargo, IdEstatusUsuario) VALUES (?,?,?,?,?,?,?,?)");
             //Se pasan los parametros a la consulta
             this.st.setString(1, username);
             this.st.setString(2, password);
             this.st.setString(3, empleado);
             this.st.setString(4, telefono);
             this.st.setString(5, direccion);
+            this.st.setString(6, imagen);
+            for (ObjetoCargo cargos : mc.selectCargos()) {
+                if(cargo.equals(cargos.getNombre())) {
+                    this.st.setInt(7, cargos.getIdCargo());
+                }
+            }
             //Se recorre el valor con un for
             for (int i = 0; i < meu.selectEstatusUsuarios().size(); i++) {
                 //Si el valor es igual al nombre de la clase se prosigue
                 if (estatusUsuario.equals(meu.selectEstatusUsuarios().get(i).getNombre())) {
                     //Se reemplaza el valor con el ID
-                    this.st.setInt(6, meu.selectEstatusUsuarios().get(i).getIdEstatusUsuario());
+                    this.st.setInt(8, meu.selectEstatusUsuarios().get(i).getIdEstatusUsuario());
                 }
             }
             //Se ejecuta la consulta
@@ -111,26 +130,34 @@ public class ModeloUsuarios extends BD {
     }
 
     //Método que actualiza un usuario
-    protected void updateUsuarios(String password, String empleado, String telefono, String direccion, String estatusUsuario, String username) {
+    protected void updateUsuarios(String password, String empleado, String telefono, String direccion, String imagen, String cargo, String estatusUsuario, String username) {
         //Se cargan los datos a utilizar
         meu.cargarTabla();
+        mc.cargarTabla();
         try {
             //Se instancia la conexión a la base de datos y se pasa la consulta preparada
-            this.st = conectar().prepareStatement("UPDATE Usuario SET Password = ?, Empleado = ?, Telefono = ?, Direccion = ?, IdEstatusUsuario = ? WHERE Username = ?");
+            this.st = conectar().prepareStatement("UPDATE Usuario SET Password = ?, Empleado = ?, Telefono = ?, Direccion = ?, Imagen = ?, IdCargo = ?, IdEstatusUsuario = ? WHERE Username = ?");
             //Se pasan los parametros a la consulta
             this.st.setString(1, password);
             this.st.setString(2, empleado);
             this.st.setString(3, telefono);
             this.st.setString(4, direccion);
             //Se recorre el valor con un for
+            this.st.setString(5, imagen);
+            for (ObjetoCargo cargos : mc.selectCargos()) {
+                if(cargo.equals(cargos.getNombre())) {
+                    this.st.setInt(6, cargos.getIdCargo());
+                }
+            }
+            //Se recorre el valor con un for
             for (int i = 0; i < meu.selectEstatusUsuarios().size(); i++) {
                 //Si el valor es igual al nombre de la clase se prosigue
                 if (estatusUsuario.equals(meu.selectEstatusUsuarios().get(i).getNombre())) {
                     //Se reemplaza el valor con el ID
-                    this.st.setInt(5, meu.selectEstatusUsuarios().get(i).getIdEstatusUsuario());
+                    this.st.setInt(7, meu.selectEstatusUsuarios().get(i).getIdEstatusUsuario());
                 }
             }
-            this.st.setString(6, username);
+            this.st.setString(8, username);
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
