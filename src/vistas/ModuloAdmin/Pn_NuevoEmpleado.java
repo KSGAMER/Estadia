@@ -22,8 +22,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import vistas.Alertas.Pn_Alert_Eliminar;
@@ -34,6 +32,7 @@ import vistas.Alertas.Pn_Alert_Eliminar;
 public class Pn_NuevoEmpleado extends javax.swing.JPanel {
     //NECESARIO PARA FUNCIONES DE ESTE MODULO 
     ControladorEstatusUsuarios usr = new ControladorEstatusUsuarios();
+    ControladorCargos ccargo = new ControladorCargos();
     ControladorUsuarios cusr = new ControladorUsuarios();
     ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
@@ -48,16 +47,17 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
   //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
-    //necesario para ectraer la ruta e informacion de las imagenes de usuario
-    /*avatars es la carpeta que esta al nivel de los arvhicos de la aplicacion y en la cual se guardan las imagenes predeterminadas 
-    para una imagen de avatar*/
-    //si no se escribe nada, por default JFileChooser usara "mis documentos o home (unix)" como carpeta inicial de aperura de archivos
+/* necesario para ectraer la ruta e informacion de las imagenes de usuario
+avatars es la carpeta que esta al nivel de los arvhicos de la aplicacion y en la cual se guardan las imagenes predeterminadas 
+parauna imagen de avatar si no se escribe nada, por default JFileChooser usara "mis documentos o home (unix)" como carpeta
+    inicial de aperura de archivos*/
     JFileChooser seleccionar = new JFileChooser("Avatars");
     File archivo;
     String ruta = null;
-    //fin 
+//fin 
+//delimita la cantidad maxima que se puede digitar al escribir una contraseña
     private int limitePass = 20;
-
+//fin
 
     /**
      * Creates new form NuevoEmpleado1
@@ -77,6 +77,8 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         //carga los elementos del estado de los usuarios para llenar el cbox dentro del metodo cargarStatus..()
         usr.tablaEstatusUsuarios();
         cargarStatusEmpleados();
+        ccargo.tablaCargos();
+        cargarPuestosEmpleados();
         //FIN
         tamañoTabla();
         //RECORDATORIO 
@@ -99,7 +101,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
     }
 
     public void datosIniciales() {
-    
+
         jt_usuario.setText("Ingresar Usuario");
         jt_password.setText("Ingresar Password");
         jt_empleado.setText("Ingresar Nombre");
@@ -108,6 +110,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         lb_rutaImagen.setText("");
         lb_imagenPrevia.setIcon(null);
         cb_status.setSelectedIndex(0);
+        cb_Cargo.setSelectedIndex(0);
         btn_Modificar.setEnabled(false);
         btn_Eliminar.setEnabled(false);
         btn_Ingresar.setEnabled(true);
@@ -144,11 +147,23 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jt_Empleados.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
-      public void cargarStatusEmpleados() {
+
+    public void cargarStatusEmpleados() {
 
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Estatus");
         for (ObjetoEstatusUsuario campos : usr.selectEstatusUsuario()) {
+            cb.addElement(campos.getNombre());
+        }
+        cb_status.setModel(cb);
+
+    }
+
+    public void cargarPuestosEmpleados() {
+
+        DefaultComboBoxModel cb = new DefaultComboBoxModel();
+        cb.addElement("Seleccionar Puesto");
+        for (ObjetoCargo campos : ccargo.seleccionarCargo()) {
             cb.addElement(campos.getNombre());
         }
         cb_status.setModel(cb);
@@ -164,14 +179,14 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
             lb_errorUsuario.setForeground(Color.RED);
             val = false;
         }
-       //si el textfield tiene algo diferente a Vacío aparecerá de color negro
+        //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_password.getText().equals("Ingresar Password")) && !(jt_password.getText().equals(""))) {
             lb_errorPassword.setForeground(new Color(84, 110, 122));
         } else {
             lb_errorPassword.setForeground(Color.RED);
             val = false;
         }
-    //si el textfield tiene algo diferente a Vacío aparecerá de color negro
+        //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_empleado.getText().equals("Ingresar Nombre")) && !(jt_empleado.getText().equals(""))) {
             lb_errorNombre.setForeground(new Color(84, 110, 122));
         } else {
@@ -192,7 +207,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
             lb_errorDireccion.setForeground(Color.RED);
             val = false;
         }
-         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
+        //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(lb_rutaImagen.getText().equals(""))) {
             lb_errorImagen.setForeground(new Color(84, 110, 122));
         } else {
@@ -215,6 +230,8 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         }
         return val;
     }
+//obtiene la ruta que se extrae del selector de archivo y muestra una vista previa en el jlabel asignado en 
+    //linea 242
     private void ajustarImagen(String path) {
         //se utiliza para obtener la ruta de la imagen 
         ImageIcon icon = new ImageIcon(path);
@@ -226,6 +243,31 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         lb_imagenPrevia.setIcon(new ImageIcon(image));
         this.repaint();
     }
+public void abrirArchivoImagen(){
+     //se usa para obtener un valor de aprovacion cuando la ventana de dialogo abre
+        int ap = seleccionar.showOpenDialog(this);
+        if (ap == JFileChooser.APPROVE_OPTION) {
+            //se asignan los datos del archivo a la variable archivo que es de tipo "file"
+            archivo = seleccionar.getSelectedFile();
+            //se verifica si es posible leer este archivo , el cual debe ser una imagen
+            if (archivo.canRead()) {
+                //se validan los tipos de terminacion del archivo para imagen 
+                if (archivo.getName().endsWith("jpg") || archivo.getName().endsWith("png") || archivo.getName().endsWith("jpeg") || archivo.getName().endsWith("JPG") || archivo.getName().endsWith("PNG") || archivo.getName().endsWith("JPEG")) {
+                   //se asigna la ruta completa del archivo
+                    ruta = archivo.getAbsolutePath();
+                    //se muetra un previo ajustando la imagen y mostrandola en un jlabel llamado "lb_imagenPrevia"
+                    ajustarImagen(ruta);
+                    //se asigna la ruta completa de la imagen a un jlabel para ser observado
+                    lb_rutaImagen.setText(ruta);
+                } else {
+                    DesktopNotify.showDesktopMessage("RECOMENDACIÓN", "Solo se permiten archivos de imagen "
+                            + "con terminación jpg,png o jpeg", DesktopNotify.ERROR);
+                }
+            } else {
+                DesktopNotify.showDesktopMessage("ERROR", "Archivo no compatible", DesktopNotify.ERROR);
+            }
+        }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -525,7 +567,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         lb_rutaImagen.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         lb_rutaImagen.setForeground(new java.awt.Color(255, 255, 255));
         lb_rutaImagen.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel1.add(lb_rutaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 430, 190, 20));
+        jPanel1.add(lb_rutaImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 190, 20));
 
         jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 570, 190, 10));
@@ -741,7 +783,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jPanel1.add(lb_errorImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 10, -1));
 
         cb_Cargo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        cb_Cargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Cargo" }));
+        cb_Cargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Puesto" }));
         jPanel1.add(cb_Cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 190, -1));
 
         jLabel26.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -777,7 +819,14 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
         jt_empleado.setText(String.valueOf(jt_Empleados.getValueAt(seleccion, 2)));
         jt_telefono.setText(String.valueOf(jt_Empleados.getValueAt(seleccion, 3)));
         jt_direccion.setText(String.valueOf(jt_Empleados.getValueAt(seleccion, 4)));
-        cb_status.getModel().setSelectedItem(jt_Empleados.getValueAt(seleccion, 5));
+        try {
+            lb_rutaImagen.setText(String.valueOf(jt_Empleados.getValueAt(seleccion, 5)));
+            ajustarImagen(String.valueOf(jt_Empleados.getValueAt(seleccion, 5)));
+        } catch (Exception e) {
+        }
+
+        cb_Cargo.getModel().setSelectedItem(jt_Empleados.getValueAt(seleccion, 6));
+        cb_status.getModel().setSelectedItem(jt_Empleados.getValueAt(seleccion, 7));
 // TODO add your handling code here:
     }//GEN-LAST:event_jt_EmpleadosMouseClicked
 
@@ -792,14 +841,14 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
             if (!validarEscritura() == true && !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
-                cusr.insertUsuario(jt_usuario.getText(),String.valueOf(jt_password.getPassword()),jt_empleado.getText(),jt_telefono.getText(), jt_direccion.getText(), String.valueOf(cb_status.getSelectedItem()));
+                cusr.insertUsuario(jt_usuario.getText(), String.valueOf(jt_password.getPassword()), jt_empleado.getText(), jt_telefono.getText(), jt_direccion.getText(), lb_rutaImagen.getText(), String.valueOf(cb_Cargo.getSelectedItem()), String.valueOf(cb_status.getSelectedItem()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
                 datosIniciales();
             }
         } catch (Exception e) {
-     }
+        }
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
     private void btn_EliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EliminarMouseClicked
@@ -977,7 +1026,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
             if (!validarEscritura() == true && !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
-                cusr.updateUsuario(String.valueOf(jt_password.getPassword()), jt_empleado.getText(), jt_telefono.getText(), jt_direccion.getText(), String.valueOf(cb_status.getSelectedItem()), jt_usuario.getText());
+                cusr.updateUsuario(String.valueOf(jt_password.getPassword()), jt_empleado.getText(), jt_telefono.getText(), jt_direccion.getText(),lb_rutaImagen.getText(), String.valueOf(cb_Cargo.getSelectedItem()), String.valueOf(cb_status.getSelectedItem()), jt_usuario.getText());
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
@@ -1005,29 +1054,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_clientesMouseClicked
 
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
-        //se usa para obtener un valor de aprovacion cuando la ventana de dialogo abre
-        int ap = seleccionar.showOpenDialog(this);
-        if (ap == JFileChooser.APPROVE_OPTION) {
-            //se asignan los datos del archivo a la variable archivo que es de tipo "file"
-            archivo = seleccionar.getSelectedFile();
-            //se verifica si es posible leer este archivo , el cual debe ser una imagen
-            if (archivo.canRead()) {
-                //se validan los tipos de terminacion del archivo para imagen 
-                if (archivo.getName().endsWith("jpg") || archivo.getName().endsWith("png") || archivo.getName().endsWith("jpeg") || archivo.getName().endsWith("JPG") || archivo.getName().endsWith("PNG") || archivo.getName().endsWith("JPEG")) {
-                   //se asigna la ruta completa del archivo
-                    ruta = archivo.getAbsolutePath();
-                    //se muetra un previo ajustando la imagen y mostrandola en un jlabel llamado "lb_imagenPrevia"
-                    ajustarImagen(ruta);
-                    //se asigna la ruta completa de la imagen a un jlabel para ser observado
-                    lb_rutaImagen.setText(ruta);
-                } else {
-                    DesktopNotify.showDesktopMessage("RECOMENDACIÓN", "Solo se permiten archivos de imagen "
-                            + "con terminación jpg,png o jpeg", DesktopNotify.ERROR);
-                }
-            } else {
-                DesktopNotify.showDesktopMessage("ERROR", "Archivo no compatible", DesktopNotify.ERROR);
-            }
-        }
+       abrirArchivoImagen();
     }//GEN-LAST:event_btn_clientesActionPerformed
 
 

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vistas;
 
 import vistas.Alertas.Pn_About;
@@ -20,9 +16,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import controladores.*;
+import controladores.ValidadorDePrivilegios.ControladorIconAvatar;
+import controladores.ValidadorDePrivilegios.ControladorPrivilegioMenuInicial;
 import java.awt.Color;
 import java.awt.Image;
 import vistas.ModuloAdmin.*;
+import vistas.ModuloCamarista.Pn_RecepcionVistaCamarista;
 
 /**
  *
@@ -33,6 +32,8 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
     private ControladorCaja cecaja = new ControladorCaja();
     private ControladorEstadoCaja cescaja = new ControladorEstadoCaja();
+    private ControladorPrivilegioMenuInicial cpinicial = new ControladorPrivilegioMenuInicial();
+    private ControladorIconAvatar ciavatar = new ControladorIconAvatar();
     private Pn_NuevaCategoria p = new Pn_NuevaCategoria();
     private String hora, minutos, segundos;
     private Thread hilo;
@@ -53,13 +54,13 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 //    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
     public static String User = sesion.Username;
     //necesario para el control del administrador unicamente
-    MenuItem Administrador,Configuracion,AdministracionCaja,Reportes;
+    public static MenuItem Administrador, Configuracion, AdministracionCaja, Reportes;
     //fin 
     //Necesarios para Otros Usuarios
-     MenuItem CalendarioReservas ,Reservaciones,Recepcion,Clientes,Facturas,GastosHotel;
+    public static MenuItem CalendarioReservas, Reservaciones, Recepcion, Clientes, Facturas, GastosHotel;
     //
     //necesario para camarista
-    MenuItem  RecepcionCamarista;
+    public static MenuItem RecepcionCamarista;
     //
     //para abrir la ventana de sesion al dar click en cerrar sesion 
     sesion se = new sesion();
@@ -67,9 +68,10 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
     String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
 //color del menu del administrador
-private Color admin = new Color(40, 180, 99);    
+    private Color admin = new Color(40, 180, 99);
 //color de letras del menu de otros usuarios
-private Color general = new Color(255,255,255); 
+    private Color general = new Color(255, 255, 255);
+
     /**
      * Creates new form Main
      */
@@ -80,6 +82,7 @@ private Color general = new Color(255,255,255);
         //fin
         sesion.ventana = true;
         initComponents();
+        
         //PARA QUE APAREZCA LA PANTALLE DE INICIO AL COMENZAR LA APLICACION
         //new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
         //PARA QUE APARECA LA PANTALLA DEL CALENDARIO AL INICAR LA APLICACION 
@@ -115,57 +118,20 @@ private Color general = new Color(255,255,255);
         cp.tablaPisos();
         cesHabi.tablaEstadoHabiaciones();
         ccobro.tablaCobros2("");
-
         //muestra dependiendo del usuario, lo modulos que le corresponden
-        comparadorPrivilegios();
+//        comparadorPrivilegios();
+        cpinicial.comparadorPrivilegios();
+       
         //fin 
-        //  ajustarImagen();
         //muestra datos de fecha y tiempo actuales
         mostrarFecha();
         mostrarHora();
         //fin
-        ajustarImagen();
+        //sirve para mostrar la imagen de avatar del usuario
+        ciavatar.ajustarImagen();
+        
     }
 
-    public void comparadorPrivilegios() {
-        if (!(User.equals("admin"))) { //para cualquier otro usuario
-            Administrador.setVisible(false);
-            Configuracion.setVisible(false);
-            AdministracionCaja.setVisible(false);
-            Reportes.setVisible(false);
-            CalendarioReservas.setVisible(true);
-            Reservaciones.setVisible(true);
-            Recepcion.setVisible(true);
-            Clientes.setVisible(true);
-            Facturas.setVisible(true);
-            GastosHotel.setVisible(true);
-        } else if(User.equals("Camarista")) {
-            
-        }else if(User.equals("admin")){
-            Administrador.setVisible(true);
-            Configuracion.setVisible(true);
-            AdministracionCaja.setVisible(true);
-            Reportes.setVisible(true);
-            CalendarioReservas.setVisible(true);
-            Reservaciones.setVisible(true);
-            Recepcion.setVisible(true);
-            Clientes.setVisible(true);
-            Facturas.setVisible(true);
-            GastosHotel.setVisible(true);
-        }
-
-    }
-    private void ajustarImagen() {
-        //se utiliza para obtener la ruta de la imagen 
-        ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/ImagenFondo/img_Hotel.jpg"));
-
-        //se utilizar para obtener el tamaño de jlaben que contendra la imagen y 
-        //despues se reacomda la imagen automaticamente 
-        Image image = icon.getImage().getScaledInstance(IconImage.getWidth(), IconImage.getHeight(), Image.SCALE_SMOOTH);
-//AQUI AGREGAMOS LAS IMAGENES AL LABEL COMO ICONO
-        IconImage.setIcon(new ImageIcon(image));
-        this.repaint();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -423,7 +389,7 @@ private Color general = new Color(255,255,255);
         IconImage.setForeground(new java.awt.Color(28, 37, 47));
         IconImage.setText("");
         IconImage.setLineColor(new java.awt.Color(28, 37, 47));
-        jp_imagen.add(IconImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 160, 140));
+        jp_imagen.add(IconImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 160));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/closeSession24x24.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -437,16 +403,16 @@ private Color general = new Color(255,255,255);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Bienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jp_imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Bienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jp_imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -700,7 +666,13 @@ private Color general = new Color(255,255,255);
         });
          *///FIN SIN USO AUN 
 //APARTADO DE TODOS LOS MENUS
-         CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35,general, new ActionListener() {
+        RecepcionCamarista = new MenuItem(iconCalendario, "Recepción", 35, general, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                new CambiaPanel(pnlPrincipal, new Pn_RecepcionVistaCamarista());
+            }
+        });
+        CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_CalendarioReservaciones());
@@ -741,7 +713,7 @@ private Color general = new Color(255,255,255);
         Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35,admin, null, NuevoEmpleado,Permisos,Puestos);
 //    
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
-        addMenu(CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, GastosHotel,Reportes, Configuracion, Administrador, AdministracionCaja/*, Sesion*/); //Configuracion);
+        addMenu(RecepcionCamarista,CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, GastosHotel,Reportes, Configuracion, Administrador, AdministracionCaja/*, Sesion*/); //Configuracion);
     }
 
     private void addMenu(MenuItem... menu) {
@@ -869,7 +841,7 @@ private Color general = new Color(255,255,255);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bienvenida;
-    private LIB.FSLabel IconImage;
+    public static LIB.FSLabel IconImage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
