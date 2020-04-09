@@ -26,7 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import vistas.Pn_Alert_Eliminar;
+import vistas.Alertas.Pn_Alert_Eliminar;
 /**
  *
  * @author fenix

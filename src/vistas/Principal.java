@@ -5,6 +5,9 @@
  */
 package vistas;
 
+import vistas.Alertas.Pn_About;
+import vistas.Alertas.Pn_Alert_NuevoGasto;
+import vistas.Alertas.Pn_Alert_Warning_Salir;
 import Utilerias.CambiaPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas;
+package vistas.Alertas;
 
 import controladores.ControladorEmail;
 import java.awt.event.ItemEvent;
+import vistas.Pn_Facturacion;
 /**
  *
  * @author fenix

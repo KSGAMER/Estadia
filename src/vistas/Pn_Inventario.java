@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import vistas.Alertas.Pn_Alert_Eliminar;
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
 import java.awt.Color;
@@ -257,7 +258,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 jta_observacionesKeyPressed(evt);
             }
         });
-        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 390, 80));
+        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 390, 110));
 
         jSeparator4.setBackground(new java.awt.Color(128, 128, 131));
         jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
@@ -273,7 +274,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 btn_IngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 140, 40));
+        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 140, 40));
 
         btn_Modificar.setBackground(new java.awt.Color(255, 153, 0));
         btn_Modificar.setForeground(new java.awt.Color(255, 255, 255));
@@ -285,7 +286,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 btn_ModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 140, 40));
+        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 460, 140, 40));
 
         btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
         btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -297,7 +298,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 btn_EliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 140, 40));
+        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, 140, 40));
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
         jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 30, 20));

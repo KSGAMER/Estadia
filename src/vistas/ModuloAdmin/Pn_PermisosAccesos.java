@@ -5,6 +5,7 @@
  */
 package vistas.ModuloAdmin;
 
+import vistas.Alertas.Pn_Alert_Eliminar;
 import java.awt.event.ItemEvent;
 import javax.swing.DefaultComboBoxModel;
 import objetos.*;

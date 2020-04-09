@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas;
+package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
 import controladores.ControladorCFDI;
@@ -27,6 +27,8 @@ import java.util.TimerTask;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import objetos.ObjetoTipoPago;
+import vistas.Pn_Reservaciones;
+import vistas.Principal;
 
 /**
  *

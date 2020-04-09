@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import vistas.Alertas.Pn_Alert_Eliminar;
 import controladores.ControladorCategorias;
 import controladores.ControladorEscritura;
 import controladores.ControladorEstatusHabitaciones;

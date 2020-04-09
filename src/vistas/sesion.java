@@ -7,6 +7,7 @@
 //this.setExtendedState(dashBoardPrincipal.MAXIMIZED_BOTH);
 package vistas;
 
+import vistas.Alertas.Pn_IpServerJason;
 import controladores.ControladorEventosSesion;
 import controladores.ControladorSesion;
 import controladores.ControladorUsuarios;

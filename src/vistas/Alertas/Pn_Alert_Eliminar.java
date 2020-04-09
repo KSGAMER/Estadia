@@ -3,33 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas;
+package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
-import java.awt.Toolkit;
-import java.util.TimerTask;
-import java.util.Timer;
-import javax.swing.JFrame;
 
 /**
  *
  * @author fenix
  */
-public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
+public class Pn_Alert_Eliminar extends javax.swing.JDialog {
 
-    Timer timer = null;
-    TimerTask task;
-    int i = 32;
-
-    /**
+       /**
      * Creates new form AlertSuccess
      */
-    public Pn_Alert_Warning_Salir(java.awt.Frame parent, boolean modal) {
+    public Pn_Alert_Eliminar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         AWTUtilities.setOpaque(this, false);
-      
-        Ubicar(0);
+        centrarPantalla();
+
+    }
+
+    public void centrarPantalla() {
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -65,7 +61,7 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
         dropShadowBorder1.setShowTopShadow(true);
         jPanel1.setBorder(dropShadowBorder1);
 
-        lb_titulo.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        lb_titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_titulo.setText("¿ESTÁ SEGURO QUE DESEA SALIR?");
 
@@ -156,24 +152,11 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarActionPerformed
-//        System.exit(0);
+        Cerrar();
     }//GEN-LAST:event_jb_aceptarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 352) {
-                    timer.cancel();
-                } else {
-                    Ubicar(i);
-                    i += 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new java.util.Timer();
-        timer.schedule(task, 0, 2);
+ 
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -182,20 +165,7 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 0) {
-                    Cerrar();
-                } else {
-                    Ubicar(i);
-                    i -= 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new Timer();
-        timer.schedule(task, 0, 2);
+         Cerrar();  
     }//GEN-LAST:event_cancelarActionPerformed
 
     /**
@@ -215,14 +185,270 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pn_Alert_Warning_Salir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pn_Alert_Eliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pn_Alert_Warning_Salir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pn_Alert_Eliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pn_Alert_Warning_Salir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pn_Alert_Eliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pn_Alert_Warning_Salir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pn_Alert_Eliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -483,7 +709,7 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Pn_Alert_Warning_Salir dialog = new Pn_Alert_Warning_Salir(new javax.swing.JFrame(), true);
+                Pn_Alert_Eliminar dialog = new Pn_Alert_Eliminar(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -506,19 +732,7 @@ public class Pn_Alert_Warning_Salir extends javax.swing.JDialog {
 
     private void Cerrar() {
         this.dispose();
-        timer = null;
-        task = null;
+       
     }
 
-    private void Trasparencia(float trasp) {
-        AWTUtilities.setOpacity(this, trasp);
-    }
-
-    private void Ubicar(int y) {
-         
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth()/3;
-        this.setLocation(xsize, y - 120);
-        
-    }
 }

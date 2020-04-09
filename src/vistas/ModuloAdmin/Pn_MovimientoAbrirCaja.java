@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import objetos.ObjetoUsuario;
-import vistas.Pn_Alert_Eliminar;
+import vistas.Alertas.Pn_Alert_Eliminar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import objetos.ObjetoCaja;

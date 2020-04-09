@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import vistas.Alertas.Pn_EmailConfiguracion;
 import controladores.ControladorCFDI;
 import controladores.ControladorCategorias;
 import controladores.ControladorClientes;

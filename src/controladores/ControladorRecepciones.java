@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import modelos.ModeloRecepciones;
 import objetos.ObjetoRecepcion;
 import objetos.ObjetoReservacion;
-import vistas.Pn_Alert_DescripcionHabitacion;
+import vistas.Alertas.Pn_Alert_DescripcionHabitacion;
 
 /**
  *

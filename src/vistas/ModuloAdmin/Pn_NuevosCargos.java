@@ -5,6 +5,7 @@
  */
 package vistas.ModuloAdmin;
 
+import vistas.Alertas.Pn_Alert_Eliminar;
 import vistas.*;
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;

@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas;
+package vistas.ModuloCamarista;
 
 
 import Utilerias.ComponenteMenuSuperior;
 import Utilerias.ComponenteRecepcion;
 import controladores.ControladorEstatusHabitaciones;
 import controladores.ControladorPisos;
-import controladores.ControladorRecepciones;
+import controladores.ControladorRecepcionesCamarista;
 import controladores.ControladorReservaciones;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,7 +32,7 @@ public class Pn_RecepcionVistaCamarista extends javax.swing.JPanel {
     private ControladorEstatusHabitaciones ceh = new ControladorEstatusHabitaciones();
     private ControladorPisos cp = new ControladorPisos();
     private ControladorReservaciones crv = new ControladorReservaciones();
-    private ControladorRecepciones cr = new ControladorRecepciones();
+    private ControladorRecepcionesCamarista cr = new ControladorRecepcionesCamarista();
     //Se declaran los componentes a utilizar
     private ComponenteRecepcion q;
     private ComponenteMenuSuperior ms;

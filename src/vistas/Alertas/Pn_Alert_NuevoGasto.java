@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas;
+package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
 import controladores.ControladorEscritura;
@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import controladores.ControladorGastos;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import vistas.Principal;
 
 /**
  *

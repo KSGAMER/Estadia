@@ -5,7 +5,6 @@
  */
 package controladores;
 
-import Utilerias.CambiaPanel;
 import Utilerias.ComponenteRecepcion;
 import java.awt.Color;
 import java.awt.Frame;
@@ -22,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import modelos.ModeloRecepciones;
 import objetos.ObjetoRecepcion;
 import objetos.ObjetoReservacion;
-import vistas.Pn_Alert_DescripcionHabitacion;
+import vistas.ModuloCamarista.Pn_Alert_DesHabitacionVistaCamarista;
 
 /**
  *
@@ -79,7 +78,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -97,7 +96,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -115,7 +114,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -138,7 +137,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -156,7 +155,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -174,7 +173,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -200,7 +199,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -218,7 +217,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -236,7 +235,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -259,7 +258,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -277,7 +276,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
@@ -295,7 +294,7 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                 @Override
                                 public void actionPerformed(ActionEvent ae) {
                                     //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
-                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
                                     aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());

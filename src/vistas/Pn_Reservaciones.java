@@ -7,6 +7,9 @@ package vistas;
 
 
 
+import vistas.Alertas.Pn_SeleccionarClientes;
+import vistas.Alertas.Pn_CobrarReservacion;
+import vistas.Alertas.Pn_Alert_Eliminar;
 import controladores.ControladorCategorias;
 import controladores.ControladorClientes;
 import controladores.ControladorEscritura;

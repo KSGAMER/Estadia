@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas;
+package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
 import controladores.ControladorClientes;
@@ -17,6 +17,7 @@ import java.util.Timer;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import vistas.Pn_Reservaciones;
 
 /**
  *

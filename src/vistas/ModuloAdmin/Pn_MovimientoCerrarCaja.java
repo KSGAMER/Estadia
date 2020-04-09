@@ -15,7 +15,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
-import vistas.Pn_Alert_Eliminar;
+import vistas.Alertas.Pn_Alert_Eliminar;
 import controladores.ControladorGastos;
 import controladores.ControladorCobros;
 import ds.desktop.notify.DesktopNotify;
