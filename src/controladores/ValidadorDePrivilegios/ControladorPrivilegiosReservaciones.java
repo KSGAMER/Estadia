@@ -8,7 +8,6 @@ package controladores.ValidadorDePrivilegios;
 import controladores.ControladorEstatusPermisos;
 import controladores.ControladorModulos;
 import controladores.ControladorPermisos;
-import controladores.ControladorPermisos;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import objetos.ObjetoEstatusPermiso;

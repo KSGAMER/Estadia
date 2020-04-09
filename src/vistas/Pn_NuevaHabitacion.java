@@ -11,8 +11,6 @@ import controladores.ControladorEstatusHabitaciones;
 import controladores.ControladorFormularioTab;
 import controladores.ControladorHabitaciones;
 import controladores.ControladorPisos;
-import controladores.ValidadorDePrivilegios.ControladorPrivilegiosHabitaciones;
-
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -51,22 +49,12 @@ public class Pn_NuevaHabitacion extends javax.swing.JPanel {
     Frame Principal;
 //FIN
 
-    //NECESARIO PARA EXTRAER LOS PRIVILEGIOS DENTRO DE ESTE MODULO, EN FUNCION AL USUARIO ACTUAL 
-    ControladorPrivilegiosHabitaciones analisis = new ControladorPrivilegiosHabitaciones();
-    //FIN
-//NECESARIO PARA HACER LA COMPRACION Y EXTRACCION DE LOS PRIVILEGIOS DE ESTE MODULO
-    private String NombreModulo = "Habitaciones";
-
-    //FIN
     /**
      * Creates new form Pn_NuevaHabitaion
      */
     public Pn_NuevaHabitacion() {
 
         initComponents();
-        //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
-        analisis.validarPermisos(NombreModulo);
-        //FIN
         //APARIENCIA DE LA TABLA
         RowApariencia();
         RowHeaderApariencia();

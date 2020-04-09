@@ -5,7 +5,6 @@
  */
 package vistas;
 
-import controladores.ValidadorDePrivilegios.ControladorPrivilegiosCategorias;
 import controladores.ControladorCategorias;
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
@@ -31,14 +30,6 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
     DefaultTableModel NewTable = new DefaultTableModel();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     ////FIN
-
-    //NECESARIO PARA EXTRAER LOS PRIVILEGIOS DENTRO DE ESTE MODULO, EN FUNCION AL USUARIO ACTUAL 
-    ControladorPrivilegiosCategorias analisis = new ControladorPrivilegiosCategorias();
-    //FIN
-//NECESARIO PARA HACER LA COMPRACION Y EXTRACCION DE LOS PRIVILEGIOS DE ESTE MODULO
-    private String NombreModulo = "Categorias";
-    //FIN
-
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
@@ -48,10 +39,6 @@ public class Pn_NuevaCategoria extends javax.swing.JPanel {
      */
     public Pn_NuevaCategoria() {
         initComponents();
-        //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
-        analisis.validarPermisos(NombreModulo);
-        //FIN
-      
         //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();

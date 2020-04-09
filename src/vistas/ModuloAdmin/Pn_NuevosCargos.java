@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas;
+package vistas.ModuloAdmin;
 
+import vistas.*;
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
 import controladores.ControladorPisos;
@@ -22,23 +23,22 @@ import javax.swing.table.TableColumnModel;
  *
  * @author fenix
  */
-public class Pn_NuevoPiso extends javax.swing.JPanel {
+public class Pn_NuevosCargos extends javax.swing.JPanel {
 //NECESARIO PARA FUNCIONES DE ESTE MODULO 
     ControladorPisos cc = new ControladorPisos();
     ControladorEscritura ce = new ControladorEscritura();
     DefaultTableModel NewTable;
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     //FIN
-   //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
 
     /**
      * Creates new form Pn_NuevoNivel
      */
-    public Pn_NuevoPiso() {
+    public Pn_NuevosCargos() {
         initComponents();
-        
         //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
         //FIN
@@ -365,7 +365,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("VISTA GENERAL DE PISOS");
+        jLabel1.setText("VISTA GENERAL DE PUESTOS DE TRABAJO");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -378,7 +378,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 520, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addGap(91, 91, 91))
         );
@@ -401,7 +401,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Detalle de Pisos");
+        jLabel2.setText("Detalle de Puestos de Trabajo");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, -1, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1090, 10));
 
@@ -472,9 +472,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
 
-                        cc.deletePiso(Integer.valueOf(lb_Id.getText()));
-                        //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
-                        tamañoTabla();
+                       tamañoTabla();
                         NewTable = new DefaultTableModel();
                         cTabla();
                         datosIniciales();
@@ -498,8 +496,6 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
             } else {
 
-                cc.updatePiso(jt_nombre.getText(), jta_observaciones.getText(), Integer.valueOf(lb_Id.getText()));
-                //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " actualizados con éxito.", DesktopNotify.SUCCESS);
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
@@ -522,9 +518,7 @@ public class Pn_NuevoPiso extends javax.swing.JPanel {
 
             } else {
 
-                cc.insertPiso(jt_nombre.getText(), jta_observaciones.getText());
-                //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " agregados con éxito.", DesktopNotify.SUCCESS);
-                NewTable = new DefaultTableModel();
+               NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
                 datosIniciales();

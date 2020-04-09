@@ -690,7 +690,7 @@ public class Pn_NuevoEmpleado extends javax.swing.JPanel {
                 jb_limpiarCamposActionPerformed(evt);
             }
         });
-        jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, 40, -1));
+        jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 310, 40, -1));
 
         jt_t_registros.setEditable(false);
         jt_t_registros.setBackground(new java.awt.Color(84, 110, 122));
