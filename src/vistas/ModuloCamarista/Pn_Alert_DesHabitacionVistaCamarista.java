@@ -381,6 +381,13 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
             if (!validarEscritura() == true) {
 
             } else {
+                if(Validador==1 && cb_status.getSelectedIndex()==0){
+                    //error
+                }else if (Validador==1 && !(cb_status.getSelectedIndex()==0) ){
+                    //acciones de actualizado
+                }else if(Validador==0){
+                    //nada
+                }
                 Cerrar();
             }
 
@@ -433,7 +440,7 @@ cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Observaciones");
             cb_status.setVisible(true);
 
         } else {
-            Validador = 1;
+            Validador = 0;
             cb_status.setVisible(true);
 
         }
