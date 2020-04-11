@@ -1,4 +1,3 @@
-
 package vistas;
 
 import vistas.Alertas.Pn_About;
@@ -50,45 +49,34 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private ControladorPermisos cperm = new ControladorPermisos();
     private ControladorModulos cmod = new ControladorModulos();
     private ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
-//    Pn_NuevaCategoria p = new Pn_NuevaCategoria();
-    public static String User = sesion.Username;
-    //necesario para el control del administrador unicamente
-    public static MenuItem Administrador, Configuracion, AdministracionCaja, Reportes;
-    //fin 
-    //Necesarios para Otros Usuarios
-    public static MenuItem CalendarioReservas, Reservaciones, Recepcion, Clientes, Facturas, GastosHotel;
-    //
-    //necesario para camarista
-    public static MenuItem RecepcionCamarista;
-    
-    //
-    //para abrir la ventana de sesion al dar click en cerrar sesion 
+//VARIABLES PUBLICAS DE USO ESPECILIAZADO
+    public static String User = sesion.Username;//necesaria para comparaciones, es el nombre del usuario actual logueado
+    public static MenuItem Administrador, Configuracion, AdministracionCaja, Reportes;//necesario para el control del administrador unicamente
+    public static MenuItem CalendarioReservas, Reservaciones, Recepcion, Clientes, Facturas, GastosHotel;//Necesarios para Otros Usuarios
+    public static MenuItem RecepcionCamarista;//necesario para camarista
+//fin
+//para abrir la ventana de sesion al dar click en cerrar sesion 
     sesion se = new sesion();
 //fin
+//PARA VALIDACION DE FECHAR
     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
-    String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
-//color del menu del administrador
-    private Color admin = new Color(40, 180, 99);
-//color de letras del menu de otros usuarios
-    private Color general = new Color(255, 255, 255);
+    String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now); //carga la fecha actual
+//FIN
+//COLOR DE DISTINCION PARA MENUS
+    private Color admin = new Color(40, 180, 99);//color del menu del administrador
+    private Color general = new Color(255, 255, 255);//color de letras del menu de otros usuarios
+//FIN
 
     /**
      * Creates new form Main
      */
     public Principal() {
-        //ajusta caracteristicas de la pantalla como quitar el decorado por default y 
-        //la posibilidad de arrastrar la aplicacion dentro del escritorio
+//ajusta caracteristicas de la pantalla como quitar el decorado por default y la posibilidad de arrastrar la aplicacion dentro del escritorio
         setPantalla();
-        //fin
+//fin
         sesion.ventana = true;
         initComponents();
-       
-        //PARA QUE APAREZCA LA PANTALLE DE INICIO AL COMENZAR LA APLICACION
-        //new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
-        //PARA QUE APARECA LA PANTALLA DEL CALENDARIO AL INICAR LA APLICACION 
-        new CambiaPanel(pnlPrincipal, new Pn_CalendarioReservaciones());
-        //asigna la imagen de icono de la aplicacion que se muestra en la barra de tareas
-    
+
         setIconSystem();
         //fin
         //metodo para asignar el tamaño de la aplicacion 
@@ -106,8 +94,8 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         //ejecuta la funciones necesarias para crear el menu lateral con todos los accesos
         execute();
         //
-        RecepcionCamarista.setVisible(false);
-       //muestra dependiendo del usuario, lo modulos que le corresponden
+
+        //muestra dependiendo del usuario, lo modulos que le corresponden
         cpinicial.comparadorPrivilegios(User);
         //fin  
         cperm.tablaPermisos();
@@ -121,7 +109,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         cp.tablaPisos();
         cesHabi.tablaEstadoHabiaciones();
         ccobro.tablaCobros2("");
-       
+
         //muestra datos de fecha y tiempo actuales
         mostrarFecha();
         mostrarHora();
@@ -129,7 +117,6 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         //sirve para mostrar la imagen de avatar del usuario
         ciavatar.ajustarImagen();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -565,10 +552,10 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         ImageIcon iconFacturas = new ImageIcon(getClass().getResource("/Imagenes/icons/facturas32x32.png"));
         ImageIcon iconAdministrador = new ImageIcon(getClass().getResource("/Imagenes/icons/administrador32x32.png"));
         ImageIcon iconAdminCaja = new ImageIcon(getClass().getResource("/Imagenes/icons/cajaAdmin32x32.png"));
-       //ICONO PARA LOS SUBMENUS
+        //ICONO PARA LOS SUBMENUS
         ImageIcon subMenus = new ImageIcon(getClass().getResource("/Imagenes/newarrow20x20.png"));
         //  SUBMENU PARA RESERVACIONES
-        MenuItem NuevaReservacion = new MenuItem(subMenus, "Nueva Reservación", 10,general, new ActionListener() {
+        MenuItem NuevaReservacion = new MenuItem(subMenus, "Nueva Reservación", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_Reservaciones());
@@ -577,7 +564,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         });
 //  SUBMENU PARA CLIENTES
 
-        MenuItem AgregarCliente = new MenuItem(subMenus, "Nuevo Cliente", 10,general, new ActionListener() {
+        MenuItem AgregarCliente = new MenuItem(subMenus, "Nuevo Cliente", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoCliente());
@@ -585,55 +572,55 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         });
 
 // SUBMENU DE CONFIGURACION
-        MenuItem NuevoNivel = new MenuItem(subMenus, "Nuevo Piso", 10,general, new ActionListener() {
+        MenuItem NuevoNivel = new MenuItem(subMenus, "Nuevo Piso", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoPiso());
             }
         });
-        MenuItem NuevaCategoria = new MenuItem(subMenus, "Nueva Categoria", 10,general, new ActionListener() {
+        MenuItem NuevaCategoria = new MenuItem(subMenus, "Nueva Categoria", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevaCategoria());
             }
         });
-        MenuItem NuevaHabitacion = new MenuItem(subMenus, "Nueva Habitación", 10,general, new ActionListener() {
+        MenuItem NuevaHabitacion = new MenuItem(subMenus, "Nueva Habitación", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevaHabitacion());
             }
         });
         //  SUBMENU PARA Administrador
-        MenuItem NuevoEmpleado = new MenuItem(subMenus, "Nuevo Empleado", 10,general, new ActionListener() {
+        MenuItem NuevoEmpleado = new MenuItem(subMenus, "Nuevo Empleado", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoEmpleado());
             }
         });
-        MenuItem Permisos = new MenuItem(subMenus, "Permisos", 10,general, new ActionListener() {
+        MenuItem Permisos = new MenuItem(subMenus, "Permisos", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
                 new CambiaPanel(pnlPrincipal, new Pn_PermisosAccesos());
             }
         });
-        MenuItem Puestos = new MenuItem(subMenus, "Nuevo Puesto", 10,general, new ActionListener() {
+        MenuItem Puestos = new MenuItem(subMenus, "Control de Incidencias", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
-                new CambiaPanel(pnlPrincipal, new Pn_NuevosCargos());
+                new CambiaPanel(pnlPrincipal, new Pn_ControlIncidencias());
             }
         });
         //  SUBMENU PARA Administracion de caja
-        MenuItem AbrirCaja = new MenuItem(subMenus, "Apertura de Caja", 10,general, new ActionListener() {
+        MenuItem AbrirCaja = new MenuItem(subMenus, "Apertura de Caja", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
                 new CambiaPanel(pnlPrincipal, new Pn_MovimientoAbrirCaja());
             }
         });
-        MenuItem CerrarCaja = new MenuItem(subMenus, "Cierre de Caja", 10,general, new ActionListener() {
+        MenuItem CerrarCaja = new MenuItem(subMenus, "Cierre de Caja", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
@@ -641,7 +628,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
         //submenu gastos 
-        MenuItem NuevoGasto = new MenuItem(subMenus, "Nuevo Gasto", 35,general, new ActionListener() {
+        MenuItem NuevoGasto = new MenuItem(subMenus, "Nuevo Gasto", 35, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Pn_Alert_NuevoGasto gasto = new Pn_Alert_NuevoGasto(Principal.this, true);
@@ -677,41 +664,41 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
 
-         Reservaciones = new MenuItem(iconReservaciones, "Reservaciones", 35,general, null, NuevaReservacion);
+        Reservaciones = new MenuItem(iconReservaciones, "Reservaciones", 35, general, null, NuevaReservacion);
 
-         Recepcion = new MenuItem(iconRecepcion, "Recepción", 35,general, new ActionListener() {
+        Recepcion = new MenuItem(iconRecepcion, "Recepción", 35, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
             }
         });
 
-         Clientes = new MenuItem(iconClientes, "Clientes", 35,general, null, AgregarCliente);
-         Facturas = new MenuItem(iconFacturas, "Facturacion", 35,general, new ActionListener() {
+        Clientes = new MenuItem(iconClientes, "Clientes", 35, general, null, AgregarCliente);
+        Facturas = new MenuItem(iconFacturas, "Facturacion", 35, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_Facturacion());
             }
         });
-         GastosHotel = new MenuItem(iconAdminCaja, "Caja", 35,general, null, NuevoGasto); 
+        GastosHotel = new MenuItem(iconAdminCaja, "Caja", 35, general, null, NuevoGasto);
         ///MENU EXTRA PARA ADMINISTRADOR 
-        Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35,admin, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
-       
-        Reportes = new MenuItem(iconReportes, "Reportes", 35,admin,  new ActionListener() {
+        Configuracion = new MenuItem(iconConfiguracion, "Hotel", 35, admin, null, NuevoNivel, NuevaCategoria, NuevaHabitacion);
+
+        Reportes = new MenuItem(iconReportes, "Reportes", 35, admin, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoReportes());
-        
+
             }
         });
-        AdministracionCaja = new MenuItem(iconAdminCaja, "Caja Admin", 35,admin, null, AbrirCaja, CerrarCaja);
+        AdministracionCaja = new MenuItem(iconAdminCaja, "Caja Admin", 35, admin, null, AbrirCaja, CerrarCaja);
         /*SIN USO AUN
         MenuItem Inventario = new MenuItem(iconAdministrador, "Inventario", 35, null, NuevoProducto,ProductoxHabitacion);
          */
-        Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35,admin, null, NuevoEmpleado,Permisos,Puestos);
+        Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35, admin, null, NuevoEmpleado, Permisos, Puestos);
 //    
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
-        addMenu(RecepcionCamarista,CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, GastosHotel,Reportes, Configuracion, Administrador, AdministracionCaja/*, Sesion*/); //Configuracion);
+        addMenu(RecepcionCamarista, CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, GastosHotel, Reportes, Configuracion, Administrador, AdministracionCaja/*, Sesion*/); //Configuracion);
     }
 
     private void addMenu(MenuItem... menu) {
@@ -864,7 +851,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel menus;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel pnlCentro;
-    public javax.swing.JPanel pnlPrincipal;
+    public static javax.swing.JPanel pnlPrincipal;
     private javax.swing.JScrollPane scrollPane_pnPrncipal;
     private javax.swing.JScrollPane scroll_Menu;
     // End of variables declaration//GEN-END:variables

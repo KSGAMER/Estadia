@@ -7,23 +7,38 @@ package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
 import controladores.ControladorHabitaciones;
+import controladores.ControladorIncidencias;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.Toolkit;
+import javax.swing.table.TableColumnModel;
+import static vistas.Pn_NuevoPiso.btn_Eliminar;
+import static vistas.Pn_NuevoPiso.btn_Ingresar;
+import static vistas.Pn_NuevoPiso.btn_Modificar;
 
 /**
  *
  * @author fenix
  */
 public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
-    private ControladorHabitaciones ch = new ControladorHabitaciones();
+    
+    private ControladorIncidencias cin = new ControladorIncidencias();
     private Timer timer = null;
     private TimerTask task;
     private int i = 32;
  //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
+//Variable publica que recibe el nombre de la habitacion desde el jdialog llamado Pn_Alert_DescripcionHabitacion
+//y hacer fucionar el metodo interno de este componente llamado cTabla(NombreHabitacion); para cargar los datos 
+//actuales de las incidencias que esten vinculadas a la habitacion enviada
+    public static String NombreHabitacion="";
+//fin
+    private int seleccion;
     /**
      * Creates new form AlertSuccess
      */
@@ -33,6 +48,16 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
         initComponents();
         AWTUtilities.setOpaque(this, false);
         Ubicar(0);
+        //APARIENCIA DE LA TABLA
+        RowHeaderApariencia();
+        RowApariencia();
+        //FIN
+        //CARGA LOS VALORES EN LA TABLA
+        cTabla(NombreHabitacion);
+        //FIN
+        //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
+        tamañoTabla();
+        //FIN
         jta_observaciones.setEnabled(false);
   //para ajustar el tecto al tamaño del jtextarea
         jta_observaciones.setLineWrap(true);
@@ -48,6 +73,43 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
 
     }
 
+    private void cTabla(String Habitacion) {
+        jtabla_incidenciasActuales.setModel(cin.tablaIncidencias(Habitacion));
+       
+    }
+
+    private void tamañoTabla() {
+        TableColumnModel columnModel = jtabla_incidenciasActuales.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(100);
+        columnModel.getColumn(1).setPreferredWidth(250);
+    }
+
+    
+    private void RowApariencia() {
+
+        jtabla_incidenciasActuales.setFocusable(false);
+
+        //espacio entre comulnas
+        jtabla_incidenciasActuales.setIntercellSpacing(new Dimension(0, 1));
+        //altura de columnas 
+        jtabla_incidenciasActuales.setRowHeight(25);
+        //margen entre filas
+        jtabla_incidenciasActuales.setRowMargin(0);
+//sin lineas verticles
+        jtabla_incidenciasActuales.setShowVerticalLines(false);
+        jtabla_incidenciasActuales.setSelectionBackground(new Color(97, 212, 195));
+
+    }
+
+    private void RowHeaderApariencia() {
+        jtabla_incidenciasActuales.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
+        jtabla_incidenciasActuales.getTableHeader().setOpaque(false);
+        jtabla_incidenciasActuales.getTableHeader().setBackground(new Color(32, 136, 203));
+        jtabla_incidenciasActuales.getTableHeader().setForeground(new Color(255, 255, 255));
+
+    }
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,11 +123,16 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
         cancelar = new principal.MaterialButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        lb_close = new javax.swing.JButton();
         jta_observaciones = new javax.swing.JTextArea();
-        materialButton1 = new principal.MaterialButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtabla_incidenciasActuales = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jt_Nombre = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -83,7 +150,7 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
 
         cancelar.setBackground(new java.awt.Color(211, 18, 18));
         cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        cancelar.setText("CANCELAR");
+        cancelar.setText("Cerrar");
         cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelar.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
         cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +158,7 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
                 cancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 180, 46));
+        jPanel1.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 290, 46));
 
         jPanel3.setBackground(new java.awt.Color(233, 235, 238));
 
@@ -100,21 +167,6 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Vision General de Incidencias Actuales ");
 
-        lb_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/icons8_Cancel_32px.png"))); // NOI18N
-        lb_close.setToolTipText("Close");
-        lb_close.setBorder(null);
-        lb_close.setBorderPainted(false);
-        lb_close.setContentAreaFilled(false);
-        lb_close.setFocusable(false);
-        lb_close.setRequestFocusEnabled(false);
-        lb_close.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/icons8_Cancel_30px_3.png"))); // NOI18N
-        lb_close.setVerifyInputWhenFocusTarget(false);
-        lb_close.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lb_closeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -122,20 +174,16 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lb_close, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addGap(85, 85, 85))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lb_close, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 50));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 50));
 
         jta_observaciones.setColumns(20);
         jta_observaciones.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -162,19 +210,7 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
                 jta_observacionesKeyPressed(evt);
             }
         });
-        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 420, 140));
-
-        materialButton1.setBackground(new java.awt.Color(40, 180, 99));
-        materialButton1.setForeground(new java.awt.Color(255, 255, 255));
-        materialButton1.setText("ACEPTAR");
-        materialButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        materialButton1.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
-        materialButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                materialButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(materialButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 180, 46));
+        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 430, 110));
 
         jtabla_incidenciasActuales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -187,9 +223,46 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtabla_incidenciasActuales.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtabla_incidenciasActualesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtabla_incidenciasActuales);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 420, 100));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 420, 100));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Tabla de Incidencias por Habitación");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 190, 10));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Nombre :");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 90, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Detalles de la Incidencia");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Observaciones :");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+
+        jt_Nombre.setBackground(new java.awt.Color(36, 47, 65));
+        jt_Nombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jt_Nombre.setForeground(new java.awt.Color(255, 255, 255));
+        jt_Nombre.setText("Nombre de la Incidencia");
+        jt_Nombre.setBorder(null);
+        jt_Nombre.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        jt_Nombre.setEnabled(false);
+        jt_Nombre.setFocusable(false);
+        jPanel1.add(jt_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 190, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 450, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,7 +273,7 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -230,13 +303,6 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    private void materialButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton1ActionPerformed
-
-
-             
-               
-    }//GEN-LAST:event_materialButton1ActionPerformed
-
     private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
         
     }//GEN-LAST:event_jta_observacionesFocusGained
@@ -253,13 +319,16 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
      
     }//GEN-LAST:event_jta_observacionesKeyPressed
 
-    private void lb_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lb_closeActionPerformed
-     Cerrar();
-    }//GEN-LAST:event_lb_closeActionPerformed
-
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
      Cerrar();
     }//GEN-LAST:event_cancelarActionPerformed
+
+    private void jtabla_incidenciasActualesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_incidenciasActualesMouseClicked
+        seleccion = jtabla_incidenciasActuales.rowAtPoint(evt.getPoint());
+        jt_Nombre.setText(String.valueOf(jtabla_incidenciasActuales.getValueAt(seleccion, 0)));
+        jta_observaciones.setText(String.valueOf(jtabla_incidenciasActuales.getValueAt(seleccion, 1)));
+
+    }//GEN-LAST:event_jtabla_incidenciasActualesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -305,14 +374,19 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private principal.MaterialButton cancelar;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jt_Nombre;
     public static javax.swing.JTextArea jta_observaciones;
     private javax.swing.JTable jtabla_incidenciasActuales;
-    private javax.swing.JButton lb_close;
-    private principal.MaterialButton materialButton1;
     // End of variables declaration//GEN-END:variables
 
     private void Cerrar() {

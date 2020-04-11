@@ -29,7 +29,7 @@ public class ModeloEstadoIncidencia extends BD {
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[2];
         try {
-            this.st = conectar().prepareStatement("SELECT * FROM Cargo");
+            this.st = conectar().prepareStatement("SELECT * FROM EstadoIncidencia");
             this.rs = st.executeQuery();
             while (this.rs.next()) {
                 fila[0] = rs.getInt(1);

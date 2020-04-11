@@ -166,7 +166,7 @@ parauna imagen de avatar si no se escribe nada, por default JFileChooser usara "
         for (ObjetoCargo campos : ccargo.seleccionarCargo()) {
             cb.addElement(campos.getNombre());
         }
-        cb_status.setModel(cb);
+        cb_Cargo.setModel(cb);
 
     }
 

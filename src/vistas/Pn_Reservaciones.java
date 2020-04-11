@@ -35,7 +35,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import objetos.ObjetoCategoria;
 import objetos.ObjetoHabitacion;
-import vistas.ModuloAdmin.Pn_CortedeCaja;
 
 
 /**
