@@ -9,11 +9,16 @@ import Utilerias.AWTUtilities;
 import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
 import controladores.ControladorHabitaciones;
+import controladores.ControladorIncidencias;
+import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import vistas.Principal;
 
 /**
  *
@@ -22,14 +27,20 @@ import java.awt.event.ItemEvent;
 public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
 
     private ControladorHabitaciones ch = new ControladorHabitaciones();
+    private ControladorIncidencias cin = new ControladorIncidencias();
     private Timer timer = null;
     private TimerTask task;
     private int i = 32;
     private ControladorEscritura ce = new ControladorEscritura();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
 //necesario para validar si se seleccion el cambio de status o no
-    int Validador=0;
+    int Validador = 0;
     //
+    //necesario para obtener la fecha con hora para las nuevas cajas
+    Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
+    String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
+    String horaActual = new SimpleDateFormat("HH:mm:ss").format(now);
+
     /**
      * Creates new form AlertSuccess
      */
@@ -61,7 +72,7 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         lb_errorDescripcionIncidencia.setForeground(new Color(36, 47, 65));
         lb_errorNombre.setForeground(new Color(36, 47, 65));
         cb_status.setVisible(false);
-        Validador=0;
+        Validador = 0;
     }
 
     private Boolean validarEscritura() {
@@ -115,6 +126,9 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         cb_status = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -179,7 +193,7 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         lb_NombreCategoria.setForeground(new java.awt.Color(255, 255, 255));
         lb_NombreCategoria.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_NombreCategoria.setText("Categoria");
-        jPanel1.add(lb_NombreCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 90, -1));
+        jPanel1.add(lb_NombreCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 90, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(58, 159, 171));
@@ -191,19 +205,19 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         jLabel20.setForeground(new java.awt.Color(58, 159, 171));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel20.setText("Nombre Habitación");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 130, -1));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 130, -1));
 
         lb_NombreHabitacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_NombreHabitacion.setForeground(new java.awt.Color(255, 255, 255));
         lb_NombreHabitacion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_NombreHabitacion.setText("Habitacion");
-        jPanel1.add(lb_NombreHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 130, -1));
+        jPanel1.add(lb_NombreHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 130, -1));
 
         lb_Estado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_Estado.setForeground(new java.awt.Color(255, 255, 255));
         lb_Estado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_Estado.setText("Estado");
-        jPanel1.add(lb_Estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 130, -1));
+        jPanel1.add(lb_Estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 130, -1));
 
         jta_observaciones.setColumns(20);
         jta_observaciones.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -230,13 +244,13 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         jLabel18.setForeground(new java.awt.Color(58, 159, 171));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Estado Actual:");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 90, -1));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 90, -1));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(58, 159, 171));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel21.setText("Categoria:");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 90, -1));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 90, -1));
 
         materialButton1.setBackground(new java.awt.Color(40, 180, 99));
         materialButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -256,8 +270,9 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         jLabel17.setText("Observaciones");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 235, 120, 20));
 
+        jt_nombre.setBackground(new java.awt.Color(36, 47, 65));
         jt_nombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jt_nombre.setForeground(new java.awt.Color(153, 153, 153));
+        jt_nombre.setForeground(new java.awt.Color(255, 255, 255));
         jt_nombre.setText("Ingresar Nombre");
         jt_nombre.setBorder(null);
         jt_nombre.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -283,7 +298,7 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Datos generales por Habitación");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -318,7 +333,7 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Formulario de incidencias");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, -1));
 
         jCheckBox1.setBackground(new java.awt.Color(36, 47, 65));
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -333,16 +348,19 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
 
         cb_status.setBackground(new java.awt.Color(84, 110, 122));
         cb_status.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estatus", "Disponible" }));
+        cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estatus", "Disponible", "Limpieza" }));
         cb_status.setBorder(null);
         cb_status.setFocusable(false);
-        jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 220, -1));
+        jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 220, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 380, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 200, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 380, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,9 +397,24 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         ///aqui va el codigo que inserta una nueva incidencia en esta habitacion
         try {
             if (!validarEscritura() == true) {
+                DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-                Cerrar();
+                if (Validador == 1 && cb_status.getSelectedIndex() == 0) {
+                    DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un estatus válido", DesktopNotify.ERROR);
+
+                } else if (Validador == 1 && !(cb_status.getSelectedIndex() == 0)) {
+                    //insertar incidencia y actualizar el estado de la habitacion 
+                    cin.insertarIncidencias(jt_nombre.getText(), jta_observaciones.getText(), fechaActual, horaActual, Principal.User, lb_NombreHabitacion.getText(), "Pendiente");
+                    ch.updateHabitacion(lb_NombreHabitacion.getText(), String.valueOf(cb_status.getSelectedItem()));
+                    Cerrar();
+                } else if (Validador == 0) {
+                    //insertar incidencia sin actualizar habitacion 
+                    cin.insertarIncidencias(jt_nombre.getText(), jta_observaciones.getText(), fechaActual, horaActual, Principal.User, lb_NombreHabitacion.getText(), "Pendiente");
+
+                    Cerrar();
+                }
+
             }
 
         } catch (Exception e) {
@@ -391,15 +424,15 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
     }//GEN-LAST:event_materialButton1ActionPerformed
 
     private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
-cft.formFocusGainJTextArea(jta_observaciones);
+        cft.formFocusGainJTextArea(jta_observaciones);
     }//GEN-LAST:event_jta_observacionesFocusGained
 
     private void jta_observacionesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusLost
-cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Observaciones");
+        cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Observaciones");
     }//GEN-LAST:event_jta_observacionesFocusLost
 
     private void jta_observacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jta_observacionesMouseClicked
- cft.formFocusGainJTextArea(jta_observaciones);
+        cft.formFocusGainJTextArea(jta_observaciones);
     }//GEN-LAST:event_jta_observacionesMouseClicked
 
     private void lb_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lb_closeActionPerformed
@@ -419,6 +452,7 @@ cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Observaciones");
     }//GEN-LAST:event_jt_nombreMouseClicked
 
     private void jt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyTyped
+
         ce.typedCharsAndSpaceAndDigits(evt, jt_nombre);
     }//GEN-LAST:event_jt_nombreKeyTyped
 
@@ -433,7 +467,7 @@ cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Observaciones");
             cb_status.setVisible(true);
 
         } else {
-            Validador = 1;
+            Validador = 0;
             cb_status.setVisible(true);
 
         }
@@ -495,6 +529,9 @@ cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Observaciones");
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JButton jb_limpiarCampos2;
     private javax.swing.JTextField jt_nombre;
     public static javax.swing.JTextArea jta_observaciones;
