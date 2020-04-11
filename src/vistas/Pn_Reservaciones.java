@@ -155,16 +155,19 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     private void datosIniciales() {
         btn_Cobrar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
         jt_nombre.setText("Ingresar Nombre");
         cb_Habitacion.setSelectedIndex(0);
         jd_Ingreso.setCalendar(null);
         jd_Salida.setCalendar(null);
-  
+        lb_Id.setText("");
+        lb_estadoCobro.setText("");
         
         lb_errorNombre.setForeground(new Color(84, 110, 122));
         lb_errorHabitacion.setForeground(new Color(84, 110, 122));
         lb_errorFechaIngreso.setForeground(new Color(84, 110, 122));
         lb_errorFechaSalida.setForeground(new Color(84, 110, 122));
+
     }
 
     private void RowApariencia() {
@@ -277,11 +280,12 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         lb_errorHabitacion = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         btn_clientes = new principal.MaterialButton();
-        btn_Eliminar2 = new principal.MaterialButton();
+        btn_Eliminar = new principal.MaterialButton();
         lb_Id = new javax.swing.JLabel();
         jt_Buscar = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jb_limpiarCampos2 = new javax.swing.JButton();
+        lb_estadoCobro = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -533,22 +537,22 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         });
         jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 30, 30));
 
-        btn_Eliminar2.setBackground(new java.awt.Color(211, 18, 18));
-        btn_Eliminar2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Eliminar2.setText("eliminar");
-        btn_Eliminar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_Eliminar2.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        btn_Eliminar2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
+        btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Eliminar.setText("eliminar");
+        btn_Eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Eliminar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_Eliminar2MouseClicked(evt);
+                btn_EliminarMouseClicked(evt);
             }
         });
-        btn_Eliminar2.addActionListener(new java.awt.event.ActionListener() {
+        btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Eliminar2ActionPerformed(evt);
+                btn_EliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Eliminar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 380, 100, 40));
+        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 380, 100, 40));
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
         jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 30, 20));
@@ -599,6 +603,10 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         });
         jPanel1.add(jb_limpiarCampos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 40, -1));
 
+        lb_estadoCobro.setForeground(new java.awt.Color(84, 110, 122));
+        lb_estadoCobro.setText("jLabel5");
+        jPanel1.add(lb_estadoCobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 190, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -617,15 +625,18 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         lb_Id.setText(String.valueOf(jt_Reservas.getValueAt(seleccion, 0)));
         jt_nombre.setText(String.valueOf(jt_Reservas.getValueAt(seleccion, 1)));
         cb_Habitacion.getModel().setSelectedItem(jt_Reservas.getValueAt(seleccion, 2));
-        try {
+                try {
             jd_Ingreso.setDate(dateFormat.parse((String) jt_Reservas.getValueAt(seleccion, 3).toString()));
             jd_Salida.setDate(dateFormat.parse((String) jt_Reservas.getValueAt(seleccion, 4).toString()));
-            if(((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual)) {
+            if(((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual)&& ((String) jt_Reservas.getValueAt(seleccion, 5).toString()).equals("Cobrado")) {
                 
+               btn_Eliminar.setEnabled(true);
+      btn_Cobrar.setEnabled(false);
+            } else  if(!(((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual))&& ((String) jt_Reservas.getValueAt(seleccion, 5).toString()).equals("Pendiente")){
+                btn_Eliminar.setEnabled(false);
                 btn_Cobrar.setEnabled(true);
-            } else {
-                btn_Cobrar.setEnabled(false);
             }
+            lb_estadoCobro.setText(String.valueOf(jt_Reservas.getValueAt(seleccion, 5)));
         } catch (ParseException ex) {
             Logger.getLogger(Pn_Reservaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -657,7 +668,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
             } else {
     
-                cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Principal.User);
+                cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Principal.User,"Pendiente");
                 ch.updateHabitacion(String.valueOf(cb_Habitacion.getSelectedItem()), "Reservado");
                 NewTable = new DefaultTableModel();
                 cTabla();
@@ -731,11 +742,11 @@ Pn_SeleccionarClientes select = new Pn_SeleccionarClientes(principal, true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_clientesActionPerformed
 
-    private void btn_Eliminar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_Eliminar2MouseClicked
+    private void btn_EliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EliminarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Eliminar2MouseClicked
+    }//GEN-LAST:event_btn_EliminarMouseClicked
 
-    private void btn_Eliminar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Eliminar2ActionPerformed
+    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
         try {
             if (!validarEscritura() == true && !validarSeleccion() == true) {
 
@@ -765,7 +776,7 @@ ale.dispose();
         } catch (Exception e) {
     
         }
-    }//GEN-LAST:event_btn_Eliminar2ActionPerformed
+    }//GEN-LAST:event_btn_EliminarActionPerformed
 
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
 
@@ -776,7 +787,7 @@ ale.dispose();
 
             } else {
 
-                cr.updateReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Integer.valueOf(lb_Id.getText()));
+                cr.updateReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()),"Pendiente", Integer.valueOf(lb_Id.getText()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 datosIniciales();
@@ -861,27 +872,13 @@ ale.dispose();
     }//GEN-LAST:event_jd_SalidaPropertyChange
 
     private void jb_limpiarCampos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCampos2ActionPerformed
-   
-        jt_nombre.setText("Ingresar Nombre");
-        cb_Habitacion.setSelectedIndex(0);
-        jd_Ingreso.setCalendar(null);
-        jd_Salida.setCalendar(null);
-        
-        lb_errorNombre.setText("*");
-        lb_errorHabitacion.setText("*");
-        lb_errorFechaIngreso.setText("*");
-        lb_errorFechaSalida.setText("*");
-        
-        lb_errorNombre.setForeground(new Color(84, 110, 122));
-        lb_errorHabitacion.setForeground(new Color(84, 110, 122));
-        lb_errorFechaIngreso.setForeground(new Color(84, 110, 122));
-        lb_errorFechaSalida.setForeground(new Color(84, 110, 122));        // TODO add your handling code here:
+   datosIniciales();      // TODO add your handling code here:
     }//GEN-LAST:event_jb_limpiarCampos2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private principal.MaterialButton btn_Cobrar;
-    public static principal.MaterialButton btn_Eliminar2;
+    public static principal.MaterialButton btn_Eliminar;
     public static principal.MaterialButton btn_Ingresar;
     public static principal.MaterialButton btn_Modificar;
     private principal.MaterialButton btn_clientes;
@@ -913,5 +910,6 @@ ale.dispose();
     private javax.swing.JLabel lb_errorFechaSalida;
     private javax.swing.JLabel lb_errorHabitacion;
     private javax.swing.JLabel lb_errorNombre;
+    private javax.swing.JLabel lb_estadoCobro;
     // End of variables declaration//GEN-END:variables
 }

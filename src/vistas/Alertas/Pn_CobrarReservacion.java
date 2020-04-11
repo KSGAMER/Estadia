@@ -35,13 +35,12 @@ import vistas.Principal;
  * @author fenix
  */
 public class Pn_CobrarReservacion extends javax.swing.JDialog {
-    
+
     Timer timer = null;
     TimerTask task;
     int i = 32;
 
 //necesario para funciones de este modulo
-
     private ControladorClientes mc = new ControladorClientes();
     private ControladorReservaciones cr = new ControladorReservaciones();
     private ControladorCFDI cf = new ControladorCFDI();
@@ -52,16 +51,16 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private ControladorHabitaciones ch = new ControladorHabitaciones();
     DefaultTableModel NewTable;
     private Pn_Reservaciones reservacion;
-    private int validador = 0,validadorHoras=0;
-
+    private int validador = 0, validadorHoras = 0;
+    private int validadorTNoches = 0;
+    private int ValidarCobrar = 0;
 //FIN
- private int validadorTNoches=0;   
 
     //variables que guardan la cantidad a cobrar o/y el monto acumulado 
-    Double CostoAcumulado, MontoaCobrar,cargo;
+    Double CostoAcumulado, MontoaCobrar, cargo;
 //variable de retorno de diferencia entre fechas
-     int dias;
-         //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA EN CLIENTES PARA FACTURA
+    int dias;
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA EN CLIENTES PARA FACTURA
     Frame principal;
 
     /**
@@ -69,11 +68,11 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
      */
     public Pn_CobrarReservacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-      
+
         initComponents();
         AWTUtilities.setOpaque(this, false);
         Ubicar(0);
-            
+
         //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
         //FIN
@@ -97,10 +96,9 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         DesktopNotify.showDesktopMessage("RECOMENDACIÓN", "En caso de requerir factura, es importante confirmar el correo"
                 + "al cliente, y en caso de ser diferente se puede modificar desde el formulario SELECCIONA CLIENTE o bien "
                 + "desde la ventana de Checkout", DesktopNotify.TIP);
-       //solicita que se escriba primero en esta casilla, que es el TotalManual
+        //solicita que se escriba primero en esta casilla, que es el TotalManual
         jt_MontoManualaCobrar.requestFocus();
     }
-  
 
     private void cargarTiposdePago() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
@@ -180,9 +178,10 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         btn_SeleccionarClientes.setEnabled(true);
         jt_email.setEnabled(true);
     }
+
     private void bloquearCamposPago() {
         jc_seleccionarTxNoches.setEnabled(false);
-         jc_seleccionarTxHoras.setEnabled(false);
+        jc_seleccionarTxHoras.setEnabled(false);
         jt_MontoManualaCobrar.setEnabled(false);
         jt_TotalHoras.setEnabled(false);
         jt_TotalHoras.setEditable(false);
@@ -192,14 +191,15 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }
 
     private void desbloquearCamposPago() {
-  jc_seleccionarTxNoches.setEnabled(true);
+        jc_seleccionarTxNoches.setEnabled(true);
         jt_MontoManualaCobrar.setEnabled(true);
         jt_CargoExtra.setEnabled(true);
         jt_MontoACobrar.setEnabled(true);
         jt_TotalHoras.setEnabled(true);
         jt_TotalHoras.setEditable(true);
         cb_TipoPago.setEnabled(true);
-}
+    }
+
     private void mostrarElementosFacturas() {
         pn_showFacturas.setVisible(true);
         lb_NombreRazonSocial.setVisible(true);
@@ -223,13 +223,13 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }
 
     private void ReposicionarBotones() {
-        btn_Cobrar.setLocation(680, 280);
-        btn_Salir.setLocation(680, 330);
+        pn_finTransaccion.setLocation(680, 280);
+
     }
 
     private void PosicionOriginalBotones() {
-        btn_Cobrar.setLocation(680, 420);
-        btn_Salir.setLocation(680, 470);
+        pn_finTransaccion.setLocation(680, 400);
+
     }
 
     private Boolean validaciones() {
@@ -242,8 +242,8 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
         } else {
             lb_errorMontoCobrar.setForeground(Color.RED);
-           DesktopNotify.showDesktopMessage("Error", "Debe ingresar una cantidad de cobro o seleccionar el total generado por noche", DesktopNotify.ERROR);
-           
+            DesktopNotify.showDesktopMessage("Error", "Debe ingresar una cantidad de cobro o seleccionar el total generado por noche", DesktopNotify.ERROR);
+
             val = false;
         }
         if (!(jt_MontoManualaCobrar.getText().equals("0")) && !(jt_MontoManualaCobrar.getText().equals(""))) {
@@ -251,9 +251,9 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
         } else {
             lb_errorTotalManual.setForeground(Color.RED);
-            
-           DesktopNotify.showDesktopMessage("Error", "Debe ingresar una cantidad de pago", DesktopNotify.ERROR);
-           
+
+            DesktopNotify.showDesktopMessage("Error", "Debe ingresar una cantidad de pago", DesktopNotify.ERROR);
+
             val = false;
         }
         if (!(MontoaCobrar < CostoAcumulado)) {
@@ -262,7 +262,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         } else {
             lb_errorMontoCobrar.setForeground(Color.RED);
             DesktopNotify.showDesktopMessage("Error", "El monto de Pago debe ser mayor al total general", DesktopNotify.ERROR);
-           
+
             val = false;
         }
 
@@ -300,7 +300,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             int mesSalida = Integer.parseInt(monthOut);
             int diaSalida = Integer.parseInt(dayOut);
 
-
             //valores de la ficha inicial de la reservacion SIN IMPORTAR EL MES Y/O AÑO
             Calendar FechainicioReservacion = Calendar.getInstance();
             FechainicioReservacion.set(anio, mes - 1, dia);
@@ -310,8 +309,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             FechainicioReservacion.set(Calendar.SECOND, 0);
 
             //fecha de salida
-            
-            
             //representa el dia actual o fecha de salida
             Calendar DiaActual = Calendar.getInstance();
             DiaActual.set(anioSalida, mesSalida - 1, diaSalida);
@@ -332,7 +329,8 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         }
         return dias;
     }
-    private void  sumarCobroManual() {
+
+    private void sumarCobroManual() {
         String numero = jt_MontoManualaCobrar.getText();
 
         if (!(numero.equals("")) && numero.matches("[0-9]*")) {
@@ -342,7 +340,8 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
         }
     }
-    private void sumarCargo(){
+
+    private void sumarCargo() {
         String numeroCargo = jt_CargoExtra.getText();
 
         if (!(numeroCargo.equals("")) && numeroCargo.matches("[0-9]*")) {
@@ -355,14 +354,15 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             lb_TotalGeneral.setText(String.valueOf(Monto2));
         }
     }
-       private void CalcularCambio(){
-       
+
+    private void CalcularCambio() {
+
         String numeroCargo = jt_MontoACobrar.getText();
 
         if (!(numeroCargo.equals("")) && numeroCargo.matches("[0-9]*")) {
-           Double montoCobrar = Double.valueOf(jt_MontoACobrar.getText());
-           Double totalGeneral =Double.valueOf(lb_TotalGeneral.getText());
-            lb_Cambio.setText(String.valueOf(Double.valueOf(montoCobrar-totalGeneral)));
+            Double montoCobrar = Double.valueOf(jt_MontoACobrar.getText());
+            Double totalGeneral = Double.valueOf(lb_TotalGeneral.getText());
+            lb_Cambio.setText(String.valueOf(Double.valueOf(montoCobrar - totalGeneral)));
 
         } else {
             lb_Cambio.setText("0.0");
@@ -384,7 +384,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         return val;
 
     }*/
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -396,14 +395,12 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        btn_Cobrar = new principal.MaterialButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         pn_cerrar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        btn_Salir = new principal.MaterialButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
@@ -497,12 +494,18 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         lb_FechaIngreso = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        btn_Ingresar1 = new principal.MaterialButton();
+        btn_GenerarDatos = new principal.MaterialButton();
         lb_FolioReservaciones = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel27 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
+        pn_finTransaccion = new javax.swing.JPanel();
+        btn_Salir = new principal.MaterialButton();
+        btn_Cobrar = new principal.MaterialButton();
+        jLabel26 = new javax.swing.JLabel();
+        jc_cobrar = new javax.swing.JCheckBox();
+        jc_finTransaccion = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -521,22 +524,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(204, 204, 204));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
-        btn_Cobrar.setBackground(new java.awt.Color(40, 180, 99));
-        btn_Cobrar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Cobrar.setText("Terminar Reservación");
-        btn_Cobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_Cobrar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        btn_Cobrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_CobrarMouseClicked(evt);
-            }
-        });
-        btn_Cobrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_CobrarActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Proceso de Check Out");
@@ -614,22 +601,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                         .addComponent(jLabel4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        btn_Salir.setBackground(new java.awt.Color(211, 18, 18));
-        btn_Salir.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Salir.setText("SALIR");
-        btn_Salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_Salir.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        btn_Salir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_SalirMouseClicked(evt);
-            }
-        });
-        btn_Salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SalirActionPerformed(evt);
-            }
-        });
 
         jPanel3.setBackground(new java.awt.Color(233, 235, 238));
         jPanel3.setToolTipText("");
@@ -1370,14 +1341,14 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         lb_FechaIngreso.setText("Fecha ingreso");
         jPanel10.add(lb_FechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 190, -1));
 
-        btn_Ingresar1.setBackground(new java.awt.Color(40, 180, 99));
-        btn_Ingresar1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Ingresar1.setText("Generar");
-        btn_Ingresar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_Ingresar1.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        btn_Ingresar1.addActionListener(new java.awt.event.ActionListener() {
+        btn_GenerarDatos.setBackground(new java.awt.Color(40, 180, 99));
+        btn_GenerarDatos.setForeground(new java.awt.Color(255, 255, 255));
+        btn_GenerarDatos.setText("Generar");
+        btn_GenerarDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_GenerarDatos.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_GenerarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Ingresar1ActionPerformed(evt);
+                btn_GenerarDatosActionPerformed(evt);
             }
         });
 
@@ -1398,13 +1369,78 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Datos Generales");
 
+        pn_finTransaccion.setBackground(new java.awt.Color(84, 110, 122));
+        pn_finTransaccion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_Salir.setBackground(new java.awt.Color(211, 18, 18));
+        btn_Salir.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Salir.setText("SALIR");
+        btn_Salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Salir.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_SalirMouseClicked(evt);
+            }
+        });
+        btn_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SalirActionPerformed(evt);
+            }
+        });
+        pn_finTransaccion.add(btn_Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 210, 40));
+
+        btn_Cobrar.setBackground(new java.awt.Color(40, 180, 99));
+        btn_Cobrar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Cobrar.setText("Terminar Reservación");
+        btn_Cobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_Cobrar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        btn_Cobrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_CobrarMouseClicked(evt);
+            }
+        });
+        btn_Cobrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CobrarActionPerformed(evt);
+            }
+        });
+        pn_finTransaccion.add(btn_Cobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 280, 40));
+
+        jLabel26.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel26.setText("Cómo desea terminar la transacción?");
+        pn_finTransaccion.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 20));
+
+        jc_cobrar.setBackground(new java.awt.Color(84, 110, 122));
+        jc_cobrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jc_cobrar.setForeground(new java.awt.Color(255, 255, 255));
+        jc_cobrar.setText("Solo cobrar ");
+        jc_cobrar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jc_cobrarItemStateChanged(evt);
+            }
+        });
+        pn_finTransaccion.add(jc_cobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
+
+        jc_finTransaccion.setBackground(new java.awt.Color(84, 110, 122));
+        jc_finTransaccion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jc_finTransaccion.setForeground(new java.awt.Color(255, 255, 255));
+        jc_finTransaccion.setText("Cobrar y terminar reservación");
+        jc_finTransaccion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jc_finTransaccionItemStateChanged(evt);
+            }
+        });
+        pn_finTransaccion.add(jc_finTransaccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1417,35 +1453,36 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lb_FolioReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(200, 200, 200)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(49, 49, 49)
-                        .addComponent(btn_Ingresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lb_FolioReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(470, 470, 470)
+                        .addComponent(btn_GenerarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(200, 200, 200)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(pn_finTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1455,31 +1492,29 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lb_FolioReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel16))
-                                    .addComponent(lb_FolioReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10)))
-                            .addComponent(btn_Ingresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(8, 8, 8)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel16))
+                    .addComponent(btn_GenerarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel10))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btn_Cobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(8, 8, 8)
+                        .addComponent(pn_finTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1525,7 +1560,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private void btn_CobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CobrarActionPerformed
 
         try {
-            if (!validaciones() == true && !validarTipoPago() == true ||!validaciones()==true) {
+            if (!validaciones() == true && !validarTipoPago() == true || !validaciones() == true) {
                 DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a total general y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
             } else if (validaciones() == true && !validarTipoPago() == true) {
                 DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a total general y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
@@ -1534,19 +1569,44 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                 DesktopNotify.showDesktopMessage("Error", "Monto a cobrar , debe ser mayor a monto calculado y/o debe seleccionar una forma de pago ", DesktopNotify.ERROR);
 
             } else {
-                if (validador == 1 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago" ) {
-                    // monto,  tipoPago,  rfc,  correo,  usuario,  Nombre, NombreHabitacion,  FechaIngreso,  FechaSalida,  IdFacturacion
-                    cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_razonSocial.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
-                    cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
-                    ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
-                    reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
-                    Cerrar();
+                if (validador == 1 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
+//si el validador es igual a 1 , significa que solo se cobra la reservacion pero no se borrar la reservacion
+//ni se actualizar la habitacion a limpieza, debido a que no a sido desocupada
+                    if (ValidarCobrar == 1) {
+                        // monto,  tipoPago,  rfc,  correo,  usuario,  Nombre, NombreHabitacion,  FechaIngreso,  FechaSalida,  IdFacturacion
+                        cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_razonSocial.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
+                        cr.updateReservacion(lb_nombreCliente.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Cobrado", Integer.valueOf(lb_FolioReservaciones.getText()));
+                        reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
+                        Cerrar();
+//si el validador es igual a 2 significa que se da por terminada toda la reservacion y de igual manera se realiza el 
+//cobro de la misma, lo que automaticamente , elimina la reservacion y actualiza el estado de la habitacion a limpieza
+                    } else if (ValidarCobrar == 2) {
+                        // monto,  tipoPago,  rfc,  correo,  usuario,  Nombre, NombreHabitacion,  FechaIngreso,  FechaSalida,  IdFacturacion
+                        cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_razonSocial.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
+                        cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
+                        ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
+                        reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
+                        Cerrar();
+                    }
+
                 } else if (validador == 0 && cb_TipoPago.getSelectedItem() != "Seleccionar Tipo de Pago") {
-                    cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", Principal.User, "----", lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Sin Factura");
-                    cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
-                    ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
-                    reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
-                    Cerrar();
+                    //si el validador es igual a 1 , significa que solo se cobra la reservacion pero no se borrar la reservacion
+//ni se actualizar la habitacion a limpieza, debido a que no a sido desocupada
+                    if (ValidarCobrar == 1) {
+                        cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", Principal.User, "----", lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Sin Factura");
+                        cr.updateReservacion(lb_nombreCliente.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Cobrado", Integer.valueOf(lb_FolioReservaciones.getText()));
+                        reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
+                        Cerrar();
+
+                    } else if (ValidarCobrar == 2) {
+                        cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", Principal.User, "----", lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Sin Factura");
+                        cr.deleteReservacion(Integer.valueOf(lb_FolioReservaciones.getText()));
+                        ch.updateHabitacion(lb_NombreHabitacion.getText(), "Limpieza");
+                        reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
+                        Cerrar();
+
+                    }
+
                 }
             }
 
@@ -1587,15 +1647,14 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private void jc_seleccionarTxNochesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_seleccionarTxNochesItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
             validadorTNoches = 1;
-            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText())+Double.valueOf(lb_TotalxNoches.getText())));
-            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText())+Double.valueOf(lb_TotalxNoches.getText())));
-        }else{
+            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText()) + Double.valueOf(lb_TotalxNoches.getText())));
+            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText()) + Double.valueOf(lb_TotalxNoches.getText())));
+        } else {
             validadorTNoches = 0;
-            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText())-Double.valueOf(lb_TotalxNoches.getText())));
-           lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText())-Double.valueOf(lb_TotalxNoches.getText())));
-       
-          //  lb_TotalGeneral.setText("0");
+            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText()) - Double.valueOf(lb_TotalxNoches.getText())));
+            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText()) - Double.valueOf(lb_TotalxNoches.getText())));
 
+            //  lb_TotalGeneral.setText("0");
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jc_seleccionarTxNochesItemStateChanged
@@ -1604,13 +1663,13 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jc_seleccionarTxNochesActionPerformed
 
-    private void btn_Ingresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Ingresar1ActionPerformed
+    private void btn_GenerarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarDatosActionPerformed
         desbloquearCamposPago();
         lb_TotalNoches.setText(String.valueOf(CalcularNoches()));
         lb_TotalxNoches.setText(String.valueOf(CalcularNoches() * (Double.valueOf(lb_PrecioHabitacion.getText()))));
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Ingresar1ActionPerformed
+    }//GEN-LAST:event_btn_GenerarDatosActionPerformed
 
     private void cb_TipoPagoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_TipoPagoItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
@@ -1624,8 +1683,8 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         DesktopNotify.showDesktopMessage("TIP", "Es campo de monto Manual se puede llenar automaticamente "
-            + "en con el calculo generado en TOTAL POR NOCHES al hacer click en la casilla"
-            + "o ingresar una catidad preferencial y dejar la casilla vacia", DesktopNotify.TIP);
+                + "en con el calculo generado en TOTAL POR NOCHES al hacer click en la casilla"
+                + "o ingresar una catidad preferencial y dejar la casilla vacia", DesktopNotify.TIP);
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel9MouseClicked
 
@@ -1658,7 +1717,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_MontoManualaCobrarMouseClicked
 
     private void jt_MontoManualaCobrarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarPropertyChange
-        if(validadorTNoches==1){
+        if (validadorTNoches == 1) {
             sumarCobroManual();
         }
 
@@ -1737,6 +1796,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_SeleccionarClientesActionPerformed
 
     private void jch_facturacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jch_facturacionItemStateChanged
+
         if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
             validador = 1;
             /*Regresa a su posicion original por debajo del formulario de datos para facturas
@@ -1778,23 +1838,23 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jch_facturacionActionPerformed
 
     private void jt_TotalHorasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_TotalHorasFocusGained
- cft.formFocusGain(jt_TotalHoras);        // TODO add your handling code here:
+        cft.formFocusGain(jt_TotalHoras);        // TODO add your handling code here:
     }//GEN-LAST:event_jt_TotalHorasFocusGained
 
     private void jt_TotalHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_TotalHorasFocusLost
-  cft.formFocusLostJTextField(jt_TotalHoras, "Ingresar Horas");        // TODO add your handling code here:
+        cft.formFocusLostJTextField(jt_TotalHoras, "Ingresar Horas");        // TODO add your handling code here:
     }//GEN-LAST:event_jt_TotalHorasFocusLost
 
     private void jt_TotalHorasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_TotalHorasMouseClicked
- cft.formFocusGain(jt_TotalHoras);        // TODO add your handling code here:
+        cft.formFocusGain(jt_TotalHoras);        // TODO add your handling code here:
     }//GEN-LAST:event_jt_TotalHorasMouseClicked
 
     private void jt_TotalHorasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_TotalHorasKeyTyped
-   ce.typedMoney(evt, jt_TotalHoras);        // TODO add your handling code here:
+        ce.typedMoney(evt, jt_TotalHoras);        // TODO add your handling code here:
     }//GEN-LAST:event_jt_TotalHorasKeyTyped
 
     private void jt_TotalHorasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_TotalHorasKeyReleased
-  String numero = jt_TotalHoras.getText();
+        String numero = jt_TotalHoras.getText();
 
         if (!(numero.equals("")) && numero.matches("[0-9]*") && !(numero.equals("0"))) {
             Double PrecioHoras = Double.valueOf(lb_precioxHora.getText());
@@ -1802,30 +1862,57 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             lb_totalxHoras.setText(String.valueOf(PrecioHoras * HorasTotales));
             jc_seleccionarTxHoras.setEnabled(true);
 
-        }else{
-               lb_totalxHoras.setText("0");
-               jc_seleccionarTxHoras.setEnabled(false);
+        } else {
+            lb_totalxHoras.setText("0");
+            jc_seleccionarTxHoras.setEnabled(false);
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_TotalHorasKeyReleased
 
     private void jc_seleccionarTxHorasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_seleccionarTxHorasItemStateChanged
-      if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+        if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
             validadorHoras = 1;
-            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText())+Double.valueOf(lb_totalxHoras.getText())));
-            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText())+Double.valueOf(lb_totalxHoras.getText())));
-        }else{
+            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText()) + Double.valueOf(lb_totalxHoras.getText())));
+            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText()) + Double.valueOf(lb_totalxHoras.getText())));
+        } else {
             validadorHoras = 0;
-            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText())-Double.valueOf(lb_totalxHoras.getText())));
-            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText())-Double.valueOf(lb_totalxHoras.getText())));
-       
+            jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText()) - Double.valueOf(lb_totalxHoras.getText())));
+            lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText()) - Double.valueOf(lb_totalxHoras.getText())));
+
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jc_seleccionarTxHorasItemStateChanged
 
     private void jt_MontoACobrarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoACobrarKeyReleased
-CalcularCambio();
+        CalcularCambio();
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_MontoACobrarKeyReleased
+
+    private void jc_cobrarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_cobrarItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+            btn_Cobrar.setEnabled(true);
+            btn_Cobrar.setText("Cobrar");
+            jc_finTransaccion.setEnabled(false);
+            ValidarCobrar = 1;
+        } else {
+            ValidarCobrar = 0;
+            btn_Cobrar.setEnabled(false);
+            jc_finTransaccion.setEnabled(true);
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jc_cobrarItemStateChanged
+
+    private void jc_finTransaccionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_finTransaccionItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+            btn_Cobrar.setEnabled(true);
+            btn_Cobrar.setText("Terminar Reservación");
+            jc_cobrar.setEnabled(false);
+            ValidarCobrar = 2;
+        } else {
+            ValidarCobrar = 0;
+            btn_Cobrar.setEnabled(false);
+            jc_cobrar.setEnabled(true);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jc_finTransaccionItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -5968,7 +6055,7 @@ CalcularCambio();
     private javax.swing.JLabel Celular3;
     private javax.swing.JLabel Celular4;
     private principal.MaterialButton btn_Cobrar;
-    public static principal.MaterialButton btn_Ingresar1;
+    public static principal.MaterialButton btn_GenerarDatos;
     private principal.MaterialButton btn_Salir;
     private principal.MaterialButton btn_SeleccionarClientes;
     private javax.swing.JComboBox<String> cb_TipoPago;
@@ -5984,6 +6071,7 @@ CalcularCambio();
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -6040,6 +6128,8 @@ CalcularCambio();
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JCheckBox jc_cobrar;
+    private javax.swing.JCheckBox jc_finTransaccion;
     private javax.swing.JCheckBox jc_seleccionarTxHoras;
     private javax.swing.JCheckBox jc_seleccionarTxNoches;
     private javax.swing.JCheckBox jch_facturacion;
@@ -6073,6 +6163,7 @@ CalcularCambio();
     public static javax.swing.JLabel lb_rfc;
     private javax.swing.JLabel lb_totalxHoras;
     private javax.swing.JPanel pn_cerrar;
+    private javax.swing.JPanel pn_finTransaccion;
     private javax.swing.JPanel pn_showFacturas;
     // End of variables declaration//GEN-END:variables
 
