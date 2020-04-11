@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import objetos.ObjetoEstadoReservacion;
 import objetos.ObjetoReservacion;
 /**
  *
@@ -24,6 +25,7 @@ public class ModeloReservaciones extends BD {
     //Se declaran las variables de datos
     private ModeloClientes mc = new ModeloClientes();
     private ModeloHabitaciones mh = new ModeloHabitaciones();
+    private ModeloEstadoReservacion mr = new ModeloEstadoReservacion();
     //Se declaran las variables de resultado y consultas preparadas
     private ResultSet rs;
     private PreparedStatement st;
@@ -128,12 +130,13 @@ public class ModeloReservaciones extends BD {
     }
 
     //Método que insertar una nueva reservación
-    protected void insertReservaciones(String nombre, String habitacion, String fechaIngreso, String fechaSalida, String Usuario) {
+    protected void insertReservaciones(String nombre, String habitacion, String fechaIngreso, String fechaSalida, String Usuario, String estado) {
         //Se cargan los datos a utilizar
         mh.cargarTabla();
+        mr.cargarTabla();
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
-            this.st = conectar().prepareStatement("INSERT INTO Reservacion(Nombre, IdHabitacion, FechaIngreso, FechaSalida, Username) VALUES (?,?,?,?,?)");
+            this.st = conectar().prepareStatement("INSERT INTO Reservacion(Nombre, IdHabitacion, FechaIngreso, FechaSalida, Username, IdEstadoReservacion) VALUES (?,?,?,?,?,?)");
             //Se pasan los parametros a la consulta
             this.st.setString(1, nombre);
             //Se recorre el valor con un for
@@ -147,6 +150,11 @@ public class ModeloReservaciones extends BD {
             this.st.setString(3, fechaIngreso);
             this.st.setString(4, fechaSalida);
             this.st.setString(5, Usuario);
+            for (ObjetoEstadoReservacion estadoReservacion : mr.selectEstadoReservacion()) {
+                if(estadoReservacion.getNombre().equals(estado)) {
+                    this.st.setInt(6, estadoReservacion.getIdEstadoReservacion());
+                }
+            }
             //Se ejecuta el Query
             this.st.execute();
             //Se cierra la conexión
@@ -158,12 +166,13 @@ public class ModeloReservaciones extends BD {
     }
 
     //Método que actualiza una reservación
-    protected void updateReservaciones(String nombre, String habitacion, String fechaIngreso, String fechaSalida, int id) {
+    protected void updateReservaciones(String nombre, String habitacion, String fechaIngreso, String fechaSalida, String estado,int id) {
         //Se cargan los datos a utilizar
         mh.cargarTabla();
+        mr.cargarTabla();
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
-            this.st = conectar().prepareStatement("UPDATE Reservacion SET Nombre = ?, IdHabitacion = ?, FechaIngreso = ?, FechaSalida = ? WHERE IdReservacion = ?");
+            this.st = conectar().prepareStatement("UPDATE Reservacion SET Nombre = ?, IdHabitacion = ?, FechaIngreso = ?, FechaSalida = ?, IdEstadoReservacion = ? WHERE IdReservacion = ?");
             //Se pasan los parametros a la consulta
             this.st.setString(1, nombre);
             //Se recorre el valor con un for
@@ -176,7 +185,12 @@ public class ModeloReservaciones extends BD {
             }
             this.st.setString(3, fechaIngreso);
             this.st.setString(4, fechaSalida);
-            this.st.setInt(5, id);
+            for (ObjetoEstadoReservacion estadoReservacion : mr.selectEstadoReservacion()) {
+                if(estadoReservacion.getNombre().equals(estado)) {
+                    this.st.setInt(5, estadoReservacion.getIdEstadoReservacion());
+                }
+            }
+            this.st.setInt(6, id);
             //Se ejecuta el Query
             this.st.executeUpdate();
             //Se cierra la conexión
