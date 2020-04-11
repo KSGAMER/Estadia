@@ -37,12 +37,13 @@ public class ModeloReservaciones extends BD {
         //Se cargan los datos a utilizar
         mc.cargarTabla();
         mh.cargarTabla();
+        mr.cargarTabla();
         //Se declaran las columnas de la tabla
-        String[] titulos = {"#", "Cliente", "Habitacion", "Fecha de Ingreso", "Fecha de Salida"};
+        String[] titulos = {"#", "Cliente", "Habitacion", "Fecha de Ingreso", "Fecha de Salida", "Estado"};
         //Se declara la tabla pasando las columnas
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
-        Object[] fila = new Object[5];
+        Object[] fila = new Object[6];
 
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
@@ -66,6 +67,11 @@ public class ModeloReservaciones extends BD {
                 }
                 fila[3] = rs.getString("FechaIngreso");
                 fila[4] = rs.getString("FechaSalida");
+                for (ObjetoEstadoReservacion estadoReservacion : mr.selectEstadoReservacion()) {
+                    if(estadoReservacion.getIdEstadoReservacion() == rs.getInt("IdEstadoReservacion")) {
+                        fila[5] = estadoReservacion.getNombre();
+                    }
+                }
                 //Se agrega el objeto a la fila
                 tb.addRow(fila);
                 //Se agregan los resultados del arreglo atraves de un nuevo objeto
@@ -84,12 +90,13 @@ public class ModeloReservaciones extends BD {
         //Se cargan los datos a utilizar
         mc.cargarTabla();
         mh.cargarTabla();
+        mr.cargarTabla();
         //Se declaran las columnas de la tabla
-        String[] titulos = {"#", "Cliente", "Habitacion", "Fecha de Ingreso", "Fecha de Salida"};
+        String[] titulos = {"#", "Cliente", "Habitacion", "Fecha de Ingreso", "Fecha de Salida", "Estado"};
         //Se declara la tabla pasando las columnas
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
-        Object[] fila = new Object[5];
+        Object[] fila = new Object[6];
 
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
@@ -111,6 +118,11 @@ public class ModeloReservaciones extends BD {
                 }
                 fila[3] = rs.getString("FechaIngreso");
                 fila[4] = rs.getString("FechaSalida");
+                for (ObjetoEstadoReservacion estadoReservacion : mr.selectEstadoReservacion()) {
+                    if(estadoReservacion.getIdEstadoReservacion() == rs.getInt("IdEstadoReservacion")) {
+                        fila[5] = estadoReservacion.getNombre();
+                    }
+                }
                 //Se agrega el objeto a la fila
                 tb.addRow(fila);
                 //Se agregan los resultados del arreglo atraves de un nuevo objeto
