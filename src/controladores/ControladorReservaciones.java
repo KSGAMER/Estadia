@@ -33,13 +33,13 @@ public class ControladorReservaciones extends ModeloReservaciones {
     }
 
     //Método que inserta una nueva reservacion pasando los parametros nombre del cliente, nombre de la habitacion, fecha de ingreso, fecha de salida y el usuario que da de alta la reservacion
-    public void insertReservacion(String nombre, String habitacion, String fechaIngreso, String fechaSalida, String usuario) {
-        insertReservaciones(nombre, habitacion, fechaIngreso, fechaSalida, usuario);
+    public void insertReservacion(String nombre, String habitacion, String fechaIngreso, String fechaSalida, String usuario, String estado) {
+        insertReservaciones(nombre, habitacion, fechaIngreso, fechaSalida, usuario, estado);
     }
 
     //Método que actualiza una reservacion pasando los parametros nombre del cliente, nombre de la habitacion, fecha de ingreso, fecha de salida y el id de la reservacion
-    public void updateReservacion(String nombre, String habitacion, String fechaIngreso, String fechaSalida, int id) {
-        updateReservaciones(nombre, habitacion, fechaIngreso, fechaSalida, id);
+    public void updateReservacion(String nombre, String habitacion, String fechaIngreso, String fechaSalida, String estado,int id) {
+        updateReservaciones(nombre, habitacion, fechaIngreso, fechaSalida, estado, id);
     }
 
     //Método que elimina una reservacion pasando los parametros id de la reservacion
