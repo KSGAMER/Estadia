@@ -31,7 +31,6 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
 
     public ComponenteRecepcion() {
         initComponents();
-      
 
     }
 
@@ -45,7 +44,7 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
         cin.tablaIncidencias();
 //fin
         ImageIcon IconCama = new ImageIcon(getClass().getResource("/Imagenes/icons/bed80x80.png"));
-   
+
 //MODIFICACIONES DEL BOTON VISUALES
         if (!Habitacion.isEmpty()) {
             lb_IconoCama.setIcon(IconCama);
@@ -58,7 +57,7 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
             lb_PrecioxHora.setText("$" + PrecioxHora + "0");
             this.setCursor(new Cursor(Cursor.HAND_CURSOR));
             this.setBackground(background);
-/*metodo que busca y encuentra si hay incidencias en la habitacion y muestra o deja oculta la notificacion de 
+            /*metodo que busca y encuentra si hay incidencias en la habitacion y muestra o deja oculta la notificacion de 
 warning o incidencia*/
             validarExistenciaIncidencias(Habitacion);
 //fin
@@ -82,45 +81,48 @@ warning o incidencia*/
 
         return this;
     }
- ///TERMINA MODIFICACIONES DEL BOTON
+    ///TERMINA MODIFICACIONES DEL BOTON
+
     private void cargarAlertaIncidencia() {
         lb_alertaIncidencia.setVisible(false);
     }
-/*método que valida si existe alguna incidencia comparando el id de la habitacion con la tabla de incidencias
-validarExistenciaIncidencias(NombreHabitacion);*/    
-private void validarExistenciaIncidencias(String Habitacion){
-  //recorre las habitaciones
+
+    /*método que valida si existe alguna incidencia comparando el id de la habitacion con la tabla de incidencias
+validarExistenciaIncidencias(NombreHabitacion);*/
+    private void validarExistenciaIncidencias(String Habitacion) {
+        //recorre las habitaciones
         for (ObjetoHabitacion habitacion : ch.selectHabitacion()) {
             //recorre la yabla de incidencias
-                for (ObjetoIncidencia Incidencia : cin.seleccionarIncidencias()) {
-                    //reccorre el estado de las incidencias
-                    for (ObjetoEstadoIncidencia edoIncidencia : cesin.seleccionarEstadoIncidencia()) {
-                        //si lo anterior se recorrio correctamente , se compara que la habitacion sea la misma que la 
-                        //agregada en la tabla de incidencias 
-                        if (Incidencia.getIdHabitacion() == habitacion.getIdHabitacion()) {
-                            //luego de la comparacion anterior , se comprara que el estado de la incidencia sea igual 
-                            //al agregado en la tabla de incidencias 
-                            if (Incidencia.getIdEstadoIncidencia() == edoIncidencia.getIdEstadoIncidencia()) {
-                                //tambien se compara que el nombre ede la habitacion del componente de recepciones 
-                                //sea el mismo que la ubicada en la tabla de habitaciones , por consiguiente 
-                                //la misma registrada en la tabla de incidencias 
-                                if (habitacion.getNombre().equals(Habitacion)) {
-                                    //finalmente se compara que el nombre del estado de la incidencia sera igual a
-                                    //pendiente, que es el valor importante para hacer aparecer el boton de incidencias
-                                    //de lo contrario no aparecerá nada y el boton seguira bloqueado
-                                    if (edoIncidencia.getNombre().equals("Pendiente")) {
-                                        lb_alertaIncidencia.setVisible(true);
-                                        break;
-                                    }
+            for (ObjetoIncidencia Incidencia : cin.seleccionarIncidencias()) {
+                //reccorre el estado de las incidencias
+                for (ObjetoEstadoIncidencia edoIncidencia : cesin.seleccionarEstadoIncidencia()) {
+                    //si lo anterior se recorrio correctamente , se compara que la habitacion sea la misma que la 
+                    //agregada en la tabla de incidencias 
+                    if (Incidencia.getIdHabitacion() == habitacion.getIdHabitacion()) {
+                        //luego de la comparacion anterior , se comprara que el estado de la incidencia sea igual 
+                        //al agregado en la tabla de incidencias 
+                        if (Incidencia.getIdEstadoIncidencia() == edoIncidencia.getIdEstadoIncidencia()) {
+                            //tambien se compara que el nombre ede la habitacion del componente de recepciones 
+                            //sea el mismo que la ubicada en la tabla de habitaciones , por consiguiente 
+                            //la misma registrada en la tabla de incidencias 
+                            if (habitacion.getNombre().equals(Habitacion)) {
+                                //finalmente se compara que el nombre del estado de la incidencia sera igual a
+                                //pendiente, que es el valor importante para hacer aparecer el boton de incidencias
+                                //de lo contrario no aparecerá nada y el boton seguira bloqueado
+                                if (edoIncidencia.getNombre().equals("Pendiente")) {
+                                    lb_alertaIncidencia.setVisible(true);
+                                    break;
                                 }
                             }
-
                         }
+
                     }
                 }
-
             }
-}
+
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
