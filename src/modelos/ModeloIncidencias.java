@@ -68,7 +68,7 @@ public class ModeloIncidencias extends BD {
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[2];
         try {
-            this.st = conectar().prepareStatement("SELECT i.Nombre, i.Observaciones FROM Incidencias i INNER JOIN Habitacion h on h.IdHabitacion = i.IdHabitacion WHERE h.Nombre like CONCAT('%',?,'%')");
+            this.st = conectar().prepareStatement("SELECT i.Nombre, i.Observaciones FROM Incidencias i INNER JOIN Habitacion h on h.IdHabitacion = i.IdHabitacion WHERE h.Nombre like CONCAT('%',?,'%') and i.IdEstado = 2");
             this.st.setString(1, filtro);
             this.rs = st.executeQuery();
             while (this.rs.next()) {
