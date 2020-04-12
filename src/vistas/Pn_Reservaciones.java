@@ -152,7 +152,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     private void datosIniciales() {
         btn_Cobrar.setEnabled(false);
-        btn_Eliminar.setEnabled(false);
+        //btn_Eliminar.setEnabled(false);
         jt_nombre.setText("Ingresar Nombre");
         cb_Habitacion.setSelectedIndex(0);
         jd_Ingreso.setCalendar(null);
@@ -627,11 +627,11 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             jd_Salida.setDate(dateFormat.parse((String) jt_Reservas.getValueAt(seleccion, 4).toString()));
             if (((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual) && lb_estadoCobro.getText().equals("Cobrado")) {
 
-                btn_Eliminar.setEnabled(true);
+              //  btn_Eliminar.setEnabled(true);
                 btn_Cobrar.setEnabled(false);
                 btn_Modificar.setEnabled(false);
             } else if (lb_estadoCobro.getText().equals("Pendiente")) {
-                btn_Eliminar.setEnabled(false);
+              //  btn_Eliminar.setEnabled(false);
                 btn_Cobrar.setEnabled(true);
                 btn_Modificar.setEnabled(true);
             }

@@ -424,44 +424,17 @@ validarExistenciaIncidencias(NombreHabitacion);*/
     private void materialButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton1ActionPerformed
 
         if (cb_status.isEnabled() == true && cb_status.getSelectedIndex() == 1) {
-            task = new TimerTask() {
-                @Override
-                public void run() {
-                    if (i == 0) {
-                        ch.updateHabitacion(lb_NombreHabitacion.getText(), String.valueOf(cb_status.getSelectedItem()));
-                        Cerrar();
-                    } else {
-                        Ubicar(i);
-                        i -= 32;
-                        Trasparencia((float) i / 352);
-                    }
-                }
-            };
-            timer = new Timer();
-            timer.schedule(task, 0, 2);
-        } else if (cb_status.isEnabled() == false && cb_status.getSelectedIndex() == 0) {
-            task = new TimerTask() {
-                @Override
-                public void run() {
-                    if (i == 0) {
 
-                        Cerrar();
-                    } else {
-                        Ubicar(i);
-                        i -= 32;
-                        Trasparencia((float) i / 352);
-                    }
-                }
-            };
-            timer = new Timer();
-            timer.schedule(task, 0, 2);
+            ch.updateHabitacion(lb_NombreHabitacion.getText(), String.valueOf(cb_status.getSelectedItem()));
+            Cerrar();
+
+        } else if (cb_status.isEnabled() == false && cb_status.getSelectedIndex() == 0) {
+            Cerrar();
+
         } else if (cb_status.isEnabled() == true && cb_status.getSelectedIndex() == 0) {
             DesktopNotify.showDesktopMessage("Error", "Debe seleccionar un estado valido", DesktopNotify.ERROR);
 
         }
-
-             
-               
     }//GEN-LAST:event_materialButton1ActionPerformed
 
     private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
