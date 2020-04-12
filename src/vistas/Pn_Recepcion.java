@@ -9,6 +9,7 @@ package vistas;
 import Utilerias.ComponenteMenuSuperior;
 import Utilerias.ComponenteRecepcion;
 import controladores.ControladorEstatusHabitaciones;
+import controladores.ControladorHabitaciones;
 import controladores.ControladorPisos;
 import controladores.ControladorRecepciones;
 import controladores.ControladorReservaciones;
@@ -33,6 +34,7 @@ public class Pn_Recepcion extends javax.swing.JPanel {
     private ControladorPisos cp = new ControladorPisos();
     private ControladorReservaciones crv = new ControladorReservaciones();
     private ControladorRecepciones cr = new ControladorRecepciones();
+    private ControladorHabitaciones ch= new ControladorHabitaciones();
     //Se declaran los componentes a utilizar
     private ComponenteRecepcion q;
     private ComponenteMenuSuperior ms;
@@ -54,6 +56,7 @@ public class Pn_Recepcion extends javax.swing.JPanel {
         cr.tablaReservaciones();
         cp.tablaPisos();
         ceh.tablaEstadoHabiaciones();
+        ch.tablaHabitaciones();
         actualizarEstatus();
         actualizacionReservas();
         actualizaMenuPiso();

@@ -5,8 +5,6 @@
  */
 package vistas;
 
-
-
 import vistas.Alertas.Pn_SeleccionarClientes;
 import vistas.Alertas.Pn_CobrarReservacion;
 import vistas.Alertas.Pn_Alert_Eliminar;
@@ -36,20 +34,20 @@ import javax.swing.table.TableColumnModel;
 import objetos.ObjetoCategoria;
 import objetos.ObjetoHabitacion;
 
-
 /**
  *
  * @author fenix
  */
 public class Pn_Reservaciones extends javax.swing.JPanel {
 //NECESARIO PARA FUNCIONES DE ESTE MODULO 
+
     private ControladorEscritura ce = new ControladorEscritura();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
-    private ControladorCategorias ccat= new ControladorCategorias();
+    private ControladorCategorias ccat = new ControladorCategorias();
     private ControladorClientes mc = new ControladorClientes();
     private ControladorReservaciones cr = new ControladorReservaciones();
     private ControladorFormularioTab cft = new ControladorFormularioTab();
-    
+
     //private Pn_CobrarReservacion1 CobrarReserv = new Pn_CobrarReservacion1();
     private DefaultTableModel NewTable;
 //FIN
@@ -69,11 +67,11 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame principal;
 //FIN
-  //NECESARIO
+    //NECESARIO
 //busqueda del numero de mes de la reservaciion para comparaciones
     String MesdeFechaIngreso, MesdeFechaSalida;
-    
-     private boolean flag = false;
+
+    private boolean flag = false;
 
 //FIN DE NECESARIO
     Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
@@ -81,18 +79,16 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     String month = new SimpleDateFormat("MM").format(now);
     String day = new SimpleDateFormat("dd").format(now);
     int año = Integer.parseInt(year);
-    int mes = Integer.parseInt(month);  
-    int dia = Integer.parseInt(day); 
+    int mes = Integer.parseInt(month);
+    int dia = Integer.parseInt(day);
     String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
 
-    
- 
     /**
      * Creates new form Pn_Reservaciones1
      */
     public Pn_Reservaciones() {
         initComponents();
-       //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
+        //EXTRAE LOS PRIVILEGIOS DE ESTE MODULO
         analisis.validarPermisos(NombreModulo);
         //FIN
         //NECESARIO PARA CARGAR LOS DATOS DE LAS TABLAS O EN LOS CB REQUERIDOS
@@ -104,8 +100,8 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         //INICIA LOS VALORES DEL FORMULARIO A SU VALOR ORIGINAL
         datosIniciales();
         //FIN
-       
-           //APARIENCIA DE LA TABLA
+
+        //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
         //FIN
@@ -121,7 +117,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         DesktopNotify.showDesktopMessage("Recordatorio", "La fecha de ingreso no debe ser menor "
                 + "a la fecha actual ", DesktopNotify.TIP);
     }
-   
+
     private void cargarHabitaciones() {
         DefaultComboBoxModel cb = new DefaultComboBoxModel();
         cb.addElement("Seleccionar Habitación");
@@ -131,13 +127,13 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 //break;
             } else {
                 cb.addElement(campos.getNombre());
-                
+
             }
         }
         cb_Habitacion.setModel(cb);
     }
 
-    public  void cTabla() {
+    public void cTabla() {
         jt_Reservas.setModel(cr.tablaReservaciones());
         jt_t_registros.setText(String.valueOf(jt_Reservas.getRowCount()));
 
@@ -148,8 +144,9 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         columnModel.getColumn(0).setPreferredWidth(30);
         columnModel.getColumn(1).setPreferredWidth(150);
         columnModel.getColumn(2).setPreferredWidth(120);
-        columnModel.getColumn(3).setPreferredWidth(240);
+        columnModel.getColumn(3).setPreferredWidth(100);
         columnModel.getColumn(4).setPreferredWidth(100);
+        columnModel.getColumn(5).setPreferredWidth(50);
 
     }
 
@@ -162,7 +159,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jd_Salida.setCalendar(null);
         lb_Id.setText("");
         lb_estadoCobro.setText("");
-        
+
         lb_errorNombre.setForeground(new Color(84, 110, 122));
         lb_errorHabitacion.setForeground(new Color(84, 110, 122));
         lb_errorFechaIngreso.setForeground(new Color(84, 110, 122));
@@ -194,13 +191,12 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     }
 
-
     private Boolean validarEscritura() {
         Boolean val = true;
         //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_nombre.getText().equals("Ingresar Nombre")) && !(jt_nombre.getText().equals(""))) {
             lb_errorNombre.setForeground(new Color(84, 110, 122));
-            
+
         } else {
             lb_errorNombre.setForeground(Color.RED);
             val = false;
@@ -236,10 +232,10 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         return val;
 
     }
+
     private Boolean validacionFechas() {
         Boolean val = true;
-        
-        
+
         return val;
     }
 
@@ -625,18 +621,21 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         lb_Id.setText(String.valueOf(jt_Reservas.getValueAt(seleccion, 0)));
         jt_nombre.setText(String.valueOf(jt_Reservas.getValueAt(seleccion, 1)));
         cb_Habitacion.getModel().setSelectedItem(jt_Reservas.getValueAt(seleccion, 2));
-                try {
+        lb_estadoCobro.setText(String.valueOf(jt_Reservas.getValueAt(seleccion, 5)));
+        try {
             jd_Ingreso.setDate(dateFormat.parse((String) jt_Reservas.getValueAt(seleccion, 3).toString()));
             jd_Salida.setDate(dateFormat.parse((String) jt_Reservas.getValueAt(seleccion, 4).toString()));
-            if(((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual)&& ((String) jt_Reservas.getValueAt(seleccion, 5).toString()).equals("Cobrado")) {
-                
-               btn_Eliminar.setEnabled(true);
-      btn_Cobrar.setEnabled(false);
-            } else  if(!(((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual))&& ((String) jt_Reservas.getValueAt(seleccion, 5).toString()).equals("Pendiente")){
+            if (((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual) && lb_estadoCobro.getText().equals("Cobrado")) {
+
+                btn_Eliminar.setEnabled(true);
+                btn_Cobrar.setEnabled(false);
+                btn_Modificar.setEnabled(false);
+            } else if (lb_estadoCobro.getText().equals("Pendiente")) {
                 btn_Eliminar.setEnabled(false);
                 btn_Cobrar.setEnabled(true);
+                btn_Modificar.setEnabled(true);
             }
-            lb_estadoCobro.setText(String.valueOf(jt_Reservas.getValueAt(seleccion, 5)));
+
         } catch (ParseException ex) {
             Logger.getLogger(Pn_Reservaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -662,13 +661,13 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
 
         try {
-            if (!(validarEscritura() == true) || !(validarSeleccion() == true) || !validacionFechas()==true) {
+            if (!(validarEscritura() == true) || !(validarSeleccion() == true) || !validacionFechas() == true) {
 
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-    
-                cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Principal.User,"Pendiente");
+                
+                cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Principal.User, "Pendiente");
                 ch.updateHabitacion(String.valueOf(cb_Habitacion.getSelectedItem()), "Reservado");
                 NewTable = new DefaultTableModel();
                 cTabla();
@@ -676,7 +675,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             }
 
         } catch (Exception e) {
-           
+
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_IngresarActionPerformed
@@ -692,7 +691,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
         } else {
             Pn_CobrarReservacion CobrarReserv = new Pn_CobrarReservacion(principal, true);
-       
+
             CobrarReserv.lb_FolioReservaciones.setText(lb_Id.getText());
             CobrarReserv.lb_nombreCliente.setText(jt_nombre.getText());
             CobrarReserv.lb_NombreHabitacion.setText(String.valueOf(cb_Habitacion.getSelectedItem()));
@@ -706,15 +705,15 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                             // CobrarReserv.lb_TotalxNoches.setText(String.valueOf(habitacion.getPrecioSugerido()));
                             CobrarReserv.lb_TipoHabitacion.setText(String.valueOf(categoria.getNombre()));
                             CobrarReserv.lb_precioxHora.setText(String.valueOf(habitacion.getPrecioxHora()));
-                            
+
                         }
 
                     }
                 }
 
             }
-           
-             CobrarReserv.setVisible(true);
+
+            CobrarReserv.setVisible(true);
             datosIniciales();
         }
 
@@ -737,7 +736,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_clientesMouseClicked
 
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
-Pn_SeleccionarClientes select = new Pn_SeleccionarClientes(principal, true);
+        Pn_SeleccionarClientes select = new Pn_SeleccionarClientes(principal, true);
         select.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_clientesActionPerformed
@@ -753,28 +752,28 @@ Pn_SeleccionarClientes select = new Pn_SeleccionarClientes(principal, true);
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-               
+
                 Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
 
-                      cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
-                  //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
-
+                        cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
+                        //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
+                        ch.updateHabitacion(String.valueOf(cb_Habitacion.getSelectedItem()), "Limpieza");
                         tamañoTabla();
                         NewTable = new DefaultTableModel();
                         cTabla();
                         datosIniciales();
-ale.dispose();
+                        ale.dispose();
                     }
                 });
                 ale.setVisible(true);
             }
 
         } catch (Exception e) {
-    
+
         }
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
@@ -787,14 +786,14 @@ ale.dispose();
 
             } else {
 
-                cr.updateReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()),"Pendiente", Integer.valueOf(lb_Id.getText()));
+                cr.updateReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), "Pendiente", Integer.valueOf(lb_Id.getText()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 datosIniciales();
             }
 
         } catch (Exception e) {
-     
+
         }
     }//GEN-LAST:event_btn_ModificarActionPerformed
 
@@ -831,8 +830,8 @@ ale.dispose();
     }//GEN-LAST:event_jt_BuscarKeyTyped
 
     private void jd_IngresoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jd_IngresoPropertyChange
-  
-         /*   if (flag == true) {
+
+        /*   if (flag == true) {
             String year1 = new SimpleDateFormat("yyyy").format(jd_Ingreso.getDate());
             String month1 = new SimpleDateFormat("MM").format(jd_Ingreso.getDate());
             String day1 = new SimpleDateFormat("dd").format(jd_Ingreso.getDate());
@@ -846,14 +845,12 @@ ale.dispose();
   
             }
         }*/
-
         // TODO add your handling code here:
     }//GEN-LAST:event_jd_IngresoPropertyChange
 
     private void jd_SalidaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jd_SalidaPropertyChange
- 
-    
-       /* if (flag == true) {
+
+        /* if (flag == true) {
              String year1 = new SimpleDateFormat("yyyy").format(jd_Salida.getDate());
         String month1 = new SimpleDateFormat("MM").format(jd_Salida.getDate());
         String day1 = new SimpleDateFormat("dd").format(jd_Salida.getDate());
@@ -867,12 +864,11 @@ ale.dispose();
   
             }
         }*/
-
         // TODO add your handling code here:
     }//GEN-LAST:event_jd_SalidaPropertyChange
 
     private void jb_limpiarCampos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCampos2ActionPerformed
-   datosIniciales();      // TODO add your handling code here:
+        datosIniciales();      // TODO add your handling code here:
     }//GEN-LAST:event_jb_limpiarCampos2ActionPerformed
 
 

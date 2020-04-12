@@ -6180,7 +6180,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private void Ubicar(int y) {
 
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth() / 7;
+        int xsize = (int) tk.getScreenSize().getWidth() / 8;
         this.setLocation(xsize, y - 250);
 
     }
