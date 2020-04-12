@@ -161,6 +161,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         this.jt_Clientes.setModel(NewTable);
     }*/
     private void datosIniciales() {
+        btn_Cobrar.setEnabled(false);
         jt_MontoACobrar.setText("0");
         jt_CargoExtra.setText("0");
         jt_TotalHoras.setText("0");
