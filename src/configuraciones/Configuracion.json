@@ -1,9 +1,1 @@
-{
-    "PORT": "1433",
-    "DATABASE": "Estadia",
-    "PASSWORD": "1234",
-    "SERVER": "localhost",
-    "AUTH": "true",
-    "INSTANCE": "fenix",
-    "USER": "Fenix"
-}
+{"PORT":"1433","DATABASE":"Estadia","PASSWORD":"1234","SERVER":"localhost","AUTH":"false","INSTANCE":"fenix","USER":"Fenix"}

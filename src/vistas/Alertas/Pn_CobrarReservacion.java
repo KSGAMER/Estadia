@@ -436,7 +436,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel42 = new javax.swing.JLabel();
         lb_TotalGeneral = new javax.swing.JLabel();
         lb_errorFormaPago = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jc_seleccionarTxNoches = new javax.swing.JCheckBox();
@@ -447,6 +446,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel48 = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
         jt_TotalHoras = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         pn_showFacturas = new javax.swing.JPanel();
         lb_NombreRazonSocial = new javax.swing.JLabel();
         lb_NombreRFC = new javax.swing.JLabel();
@@ -686,7 +686,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         lb_Cambio.setForeground(new java.awt.Color(153, 153, 153));
         lb_Cambio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_Cambio.setText("0.0");
-        jPanel3.add(lb_Cambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, 110, 20));
+        jPanel3.add(lb_Cambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, 100, 30));
 
         jPanel12.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -737,7 +737,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         jLabel35.setFont(new java.awt.Font("Century Gothic", 1, 38)); // NOI18N
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel35.setText("$");
-        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 30, 40));
+        jPanel3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 30, 50));
 
         lb_errorMontoCobrar.setForeground(new java.awt.Color(233, 235, 238));
         lb_errorMontoCobrar.setText("*");
@@ -947,16 +947,11 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         lb_TotalGeneral.setForeground(new java.awt.Color(153, 153, 153));
         lb_TotalGeneral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_TotalGeneral.setText("0");
-        jPanel3.add(lb_TotalGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 140, 40));
+        jPanel3.add(lb_TotalGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 140, 50));
 
         lb_errorFormaPago.setForeground(new java.awt.Color(233, 235, 238));
         lb_errorFormaPago.setText("*");
         jPanel3.add(lb_errorFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 10, -1));
-
-        jLabel39.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel39.setText("Cambio $");
-        jPanel3.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, 90, 20));
 
         jPanel14.setBackground(new java.awt.Color(84, 110, 122));
 
@@ -1056,6 +1051,9 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             }
         });
         jPanel3.add(jt_TotalHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 110, 30));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-cambio.png"))); // NOI18N
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, -1, -1));
 
         pn_showFacturas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1493,16 +1491,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lb_FolioReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel16))
                     .addComponent(btn_GenerarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1515,7 +1503,16 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                         .addGap(0, 0, 0)
                         .addComponent(pn_showFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(pn_finTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(pn_finTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lb_FolioReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1875,11 +1872,12 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
             validadorHoras = 1;
             jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText()) + Double.valueOf(lb_totalxHoras.getText())));
             lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText()) + Double.valueOf(lb_totalxHoras.getText())));
+            jt_TotalHoras.setEnabled(false);
         } else {
             validadorHoras = 0;
             jt_MontoManualaCobrar.setText(String.valueOf(Double.valueOf(jt_MontoManualaCobrar.getText()) - Double.valueOf(lb_totalxHoras.getText())));
             lb_TotalGeneral.setText(String.valueOf(Double.valueOf(lb_TotalGeneral.getText()) - Double.valueOf(lb_totalxHoras.getText())));
-
+            jt_TotalHoras.setEnabled(true);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jc_seleccionarTxHorasItemStateChanged
 
@@ -6062,6 +6060,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cb_TipoPago;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -6086,7 +6085,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;

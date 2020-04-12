@@ -6,13 +6,18 @@
 package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
+import java.awt.event.ItemEvent;
 
 /**
  *
  * @author fenix
  */
 public class Pn_Alert_Eliminar extends javax.swing.JDialog {
-
+    //sirve para validar con estatus 
+    // 0= desactiva el boton de aceptar
+    //1= significa que fue error humano y solo se elimina el elemento de reservacion
+    //2= significa que se esta terminando una reservacion 
+public static int validarError=0;
        /**
      * Creates new form AlertSuccess
      */
@@ -21,9 +26,16 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
         initComponents();
         AWTUtilities.setOpaque(this, false);
         centrarPantalla();
+        //estos valores son de uso exclusivo de eliminar reservacion , por lo tanto se acceden a ellos sobre escribiendo 
+        //el metodo desde el boton eliminar , en el modulo reservaciones
+        datosIniciales();
 
     }
-
+public void datosIniciales(){
+    jc_seleccionarErrorHumano.setVisible(false);
+    jc_eliminarParaFinalizarReservacion.setVisible(false);
+    
+}
     public void centrarPantalla() {
         this.setLocationRelativeTo(null);
     }
@@ -43,6 +55,8 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
         cancelar = new principal.MaterialButton();
         jb_aceptar = new principal.MaterialButton();
         jLabel1 = new javax.swing.JLabel();
+        jc_eliminarParaFinalizarReservacion = new javax.swing.JCheckBox();
+        jc_seleccionarErrorHumano = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -60,10 +74,12 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
         dropShadowBorder1.setShowLeftShadow(true);
         dropShadowBorder1.setShowTopShadow(true);
         jPanel1.setBorder(dropShadowBorder1);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lb_titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lb_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_titulo.setText("¿ESTÁ SEGURO QUE DESEA SALIR?");
+        jPanel1.add(lb_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 120, 390, 53));
 
         jPanel3.setBackground(new java.awt.Color(36, 47, 65));
 
@@ -97,7 +113,7 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
                 .addGap(6, 6, 6)
                 .addComponent(jb_aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addComponent(cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -110,38 +126,39 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 219, 413, -1));
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir128X128.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 16, 393, 108));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lb_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lb_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jc_eliminarParaFinalizarReservacion.setBackground(new java.awt.Color(233, 235, 238));
+        jc_eliminarParaFinalizarReservacion.setText("Eliminar para finalizar Reserva");
+        jc_eliminarParaFinalizarReservacion.setBorder(null);
+        jc_eliminarParaFinalizarReservacion.setFocusPainted(false);
+        jc_eliminarParaFinalizarReservacion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jc_eliminarParaFinalizarReservacionItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(jc_eliminarParaFinalizarReservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 170, -1));
+
+        jc_seleccionarErrorHumano.setBackground(new java.awt.Color(233, 235, 238));
+        jc_seleccionarErrorHumano.setText("Eliminar por error de Ingreso");
+        jc_seleccionarErrorHumano.setBorder(null);
+        jc_seleccionarErrorHumano.setFocusPainted(false);
+        jc_seleccionarErrorHumano.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jc_seleccionarErrorHumanoItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(jc_seleccionarErrorHumano, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 170, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,6 +184,33 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
          Cerrar();  
     }//GEN-LAST:event_cancelarActionPerformed
+
+    private void jc_seleccionarErrorHumanoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_seleccionarErrorHumanoItemStateChanged
+
+        if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+            jb_aceptar.setEnabled(true);
+            jc_eliminarParaFinalizarReservacion.setEnabled(false);
+            validarError = 1;
+        } else {
+            validarError = 0;
+            jb_aceptar.setEnabled(false);
+            jc_eliminarParaFinalizarReservacion.setEnabled(true);
+        }
+    }//GEN-LAST:event_jc_seleccionarErrorHumanoItemStateChanged
+
+    private void jc_eliminarParaFinalizarReservacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_eliminarParaFinalizarReservacionItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
+
+            jb_aceptar.setEnabled(true);
+            jc_seleccionarErrorHumano.setEnabled(false);
+            validarError = 2;
+        } else {
+            validarError = 0;
+            jb_aceptar.setEnabled(false);
+            jc_seleccionarErrorHumano.setEnabled(true);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jc_eliminarParaFinalizarReservacionItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -727,6 +771,8 @@ public class Pn_Alert_Eliminar extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     public static principal.MaterialButton jb_aceptar;
+    public static javax.swing.JCheckBox jc_eliminarParaFinalizarReservacion;
+    public static javax.swing.JCheckBox jc_seleccionarErrorHumano;
     public static javax.swing.JLabel lb_titulo;
     // End of variables declaration//GEN-END:variables
 

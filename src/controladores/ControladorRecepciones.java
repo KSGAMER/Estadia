@@ -102,7 +102,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -121,7 +121,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -145,7 +145,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -164,7 +164,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -183,7 +183,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -210,7 +210,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -229,7 +229,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -248,7 +248,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -272,7 +272,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -291,7 +291,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }
@@ -310,7 +310,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
                                     aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
                                     aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
-                                    aleDesc.NombreHabitacion=objetoRecepcion.getNombre();
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
                                     aleDesc.validarCambioEstado();
                                     aleDesc.setVisible(true);
                                 }

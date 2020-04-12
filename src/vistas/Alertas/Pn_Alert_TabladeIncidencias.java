@@ -6,19 +6,13 @@
 package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
-import controladores.ControladorHabitaciones;
 import controladores.ControladorIncidencias;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
-import java.util.TimerTask;
-import java.util.Timer;
 import java.awt.Toolkit;
 import javax.swing.table.TableColumnModel;
-import static vistas.Pn_NuevoPiso.btn_Eliminar;
-import static vistas.Pn_NuevoPiso.btn_Ingresar;
-import static vistas.Pn_NuevoPiso.btn_Modificar;
 
 /**
  *
@@ -27,10 +21,7 @@ import static vistas.Pn_NuevoPiso.btn_Modificar;
 public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
     
     private ControladorIncidencias cin = new ControladorIncidencias();
-    private Timer timer = null;
-    private TimerTask task;
-    private int i = 32;
- //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
 //Variable publica que recibe el nombre de la habitacion desde el jdialog llamado Pn_Alert_DescripcionHabitacion
@@ -281,20 +272,7 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 352) {
-                    timer.cancel();
-                } else {
-                    Ubicar(i);
-                    i += 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new java.util.Timer();
-        timer.schedule(task, 0, 2);
+
 
     }//GEN-LAST:event_formWindowOpened
 
