@@ -5,10 +5,8 @@
  */
 package controladores;
 
-import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import modelos.ModeloInventarioHabitacion;
-import objetos.ObjetoInventarioHabitacion;
 
 /**
  *
@@ -19,16 +17,16 @@ public class ControladorInventarioHabitacion extends ModeloInventarioHabitacion{
         return cargarTabla();
     }
     
-    public ArrayList<ObjetoInventarioHabitacion> seleccionarInventarioHabitacion() {
-        return selectInventarioHabitacion();
+    public DefaultTableModel tablaInventarioHabitacion(String buscar) {
+        return cargarTabla(buscar);
     }
     
-    public void insertarInventarioHabitacion(String habitacion, String producto, int consumo, String estado) {
-        insertInventarioHabitacion(habitacion, producto, consumo, estado);
+    public void insertarInventarioHabitacion(String producto, int total, String habitacion, String usuario) {
+        insertInventarioHabitacion(producto, total, habitacion, usuario);
     }
     
-    public void actualizarInventarioHabitacion(String habitacion, String producto, int consumo, String estado, int id) {
-        updateInventarioHabitacion(habitacion, producto, consumo, estado, id);
+    public void actualizarInventarioHabitacion(String producto, int total, String habitacion, String usuario, int id) {
+        updateInventarioHabitacion(producto, total, habitacion, usuario, id);
     }
     
     public void eliminarInventarioHabitacion(int id) {

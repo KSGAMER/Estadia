@@ -11,37 +11,36 @@ package objetos;
  */
 public class ObjetoInventarioHabitacion {
     private int idInventarioHabitacion;
+    private int idProducto;
+    private int total;
     private int idHabitacion;
-    private int idInventario;
-    private int consumo;
-    private int idEstadoInventarioHabitacion;
+    private String usuario;
 
-    public ObjetoInventarioHabitacion(int idInventarioHabitacion, int idHabitacion, int idInventario, int consumo, int idEstadoInventarioHabitacion) {
+    public ObjetoInventarioHabitacion(int idInventarioHabitacion, int idProducto, int total, int idHabitacion, String usuario) {
         this.idInventarioHabitacion = idInventarioHabitacion;
+        this.idProducto = idProducto;
+        this.total = total;
         this.idHabitacion = idHabitacion;
-        this.idInventario = idInventario;
-        this.consumo = consumo;
-        this.idEstadoInventarioHabitacion = idEstadoInventarioHabitacion;
+        this.usuario = usuario;
     }
 
     public int getIdInventarioHabitacion() {
         return idInventarioHabitacion;
     }
 
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
     public int getIdHabitacion() {
         return idHabitacion;
     }
 
-    public int getIdInventario() {
-        return idInventario;
+    public String getUsuario() {
+        return usuario;
     }
-
-    public int getConsumo() {
-        return consumo;
-    }
-
-    public int getIdEstadoInventarioHabitacion() {
-        return idEstadoInventarioHabitacion;
-    }
-    
 }
