@@ -9,33 +9,38 @@ package objetos;
  *
  * @author KSGAMER
  */
-public class ObjetoInventario {
-    private int idInventario;
+public class ObjetoProducto {
+    private int idProducto;
     private String nombre;
-    private int stock;
+    private double precio;
+    private int cantidad;
     private String observaciones;
 
-    public ObjetoInventario(int idInventario, String nombre, int stock, String observaciones) {
-        this.idInventario = idInventario;
+    public ObjetoProducto(int idProducto, String nombre, double precio, int cantidad, String observaciones) {
+        this.idProducto = idProducto;
         this.nombre = nombre;
-        this.stock = stock;
+        this.precio = precio;
+        this.cantidad = cantidad;
         this.observaciones = observaciones;
     }
 
-    public int getIdInventario() {
-        return idInventario;
+    public int getIdProducto() {
+        return idProducto;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public int getStock() {
-        return stock;
+    public double getPrecio() {
+        return precio;
+    }
+
+    public int getCantidad() {
+        return cantidad;
     }
 
     public String getObservaciones() {
         return observaciones;
     }
-    
 }
