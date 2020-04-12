@@ -23,6 +23,14 @@ public class ControladorProducto extends ModeloProducto{
         return cargarTabla(buscar);
     }
     
+    public DefaultTableModel cantidadProductos() {
+        return productosCantidad();
+    }
+    
+    public DefaultTableModel cantidadProductos(String buscar) {
+        return productosCantidad(buscar);
+    }
+    
     public ArrayList<ObjetoProducto> seleccionarProducto() {
         return selectProducto();
     }

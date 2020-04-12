@@ -69,6 +69,43 @@ public class ModeloProducto extends BD {
         return tb;
     }
     
+    protected DefaultTableModel productosCantidad(String filtro) {
+        String[] titulos = {"Producto", "Cantidad"};
+        DefaultTableModel tb = new DefaultTableModel(null, titulos);
+        Object[] fila = new Object[2];
+        try {
+            this.st = conectar().prepareStatement("SELECT p.Nombre, p.Cantidad FROM Producto p WHERE Nombre like CONCAT('%',?,'%')");
+            this.st.setString(1, filtro);
+            this.rs = this.st.executeQuery();
+            while (this.rs.next()) {
+                fila[0] = rs.getInt(1);
+                fila[1] = rs.getString(2);
+                tb.addRow(fila);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tb;
+    }
+    
+    protected DefaultTableModel productosCantidad() {
+        String[] titulos = {"Producto", "Cantidad"};
+        DefaultTableModel tb = new DefaultTableModel(null, titulos);
+        Object[] fila = new Object[2];
+        try {
+            this.st = conectar().prepareStatement("SELECT p.Nombre, p.Cantidad FROM Producto p");
+            this.rs = this.st.executeQuery();
+            while (this.rs.next()) {
+                fila[0] = rs.getInt(1);
+                fila[1] = rs.getString(2);
+                tb.addRow(fila);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tb;
+    }
+    
     protected ArrayList<ObjetoProducto> selectProducto() {
         return this.list;
     }
