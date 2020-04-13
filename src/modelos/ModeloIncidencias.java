@@ -25,12 +25,12 @@ public class ModeloIncidencias extends BD {
     private ResultSet rs;
     private PreparedStatement st;
     private ArrayList<ObjetoIncidencia> list = new ArrayList<>();
-    private ModeloEstadoIncidencia estadoIncidencia = new ModeloEstadoIncidencia();
-    private ModeloHabitaciones habitacion = new ModeloHabitaciones();
+    private ModeloEstadoIncidencia edoin = new ModeloEstadoIncidencia();
+    private ModeloHabitaciones mh = new ModeloHabitaciones();
 
     protected DefaultTableModel cargarTabla() {
-        this.estadoIncidencia.cargarTabla();
-        this.habitacion.cargarTabla();
+       edoin.cargarTabla();
+       mh.cargarTabla();
         String[] titulos = {"#", "Incidencia", "Observaciones", "Fecha Incidencia", "Hora Incidencia", "Usuario", "Habitacion", "Estado Incidencia"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[8];
@@ -44,12 +44,12 @@ public class ModeloIncidencias extends BD {
                 fila[3] = rs.getString(4);
                 fila[4] = rs.getString(5);
                 fila[5] = rs.getString(6);
-                for (ObjetoHabitacion habitaciones : habitacion.selectHabitaciones()) {
+                for (ObjetoHabitacion habitaciones : mh.selectHabitaciones()) {
                     if (habitaciones.getIdHabitacion() == rs.getInt(7)) {
                         fila[6] = habitaciones.getNombre();
                     }
                 }
-                for (ObjetoEstadoIncidencia estado : estadoIncidencia.selectEstadoIncidencias()) {
+                for (ObjetoEstadoIncidencia estado : edoin.selectEstadoIncidencias()) {
                     if (estado.getIdEstadoIncidencia() == rs.getInt(8)) {
                         fila[7] = estado.getNombre();
                     }
@@ -87,8 +87,8 @@ public class ModeloIncidencias extends BD {
     }
     
     protected void insertIncidencias(String incidencia, String observaciones, String fecha, String hora, String usuario, String habitacion, String estado) {
-        this.estadoIncidencia.cargarTabla();
-        this.habitacion.cargarTabla();
+        edoin.cargarTabla();
+       mh.cargarTabla();
         try {
             this.st = conectar().prepareStatement("INSERT INTO Incidencias(Nombre, Observaciones, FechaIncidencia, HoraIncidencia, Username, IdHabitacion, IdEstadoIncidencia) VALUES (?,?,?,?,?,?,?)");
             this.st.setString(1, incidencia);
@@ -96,14 +96,14 @@ public class ModeloIncidencias extends BD {
             this.st.setString(3, fecha);
             this.st.setString(4, hora);
             this.st.setString(5, usuario);
-            for (ObjetoHabitacion habitaciones : this.habitacion.selectHabitaciones()) {
+            for (ObjetoHabitacion habitaciones : mh.selectHabitaciones()) {
                 if(habitaciones.getNombre().equals(habitacion)) {
                     this.st.setInt(6, habitaciones.getIdHabitacion());
                 }
             }
-            for (ObjetoEstadoIncidencia estadoIncidencia : estadoIncidencia.selectEstadoIncidencias()) {
-                if(estadoIncidencia.getNombre().equals(estado)) {
-                    this.st.setInt(7, estadoIncidencia.getIdEstadoIncidencia());
+            for (ObjetoEstadoIncidencia Incidencia : edoin.selectEstadoIncidencias()) {
+                if(Incidencia.getNombre().equals(estado)) {
+                    this.st.setInt(7, Incidencia.getIdEstadoIncidencia());
                 }
             }
             this.st.execute();
@@ -113,8 +113,8 @@ public class ModeloIncidencias extends BD {
     }
     
     protected void updateIncidencias(String incidencia, String observaciones, String fecha, String hora, String usuario, String habitacion, String estado, int id) {
-        this.estadoIncidencia.cargarTabla();
-        this.habitacion.cargarTabla();
+        edoin.cargarTabla();
+        mh.cargarTabla();
         try {
             this.st = conectar().prepareStatement("UPDATE Incidencias SET Nombre = ?, Observaciones = ?, FechaIncidencia = ?, HoraIncidencia = ?, Username = ?, IdHabitacion = ?, IdEstadoIncidencia = ? WHERE IdIndicencias = ?");
             this.st.setString(1, incidencia);
@@ -122,14 +122,14 @@ public class ModeloIncidencias extends BD {
             this.st.setString(3, fecha);
             this.st.setString(4, hora);
             this.st.setString(5, usuario);
-            for (ObjetoHabitacion habitaciones : this.habitacion.selectHabitaciones()) {
+            for (ObjetoHabitacion habitaciones : mh.selectHabitaciones()) {
                 if(habitaciones.getNombre().equals(habitacion)) {
                     this.st.setInt(6, habitaciones.getIdHabitacion());
                 }
             }
-            for (ObjetoEstadoIncidencia estadoIncidencia : estadoIncidencia.selectEstadoIncidencias()) {
-                if(estadoIncidencia.getNombre().equals(estado)) {
-                    this.st.setInt(7, estadoIncidencia.getIdEstadoIncidencia());
+            for (ObjetoEstadoIncidencia Incidencia : edoin.selectEstadoIncidencias()) {
+                if(Incidencia.getNombre().equals(estado)) {
+                    this.st.setInt(7, Incidencia.getIdEstadoIncidencia());
                 }
             }
             this.st.setInt(8, id);

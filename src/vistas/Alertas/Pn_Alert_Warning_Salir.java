@@ -9,7 +9,6 @@ import Utilerias.AWTUtilities;
 import java.awt.Toolkit;
 import java.util.TimerTask;
 import java.util.Timer;
-import javax.swing.JFrame;
 
 /**
  *

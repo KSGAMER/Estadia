@@ -6,20 +6,12 @@
 package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
-import java.awt.Toolkit;
-import java.util.TimerTask;
-import java.util.Timer;
-import javax.swing.JFrame;
 import controladores.ControladorCFDI;
 import controladores.ControladorClientes;
 import controladores.ControladorEscritura;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 /**

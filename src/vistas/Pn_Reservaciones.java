@@ -17,6 +17,7 @@ import controladores.ControladorReservaciones;
 import controladores.ValidadorDePrivilegios.*;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
@@ -30,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import objetos.ObjetoCategoria;
 import objetos.ObjetoHabitacion;
@@ -142,10 +144,10 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private void tamañoTabla() {
         TableColumnModel columnModel = jt_Reservas.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(30);
-        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(1).setPreferredWidth(120);
         columnModel.getColumn(2).setPreferredWidth(120);
-        columnModel.getColumn(3).setPreferredWidth(100);
-        columnModel.getColumn(4).setPreferredWidth(100);
+        columnModel.getColumn(3).setPreferredWidth(80);
+        columnModel.getColumn(4).setPreferredWidth(80);
         columnModel.getColumn(5).setPreferredWidth(50);
 
     }
@@ -755,18 +757,36 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
                 Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(principal, true);
                 ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jc_eliminarParaFinalizarReservacion.setVisible(true);
+                ale.jc_seleccionarErrorHumano.setVisible(true);
+                ale.jb_aceptar.setEnabled(false);
+                //sirve para validar con estatus 
+                // 0= desactiva el boton de aceptar
+                //1= significa que fue error humano y solo se elimina el elemento de reservacion
+                //2= significa que se esta terminando una reservacion 
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
+                        if (ale.validarError == 1) {
+                            cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
+                            ch.updateHabitacion(String.valueOf(cb_Habitacion.getSelectedItem()), "Disponible");
+                          
+                            tamañoTabla();
+                            NewTable = new DefaultTableModel();
+                            cTabla();
+                            datosIniciales();
+                            ale.dispose();
+                        } else if (ale.validarError == 2) {
+                            cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
+                            //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
+                            ch.updateHabitacion(String.valueOf(cb_Habitacion.getSelectedItem()), "Limpieza");
+                            tamañoTabla();
+                            NewTable = new DefaultTableModel();
+                            cTabla();
+                            datosIniciales();
+                            ale.dispose();
+                        }
 
-                        cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
-                        //DesktopNotify.showDesktopMessage("Exito", "Datos del piso " + jt_nombre.getText() + " eliminados con éxito.", DesktopNotify.SUCCESS);
-                        ch.updateHabitacion(String.valueOf(cb_Habitacion.getSelectedItem()), "Limpieza");
-                        tamañoTabla();
-                        NewTable = new DefaultTableModel();
-                        cTabla();
-                        datosIniciales();
-                        ale.dispose();
                     }
                 });
                 ale.setVisible(true);

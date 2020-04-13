@@ -39,7 +39,7 @@ public class ModeloReservaciones extends BD {
         mh.cargarTabla();
         mr.cargarTabla();
         //Se declaran las columnas de la tabla
-        String[] titulos = {"#", "Cliente", "Habitacion", "Fecha de Ingreso", "Fecha de Salida", "Estado"};
+        String[] titulos = {"#", "Cliente", "Habitacion", "F. de Ingreso", "F. de Salida", "Estado"};
         //Se declara la tabla pasando las columnas
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla
@@ -92,7 +92,7 @@ public class ModeloReservaciones extends BD {
         mh.cargarTabla();
         mr.cargarTabla();
         //Se declaran las columnas de la tabla
-        String[] titulos = {"#", "Cliente", "Habitacion", "Fecha de Ingreso", "Fecha de Salida", "Estado"};
+        String[] titulos = {"#", "Cliente", "Habitacion", "F. de Ingreso", "F. de Salida", "Estado"};
         //Se declara la tabla pasando las columnas
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         //Se declara un objeto que actuara como la fila de la tabla

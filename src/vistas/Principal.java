@@ -51,7 +51,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
     private ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
 //VARIABLES PUBLICAS DE USO ESPECILIAZADO
     public static String User = sesion.Username;//necesaria para comparaciones, es el nombre del usuario actual logueado
-    public static MenuItem Administrador, Configuracion, AdministracionCaja, Reportes;//necesario para el control del administrador unicamente
+    public static MenuItem Administrador, Configuracion, AdministracionCaja, Reportes,Inventario;//necesario para el control del administrador unicamente
     public static MenuItem CalendarioReservas, Reservaciones, Recepcion, Clientes, Facturas, GastosHotel;//Necesarios para Otros Usuarios
     public static MenuItem RecepcionCamarista;//necesario para camarista
 //fin
@@ -598,13 +598,14 @@ public class Principal extends javax.swing.JFrame implements Runnable {
                 new CambiaPanel(pnlPrincipal, new Pn_NuevoEmpleado());
             }
         });
+      /*SIN USO PORQUE EL SISTEMA YA SE DIVIDE POR 3 NIVELES DE USUARIOS  
         MenuItem Permisos = new MenuItem(subMenus, "Permisos", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
 
                 new CambiaPanel(pnlPrincipal, new Pn_PermisosAccesos());
             }
-        });
+        });*/
         MenuItem Puestos = new MenuItem(subMenus, "Control de Incidencias", 10, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -636,25 +637,25 @@ public class Principal extends javax.swing.JFrame implements Runnable {
 
             }
         });
-        /*submenu inventario SIN USO AUN 
- MenuItem NuevoProducto = new MenuItem(subMenus, "Nuevo Producto", 35, new ActionListener() {
+        /*submenu inventario SIN USO AUN */
+        MenuItem NuevoProducto = new MenuItem(subMenus, "Registo de Productos", 35,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                  new CambiaPanel(pnlPrincipal, new Pn_Inventario());
+            //    new CambiaPanel(pnlPrincipal, new Pn_Inventario());
             }
         });
-  MenuItem ProductoxHabitacion = new MenuItem(subMenus, "Asinación de Productos", 35, new ActionListener() {
+        MenuItem ProductoxHabitacion = new MenuItem(subMenus, "Inventario por Habitación", 35,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                  new CambiaPanel(pnlPrincipal, new Pn_InventarioxHabitacion());
+               // new CambiaPanel(pnlPrincipal, new Pn_InventarioxHabitacion());
             }
         });
-         *///FIN SIN USO AUN 
+         //FIN SIN USO AUN 
 //APARTADO DE TODOS LOS MENUS
-        RecepcionCamarista = new MenuItem(iconRecepcion, "Recepción", 35, general, new ActionListener() {
+        RecepcionCamarista = new MenuItem(iconRecepcion, "Actualizar", 35, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new CambiaPanel(pnlPrincipal, new Pn_RecepcionVistaCamarista());
+             //   new CambiaPanel(pnlPrincipal, new Pn_RecepcionVistaCamarista());
             }
         });
         CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35, general, new ActionListener() {
@@ -692,13 +693,13 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
         AdministracionCaja = new MenuItem(iconAdminCaja, "Caja Admin", 35, admin, null, AbrirCaja, CerrarCaja);
-        /*SIN USO AUN
-        MenuItem Inventario = new MenuItem(iconAdministrador, "Inventario", 35, null, NuevoProducto,ProductoxHabitacion);
-         */
-        Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35, admin, null, NuevoEmpleado, Permisos, Puestos);
-//    
+       
+        Inventario = new MenuItem(iconAdministrador, "Inventario", 35,admin, null, NuevoProducto,ProductoxHabitacion);
+       
+        Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35, admin, null, NuevoEmpleado/*, Permisos*/, Puestos);
+  
         //AQUI SE AGREGAR TODOS LOS NUEVOS MENUS Y SUBMENUS
-        addMenu(RecepcionCamarista, CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, GastosHotel, Reportes, Configuracion, Administrador, AdministracionCaja/*, Sesion*/); //Configuracion);
+        addMenu(RecepcionCamarista, CalendarioReservas, Recepcion, Reservaciones, Clientes, Facturas, GastosHotel, Reportes, Configuracion, Administrador, AdministracionCaja,Inventario/*, Sesion*/); //Configuracion);
     }
 
     private void addMenu(MenuItem... menu) {

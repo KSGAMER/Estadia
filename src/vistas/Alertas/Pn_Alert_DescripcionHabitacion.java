@@ -24,18 +24,20 @@ import objetos.ObjetoIncidencia;
  * @author fenix
  */
 public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
+
     private ControladorHabitaciones ch = new ControladorHabitaciones();
     private ControladorIncidencias cin = new ControladorIncidencias();
     private ControladorEstadoIncidencia cesin = new ControladorEstadoIncidencia();
     private Timer timer = null;
     private TimerTask task;
     private int i = 32;
- //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
+    //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
     //variable public sobre la cual podra acceder el controlador que maneja los componentes de las recepciones para
     //asignarle un nombre de habitacion y cargar asi los datos del metodo validar validarExistenciaIncidencias();
-    public static String NombreHabitacion="";
+    public static String NombreHabitacion = "";
+
     //fin
     /**
      * Creates new form AlertSuccess
@@ -45,9 +47,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         setPantalla();
         initComponents();
 //inicia los datos necesarios, en este caso el boton de incidencias en caso de que la base de datos no tenga datos
-//coincidentes con las habitación actual
         datosInciales();
-//fin
 //necesarios para cargar datos en las variables ubicadas en el metodo de validarExistencias...
         ch.tablaHabitaciones();
         cesin.tablaEstadoIncidencia();
@@ -56,7 +56,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
 
         AWTUtilities.setOpaque(this, false);
         Ubicar(0);
-        
+        datosInciales();
         jta_observaciones.setEnabled(false);
         //para ajustar el tecto al tamaño del jtextarea
         jta_observaciones.setLineWrap(true);
@@ -67,41 +67,43 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
     private void datosInciales() {
         btn_edoIncidencias.setEnabled(false);
     }
-/*método que valida si existe alguna incidencia comparando el id de la habitacion con la tabla de incidencias
+
+    /*método que valida si existe alguna incidencia comparando el id de la habitacion con la tabla de incidencias
 validarExistenciaIncidencias(NombreHabitacion);*/
 //SE MANDA A LLAMAR DESDE EL EVENTO CLICK DEL COMPONENTE RESERVACIONES EN EL ControladorRecepciones
     public void validarExistenciaIncidencias(String Habitacion) {
+
         //recorre las habitaciones
         for (ObjetoHabitacion habitacion : ch.selectHabitacion()) {
             //recorre la yabla de incidencias
-                for (ObjetoIncidencia Incidencia : cin.seleccionarIncidencias()) {
-                    //reccorre el estado de las incidencias
-                    for (ObjetoEstadoIncidencia edoIncidencia : cesin.seleccionarEstadoIncidencia()) {
-                        //si lo anterior se recorrio correctamente , se compara que la habitacion sea la misma que la 
-                        //agregada en la tabla de incidencias 
-                        if (Incidencia.getIdHabitacion() == habitacion.getIdHabitacion()) {
-                            //luego de la comparacion anterior , se comprara que el estado de la incidencia sea igual 
-                            //al agregado en la tabla de incidencias 
-                            if (Incidencia.getIdEstadoIncidencia() == edoIncidencia.getIdEstadoIncidencia()) {
-                                //tambien se compara que el nombre ede la habitacion del componente de recepciones 
-                                //sea el mismo que la ubicada en la tabla de habitaciones , por consiguiente 
-                                //la misma registrada en la tabla de incidencias 
-                                if (habitacion.getNombre().equals(Habitacion)) {
-                                    //finalmente se compara que el nombre del estado de la incidencia sera igual a
-                                    //pendiente, que es el valor importante para hacer aparecer el boton de incidencias
-                                    //de lo contrario no aparecerá nada y el boton seguira bloqueado
-                                    if (edoIncidencia.getNombre().equals("Pendiente")) {
-                                        btn_edoIncidencias.setEnabled(true);
-                                        break;
-                                    }
+            for (ObjetoIncidencia Incidencia : cin.seleccionarIncidencias()) {
+                //reccorre el estado de las incidencias
+                for (ObjetoEstadoIncidencia edoIncidencia : cesin.seleccionarEstadoIncidencia()) {
+                    //si lo anterior se recorrio correctamente , se compara que la habitacion sea la misma que la 
+                    //agregada en la tabla de incidencias 
+                    if (Incidencia.getIdHabitacion() == habitacion.getIdHabitacion()) {
+                        //luego de la comparacion anterior , se comprara que el estado de la incidencia sea igual 
+                        //al agregado en la tabla de incidencias 
+                        if (Incidencia.getIdEstadoIncidencia() == edoIncidencia.getIdEstadoIncidencia()) {
+                            //tambien se compara que el nombre ede la habitacion del componente de recepciones 
+                            //sea el mismo que la ubicada en la tabla de habitaciones , por consiguiente 
+                            //la misma registrada en la tabla de incidencias 
+                            if (habitacion.getNombre().equals(Habitacion)) {
+                                //finalmente se compara que el nombre del estado de la incidencia sera igual a
+                                //pendiente, que es el valor importante para hacer aparecer el boton de incidencias
+                                //de lo contrario no aparecerá nada y el boton seguira bloqueado
+                                if (edoIncidencia.getNombre().equals("Pendiente")) {
+                                    btn_edoIncidencias.setEnabled(true);
+                                    break;
                                 }
                             }
-
                         }
+
                     }
                 }
-
             }
+
+        }
     }
 
     private void setPantalla() {
@@ -112,13 +114,15 @@ validarExistenciaIncidencias(NombreHabitacion);*/
         this.setResizable(false);
 
     }
-    public void validarCambioEstado(){
-        if(!(lb_Estado.getText().equals("Limpieza"))){
+
+    public void validarCambioEstado() {
+        if (!(lb_Estado.getText().equals("Limpieza"))) {
             cb_status.setEnabled(false);
-        }else{
+        } else {
             cb_status.setEnabled(true);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -399,20 +403,7 @@ validarExistenciaIncidencias(NombreHabitacion);*/
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 352) {
-                    timer.cancel();
-                } else {
-                    Ubicar(i);
-                    i += 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new java.util.Timer();
-        timer.schedule(task, 0, 2);
+    
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -438,19 +429,19 @@ validarExistenciaIncidencias(NombreHabitacion);*/
     }//GEN-LAST:event_materialButton1ActionPerformed
 
     private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
-        
+
     }//GEN-LAST:event_jta_observacionesFocusGained
 
     private void jta_observacionesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusLost
-      
+
     }//GEN-LAST:event_jta_observacionesFocusLost
 
     private void jta_observacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jta_observacionesMouseClicked
-      
+
     }//GEN-LAST:event_jta_observacionesMouseClicked
 
     private void jta_observacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jta_observacionesKeyPressed
-     
+
     }//GEN-LAST:event_jta_observacionesKeyPressed
 
     private void cb_statusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_statusItemStateChanged
@@ -461,21 +452,23 @@ validarExistenciaIncidencias(NombreHabitacion);*/
     }//GEN-LAST:event_cb_statusItemStateChanged
 
     private void lb_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lb_closeActionPerformed
-     Cerrar();
+        Cerrar();
     }//GEN-LAST:event_lb_closeActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-     Cerrar();
+        Cerrar();
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void btn_nuevaIncidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevaIncidenciaActionPerformed
         try {
             this.dispose();
             Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, false);
+            aleDesc.lb_NombreHabitacion.setText(lb_NombreHabitacion.getText());
+            aleDesc.lb_NombreCategoria.setText(lb_NombreCategoria.getText());
+            aleDesc.lb_Estado.setText(lb_Estado.getText());
             aleDesc.setVisible(true);
         } catch (Exception e) {
         }
-        
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_nuevaIncidenciaActionPerformed
@@ -517,7 +510,7 @@ validarExistenciaIncidencias(NombreHabitacion);*/
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Pn_Alert_DescripcionHabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-           
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -535,7 +528,7 @@ validarExistenciaIncidencias(NombreHabitacion);*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_edoIncidencias;
+    public static javax.swing.JButton btn_edoIncidencias;
     private principal.MaterialButton btn_nuevaIncidencia;
     private principal.MaterialButton cancelar;
     private javax.swing.JComboBox<String> cb_status;
@@ -565,7 +558,7 @@ validarExistenciaIncidencias(NombreHabitacion);*/
 
     private void Cerrar() {
         this.dispose();
-     
+
     }
 
     private void Ubicar(int y) {
@@ -575,7 +568,8 @@ validarExistenciaIncidencias(NombreHabitacion);*/
         this.setLocation(xsize, y - 120);
 
     }
-   private void Trasparencia(float trasp) {
+
+    private void Trasparencia(float trasp) {
         AWTUtilities.setOpacity(this, trasp);
     }
 }

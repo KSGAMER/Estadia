@@ -10,9 +10,6 @@ import controladores.ControladorEscritura;
 import controladores.ControladorFormularioTab;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
-import java.awt.Toolkit;
-import java.util.TimerTask;
-import java.util.Timer;
 import javax.swing.table.DefaultTableModel;
 import controladores.ControladorGastos;
 import java.text.SimpleDateFormat;
@@ -117,6 +114,7 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
         lb_errorNombreGasto = new javax.swing.JLabel();
         lb_errorMontoGastado = new javax.swing.JLabel();
         jb_limpiarCampos = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -331,6 +329,11 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 40, -1));
+
+        jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel17.setText("$");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 10, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1506,6 +1509,7 @@ public class Pn_Alert_NuevoGasto extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private principal.MaterialButton cancelar;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
