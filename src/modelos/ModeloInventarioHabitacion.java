@@ -28,7 +28,7 @@ public class ModeloInventarioHabitacion extends BD{
     private ModeloHabitaciones habitaciones = new ModeloHabitaciones();
     
     protected DefaultTableModel cargarTabla(String filtro) {
-        String[] titulos = {"#", "Producto", "Total", "Habitacion", "Usuario"};
+        String[] titulos = {"#", "Producto", "TotalStock", "Habitacion", "Usuario"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[5];
         try {

@@ -32,7 +32,7 @@ public class ControladorFormularioTab {
             //Se reemplaza el texto por el texto que contiene la variable
             actual.setText(texto);
             //Se pinta el texto con el siguiente color
-            actual.setForeground(new Color(153, 153, 153));
+            actual.setForeground(new Color(204,204,204));
         }
     }
 
@@ -43,7 +43,7 @@ public class ControladorFormularioTab {
             //Se reemplaza el texto con el texto de la variable
             actual.setText(texto);
             //Se reemplaza el color del fondo del textarea
-            actual.setForeground(new Color(153, 153, 153));
+            actual.setForeground(new Color(204,204,204));
         }
     }
 

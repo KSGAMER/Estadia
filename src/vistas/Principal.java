@@ -638,16 +638,16 @@ public class Principal extends javax.swing.JFrame implements Runnable {
             }
         });
         /*submenu inventario SIN USO AUN */
-        MenuItem NuevoProducto = new MenuItem(subMenus, "Registo de Productos", 35,general, new ActionListener() {
+        MenuItem NuevoProducto = new MenuItem(subMenus, "Registo de Productos", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-            //    new CambiaPanel(pnlPrincipal, new Pn_Inventario());
+                new CambiaPanel(pnlPrincipal, new Pn_Inventario());
             }
         });
-        MenuItem ProductoxHabitacion = new MenuItem(subMenus, "Inventario por Habitación", 35,general, new ActionListener() {
+        MenuItem ProductoxHabitacion = new MenuItem(subMenus, "Inventario por Habitación", 10,general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-               // new CambiaPanel(pnlPrincipal, new Pn_InventarioxHabitacion());
+                new CambiaPanel(pnlPrincipal, new Pn_InventarioPorHabitacion());
             }
         });
          //FIN SIN USO AUN 

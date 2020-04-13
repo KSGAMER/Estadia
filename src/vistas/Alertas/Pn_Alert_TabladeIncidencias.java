@@ -38,7 +38,7 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
         setPantalla();
         initComponents();
         AWTUtilities.setOpaque(this, false);
-        Ubicar(0);
+        centrarPantalla();
         //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
@@ -54,7 +54,9 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
         jta_observaciones.setLineWrap(true);
         //FIN
     }
-
+   public void centrarPantalla() {
+        this.setLocationRelativeTo(null);
+    }
     public void setPantalla() {
 
         //para eliminar el tittle bar
@@ -372,14 +374,5 @@ public class Pn_Alert_TabladeIncidencias extends javax.swing.JDialog {
      
     }
 
-    private void Ubicar(int y) {
-
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth() / 3;
-        this.setLocation(xsize, y - 120);
-
-    }
-   private void Trasparencia(float trasp) {
-        AWTUtilities.setOpacity(this, trasp);
-    }
+ 
 }
