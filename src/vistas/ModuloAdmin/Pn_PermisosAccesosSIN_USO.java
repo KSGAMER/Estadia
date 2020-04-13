@@ -19,10 +19,11 @@ import javax.swing.table.DefaultTableModel;
 import vistas.*;
 
 /**
- *
+ * POR EL MOMENTO NO TIENE USO , DEBIDO A QUE EL SISTEMA DIVIDE LOS PRIVILEGIOS DEPENDIENDO EL CARGO QUE 
+ * TENGAN ASIGNADO
  * @author fenix
  */
-public class Pn_PermisosAccesos extends javax.swing.JPanel {
+public class Pn_PermisosAccesosSIN_USO extends javax.swing.JPanel {
 //NECESARIO PARA FUNCIONES DE ESTE MODULO 
 
     ControladorEstatusPermisos eperm = new ControladorEstatusPermisos();
@@ -39,7 +40,7 @@ public class Pn_PermisosAccesos extends javax.swing.JPanel {
     /**
      * Creates new form NuevoEmpleado1
      */
-    public Pn_PermisosAccesos() {
+    public Pn_PermisosAccesosSIN_USO() {
         initComponents();
         eperm.tablaEstatusPermisos();
         cperm.tablaPermisos();

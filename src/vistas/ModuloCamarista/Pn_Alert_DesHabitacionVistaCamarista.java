@@ -49,14 +49,16 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         setPantalla();
         initComponents();
         AWTUtilities.setOpaque(this, false);
-        Ubicar(0);
+        centrarPantalla();
         datosIniciales();
 
         //para ajustar el tecto al tamaño del jtextarea
         jta_observaciones.setLineWrap(true);
         //FIN
     }
-
+  public void centrarPantalla() {
+        this.setLocationRelativeTo(null);
+    }
     public void setPantalla() {
 
         //para eliminar el tittle bar
@@ -371,20 +373,6 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (i == 352) {
-                    timer.cancel();
-                } else {
-                    Ubicar(i);
-                    i += 32;
-                    Trasparencia((float) i / 352);
-                }
-            }
-        };
-        timer = new java.util.Timer();
-        timer.schedule(task, 0, 2);
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -549,15 +537,4 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
 
     }
 
-    private void Ubicar(int y) {
-
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        int xsize = (int) tk.getScreenSize().getWidth() / 3;
-        this.setLocation(xsize, y - 120);
-
-    }
-
-    private void Trasparencia(float trasp) {
-        AWTUtilities.setOpacity(this, trasp);
-    }
 }

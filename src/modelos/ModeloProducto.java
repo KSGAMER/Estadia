@@ -80,8 +80,8 @@ public class ModeloProducto extends BD {
             this.st.setString(1, filtro);
             this.rs = this.st.executeQuery();
             while (this.rs.next()) {
-                fila[0] = rs.getInt(1);
-                fila[1] = rs.getString(2);
+                fila[0] = rs.getString(1);
+                fila[1] = rs.getInt(2);
                 tb.addRow(fila);
             }
         } catch (SQLException ex) {

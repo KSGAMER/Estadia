@@ -28,9 +28,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
     private ControladorHabitaciones ch = new ControladorHabitaciones();
     private ControladorIncidencias cin = new ControladorIncidencias();
     private ControladorEstadoIncidencia cesin = new ControladorEstadoIncidencia();
-    private Timer timer = null;
-    private TimerTask task;
-    private int i = 32;
+   
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
 //FIN
@@ -55,7 +53,7 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
 //fin
 
         AWTUtilities.setOpaque(this, false);
-        Ubicar(0);
+        centrarPantalla();
         datosInciales();
         jta_observaciones.setEnabled(false);
         //para ajustar el tecto al tamaño del jtextarea
@@ -63,7 +61,9 @@ public class Pn_Alert_DescripcionHabitacion extends javax.swing.JDialog {
         //FIN
 
     }
-
+   public void centrarPantalla() {
+        this.setLocationRelativeTo(null);
+    }
     private void datosInciales() {
         btn_edoIncidencias.setEnabled(false);
     }

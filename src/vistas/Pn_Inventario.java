@@ -74,6 +74,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
         //bloqueo inicial de botones no necesarios hasta la seleccion de un dato 
         btn_Modificar.setEnabled(false);
         btn_Eliminar.setEnabled(false);
+        btn_Ingresar.setEnabled(true);
         //
 
         lb_errorNombreProducto.setForeground(new Color(84, 110, 122));
@@ -86,9 +87,11 @@ public class Pn_Inventario extends javax.swing.JPanel {
     private void tamañoTabla() {
         TableColumnModel columnModel = jtabla_Productos.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(5);
-        columnModel.getColumn(1).setPreferredWidth(50);
-        columnModel.getColumn(2).setPreferredWidth(40);
-        columnModel.getColumn(3).setPreferredWidth(250);
+        columnModel.getColumn(1).setPreferredWidth(80);
+        columnModel.getColumn(2).setPreferredWidth(100);
+        columnModel.getColumn(3).setPreferredWidth(60);
+        columnModel.getColumn(4).setPreferredWidth(70);
+        columnModel.getColumn(5).setPreferredWidth(200);
     }
 
     private void cTabla() {
@@ -116,7 +119,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
     private void RowHeaderApariencia() {
         jtabla_Productos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
         jtabla_Productos.getTableHeader().setOpaque(false);
-        jtabla_Productos.getTableHeader().setBackground(Color.BLACK);
+        jtabla_Productos.getTableHeader().setBackground(new Color(32, 136, 203));
         jtabla_Productos.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
@@ -389,11 +392,11 @@ public class Pn_Inventario extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("VISTA GENERAL DEL INVENTARIO");
+        jLabel1.setText("VISIÓN GENERAL DE REGISTRO DE PRODUCTOS");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Inicio > Administrador > Inventario");
+        jLabel2.setText("Inicio > Inventario > Registro de Productos");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -402,17 +405,17 @@ public class Pn_Inventario extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 380, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(94, 94, 94))
+                .addGap(92, 92, 92))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -472,6 +475,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
         jb_limpiarCampos.setBorder(null);
         jb_limpiarCampos.setBorderPainted(false);
         jb_limpiarCampos.setContentAreaFilled(false);
+        jb_limpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jb_limpiarCampos.setFocusPainted(false);
         jb_limpiarCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/cleanSeleccionar24x24.png"))); // NOI18N
         jb_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
@@ -598,10 +602,14 @@ public class Pn_Inventario extends javax.swing.JPanel {
         //activacion de botones al elegir un dato
         btn_Modificar.setEnabled(true);
         btn_Eliminar.setEnabled(true);
+        btn_Ingresar.setEnabled(false);
         //
         lb_Id.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 0)));
         jt_nombre.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 1)));
-        jta_observaciones.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 2)));
+        jt_nombreProveedor.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 2)));
+        jt_Precio.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 3)));
+        jt_CantidadStock.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 4)));
+        jta_observaciones.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 5)));
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jtabla_ProductosMouseClicked
@@ -643,6 +651,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
             if (!validarEscritura() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
+                cpro.insertarProducto(jt_nombre.getText(),jt_nombreProveedor.getText(),Double.valueOf(jt_Precio.getText()), Integer.parseInt(jt_CantidadStock.getText()),jta_observaciones.getText());
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
@@ -659,6 +668,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
+                cpro.actualizarProducto(jt_nombre.getText(),jt_nombreProveedor.getText(),Double.valueOf(jt_Precio.getText()), Integer.parseInt(jt_CantidadStock.getText()),jta_observaciones.getText(), Integer.parseInt(lb_Id.getText()));
                 NewTable = new DefaultTableModel();
                 cTabla();
                 tamañoTabla();
@@ -683,6 +693,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 ale.jb_aceptar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
+                       cpro.eliminarProducto(Integer.parseInt(lb_Id.getText()));
                         tamañoTabla();
                         NewTable = new DefaultTableModel();
                         cTabla();
@@ -745,7 +756,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_jt_PrecioMouseClicked
 
     private void jt_PrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_PrecioKeyTyped
-        cft.formFocusGain(jt_Precio);          // TODO add your handling code here:
+      ce.typedMoney(evt, jt_Precio);        // TODO add your handling code here:
     }//GEN-LAST:event_jt_PrecioKeyTyped
 
     private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
@@ -765,7 +776,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_jt_CantidadStockMouseClicked
 
     private void jt_CantidadStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_CantidadStockKeyTyped
-        cft.formFocusGain(jt_CantidadStock);        // TODO add your handling code here:
+        ce.typedMoney(evt, jt_CantidadStock);      // TODO add your handling code here:
     }//GEN-LAST:event_jt_CantidadStockKeyTyped
 
     private void jt_nombreProveedorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreProveedorFocusGained

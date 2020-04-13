@@ -6,15 +6,16 @@
 package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
-import controladores.ControladorClientes;
 import controladores.ControladorEscritura;
+import controladores.ControladorFormularioTab;
+import controladores.ControladorProductos;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import vistas.Pn_Reservaciones;
+import vistas.Pn_InventarioPorHabitacion;
 
 /**
  *
@@ -22,13 +23,14 @@ import vistas.Pn_Reservaciones;
  */
 public class Pn_SeleccionarProducto extends javax.swing.JDialog {
 
-    ControladorClientes mc = new ControladorClientes();
-    ControladorEscritura ce = new ControladorEscritura();
-    Pn_Reservaciones reserv;
+     private ControladorFormularioTab cft = new ControladorFormularioTab();
+    private ControladorEscritura ce = new ControladorEscritura();
+    private ControladorProductos cpro = new ControladorProductos();
+    Pn_InventarioPorHabitacion InvHabit;
     DefaultTableModel NewTable;
     private int seleccion;
 //variable para hacer la comparacion entre la cantidad elegida y el stock en bodega    
-    private int validarStock=0;
+    private int validarStock;
     /**
      * Creates new form AlertSuccess
      */
@@ -45,9 +47,11 @@ public class Pn_SeleccionarProducto extends javax.swing.JDialog {
         tamañoTabla();
     }
 private void datosIniciales(){
-    lb_Id.setText("");
-    lb_errorCantidad.setForeground(new Color(233,235,238));
+   
+    lb_errorCantidad.setForeground(new Color(84,110,122));//[84,110,122]
+    lb_errorNombre.setForeground(new Color(84,110,122));
     jt_Cantidad.setText("Ingresar Cantidad");
+    lb_nombreProducto.setText("Nombre del Producto");
 }
     public void centrarPantalla() {
         this.setLocationRelativeTo(null);
@@ -60,44 +64,40 @@ private void bloquearUsar(){
            btn_Usar.setEnabled(true);
     }
     private void cTabla() {
-        jt_Clientes.setModel(mc.tablaClientes());
+        jtabla_Productos.setModel(cpro.cantidadProductos(""));
           
     }
 
  
 
     private void tamañoTabla() {
-        TableColumnModel columnModel = jt_Clientes.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(30);
-        columnModel.getColumn(1).setPreferredWidth(150);
-        columnModel.getColumn(2).setPreferredWidth(120);
-        columnModel.getColumn(3).setPreferredWidth(240);
-        columnModel.getColumn(4).setPreferredWidth(100);
-        columnModel.getColumn(5).setPreferredWidth(170);
-        columnModel.getColumn(6).setPreferredWidth(80);
+        TableColumnModel columnModel = jtabla_Productos.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(100);
+        columnModel.getColumn(1).setPreferredWidth(60);
+       
 
     }
     private void RowApariencia() {
 
-        jt_Clientes.setFocusable(false);
+        jtabla_Productos.setFocusable(false);
 
         //espacio entre comulnas
-        jt_Clientes.setIntercellSpacing(new Dimension(0, 1));
+        jtabla_Productos.setIntercellSpacing(new Dimension(0, 1));
         //altura de columnas 
-        jt_Clientes.setRowHeight(25);
+        jtabla_Productos.setRowHeight(25);
         //margen entre filas
-        jt_Clientes.setRowMargin(0);
+        jtabla_Productos.setRowMargin(0);
 //sin lineas verticles
-        jt_Clientes.setShowVerticalLines(false);
-        jt_Clientes.setSelectionBackground(new Color(97, 212, 195));
+        jtabla_Productos.setShowVerticalLines(false);
+        jtabla_Productos.setSelectionBackground(new Color(97, 212, 195));
 
     }
 
     private void RowHeaderApariencia() {
-        jt_Clientes.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
-        jt_Clientes.getTableHeader().setOpaque(false);
-        jt_Clientes.getTableHeader().setBackground(new Color(32, 136, 203));
-        jt_Clientes.getTableHeader().setForeground(new Color(255, 255, 255));
+        jtabla_Productos.getTableHeader().setFont(new Font("Century Gothic", Font.BOLD, 14));
+        jtabla_Productos.getTableHeader().setOpaque(false);
+        jtabla_Productos.getTableHeader().setBackground(new Color(32, 136, 203));
+        jtabla_Productos.getTableHeader().setForeground(new Color(255, 255, 255));
 
     }
 
@@ -105,10 +105,11 @@ private void bloquearUsar(){
 
     private Boolean validarStock(int Cantidad) {
         Boolean val = true;
-        if (!(Cantidad<=validarStock)) {
+        if (!(Cantidad<validarStock)) {
 
         } else {
-          
+            DesktopNotify.showDesktopMessage("Error", "La cantidad a agregar no puede ser menor a la existente"
+                        + "en el stock", DesktopNotify.ERROR);
             return false;
         }
 
@@ -118,9 +119,17 @@ private void bloquearUsar(){
         Boolean val = true;
           //si el textfield tiene algo diferente a Vacío aparecerá de color negro
         if (!(jt_Cantidad.getText().equals("Ingresar Cantidad")) && !(jt_Cantidad.getText().equals(""))) {
-            lb_errorCantidad.setForeground(new Color(233,235,238));
+            lb_errorCantidad.setForeground(new Color(84,110,122));
         } else {
             lb_errorCantidad.setForeground(Color.RED);
+            
+            val = false;
+        }
+           //si el textfield tiene algo diferente a Vacío aparecerá de color negro
+        if (!(lb_nombreProducto.getText().equals("Nombre del Producto"))) {
+            lb_errorNombre.setForeground(new Color(84,110,122));
+        } else {
+            lb_errorNombre.setForeground(Color.RED);
             val = false;
         }
           return val;
@@ -136,12 +145,10 @@ private void bloquearUsar(){
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jt_Clientes = new javax.swing.JTable();
+        jtabla_Productos = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jt_Cantidad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        lb_Id = new javax.swing.JLabel();
-        lb_errorRFC = new javax.swing.JLabel();
         jt_Buscar = new javax.swing.JTextField();
         btn_Usar = new principal.MaterialButton();
         jLabel6 = new javax.swing.JLabel();
@@ -150,6 +157,10 @@ private void bloquearUsar(){
         lb_close = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lb_errorCantidad = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        lb_nombreProducto = new javax.swing.JLabel();
+        lb_errorNombre = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -166,7 +177,7 @@ private void bloquearUsar(){
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jt_Clientes.setModel(new javax.swing.table.DefaultTableModel(
+        jtabla_Productos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -177,28 +188,32 @@ private void bloquearUsar(){
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jt_Clientes.getTableHeader().setResizingAllowed(false);
-        jt_Clientes.getTableHeader().setReorderingAllowed(false);
-        jt_Clientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtabla_Productos.getTableHeader().setResizingAllowed(false);
+        jtabla_Productos.getTableHeader().setReorderingAllowed(false);
+        jtabla_Productos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jt_ClientesMouseClicked(evt);
+                jtabla_ProductosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jt_Clientes);
+        jScrollPane1.setViewportView(jtabla_Productos);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 350, 130));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 280, 130));
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel15.setText("INGRESAR CANTIDAD");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 180, -1));
+        jLabel15.setText("Nombre:");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 220, 20));
 
         jt_Cantidad.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_Cantidad.setForeground(new java.awt.Color(102, 102, 102));
+        jt_Cantidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jt_Cantidad.setText("Ingresar Cantidad");
         jt_Cantidad.setBorder(null);
         jt_Cantidad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jt_CantidadFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jt_CantidadFocusLost(evt);
             }
@@ -225,19 +240,15 @@ private void bloquearUsar(){
         jLabel4.setText("Total de registros ");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 590, 100, 20));
 
-        lb_Id.setForeground(new java.awt.Color(84, 110, 122));
-        jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 30, 20));
-
-        lb_errorRFC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lb_errorRFC.setForeground(new java.awt.Color(84, 110, 122));
-        lb_errorRFC.setText("*");
-        jPanel1.add(lb_errorRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 10, -1));
-
         jt_Buscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jt_Buscar.setForeground(new java.awt.Color(102, 102, 102));
+        jt_Buscar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jt_Buscar.setText("Buscar Nombre");
         jt_Buscar.setBorder(null);
         jt_Buscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jt_BuscarFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jt_BuscarFocusLost(evt);
             }
@@ -245,11 +256,6 @@ private void bloquearUsar(){
         jt_Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jt_BuscarMouseClicked(evt);
-            }
-        });
-        jt_Buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jt_BuscarActionPerformed(evt);
             }
         });
         jt_Buscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -260,7 +266,7 @@ private void bloquearUsar(){
                 jt_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 140, 20));
+        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, 130, 20));
 
         btn_Usar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Usar.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,7 +286,7 @@ private void bloquearUsar(){
         jPanel1.add(btn_Usar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 60, 50));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, -1, 40));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Seleccionar Producto ");
@@ -307,7 +313,7 @@ private void bloquearUsar(){
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(161, 161, 161)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(lb_close, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -319,20 +325,39 @@ private void bloquearUsar(){
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-cantidad.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 180, -1));
 
         lb_errorCantidad.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorCantidad.setText("*");
-        jPanel1.add(lb_errorCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        jPanel1.add(lb_errorCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel16.setText("INFORMACION DEL PRODUCTO");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 220, 20));
+
+        jSeparator5.setBackground(new java.awt.Color(128, 128, 131));
+        jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 210, 10));
+
+        lb_nombreProducto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_nombreProducto.setForeground(new java.awt.Color(255, 255, 255));
+        lb_nombreProducto.setText("Nombre del Producto");
+        jPanel1.add(lb_nombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 210, 20));
+
+        lb_errorNombre.setForeground(new java.awt.Color(84, 110, 122));
+        lb_errorNombre.setText("*");
+        jPanel1.add(lb_errorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 10, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,20 +376,21 @@ private void bloquearUsar(){
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    private void jt_ClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_ClientesMouseClicked
-        seleccion = jt_Clientes.rowAtPoint(evt.getPoint());
+    private void jtabla_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_ProductosMouseClicked
+        seleccion = jtabla_Productos.rowAtPoint(evt.getPoint());
         desbloquearUsar();
-        lb_Id.setText(String.valueOf(jt_Clientes.getValueAt(seleccion, 0)));
-        validarStock = Integer.parseInt(String.valueOf(jt_Clientes.getValueAt(seleccion, 1)));
+       
+        lb_nombreProducto.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 0)));
+        validarStock = Integer.parseInt(String.valueOf(jtabla_Productos.getValueAt(seleccion, 1)));
 
-    }//GEN-LAST:event_jt_ClientesMouseClicked
+    }//GEN-LAST:event_jtabla_ProductosMouseClicked
 
     private void jt_CantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CantidadFocusLost
-
+ cft.formFocusLostJTextField(jt_Cantidad, "Ingresar Cantidad");
     }//GEN-LAST:event_jt_CantidadFocusLost
 
     private void jt_CantidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_CantidadMouseClicked
- 
+ cft.formFocusGain(jt_Cantidad);
     }//GEN-LAST:event_jt_CantidadMouseClicked
 
     private void jt_CantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_CantidadActionPerformed
@@ -376,28 +402,15 @@ private void bloquearUsar(){
     }//GEN-LAST:event_jt_CantidadKeyTyped
 
     private void jt_BuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_BuscarFocusLost
-        if (jt_Buscar.getText().trim().equals("")) {
-            jt_Buscar.setText("Buscar Nombre");
-            jt_Buscar.setForeground(new Color(153, 153, 153));
-
-        }
-
-        // TODO add your handling code here:
+   cft.formFocusLostJTextField(jt_Buscar, "Buscar Nombre");
     }//GEN-LAST:event_jt_BuscarFocusLost
 
     private void jt_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_BuscarMouseClicked
-        // TODO add your handling code here:
-
-        jt_Buscar.setText("");
+ cft.formFocusGain(jt_Buscar);
     }//GEN-LAST:event_jt_BuscarMouseClicked
 
-    private void jt_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_BuscarActionPerformed
-        jt_Buscar.setText("");
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_BuscarActionPerformed
-
     private void jt_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyReleased
-        jt_Clientes.setModel(mc.tablaClientes(jt_Buscar));
+        jtabla_Productos.setModel(cpro.cantidadProductos(jt_Buscar.getText()));
         tamañoTabla();
     }//GEN-LAST:event_jt_BuscarKeyReleased
 
@@ -416,29 +429,41 @@ private void bloquearUsar(){
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_UsarMouseClicked
 
-    private void btn_UsarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UsarActionPerformed
-
-        try {
-            if(!validarStock(Integer.parseInt(jt_Cantidad.getText()))==true || !validarEscritura()==true && !(lb_Id.getText().equals(""))){
-                  DesktopNotify.showDesktopMessage("Error", "La cantidad a agregar no puede ser menor a la existente"
-                    + "en el stock", DesktopNotify.ERROR);
-
-            }else{
-
-        //reserv.jt_nombre.setText(jt_Cantidad.getText());
-        //Cerrar();
-                        
-            }
-        } catch (Exception e) {
-        }
-        
-        
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_UsarActionPerformed
-
     private void lb_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lb_closeActionPerformed
       Cerrar();
     }//GEN-LAST:event_lb_closeActionPerformed
+
+    private void jt_CantidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CantidadFocusGained
+ cft.formFocusGain(jt_Cantidad);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CantidadFocusGained
+
+    private void jt_BuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_BuscarFocusGained
+  cft.formFocusGain(jt_Buscar);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_BuscarFocusGained
+
+    private void btn_UsarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UsarActionPerformed
+
+        try {
+            if (!validarEscritura() == true) {
+
+                DesktopNotify.showDesktopMessage("Error", "DEBE SELECCION UN PRODUCTO Y/O INGRESAR UNA CANTIDAD", DesktopNotify.ERROR);
+
+            } else {
+
+                if (!(Integer.parseInt(jt_Cantidad.getText()) <= validarStock)) {
+                    DesktopNotify.showDesktopMessage("Error", "La cantidad a agregar no puede ser menor a la existente"
+                            + "en el stock", DesktopNotify.ERROR);
+                } else {
+
+                    InvHabit.lb_nombreProducto.setText(lb_nombreProducto.getText());
+                    InvHabit.lb_cantidadSeleccionada.setText(jt_Cantidad.getText());
+                    Cerrar();
+                }
+
+            }
+        } catch (Exception e) {
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_UsarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -16869,19 +16894,21 @@ private void bloquearUsar(){
     private principal.MaterialButton btn_Usar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTextField jt_Buscar;
     private javax.swing.JTextField jt_Cantidad;
-    private javax.swing.JTable jt_Clientes;
-    private javax.swing.JLabel lb_Id;
+    private javax.swing.JTable jtabla_Productos;
     private javax.swing.JButton lb_close;
     private javax.swing.JLabel lb_errorCantidad;
-    private javax.swing.JLabel lb_errorRFC;
+    private javax.swing.JLabel lb_errorNombre;
+    private javax.swing.JLabel lb_nombreProducto;
     // End of variables declaration//GEN-END:variables
 
     private void Cerrar() {
