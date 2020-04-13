@@ -113,7 +113,7 @@ public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
         TableColumnModel columnModel = jt_Reservas.getColumnModel();
         //evita la seleccion de las filas en la tabla, SOLO ES PARA VISUALIZAR, NO NECESITA ACCION ALGUNA
         jt_Reservas.setEnabled(false);
-        columnModel.getColumn(0).setPreferredWidth(390);
+        columnModel.getColumn(0).setPreferredWidth(450);
      
     }
 

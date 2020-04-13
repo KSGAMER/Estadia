@@ -111,55 +111,6 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
 
     }
 
-
-    /*public void cargarTabla() {
-        //DESACTIVAR LA EDICION DE LAS CELDAS
-        DefaultTableModel NewTable = new DefaultTableModel() {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                //all cells false
-                return false;
-            }
-        };
-
-        ArrayList<Object> columna = new ArrayList<Object>();
-        columna.add("#");
-        columna.add("Razón Social");
-        columna.add("RFC");
-        columna.add("Dirección");
-        columna.add("Telefono");
-        columna.add("Email");
-        columna.add("CFDI");
-
-        for (Object col : columna) {
-            NewTable.addColumn(col);
-
-        }
-
-        this.jt_Clientes.setModel(NewTable);
-
-        //se recorre el aarray list que tiene los clientes, se guardan en un objeto llamado filas 
-        //para porteriormente guardarse como una fila completa y al terminar el for se añade al modelo de la tabla ya 
-        Object[] fila = new Object[jt_Clientes.getColumnCount()];
-        for (int i = 0; i < mc.selectCliente().size(); i++) {
-
-            fila[0] = mc.selectCliente().get(i).getIdCliente();
-            fila[1] = mc.selectCliente().get(i).getNombre();
-            fila[2] = mc.selectCliente().get(i).getRfc();
-            fila[3] = mc.selectCliente().get(i).getDireccion();
-            fila[4] = mc.selectCliente().get(i).getTelefono();
-            fila[5] = mc.selectCliente().get(i).getEmail();
-            for (int j = 0; j < cf.selectCFDI().size(); j++) {
-                if(cf.selectCFDI().get(j).getIdCFDI().equals(mc.selectCliente().get(i).getIdCFDI())) {
-                    fila[6] = cf.selectCFDI().get(j).getNombre();
-                }
-            }
-            NewTable.addRow(fila);
-        };
-
-        this.jt_Clientes.setModel(NewTable);
-    }*/
     private void datosIniciales() {
         btn_Cobrar.setEnabled(false);
         jt_MontoACobrar.setText("0");

@@ -197,7 +197,7 @@ private void bloquearUsar(){
         });
         jScrollPane1.setViewportView(jtabla_Productos);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 290, 130));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 280, 130));
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -258,11 +258,6 @@ private void bloquearUsar(){
                 jt_BuscarMouseClicked(evt);
             }
         });
-        jt_Buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jt_BuscarActionPerformed(evt);
-            }
-        });
         jt_Buscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jt_BuscarKeyReleased(evt);
@@ -271,7 +266,7 @@ private void bloquearUsar(){
                 jt_BuscarKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 130, 20));
+        jPanel1.add(jt_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, 130, 20));
 
         btn_Usar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Usar.setForeground(new java.awt.Color(255, 255, 255));
@@ -291,7 +286,7 @@ private void bloquearUsar(){
         jPanel1.add(btn_Usar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 60, 50));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons/campo-buscar.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, 40));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Seleccionar Producto ");
@@ -362,7 +357,7 @@ private void bloquearUsar(){
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,11 +408,6 @@ private void bloquearUsar(){
     private void jt_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_BuscarMouseClicked
  cft.formFocusGain(jt_Buscar);
     }//GEN-LAST:event_jt_BuscarMouseClicked
-
-    private void jt_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_BuscarActionPerformed
-        jt_Buscar.setText("");
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_BuscarActionPerformed
 
     private void jt_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyReleased
         jtabla_Productos.setModel(cpro.cantidadProductos(jt_Buscar.getText()));

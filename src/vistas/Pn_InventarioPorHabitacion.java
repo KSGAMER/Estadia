@@ -500,8 +500,11 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
                     if (objetoProducto.getNombre().equals(lb_nombreProducto.getText())) {
                         int totalStock=objetoProducto.getCantidad();
                         int nuevoStock=objetoProducto.getCantidad()-(Integer.parseInt(lb_cantidadSeleccionada.getText()));
+                        //aqui va el codigo que actualiza el stock en la tabla de productos
                         
-                        
+                        //
+                        //aqui va el codigo que agrega un nuevo producto a una habitacion
+                       cinhab.insertarInventarioHabitacion(lb_nombreProducto.getText(),Integer.parseInt(lb_cantidadSeleccionada.getText()), String.valueOf(cb_Habitacion.getSelectedItem()),Principal.User );
                                
                         break;
                     }
@@ -518,21 +521,22 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
-   try {
+        try {
             if (!validarEscritura() == true) {
 
-           DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
+                DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
-       } else {
-           NewTable = new DefaultTableModel();
-           cTabla();
-           tamañoTabla();
-           datosIniciales();
-       }
+            } else {
+                cinhab.actualizarInventarioHabitacion(lb_nombreProducto.getText(), Integer.parseInt(lb_cantidadSeleccionada.getText()), String.valueOf(cb_Habitacion.getSelectedItem()), Principal.User, Integer.parseInt(lb_Id.getText()));
+                NewTable = new DefaultTableModel();
+                cTabla();
+                tamañoTabla();
+                datosIniciales();
+                
+            }
 
         } catch (Exception e) {
 
-       
         }
     }//GEN-LAST:event_btn_ModificarActionPerformed
 
@@ -549,7 +553,8 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
            ale.jb_aceptar.addActionListener(new ActionListener() {
                @Override
                public void actionPerformed(ActionEvent ae) {
-                  tamañoTabla();
+                  cinhab.eliminarInventarioHabitacion(Integer.parseInt(lb_Id.getText()));
+                   tamañoTabla();
                    NewTable = new DefaultTableModel();
                    cTabla();
                    datosIniciales();
