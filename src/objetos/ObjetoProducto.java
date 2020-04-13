@@ -12,13 +12,15 @@ package objetos;
 public class ObjetoProducto {
     private int idProducto;
     private String nombre;
+    private String proveedor;
     private double precio;
     private int cantidad;
     private String observaciones;
 
-    public ObjetoProducto(int idProducto, String nombre, double precio, int cantidad, String observaciones) {
+    public ObjetoProducto(int idProducto, String nombre, String proveedor, double precio, int cantidad, String observaciones) {
         this.idProducto = idProducto;
         this.nombre = nombre;
+        this.proveedor = proveedor;
         this.precio = precio;
         this.cantidad = cantidad;
         this.observaciones = observaciones;

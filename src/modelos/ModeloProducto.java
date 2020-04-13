@@ -25,20 +25,21 @@ public class ModeloProducto extends BD {
     private ArrayList<ObjetoProducto> list = new ArrayList<>();
 
     protected DefaultTableModel cargarTabla() {
-        String[] titulos = {"#", "Producto", "Precio", "Cantidad", "Observaciones"};
+        String[] titulos = {"#", "Producto", "Proveedor", "Precio", "Cantidad", "Observaciones"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
-        Object[] fila = new Object[5];
+        Object[] fila = new Object[6];
         try {
             this.st = conectar().prepareStatement("SELECT * FROM Producto)");
             this.rs = this.st.executeQuery();
             while (this.rs.next()) {
                 fila[0] = rs.getInt(1);
                 fila[1] = rs.getString(2);
-                fila[2] = rs.getDouble(3);
-                fila[3] = rs.getInt(4);
-                fila[4] = rs.getString(5);
+                fila[2] = rs.getString(3);
+                fila[3] = rs.getDouble(4);
+                fila[4] = rs.getInt(5);
+                fila[5] = rs.getString(6);
                 tb.addRow(fila);
-                this.list.add(new ObjetoProducto(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getInt(4), rs.getString(5)));
+                this.list.add(new ObjetoProducto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getInt(5), rs.getString(6)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ModeloProducto.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,9 +48,9 @@ public class ModeloProducto extends BD {
     }
 
     protected DefaultTableModel cargarTabla(String filtro) {
-        String[] titulos = {"#", "Producto", "Precio", "Cantidad", "Observaciones"};
+        String[] titulos = {"#", "Producto", "Proveedor", "Precio", "Cantidad", "Observaciones"};
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
-        Object[] fila = new Object[5];
+        Object[] fila = new Object[6];
         try {
             this.st = conectar().prepareStatement("SELECT * FROM Producto WHERE Nombre like CONCAT('%',?,'%')");
             this.st.setString(1, filtro);
@@ -57,11 +58,12 @@ public class ModeloProducto extends BD {
             while (this.rs.next()) {
                 fila[0] = rs.getInt(1);
                 fila[1] = rs.getString(2);
-                fila[2] = rs.getDouble(3);
-                fila[3] = rs.getInt(4);
-                fila[4] = rs.getString(5);
+                fila[2] = rs.getString(3);
+                fila[3] = rs.getDouble(4);
+                fila[4] = rs.getInt(5);
+                fila[5] = rs.getString(6);
                 tb.addRow(fila);
-                this.list.add(new ObjetoProducto(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getInt(4), rs.getString(5)));
+                this.list.add(new ObjetoProducto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getInt(5), rs.getString(6)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ModeloProducto.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,27 +112,29 @@ public class ModeloProducto extends BD {
         return this.list;
     }
 
-    protected void insertProducto(String producto, double precio, int cantidad, String observaciones) {
+    protected void insertProducto(String producto, String proveedor, double precio, int cantidad, String observaciones) {
         try {
-            this.st = conectar().prepareStatement("INSERT INTO Producto(Nombre, Precio, Cantidad, Observaciones) VALUES (?,?,?,?)");
+            this.st = conectar().prepareStatement("INSERT INTO Producto(Nombre, Proveedor, Precio, Cantidad, Observaciones) VALUES (?,?,?,?,?)");
             this.st.setString(1, producto);
-            this.st.setDouble(2, precio);
-            this.st.setInt(3, cantidad);
-            this.st.setString(4, observaciones);
+            this.st.setString(2, proveedor);
+            this.st.setDouble(3, precio);
+            this.st.setInt(4, cantidad);
+            this.st.setString(5, observaciones);
             this.st.execute();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    protected void updateProducto(String producto, double precio, int cantidad, String observaciones, int id) {
+    protected void updateProducto(String producto, String proveedor, double precio, int cantidad, String observaciones, int id) {
         try {
-            this.st = conectar().prepareStatement("UPDATE Producto SET Nombre = ?, Precio = ?, Cantidad = ?, Observaciones = ? WHERE IdProducto = ?");
+            this.st = conectar().prepareStatement("UPDATE Producto SET Nombre = ?, Proveedor = ?, Precio = ?, Cantidad = ?, Observaciones = ? WHERE IdProducto = ?");
             this.st.setString(1, producto);
-            this.st.setDouble(2, precio);
-            this.st.setInt(3, cantidad);
-            this.st.setString(4, observaciones);
-            this.st.setInt(5, id);
+            this.st.setString(2, proveedor);
+            this.st.setDouble(3, precio);
+            this.st.setInt(4, cantidad);
+            this.st.setString(5, observaciones);
+            this.st.setInt(6, id);
             this.st.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloProducto.class.getName()).log(Level.SEVERE, null, ex);

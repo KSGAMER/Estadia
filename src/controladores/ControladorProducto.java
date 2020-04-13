@@ -35,12 +35,12 @@ public class ControladorProducto extends ModeloProducto{
         return selectProducto();
     }
     
-    public void insertarProducto(String producto, double precio, int cantidad, String observaciones) {
-        insertProducto(producto, precio, cantidad, observaciones);
+    public void insertarProducto(String producto, String proveedor, double precio, int cantidad, String observaciones) {
+        insertProducto(producto, proveedor, precio, cantidad, observaciones);
     }
     
-    public void actualizarProducto(String producto, double precio, int cantidad, String observaciones, int id) {
-        updateProducto(producto, precio, cantidad, observaciones, id);
+    public void actualizarProducto(String producto, String proveedor, double precio, int cantidad, String observaciones, int id) {
+        updateProducto(producto, proveedor, precio, cantidad, observaciones, id);
     }
     
     public void eliminarProducto(int id) {
