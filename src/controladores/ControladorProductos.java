@@ -14,7 +14,7 @@ import objetos.ObjetoProducto;
  *
  * @author KSGAMER
  */
-public class ControladorProducto extends ModeloProducto{
+public class ControladorProductos extends ModeloProducto{
     public DefaultTableModel tablaProducto() {
         return cargarTabla();
     }

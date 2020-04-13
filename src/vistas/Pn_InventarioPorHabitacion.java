@@ -14,7 +14,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.table.TableColumnModel;
-import controladores.ControladorInventario;
+import controladores.ControladorProductos;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -36,7 +36,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
 
     private ControladorFormularioTab cft = new ControladorFormularioTab();
     private ControladorEscritura ce = new ControladorEscritura();
-    private ControladorInventario cinv = new ControladorInventario();
+    private ControladorProductos cpro = new ControladorProductos();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
     DefaultTableModel NewTable;
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
@@ -95,7 +95,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
     }
 
     private void cTabla() {
-        this.jtabla_Productos.setModel(cinv.tablaInventario(""));
+        this.jtabla_Productos.setModel(cpro.tablaProducto(""));
         jt_t_registros.setText(String.valueOf(this.jtabla_Productos.getRowCount()));
 
     }
@@ -226,11 +226,11 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel15.setText("Nombre del producto ");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 210, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 210, -1));
 
         jSeparator4.setBackground(new java.awt.Color(128, 128, 131));
         jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 210, 10));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 210, 10));
 
         btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -269,7 +269,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
         jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, 140, 40));
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
-        jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 30, 20));
+        jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 30, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -364,7 +364,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
 
         jSeparator5.setBackground(new java.awt.Color(128, 128, 131));
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 210, 10));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 210, 10));
 
         jb_limpiarCampos.setBackground(new java.awt.Color(84, 110, 122));
         jb_limpiarCampos.setForeground(new java.awt.Color(84, 110, 122));
@@ -379,31 +379,31 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
                 jb_limpiarCamposActionPerformed(evt);
             }
         });
-        jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 40, -1));
+        jPanel1.add(jb_limpiarCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 40, -1));
 
         lb_errorNombreProducto.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorNombreProducto.setText("*");
-        jPanel1.add(lb_errorNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        jPanel1.add(lb_errorNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         lb_errorHabitacion.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorHabitacion.setText("*");
-        jPanel1.add(lb_errorHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+        jPanel1.add(lb_errorHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel18.setText("Habitación");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 210, -1));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 210, -1));
 
         jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("Cantidad Seleccionada");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 210, -1));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 210, -1));
 
         lb_errorCantidadSeleccionada.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorCantidadSeleccionada.setText("*");
-        jPanel1.add(lb_errorCantidadSeleccionada, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+        jPanel1.add(lb_errorCantidadSeleccionada, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
         btn_clientes.setBackground(new java.awt.Color(233, 235, 238));
         btn_clientes.setBorder(null);
@@ -421,15 +421,15 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
                 btn_clientesActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 30, 30));
+        jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 30, 30));
 
         lb_nombreProducto.setForeground(new java.awt.Color(204, 204, 204));
         lb_nombreProducto.setText("Producto No seleccionado");
-        jPanel1.add(lb_nombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 210, 20));
+        jPanel1.add(lb_nombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 210, 20));
 
         lb_cantidadSeleccionada.setForeground(new java.awt.Color(204, 204, 204));
         lb_cantidadSeleccionada.setText("Producto No Seleccionado");
-        jPanel1.add(lb_cantidadSeleccionada, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 210, 20));
+        jPanel1.add(lb_cantidadSeleccionada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 210, 20));
 
         cb_Habitacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cb_Habitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Habitación" }));
@@ -438,7 +438,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
                 cb_HabitacionActionPerformed(evt);
             }
         });
-        jPanel1.add(cb_Habitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 210, -1));
+        jPanel1.add(cb_Habitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 210, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -543,7 +543,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
     }//GEN-LAST:event_jt_BuscarMouseClicked
 
     private void jt_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyReleased
-  this.jtabla_Productos.setModel(cinv.tablaInventario(jt_Buscar.getText()));//        this.jt_categorias.setModel(ccat.tablaCategorias(jt_Buscar, chk_mostrar.isSelected()));
+  this.jtabla_Productos.setModel(cpro.tablaProducto(jt_Buscar.getText()));//        this.jt_categorias.setModel(ccat.tablaCategorias(jt_Buscar, chk_mostrar.isSelected()));
       //  tamañoTabla();
     }//GEN-LAST:event_jt_BuscarKeyReleased
 
