@@ -141,6 +141,17 @@ public class ModeloProducto extends BD {
         }
     }
     
+    public void updateStock(String producto, int cantidad) {
+        try {
+                this.st = conectar().prepareStatement("UPDATE Producto SET Cantidad = ? WHERE Nombre = ?");
+                this.st.setInt(1, cantidad);
+                this.st.setString(2, producto);
+                this.st.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     protected void deleteProducto(int id) {
         try {
             this.st = conectar().prepareStatement("DELETE FROM Producto WHERE IdProducto = ?");

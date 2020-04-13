@@ -43,6 +43,10 @@ public class ControladorProductos extends ModeloProducto{
         updateProducto(producto, proveedor, precio, cantidad, observaciones, id);
     }
     
+    public void updateCantidad(String producto, int cantidad) {
+        updateStock(producto, cantidad);
+    }
+    
     public void eliminarProducto(int id) {
         deleteProducto(id);
     }
