@@ -265,11 +265,16 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
             lbPorcentajeGanancias.setForeground(new Color(153, 153, 153));
             //Se elimina el icono del label
             lbPorcentajeReservaciones.setIcon(new ImageIcon());
-        } else if (reportes.porcentajeGanancias().getRowCount() >= 2) {//En caso contrario
+        } else {//En caso contrario
             //Se asigna el valor extraido de la tabla al label
             lbReservacionesHoy.setText(String.valueOf(Integer.parseInt(reportes.porcentajeReservacion().getValueAt(0, 1).toString())));
             //Se declara una variable que actuara como el porcentaje
-            double porcentaje = Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeReservacion().getValueAt(1, 1).toString());
+            double porcentaje = 0;
+            if(reportes.porcentajeReservacion().getRowCount() == 1) {
+                porcentaje = Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString());
+            } else {
+                porcentaje = Double.parseDouble(reportes.porcentajeReservacion().getValueAt(0, 1).toString()) * 100 / Double.parseDouble(reportes.porcentajeReservacion().getValueAt(1, 1).toString());
+            }
             //Se asigna el porcentaje al label
             lbPorcentajeReservaciones.setText(String.valueOf(porcentaje) + "%");
             //Si el porcentaje es mayor a 100 entra en el if
@@ -284,15 +289,6 @@ public class Pn_NuevoReportes extends javax.swing.JPanel {
                 //Se cambia el icono por el siguiente
                 lbPorcentajeReservaciones.setIcon(new ImageIcon(getClass().getResource("/Imagenes/186407-16.png")));
             }
-        } else {
-            //Se asigna el siguiente valor al label
-            lbReservacionesHoy.setText("0");
-            //Se asigna el siguiente valor al label
-            lbPorcentajeReservaciones.setText("0%");
-            //Se cambia el color de la letra del label por el siguiente
-            lbPorcentajeGanancias.setForeground(new Color(153, 153, 153));
-            //Se elimina el icono del label
-            lbPorcentajeReservaciones.setIcon(new ImageIcon());
         }
     }
 
