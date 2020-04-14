@@ -62,8 +62,9 @@ public class sesion extends javax.swing.JFrame {
 
     private void ajustarImagen() {
         //se utiliza para obtener la ruta de la imagen 
-        ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/ImagenFondo/img_Hotel.jpg"));
-
+       // ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/ImagenFondo/img_Hotel.jpg"));
+ //se utiliza para obtener la ruta de la imagen 
+        ImageIcon icon = new ImageIcon("FondoLogin/fondo.jpg");
         //se utilizar para obtener el tamaño de jlaben que contendra la imagen y 
         //despues se reacomda la imagen automaticamente 
         Image image = icon.getImage().getScaledInstance(IconImage.getWidth(), IconImage.getHeight(), Image.SCALE_SMOOTH);

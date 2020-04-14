@@ -1,0 +1,4 @@
+Cualquier imagen que desee adapatar al login, debe tener como minimo una calidad de 1024x768 o calidad HD
+y nombrada como "fondo" siendo un tipo de imagen ".jpg", de lo contrario no cargara el login
+
+

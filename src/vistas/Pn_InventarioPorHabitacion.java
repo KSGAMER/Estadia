@@ -51,6 +51,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
     public Pn_InventarioPorHabitacion() {
         initComponents();
         ch.tablaHabitaciones();
+        cpro.tablaProducto();
         //APARIENCIA DE LA TABLA
         RowHeaderApariencia();
         RowApariencia();
@@ -80,7 +81,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
         lb_errorHabitacion.setText("*");
         lb_errorCantidadSeleccionada.setText("*");
         //bloqueo inicial de botones no necesarios hasta la seleccion de un dato 
-        btn_Modificar.setEnabled(false);
+      
         btn_Eliminar.setEnabled(false);
         btn_Ingresar.setEnabled(true);
         //
@@ -194,7 +195,6 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         btn_Ingresar = new principal.MaterialButton();
-        btn_Modificar = new principal.MaterialButton();
         btn_Eliminar = new principal.MaterialButton();
         lb_Id = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -264,19 +264,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
                 btn_IngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 140, 40));
-
-        btn_Modificar.setBackground(new java.awt.Color(255, 153, 0));
-        btn_Modificar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_Modificar.setText("Modificar");
-        btn_Modificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_Modificar.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
-        btn_Modificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ModificarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 140, 40));
+        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 190, 40));
 
         btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
         btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -288,7 +276,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
                 btn_EliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, 140, 40));
+        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 360, 200, 40));
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
         jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 30, 20));
@@ -409,7 +397,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
 
         lb_errorHabitacion.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorHabitacion.setText("*");
-        jPanel1.add(lb_errorHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        jPanel1.add(lb_errorHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 280, 10, -1));
 
         jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -477,7 +465,7 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
     private void jtabla_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_ProductosMouseClicked
         int seleccion = jtabla_Productos.rowAtPoint(evt.getPoint());
         //activacion de botones al elegir un dato
-        btn_Modificar.setEnabled(true);
+        
         btn_Eliminar.setEnabled(true);
          btn_Ingresar.setEnabled(false);
         //
@@ -489,83 +477,68 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
     }//GEN-LAST:event_jtabla_ProductosMouseClicked
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
-     try {
-            if (!validarEscritura() == true || !validarSeleccion()==true) {
+        try {
+            if (!validarEscritura() == true || !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
-                
-                
-                    //iteracion necesaria para actualizar el nuevo stock , restando los agregados 
+                //iteracion necesaria para actualizar el nuevo stock , restando los agregados 
                 for (ObjetoProducto objetoProducto : cpro.seleccionarProducto()) {
                     if (objetoProducto.getNombre().equals(lb_nombreProducto.getText())) {
-                        int totalStock=objetoProducto.getCantidad();
-                        int nuevoStock=objetoProducto.getCantidad()-(Integer.parseInt(lb_cantidadSeleccionada.getText()));
+                        int totalStock = objetoProducto.getCantidad();
+                        int nuevoStock = totalStock - (Integer.parseInt(lb_cantidadSeleccionada.getText()));
                         //aqui va el codigo que actualiza el stock en la tabla de productos
-                        
+                        cpro.updateCantidad(lb_nombreProducto.getText(), nuevoStock);
                         //
                         //aqui va el codigo que agrega un nuevo producto a una habitacion
-                       cinhab.insertarInventarioHabitacion(lb_nombreProducto.getText(),Integer.parseInt(lb_cantidadSeleccionada.getText()), String.valueOf(cb_Habitacion.getSelectedItem()),Principal.User );
-                               
+                        cinhab.insertarInventarioHabitacion(lb_nombreProducto.getText(), Integer.parseInt(lb_cantidadSeleccionada.getText()), String.valueOf(cb_Habitacion.getSelectedItem()), Principal.User);
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        tamañoTabla();
+                        datosIniciales();
                         break;
                     }
                 }
-                
-                
-              NewTable = new DefaultTableModel();
-                cTabla();
-                tamañoTabla();
-                datosIniciales();
+
             }
         } catch (Exception e) {
-       }
+        }
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
-    private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
-        try {
-            if (!validarEscritura() == true) {
-
-                DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
-
-            } else {
-                cinhab.actualizarInventarioHabitacion(lb_nombreProducto.getText(), Integer.parseInt(lb_cantidadSeleccionada.getText()), String.valueOf(cb_Habitacion.getSelectedItem()), Principal.User, Integer.parseInt(lb_Id.getText()));
-                NewTable = new DefaultTableModel();
-                cTabla();
-                tamañoTabla();
-                datosIniciales();
-                
-            }
-
-        } catch (Exception e) {
-
-        }
-    }//GEN-LAST:event_btn_ModificarActionPerformed
-
     private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
-   try {
+        try {
             if (lb_Id.getText().equals("*")) {
 
                 DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
 
-       } else {
+            } else {
 
-           Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(principal, true);
-           ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
-           ale.jb_aceptar.addActionListener(new ActionListener() {
-               @Override
-               public void actionPerformed(ActionEvent ae) {
-                  cinhab.eliminarInventarioHabitacion(Integer.parseInt(lb_Id.getText()));
-                   tamañoTabla();
-                   NewTable = new DefaultTableModel();
-                   cTabla();
-                   datosIniciales();
-               }
-           });
-           ale.setVisible(true);
-       }
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        //iteracion necesaria para actualizar el nuevo stock , restando los agregados 
+                        for (ObjetoProducto objetoProducto : cpro.seleccionarProducto()) {
+                            if (objetoProducto.getNombre().equals(lb_nombreProducto.getText())) {
+                                int totalStock = objetoProducto.getCantidad();
+                                int nuevoStock = totalStock + (Integer.parseInt(lb_cantidadSeleccionada.getText()));
+                                cpro.updateCantidad(lb_nombreProducto.getText(), nuevoStock);
+                                cinhab.eliminarInventarioHabitacion(Integer.parseInt(lb_Id.getText()));
+                                tamañoTabla();
+                                NewTable = new DefaultTableModel();
+                                cTabla();
+                                datosIniciales();
+                                break;
+                            }
+                        }
+
+                    }
+                });
+                ale.setVisible(true);
+            }
 
         } catch (Exception e) {
 
-   
         }
     }//GEN-LAST:event_btn_EliminarActionPerformed
 
@@ -626,7 +599,6 @@ public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static principal.MaterialButton btn_Eliminar;
     public static principal.MaterialButton btn_Ingresar;
-    public static principal.MaterialButton btn_Modificar;
     private principal.MaterialButton btn_clientes;
     private javax.swing.JComboBox<String> cb_Habitacion;
     private javax.swing.JLabel jLabel1;

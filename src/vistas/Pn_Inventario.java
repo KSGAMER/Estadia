@@ -17,6 +17,7 @@ import ds.desktop.notify.DesktopNotify;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -36,7 +37,10 @@ public class Pn_Inventario extends javax.swing.JPanel {
     DefaultTableModel NewTable;
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA DE BOTON ELIMINAR ()
     Frame Principal;
-
+//VARIABLE NECESARIA PARA VALIDAR SI SE ACTUALIZA INGRESANDO MAS PRODUCTO (METODO DE SUMA AUTOMATICA) O SE CAMBIA MANUALMENTE 
+    //LA CANTIDAD   opciones: 1== el usuario ingresa mas producto y la suma es automatica, opcion 0 == el usuario cambia
+    //la cantidad del producto manualmente
+    private int ValidadorNuevoIngreso=0;
     /**
      * Creates new form Pn_NuevaCategoria
      */
@@ -76,12 +80,32 @@ public class Pn_Inventario extends javax.swing.JPanel {
         btn_Eliminar.setEnabled(false);
         btn_Ingresar.setEnabled(true);
         //
-
+ocultarFormNuevosIngresos();
         lb_errorNombreProducto.setForeground(new Color(84, 110, 122));
         lb_errorStock.setForeground(new Color(84, 110, 122));
         lb_errorPrecio.setForeground(new Color(84, 110, 122));
         lb_errorObservaciones.setForeground(new Color(84, 110, 122));
         lb_errorProveedor.setForeground(new Color(84, 110, 122));
+    }
+private void mostrarFormNuevosIngresos(){
+    lb_titulo1.setVisible(true);
+    lb_titulo2.setVisible(true);
+    lb_titulo3.setVisible(true);
+    jc_nuevoIngreso.setVisible(true);
+    jt_NuevoIngreso.setVisible(true);
+    jt_NuevoIngreso.setEnabled(false);
+    jseparador_nuevoIngreso.setVisible(true);
+}
+    private void ocultarFormNuevosIngresos() {
+        lb_titulo1.setVisible(false);
+        lb_titulo2.setVisible(false);
+        lb_titulo3.setVisible(false);
+        jc_nuevoIngreso.setVisible(false);
+        jc_nuevoIngreso.setSelected(false);
+        jt_NuevoIngreso.setVisible(false);
+        jt_NuevoIngreso.setEnabled(false);
+        jseparador_nuevoIngreso.setVisible(false);
+
     }
 
     private void tamañoTabla() {
@@ -202,17 +226,22 @@ public class Pn_Inventario extends javax.swing.JPanel {
         jb_limpiarCampos = new javax.swing.JButton();
         lb_errorObservaciones = new javax.swing.JLabel();
         lb_errorNombreProducto = new javax.swing.JLabel();
+        jt_NuevoIngreso = new javax.swing.JTextField();
         lb_errorStock = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jt_CantidadStock = new javax.swing.JTextField();
-        jSeparator6 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         lb_errorPrecio = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jt_nombreProveedor = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
         lb_errorProveedor = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jseparador_nuevoIngreso = new javax.swing.JSeparator();
+        lb_titulo2 = new javax.swing.JLabel();
+        lb_titulo1 = new javax.swing.JLabel();
+        lb_titulo3 = new javax.swing.JLabel();
+        jc_nuevoIngreso = new javax.swing.JCheckBox();
+        jSeparator9 = new javax.swing.JSeparator();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -237,7 +266,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtabla_Productos);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 150, 560, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 560, 350));
 
         jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
@@ -273,7 +302,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel16.setText("Observaciones");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 130, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 130, -1));
 
         jta_observaciones.setColumns(20);
         jta_observaciones.setForeground(new java.awt.Color(153, 153, 153));
@@ -299,7 +328,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 jta_observacionesKeyPressed(evt);
             }
         });
-        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 390, 110));
+        jPanel1.add(jta_observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 390, 110));
 
         jSeparator4.setBackground(new java.awt.Color(128, 128, 131));
         jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
@@ -315,7 +344,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 btn_IngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 140, 40));
+        jPanel1.add(btn_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 140, 40));
 
         btn_Modificar.setBackground(new java.awt.Color(255, 153, 0));
         btn_Modificar.setForeground(new java.awt.Color(255, 255, 255));
@@ -327,7 +356,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 btn_ModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 490, 140, 40));
+        jPanel1.add(btn_Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 460, 140, 40));
 
         btn_Eliminar.setBackground(new java.awt.Color(211, 18, 18));
         btn_Eliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -339,7 +368,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 btn_EliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 490, 140, 40));
+        jPanel1.add(btn_Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, 140, 40));
 
         lb_Id.setForeground(new java.awt.Color(84, 110, 122));
         jPanel1.add(lb_Id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 30, 20));
@@ -443,6 +472,7 @@ public class Pn_Inventario extends javax.swing.JPanel {
 
         jt_Precio.setBackground(new java.awt.Color(84, 110, 122));
         jt_Precio.setForeground(new java.awt.Color(204, 204, 204));
+        jt_Precio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jt_Precio.setText("Ingresar Precio");
         jt_Precio.setBorder(null);
         jt_Precio.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -463,11 +493,11 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 jt_PrecioKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 210, -1));
+        jPanel1.add(jt_Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 100, -1));
 
         jSeparator5.setBackground(new java.awt.Color(128, 128, 131));
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 210, 10));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 100, 10));
 
         jb_limpiarCampos.setBackground(new java.awt.Color(84, 110, 122));
         jb_limpiarCampos.setForeground(new java.awt.Color(84, 110, 122));
@@ -487,24 +517,44 @@ public class Pn_Inventario extends javax.swing.JPanel {
 
         lb_errorObservaciones.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorObservaciones.setText("*");
-        jPanel1.add(lb_errorObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        jPanel1.add(lb_errorObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         lb_errorNombreProducto.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorNombreProducto.setText("*");
         jPanel1.add(lb_errorNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
+        jt_NuevoIngreso.setBackground(new java.awt.Color(84, 110, 122));
+        jt_NuevoIngreso.setForeground(new java.awt.Color(204, 204, 204));
+        jt_NuevoIngreso.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jt_NuevoIngreso.setText("Ingresar Cantidad");
+        jt_NuevoIngreso.setBorder(null);
+        jt_NuevoIngreso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jt_NuevoIngresoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jt_NuevoIngresoFocusLost(evt);
+            }
+        });
+        jt_NuevoIngreso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_NuevoIngresoMouseClicked(evt);
+            }
+        });
+        jt_NuevoIngreso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jt_NuevoIngresoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(jt_NuevoIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 90, -1));
+
         lb_errorStock.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorStock.setText("*");
-        jPanel1.add(lb_errorStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
-
-        jLabel18.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel18.setText("Cantidad ");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 210, -1));
+        jPanel1.add(lb_errorStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
 
         jt_CantidadStock.setBackground(new java.awt.Color(84, 110, 122));
         jt_CantidadStock.setForeground(new java.awt.Color(204, 204, 204));
+        jt_CantidadStock.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jt_CantidadStock.setText("Ingresar Cantidad");
         jt_CantidadStock.setBorder(null);
         jt_CantidadStock.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -525,23 +575,13 @@ public class Pn_Inventario extends javax.swing.JPanel {
                 jt_CantidadStockKeyTyped(evt);
             }
         });
-        jPanel1.add(jt_CantidadStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 210, -1));
-
-        jSeparator6.setBackground(new java.awt.Color(128, 128, 131));
-        jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 210, 10));
+        jPanel1.add(jt_CantidadStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 90, -1));
 
         jLabel19.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("Precio ");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 210, -1));
-
-        jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("$");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 10, -1));
 
         lb_errorPrecio.setForeground(new java.awt.Color(84, 110, 122));
         lb_errorPrecio.setText("*");
@@ -585,6 +625,42 @@ public class Pn_Inventario extends javax.swing.JPanel {
         lb_errorProveedor.setText("*");
         jPanel1.add(lb_errorProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 10, -1));
 
+        jLabel20.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel20.setText("Cantidad ");
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 100, -1));
+
+        jseparador_nuevoIngreso.setBackground(new java.awt.Color(128, 128, 131));
+        jseparador_nuevoIngreso.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jseparador_nuevoIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, 90, 10));
+
+        lb_titulo2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_titulo2.setForeground(java.awt.Color.orange);
+        lb_titulo2.setText("productos entrantes");
+        jPanel1.add(lb_titulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, -1));
+
+        lb_titulo1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_titulo1.setForeground(java.awt.Color.orange);
+        lb_titulo1.setText("Para ingresar nuevos ");
+        jPanel1.add(lb_titulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
+
+        lb_titulo3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_titulo3.setForeground(java.awt.Color.orange);
+        lb_titulo3.setText("Seleccione la siguiente opción");
+        jPanel1.add(lb_titulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, -1, -1));
+
+        jc_nuevoIngreso.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jc_nuevoIngresoItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(jc_nuevoIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, -1, -1));
+
+        jSeparator9.setBackground(new java.awt.Color(128, 128, 131));
+        jSeparator9.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 90, 10));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -597,54 +673,153 @@ public class Pn_Inventario extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtabla_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_ProductosMouseClicked
-        int seleccion = jtabla_Productos.rowAtPoint(evt.getPoint());
-        //activacion de botones al elegir un dato
-        btn_Modificar.setEnabled(true);
-        btn_Eliminar.setEnabled(true);
-        btn_Ingresar.setEnabled(false);
-        //
-        lb_Id.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 0)));
-        jt_nombre.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 1)));
-        jt_nombreProveedor.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 2)));
-        jt_Precio.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 3)));
-        jt_CantidadStock.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 4)));
-        jta_observaciones.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 5)));
+    private void jt_nombreProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreProveedorKeyTyped
+        ce.typedCharsAndSpaceAndDigits(evt, jt_nombreProveedor);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_nombreProveedorKeyTyped
+
+    private void jt_nombreProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_nombreProveedorMouseClicked
+        cft.formFocusGain(jt_nombreProveedor);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_nombreProveedorMouseClicked
+
+    private void jt_nombreProveedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreProveedorFocusLost
+        cft.formFocusLostJTextField(jt_nombreProveedor, "Ingresar Nombre");        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_nombreProveedorFocusLost
+
+    private void jt_nombreProveedorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreProveedorFocusGained
+        cft.formFocusGain(jt_nombreProveedor);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_nombreProveedorFocusGained
+
+    private void jt_CantidadStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_CantidadStockKeyTyped
+
+        ce.typedMoney(evt, jt_CantidadStock);      // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CantidadStockKeyTyped
+
+    private void jt_CantidadStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_CantidadStockMouseClicked
+        cft.formFocusGain(jt_CantidadStock);           // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CantidadStockMouseClicked
+
+    private void jt_CantidadStockFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CantidadStockFocusLost
+        cft.formFocusLostJTextField(jt_Precio, "Ingresar Cantidad");        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CantidadStockFocusLost
+
+    private void jt_CantidadStockFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CantidadStockFocusGained
+        cft.formFocusGain(jt_CantidadStock);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_CantidadStockFocusGained
+
+    private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
+        datosIniciales();        // TODO add your handling code here:
+    }//GEN-LAST:event_jb_limpiarCamposActionPerformed
+
+    private void jt_PrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_PrecioKeyTyped
+        ce.typedMoney(evt, jt_Precio);        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_PrecioKeyTyped
+
+    private void jt_PrecioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_PrecioMouseClicked
+        cft.formFocusGain(jt_Precio);            // TODO add your handling code here:
+    }//GEN-LAST:event_jt_PrecioMouseClicked
+
+    private void jt_PrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_PrecioFocusLost
+        cft.formFocusLostJTextField(jt_Precio, "Ingresar Precio");
+    }//GEN-LAST:event_jt_PrecioFocusLost
+
+    private void jt_PrecioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_PrecioFocusGained
+        cft.formFocusGain(jt_Precio);
+    }//GEN-LAST:event_jt_PrecioFocusGained
+
+    private void jt_BuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyTyped
+
+        char tecla;
+        tecla = evt.getKeyChar();
+        //Convertir a letras mayusculas
+        if (Character.isLetter(tecla)) {
+            evt.setKeyChar(Character.toUpperCase(tecla));
+
+        }
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtabla_ProductosMouseClicked
+        //filtro(jt_Buscar.getText(), jt_categorias);
+    }//GEN-LAST:event_jt_BuscarKeyTyped
 
-    private void jt_nombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreFocusGained
-        cft.formFocusGain(jt_nombre);
-    }//GEN-LAST:event_jt_nombreFocusGained
+    private void jt_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyReleased
+        this.jtabla_Productos.setModel(cpro.tablaProducto(jt_Buscar.getText()));//        this.jt_categorias.setModel(ccat.tablaCategorias(jt_Buscar, chk_mostrar.isSelected()));
+        tamañoTabla();
+    }//GEN-LAST:event_jt_BuscarKeyReleased
 
-    private void jt_nombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreFocusLost
-        cft.formFocusLostJTextField(jt_nombre, "Ingresar Nombre");
-    }//GEN-LAST:event_jt_nombreFocusLost
+    private void jt_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_BuscarMouseClicked
+        cft.formFocusGain(jt_Buscar);
+    }//GEN-LAST:event_jt_BuscarMouseClicked
 
-    private void jt_nombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_nombreMouseClicked
-        cft.formFocusGain(jt_nombre);
-    }//GEN-LAST:event_jt_nombreMouseClicked
+    private void jt_BuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_BuscarFocusLost
+        cft.formFocusLostJTextField(jt_Buscar, "Buscar Nombre");
+    }//GEN-LAST:event_jt_BuscarFocusLost
 
-    private void jt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyTyped
-        ce.typedCharsAndSpaceAndDigits(evt, jt_nombre);
-    }//GEN-LAST:event_jt_nombreKeyTyped
+    private void jt_BuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_BuscarFocusGained
+        cft.formFocusGain(jt_Buscar);
+    }//GEN-LAST:event_jt_BuscarFocusGained
 
-    private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
-        cft.formFocusGainJTextArea(jta_observaciones);
-    }//GEN-LAST:event_jta_observacionesFocusGained
+    private void jt_t_registrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_t_registrosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_t_registrosActionPerformed
 
-    private void jta_observacionesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusLost
-        cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Observaciones");
-    }//GEN-LAST:event_jta_observacionesFocusLost
+    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
+        try {
+            if (lb_Id.getText().equals("*")) {
 
-    private void jta_observacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jta_observacionesMouseClicked
-        cft.formFocusGainJTextArea(jta_observaciones);
-    }//GEN-LAST:event_jta_observacionesMouseClicked
+                DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
 
-    private void jta_observacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jta_observacionesKeyPressed
+            } else {
 
-    }//GEN-LAST:event_jta_observacionesKeyPressed
+                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
+                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
+                ale.jb_aceptar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        cpro.eliminarProducto(Integer.parseInt(lb_Id.getText()));
+                        tamañoTabla();
+                        NewTable = new DefaultTableModel();
+                        cTabla();
+                        datosIniciales();
+                    }
+                });
+                ale.setVisible(true);
+            }
+
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_btn_EliminarActionPerformed
+
+    private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
+        try {
+            if (!validarEscritura() == true) {
+
+                DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
+
+            } else {
+                
+                if(ValidadorNuevoIngreso==1){
+                    int NuevoStock=Integer.parseInt(jt_CantidadStock.getText())+Integer.parseInt(jt_NuevoIngreso.getText());
+                    
+                    cpro.actualizarProducto(jt_nombre.getText(), jt_nombreProveedor.getText(), Double.valueOf(jt_Precio.getText()), NuevoStock, jta_observaciones.getText(), Integer.parseInt(lb_Id.getText()));
+                    NewTable = new DefaultTableModel();
+                    cTabla();
+                    tamañoTabla();
+                    datosIniciales(); 
+                    
+                }else{
+                    cpro.actualizarProducto(jt_nombre.getText(), jt_nombreProveedor.getText(), Double.valueOf(jt_Precio.getText()), Integer.parseInt(jt_CantidadStock.getText()), jta_observaciones.getText(), Integer.parseInt(lb_Id.getText()));
+                    NewTable = new DefaultTableModel();
+                    cTabla();
+                    tamañoTabla();
+                    datosIniciales();
+                }
+               
+            }
+
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_btn_ModificarActionPerformed
 
     private void btn_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IngresarActionPerformed
         try {
@@ -661,139 +836,85 @@ public class Pn_Inventario extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_IngresarActionPerformed
 
-    private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
-        try {
-            if (!validarEscritura() == true) {
+    private void jta_observacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jta_observacionesKeyPressed
 
-                DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
+    }//GEN-LAST:event_jta_observacionesKeyPressed
 
-            } else {
-                cpro.actualizarProducto(jt_nombre.getText(),jt_nombreProveedor.getText(),Double.valueOf(jt_Precio.getText()), Integer.parseInt(jt_CantidadStock.getText()),jta_observaciones.getText(), Integer.parseInt(lb_Id.getText()));
-                NewTable = new DefaultTableModel();
-                cTabla();
-                tamañoTabla();
-                datosIniciales();
-            }
+    private void jta_observacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jta_observacionesMouseClicked
+        cft.formFocusGainJTextArea(jta_observaciones);
+    }//GEN-LAST:event_jta_observacionesMouseClicked
 
-        } catch (Exception e) {
+    private void jta_observacionesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusLost
+        cft.formFocusLostJTextArea(jta_observaciones, "Ingresar Observaciones");
+    }//GEN-LAST:event_jta_observacionesFocusLost
 
-        }
-    }//GEN-LAST:event_btn_ModificarActionPerformed
+    private void jta_observacionesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jta_observacionesFocusGained
+        cft.formFocusGainJTextArea(jta_observaciones);
+    }//GEN-LAST:event_jta_observacionesFocusGained
 
-    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
-        try {
-            if (lb_Id.getText().equals("*")) {
+    private void jt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyTyped
+        ce.typedCharsAndSpaceAndDigits(evt, jt_nombre);
+    }//GEN-LAST:event_jt_nombreKeyTyped
 
-                DesktopNotify.showDesktopMessage("Error", "DEBE SELECCIONAR UN ELEMENTO DE LA TABLA PARA PODER SER ELIMINADO", DesktopNotify.ERROR);
+    private void jt_nombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_nombreMouseClicked
+        cft.formFocusGain(jt_nombre);
+    }//GEN-LAST:event_jt_nombreMouseClicked
 
-            } else {
+    private void jt_nombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreFocusLost
+        cft.formFocusLostJTextField(jt_nombre, "Ingresar Nombre");
+    }//GEN-LAST:event_jt_nombreFocusLost
 
-                Pn_Alert_Eliminar ale = new Pn_Alert_Eliminar(Principal, true);
-                ale.lb_titulo.setText("¿Esta seguro de eliminar este elemento?");
-                ale.jb_aceptar.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                       cpro.eliminarProducto(Integer.parseInt(lb_Id.getText()));
-                        tamañoTabla();
-                        NewTable = new DefaultTableModel();
-                        cTabla();
-                        datosIniciales();
-                    }
-                });
-                ale.setVisible(true);
-            }
+    private void jt_nombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreFocusGained
+        cft.formFocusGain(jt_nombre);
+    }//GEN-LAST:event_jt_nombreFocusGained
 
-        } catch (Exception e) {
-
-        }
-    }//GEN-LAST:event_btn_EliminarActionPerformed
-
-    private void jt_t_registrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_t_registrosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_t_registrosActionPerformed
-
-    private void jt_BuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_BuscarFocusGained
-        cft.formFocusGain(jt_Buscar);
-    }//GEN-LAST:event_jt_BuscarFocusGained
-
-    private void jt_BuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_BuscarFocusLost
-        cft.formFocusLostJTextField(jt_Buscar, "Buscar Nombre");
-    }//GEN-LAST:event_jt_BuscarFocusLost
-
-    private void jt_BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_BuscarMouseClicked
-        cft.formFocusGain(jt_Buscar);
-    }//GEN-LAST:event_jt_BuscarMouseClicked
-
-    private void jt_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyReleased
-        this.jtabla_Productos.setModel(cpro.tablaProducto(jt_Buscar.getText()));//        this.jt_categorias.setModel(ccat.tablaCategorias(jt_Buscar, chk_mostrar.isSelected()));
-        tamañoTabla();
-    }//GEN-LAST:event_jt_BuscarKeyReleased
-
-    private void jt_BuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyTyped
-
-        char tecla;
-        tecla = evt.getKeyChar();
-        //Convertir a letras mayusculas
-        if (Character.isLetter(tecla)) {
-            evt.setKeyChar(Character.toUpperCase(tecla));
-
-        }
+    private void jtabla_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabla_ProductosMouseClicked
+        int seleccion = jtabla_Productos.rowAtPoint(evt.getPoint());
+        //activacion de botones al elegir un dato
+        btn_Modificar.setEnabled(true);
+        btn_Eliminar.setEnabled(true);
+        btn_Ingresar.setEnabled(false);
+        //
+mostrarFormNuevosIngresos();
+        lb_Id.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 0)));
+        jt_nombre.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 1)));
+        jt_nombreProveedor.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 2)));
+        jt_Precio.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 3)));
+        jt_CantidadStock.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 4)));
+        jta_observaciones.setText(String.valueOf(jtabla_Productos.getValueAt(seleccion, 5)));
 
         // TODO add your handling code here:
-        //filtro(jt_Buscar.getText(), jt_categorias);
-    }//GEN-LAST:event_jt_BuscarKeyTyped
+    }//GEN-LAST:event_jtabla_ProductosMouseClicked
 
-    private void jt_PrecioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_PrecioFocusGained
-        cft.formFocusGain(jt_Precio);
-    }//GEN-LAST:event_jt_PrecioFocusGained
+    private void jt_NuevoIngresoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_NuevoIngresoFocusGained
+    cft.formFocusGain(jt_NuevoIngreso);           // TODO add your handling code here:
+    }//GEN-LAST:event_jt_NuevoIngresoFocusGained
 
-    private void jt_PrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_PrecioFocusLost
-        cft.formFocusLostJTextField(jt_Precio, "Ingresar Precio");
-    }//GEN-LAST:event_jt_PrecioFocusLost
+    private void jt_NuevoIngresoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_NuevoIngresoFocusLost
+  cft.formFocusLostJTextField(jt_NuevoIngreso, "Ingresar Cantidad");          // TODO add your handling code here:
+    }//GEN-LAST:event_jt_NuevoIngresoFocusLost
 
-    private void jt_PrecioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_PrecioMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_PrecioMouseClicked
+    private void jt_NuevoIngresoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_NuevoIngresoMouseClicked
+ cft.formFocusGain(jt_NuevoIngreso);          // TODO add your handling code here:
+    }//GEN-LAST:event_jt_NuevoIngresoMouseClicked
 
-    private void jt_PrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_PrecioKeyTyped
-      ce.typedMoney(evt, jt_Precio);        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_PrecioKeyTyped
+    private void jt_NuevoIngresoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_NuevoIngresoKeyTyped
+  ce.typedMoney(evt, jt_NuevoIngreso);         // TODO add your handling code here:
+    }//GEN-LAST:event_jt_NuevoIngresoKeyTyped
 
-    private void jb_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_limpiarCamposActionPerformed
-        datosIniciales();        // TODO add your handling code here:
-    }//GEN-LAST:event_jb_limpiarCamposActionPerformed
+    private void jc_nuevoIngresoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_nuevoIngresoItemStateChanged
+       if (evt.getStateChange() == ItemEvent.SELECTED) {
+            ValidadorNuevoIngreso = 1;
+            jt_CantidadStock.setEnabled(false);
+            jt_NuevoIngreso.setEnabled(true);
 
-    private void jt_CantidadStockFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CantidadStockFocusGained
-        cft.formFocusGain(jt_CantidadStock);        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_CantidadStockFocusGained
+        } else {
+            ValidadorNuevoIngreso = 0;
+            jt_CantidadStock.setEnabled(true);
+            jt_NuevoIngreso.setEnabled(false);
 
-    private void jt_CantidadStockFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_CantidadStockFocusLost
-        cft.formFocusLostJTextField(jt_Precio, "Ingresar Cantidad");        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_CantidadStockFocusLost
-
-    private void jt_CantidadStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_CantidadStockMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_CantidadStockMouseClicked
-
-    private void jt_CantidadStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_CantidadStockKeyTyped
-        ce.typedMoney(evt, jt_CantidadStock);      // TODO add your handling code here:
-    }//GEN-LAST:event_jt_CantidadStockKeyTyped
-
-    private void jt_nombreProveedorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreProveedorFocusGained
-        cft.formFocusGain(jt_nombreProveedor);        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_nombreProveedorFocusGained
-
-    private void jt_nombreProveedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreProveedorFocusLost
-        cft.formFocusLostJTextField(jt_nombreProveedor, "Ingresar Nombre");        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_nombreProveedorFocusLost
-
-    private void jt_nombreProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_nombreProveedorMouseClicked
-        cft.formFocusGain(jt_nombreProveedor);        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_nombreProveedorMouseClicked
-
-    private void jt_nombreProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreProveedorKeyTyped
-        ce.typedCharsAndSpaceAndDigits(evt, jt_nombreProveedor);        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_nombreProveedorKeyTyped
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jc_nuevoIngresoItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -804,7 +925,6 @@ public class Pn_Inventario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -819,11 +939,14 @@ public class Pn_Inventario extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JButton jb_limpiarCampos;
+    private javax.swing.JCheckBox jc_nuevoIngreso;
+    private javax.swing.JSeparator jseparador_nuevoIngreso;
     public static javax.swing.JTextField jt_Buscar;
     private javax.swing.JTextField jt_CantidadStock;
+    private javax.swing.JTextField jt_NuevoIngreso;
     private javax.swing.JTextField jt_Precio;
     private javax.swing.JTextField jt_nombre;
     private javax.swing.JTextField jt_nombreProveedor;
@@ -836,5 +959,8 @@ public class Pn_Inventario extends javax.swing.JPanel {
     private javax.swing.JLabel lb_errorPrecio;
     private javax.swing.JLabel lb_errorProveedor;
     private javax.swing.JLabel lb_errorStock;
+    private javax.swing.JLabel lb_titulo1;
+    private javax.swing.JLabel lb_titulo2;
+    private javax.swing.JLabel lb_titulo3;
     // End of variables declaration//GEN-END:variables
 }

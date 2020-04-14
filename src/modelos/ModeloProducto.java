@@ -29,7 +29,7 @@ public class ModeloProducto extends BD {
         DefaultTableModel tb = new DefaultTableModel(null, titulos);
         Object[] fila = new Object[6];
         try {
-            this.st = conectar().prepareStatement("SELECT * FROM Producto)");
+            this.st = conectar().prepareStatement("SELECT * FROM Producto");
             this.rs = this.st.executeQuery();
             while (this.rs.next()) {
                 fila[0] = rs.getInt(1);

@@ -552,6 +552,8 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         ImageIcon iconFacturas = new ImageIcon(getClass().getResource("/Imagenes/icons/facturas32x32.png"));
         ImageIcon iconAdministrador = new ImageIcon(getClass().getResource("/Imagenes/icons/administrador32x32.png"));
         ImageIcon iconAdminCaja = new ImageIcon(getClass().getResource("/Imagenes/icons/cajaAdmin32x32.png"));
+        ImageIcon iconInventario = new ImageIcon(getClass().getResource("/Imagenes/icons/inventario32x32.png"));
+        ImageIcon iconActualizarRecepcion = new ImageIcon(getClass().getResource("/Imagenes/icons/actualizarRecepcionista32x32.png"));
         //ICONO PARA LOS SUBMENUS
         ImageIcon subMenus = new ImageIcon(getClass().getResource("/Imagenes/newarrow20x20.png"));
         //  SUBMENU PARA RESERVACIONES
@@ -652,7 +654,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         });
          //FIN SIN USO AUN 
 //APARTADO DE TODOS LOS MENUS
-        RecepcionCamarista = new MenuItem(iconRecepcion, "Actualizar", 35, general, new ActionListener() {
+        RecepcionCamarista = new MenuItem(iconActualizarRecepcion, "Actualizar", 35, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
              //   new CambiaPanel(pnlPrincipal, new Pn_RecepcionVistaCamarista());
@@ -694,7 +696,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         });
         AdministracionCaja = new MenuItem(iconAdminCaja, "Caja Admin", 35, admin, null, AbrirCaja, CerrarCaja);
        
-        Inventario = new MenuItem(iconAdministrador, "Inventario", 35,admin, null, NuevoProducto,ProductoxHabitacion);
+        Inventario = new MenuItem(iconInventario, "Inventario", 35,admin, null, NuevoProducto,ProductoxHabitacion);
        
         Administrador = new MenuItem(iconAdministrador, "Configuraciones", 35, admin, null, NuevoEmpleado/*, Permisos*/, Puestos);
   

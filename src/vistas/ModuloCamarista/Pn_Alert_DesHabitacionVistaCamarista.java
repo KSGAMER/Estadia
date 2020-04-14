@@ -456,7 +456,7 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
 
         } else {
             Validador = 0;
-            cb_status.setVisible(true);
+            cb_status.setVisible(false);
 
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged

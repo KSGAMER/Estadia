@@ -15,12 +15,11 @@ import vistas.Pn_CalendarioReservaciones;
 import vistas.Principal;
 import static vistas.Principal.*;
 
-
 /**
  *
- * @author fenix
- * Este controlador delimita la aparicion de algunos botones del menu dependiendo del usuario que este logueado
- * en funcion de su puesto o cargo dentro del hotel 
+ * @author fenix Este controlador delimita la aparicion de algunos botones del
+ * menu dependiendo del usuario que este logueado en funcion de su puesto o
+ * cargo dentro del hotel
  */
 public class ControladorPrivilegioMenuInicial {
 
@@ -33,14 +32,14 @@ public class ControladorPrivilegioMenuInicial {
         cuser.tablaUsuarios();
         ccargo.tablaCargos();
         //fin
-        
+
         //ambos for son necesarios para realizar las comparaciones del cargo asignado a usuario y el cargo guardado en 
         //la tabla cargos 
         for (ObjetoUsuario objetoUsuario : cuser.selectUsuario()) {
             for (ObjetoCargo objetoCargo : ccargo.seleccionarCargo()) {
-                 if (objetoUsuario.getUsername().equals(Usuario)) { 
-                     if (objetoUsuario.getIdCargo() == objetoCargo.getIdCargo()) {
-                         //se valida si el cargo del usuario
+                if (objetoUsuario.getUsername().equals(Usuario)) {
+                    if (objetoUsuario.getIdCargo() == objetoCargo.getIdCargo()) {
+                        //se valida si el cargo del usuario
                         if (objetoCargo.getNombre().equals("Recepcionista")) { //para cualquier otro usuario
                             Administrador.setVisible(false);
                             Configuracion.setVisible(false);
@@ -52,6 +51,7 @@ public class ControladorPrivilegioMenuInicial {
                             Clientes.setVisible(true);
                             Facturas.setVisible(true);
                             GastosHotel.setVisible(true);
+                            Inventario.setVisible(true);
                             RecepcionCamarista.setVisible(false);
                             //PARA QUE APAREZCA LA PANTALLE DE INICIO AL COMENZAR LA APLICACION
                             //new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
@@ -71,7 +71,9 @@ public class ControladorPrivilegioMenuInicial {
                             Clientes.setVisible(false);
                             Facturas.setVisible(false);
                             GastosHotel.setVisible(false);
+                            Inventario.setVisible(false);
                             RecepcionCamarista.setVisible(true);
+
                             //PARA QUE APAREZCA LA PANTALLE DE INICIO AL COMENZAR LA APLICACION
                             //new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
                             //PARA QUE APARECA LA PANTALLA DEL CALENDARIO AL INICAR LA APLICACION 
@@ -83,20 +85,21 @@ public class ControladorPrivilegioMenuInicial {
                             AdministracionCaja.setVisible(true);
                             Reportes.setVisible(true);
                             CalendarioReservas.setVisible(true);
-                             Reservaciones.setVisible(true);
-                             Recepcion.setVisible(true);
-                             Clientes.setVisible(true);
-                             Facturas.setVisible(true);
-                             GastosHotel.setVisible(true);
-                             RecepcionCamarista.setVisible(false);
-                             //PARA QUE APAREZCA LA PANTALLE DE INICIO AL COMENZAR LA APLICACION
-                             //new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
-                             //PARA QUE APARECA LA PANTALLA DEL CALENDARIO AL INICAR LA APLICACION 
-                             new CambiaPanel(Principal.pnlPrincipal, new Pn_CalendarioReservaciones());
-                             //asigna la imagen de icono de la aplicacion que se muestra en la barra de tareas
+                            Reservaciones.setVisible(true);
+                            Recepcion.setVisible(true);
+                            Clientes.setVisible(true);
+                            Facturas.setVisible(true);
+                            GastosHotel.setVisible(true);
+                            Inventario.setVisible(true);
+                            RecepcionCamarista.setVisible(false);
+                            //PARA QUE APAREZCA LA PANTALLE DE INICIO AL COMENZAR LA APLICACION
+                            //new CambiaPanel(pnlPrincipal, new Pn_Recepcion());
+                            //PARA QUE APARECA LA PANTALLA DEL CALENDARIO AL INICAR LA APLICACION 
+                            new CambiaPanel(Principal.pnlPrincipal, new Pn_CalendarioReservaciones());
+                            //asigna la imagen de icono de la aplicacion que se muestra en la barra de tareas
 
-                             break;
-                         }
+                            break;
+                        }
                     }
                 }
             }

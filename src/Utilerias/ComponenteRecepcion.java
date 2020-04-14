@@ -157,7 +157,7 @@ validarExistenciaIncidencias(NombreHabitacion);*/
         lb_IconoCama.setForeground(new java.awt.Color(255, 255, 255));
         add(lb_IconoCama, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, 80));
 
-        lb_Habitacion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lb_Habitacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb_Habitacion.setForeground(new java.awt.Color(255, 255, 255));
         lb_Habitacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_Habitacion.setText("Habitacion");
