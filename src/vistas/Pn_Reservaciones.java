@@ -138,7 +138,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     public void cTabla() {
         jt_Reservas.setModel(cr.tablaReservaciones());
         jt_t_registros.setText(String.valueOf(jt_Reservas.getRowCount()));
-
+        RowApariencia();
     }
 
     private void tamañoTabla() {
@@ -265,18 +265,17 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                     if(value.equals(fechaActual)){
                         component.setBackground(Color.RED);
                     }
-
                 }else if(columnIndex == 5){
                     if(value.equals("Pendiente")){
                         component.setBackground(Color.ORANGE);
                     }else if(value.equals("Cobrado")){
                         component.setBackground(Color.RED);
                     }
-                }else{
+                }else if(columnIndex == 1 || columnIndex == 2 || columnIndex == 3){
                     component.setBackground(Color.WHITE);
                     component.setForeground(Color.BLACK);
-
                 }
+
                 return component;
             }
         }
@@ -329,6 +328,9 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         fSLabel6 = new LIB.FSLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(84, 110, 122));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -665,8 +667,8 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("ESTADOS DE COLOR ");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, -1, 30));
+        jLabel7.setText("RESERVACIÓN");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 560, -1, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -724,6 +726,21 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         fSLabel6.setText("");
         jPanel1.add(fSLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 450, 30, 30));
 
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("ESTADOS DE COLOR ");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, -1, 30));
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("NOTA:");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 500, -1, 30));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("EL IDENTIFICADOR DE CADA RESERVACIÓN , CAMBIARA SU COLOR, DEPENDIENDO DEL COLOR DEL ESTADO DE LA");
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 530, -1, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -732,7 +749,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -793,6 +810,8 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 NewTable = new DefaultTableModel();
                 cTabla();
                 datosIniciales();
+                tamañoTabla();
+                
             }
 
         } catch (Exception e) {
@@ -928,6 +947,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 NewTable = new DefaultTableModel();
                 cTabla();
                 datosIniciales();
+                tamañoTabla();
             }
 
         } catch (Exception e) {
@@ -995,10 +1015,13 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
