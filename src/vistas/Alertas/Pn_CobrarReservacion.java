@@ -1646,7 +1646,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_MontoACobrarFocusLost
 
     private void jt_MontoACobrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_MontoACobrarMouseClicked
-        cft.formFocusGain(jt_MontoACobrar);
+     jt_MontoACobrar.setText("");
     }//GEN-LAST:event_jt_MontoACobrarMouseClicked
 
     private void jt_MontoACobrarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_MontoACobrarKeyTyped
@@ -1662,7 +1662,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_MontoManualaCobrarFocusLost
 
     private void jt_MontoManualaCobrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarMouseClicked
-        cft.formFocusGain(jt_MontoManualaCobrar);        // TODO add your handling code here:
+      jt_MontoManualaCobrar.setText("");
     }//GEN-LAST:event_jt_MontoManualaCobrarMouseClicked
 
     private void jt_MontoManualaCobrarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jt_MontoManualaCobrarPropertyChange
@@ -1692,8 +1692,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_CargoExtraFocusLost
 
     private void jt_CargoExtraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_CargoExtraMouseClicked
-        cft.formFocusGain(jt_CargoExtra);
-        // TODO add your handling code here:
+      jt_CargoExtra.setText("");        // TODO add your handling code here:
     }//GEN-LAST:event_jt_CargoExtraMouseClicked
 
     private void jt_CargoExtraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_CargoExtraKeyReleased
@@ -1795,7 +1794,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jt_TotalHorasFocusLost
 
     private void jt_TotalHorasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_TotalHorasMouseClicked
-        cft.formFocusGain(jt_TotalHoras);        // TODO add your handling code here:
+       jt_TotalHoras.setText("");        // TODO add your handling code here:
     }//GEN-LAST:event_jt_TotalHorasMouseClicked
 
     private void jt_TotalHorasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_TotalHorasKeyTyped
