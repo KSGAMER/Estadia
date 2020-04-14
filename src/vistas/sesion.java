@@ -13,6 +13,7 @@ import controladores.ControladorSesion;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 //para cambiar los valores de un boton 
 
 //para la fecha y la hora 
@@ -23,8 +24,6 @@ import javax.swing.ImageIcon;
  * @author sebastian
  */
 public class sesion extends javax.swing.JFrame {
-
-    private ControladorEventosSesion ce = new ControladorEventosSesion();
     public static String Username;
     public static boolean ventana = false;
 
@@ -262,11 +261,11 @@ public class sesion extends javax.swing.JFrame {
 
 
     private void usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarioMouseClicked
-        ce.camposMouseClick(evt, usuario, contraseña);
+        new ControladorEventosSesion().camposMouseClick(evt, usuario, contraseña);
     }//GEN-LAST:event_usuarioMouseClicked
 
     private void contraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contraseñaMouseClicked
-        ce.camposMouseClick(evt, usuario, contraseña);
+        new ControladorEventosSesion().camposMouseClick(evt, usuario, contraseña);
     }//GEN-LAST:event_contraseñaMouseClicked
 
     private void usuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarioFocusLost
@@ -294,19 +293,31 @@ public class sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_cerrar_sesionMouseClicked
 
     private void usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyPressed
-        ce.logearWithEnter(evt, usuario, contraseña, Lb_notificacion, this);
+        if(evt.getKeyCode() ==  KeyEvent.VK_ENTER) {
+            new Thread() {
+                public void run() {
+                    autentificar();
+                }
+            }.start();
+        }
     }//GEN-LAST:event_usuarioKeyPressed
 
     private void usuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarioFocusGained
-        ce.campoGainFocus(evt, usuario, contraseña);
+        new ControladorEventosSesion().campoGainFocus(evt, usuario, contraseña);
     }//GEN-LAST:event_usuarioFocusGained
 
     private void contraseñaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contraseñaFocusGained
-        ce.campoGainFocus(evt, usuario, contraseña);
+        new ControladorEventosSesion().campoGainFocus(evt, usuario, contraseña);
     }//GEN-LAST:event_contraseñaFocusGained
 
     private void contraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseñaKeyPressed
-        ce.logearWithEnter(evt, usuario, contraseña, Lb_notificacion, this);
+        if(evt.getKeyCode() ==  KeyEvent.VK_ENTER) {
+            new Thread() {
+                public void run() {
+                    autentificar();
+                }
+            }.start();
+        }
     }//GEN-LAST:event_contraseñaKeyPressed
 
     private void iniciar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciar_sesionMouseClicked

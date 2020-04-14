@@ -98,15 +98,15 @@ public class ControladorEventosSesion {
             usuario.setBackground(new Color(28,37,47));
         }
     }
-    
-    //Método para autentificar el usuario y la contraseña con un Enter
-    public void logearWithEnter(java.awt.event.KeyEvent evt, JTextField usuario, JPasswordField contraseña, JLabel Lb_notificacion, JFrame sesion) {
-        //Si el evento es igual al evento de dar enter prosigue
-        if(evt.getKeyCode() ==  KeyEvent.VK_ENTER) {
-            //Se pasa el usuario, la contraseña, el label de notificación y el frame actual
-            cs.autentificarUsuario(usuario, contraseña, Lb_notificacion, sesion);
-        }
-    }
+//    
+//    //Método para autentificar el usuario y la contraseña con un Enter
+//    public void logearWithEnter(java.awt.event.KeyEvent evt, JTextField usuario, JPasswordField contraseña, JLabel Lb_notificacion, JFrame sesion) {
+//        //Si el evento es igual al evento de dar enter prosigue
+//        if(evt.getKeyCode() ==  KeyEvent.VK_ENTER) {
+//            //Se pasa el usuario, la contraseña, el label de notificación y el frame actual
+//            cs.autentificarUsuario(usuario, contraseña, Lb_notificacion, sesion);
+//        }
+//    }
     
     //Método que evalua si los campos estan vacios
     public void nullCampos(JTextField usuario, JPasswordField contraseña, JLabel Lb_notificacion) {

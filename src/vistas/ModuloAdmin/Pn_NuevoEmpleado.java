@@ -839,7 +839,7 @@ public void abrirArchivoImagen(){
 
         
         try {
-            if (!validarEscritura() == true && !validarSeleccion() == true) {
+            if (!validarEscritura() == true || !validarSeleccion() == true) {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
             } else {
                 cusr.insertUsuario(jt_usuario.getText(), String.valueOf(jt_password.getPassword()), jt_empleado.getText(), jt_telefono.getText(), jt_direccion.getText(), lb_rutaImagen.getText(), String.valueOf(cb_Cargo.getSelectedItem()), String.valueOf(cb_status.getSelectedItem()));

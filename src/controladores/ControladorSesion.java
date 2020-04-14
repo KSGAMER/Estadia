@@ -49,13 +49,14 @@ public class ControladorSesion {
                         break;
                     } else {//De lo contrario manda la siguiente notificación
                         Lb_notificacion.setText("No coinciden las credenciales");
+                        break;
                     }
                 } else {//De lo contrario manda la siguiente notificación
                     Lb_notificacion.setText("La contraseña es incorrecta");
+                    break;
                 }
-            } else {//De lo contrario manda la siguiente notificación
-                Lb_notificacion.setText("Por favor, ingrese un usuario valido");
             }
         }
+        Lb_notificacion.setText("Por favor, ingrese un usuario valido");
     }
 }
