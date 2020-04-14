@@ -491,11 +491,14 @@ private Double totalizarTablaCobros(){
 
     private void btn_CorteCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CorteCajaActionPerformed
         try {
-            if(!validarCajasAbiertas()==true || !validarSeleccion()==true){
-         
-            } else {
+            if(!validarCajasAbiertas()==true ){
+           DesktopNotify.showDesktopMessage("Error", "No existe ninguna caja abierta para el usuario: " + String.valueOf(cb_usuario.getSelectedItem()), DesktopNotify.ERROR);
+               
+            } else if(!validarSeleccion()==true) {
+               
+            }else{
                 cecaja.actualizarCiereCaja(fechaActual, horaActual, Double.valueOf(lb_Total.getText()), "Cerrado", String.valueOf(cb_usuario.getSelectedItem()));
-                Cerrar();
+                Cerrar(); 
             }
 
         } catch (Exception e) {
