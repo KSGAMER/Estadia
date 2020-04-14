@@ -939,7 +939,7 @@ public void abrirArchivoImagen(){
     }//GEN-LAST:event_jt_telefonoMouseClicked
 
     private void jt_telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_telefonoKeyTyped
-        ce.typedDigits(evt, jt_telefono);
+        ce.typedMoney(evt, jt_telefono);
     }//GEN-LAST:event_jt_telefonoKeyTyped
 
     private void jt_direccionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_direccionFocusGained
