@@ -11,13 +11,13 @@ import vistas.Alertas.Pn_IpServerJason;
 import controladores.ControladorEventosSesion;
 import controladores.ControladorSesion;
 import controladores.ControladorUsuarios;
+import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
 //para cambiar los valores de un boton 
 
 //para la fecha y la hora 
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,8 +26,6 @@ import javax.swing.JOptionPane;
 public class sesion extends javax.swing.JFrame {
 
     private ControladorEventosSesion ce = new ControladorEventosSesion();
-    private ControladorSesion cs = new ControladorSesion();
-    private ControladorUsuarios cu = new ControladorUsuarios();
     public static String Username;
     public static boolean ventana = false;
 
@@ -55,6 +53,14 @@ public class sesion extends javax.swing.JFrame {
 
     }
 
+    public void autentificar() {
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        iniciar_sesion.setEnabled(false);
+        new ControladorSesion().autentificarUsuario(usuario, contraseña, Lb_notificacion, this);
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        iniciar_sesion.setEnabled(true);
+    }
+    
     private void centrarPantalla() {
         //para dejar el menu centrado y estatico
         this.setLocationRelativeTo(null);
@@ -305,8 +311,11 @@ public class sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_contraseñaKeyPressed
 
     private void iniciar_sesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iniciar_sesionMouseClicked
-        cs.autentificarUsuario(usuario, contraseña, Lb_notificacion, this);
-       
+        new Thread() {
+            public void run() {
+                autentificar();
+            }
+        }.start();
     }//GEN-LAST:event_iniciar_sesionMouseClicked
 
     private void lb_ConfigsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_ConfigsMouseClicked
