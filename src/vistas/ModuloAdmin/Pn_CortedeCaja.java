@@ -211,14 +211,13 @@ private Double totalizarTablaCobros(){
     }
 
     private Boolean validarCajasAbiertas() {
-        Boolean val = true;
+        Boolean val = false;
         for (ObjetoCaja caja : cecaja.seleccionarCaja()) {
             if (caja.getIdEstadoCaja() == 1 && caja.getUsuario().equals(String.valueOf(cb_usuario.getSelectedItem()))) {
                 val = true;
                 break;
             } else {
                 DesktopNotify.showDesktopMessage("Error", "No existe ninguna caja abierta para el usuario: " + String.valueOf(cb_usuario.getSelectedItem()), DesktopNotify.ERROR);
-
                 val = false;
                 break;
             }
