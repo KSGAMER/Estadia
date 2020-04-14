@@ -259,21 +259,23 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
             public Component prepareRenderer (TableCellRenderer renderer, int rowIndex, int columnIndex){
                 Component component = super.prepareRenderer(renderer, rowIndex, columnIndex);
-
                 Object value = getModel().getValueAt(rowIndex,columnIndex);
+
                 if(columnIndex == 4){
                     if(value.equals(fechaActual)){
                         component.setBackground(Color.RED);
                     }
 
-                }
-                if(columnIndex == 5){
+                }else if(columnIndex == 5){
                     if(value.equals("Pendiente")){
                         component.setBackground(Color.ORANGE);
-                    }
-                    if(value.equals("Cobrado")){
+                    }else if(value.equals("Cobrado")){
                         component.setBackground(Color.RED);
                     }
+                }else{
+                    component.setBackground(Color.WHITE);
+                    component.setForeground(Color.BLACK);
+
                 }
                 return component;
             }
