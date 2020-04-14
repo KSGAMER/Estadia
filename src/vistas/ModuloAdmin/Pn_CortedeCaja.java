@@ -205,7 +205,7 @@ private Double totalizarTablaCobros(){
     }
     private void sumarTotales() {
         //se resta los gastos , porque es una salida de dinero 
-        lb_Total.setText(String.valueOf(Double.valueOf(lb_montoAsignado.getText()) - (totalizarTablaCobros() + totalizarTablaGastos())));
+        lb_Total.setText(String.valueOf(Double.valueOf(lb_montoAsignado.getText()) +totalizarTablaCobros() - totalizarTablaGastos()));
         lb_sumaGastosCobros.setText(String.valueOf(totalizarTablaCobros() + totalizarTablaGastos()));
 
     }
@@ -569,7 +569,7 @@ private Double totalizarTablaCobros(){
                     for (ObjetoCaja objetoCaja : cecaja.seleccionarCaja()) {
                         if (objetoCaja.getUsuario().equals(cb_usuario.getSelectedItem()) && (objetoCaja.getIdEstadoCaja() == 1)) {
                             lb_montoAsignado.setText(String.valueOf(objetoCaja.getMontoApertura()));
-                            System.out.println(objetoCaja.getMontoApertura());
+                           // System.out.println(objetoCaja.getMontoApertura());
                             break;
                         }
                     }
