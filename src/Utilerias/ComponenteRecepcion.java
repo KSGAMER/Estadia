@@ -48,7 +48,7 @@ public class ComponenteRecepcion extends javax.swing.JPanel {
 //MODIFICACIONES DEL BOTON VISUALES
         if (!Habitacion.isEmpty()) {
             lb_IconoCama.setIcon(IconCama);
-            lb_Habitacion.setText(Habitacion);
+            lb_Habitacion.setText("<html>"+Habitacion+"</html>");
             lb_TipoHabitacion.setText(TipoHabitacion);
             lb_StatusHabitacion.setText(StatusHabitacion);
             lb_NombrexNoche.setText("x Noche");
@@ -157,21 +157,22 @@ validarExistenciaIncidencias(NombreHabitacion);*/
         lb_IconoCama.setForeground(new java.awt.Color(255, 255, 255));
         add(lb_IconoCama, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, 80));
 
-        lb_Habitacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb_Habitacion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lb_Habitacion.setForeground(new java.awt.Color(255, 255, 255));
         lb_Habitacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_Habitacion.setText("Habitacion");
-        add(lb_Habitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 130, -1));
+        lb_Habitacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(lb_Habitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 120, 40));
 
         lb_TipoHabitacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_TipoHabitacion.setForeground(new java.awt.Color(255, 255, 255));
-        lb_TipoHabitacion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_TipoHabitacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_TipoHabitacion.setText("Tip de Habitacion");
-        add(lb_TipoHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 100, -1));
+        add(lb_TipoHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, -1, -1));
 
         lb_StatusHabitacion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lb_StatusHabitacion.setForeground(new java.awt.Color(255, 255, 255));
-        lb_StatusHabitacion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_StatusHabitacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_StatusHabitacion.setText("Tip de Habitacion");
         add(lb_StatusHabitacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 110, 20));
 

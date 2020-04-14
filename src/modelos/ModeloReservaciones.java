@@ -47,7 +47,7 @@ public class ModeloReservaciones extends BD {
 
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
-            this.st = conectar().prepareStatement("SELECT * FROM Reservacion WHERE Nombre like CONCAT('%',?,'#') ORDER BY IdEstadoReservacion");
+            this.st = conectar().prepareStatement("SELECT * FROM Reservacion WHERE Nombre like CONCAT('%',?,'%') ORDER BY IdEstadoReservacion");
             //Se pasan los parametros a la consulta
             this.st.setString(1, buscar);
             //Se ejecuta el Query

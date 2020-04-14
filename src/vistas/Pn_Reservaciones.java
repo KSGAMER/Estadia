@@ -396,7 +396,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Total de registros ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 330, 100, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 330, -1, 20));
 
         btn_Ingresar.setBackground(new java.awt.Color(40, 180, 99));
         btn_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -497,7 +497,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -730,7 +730,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -746,11 +746,11 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             jd_Salida.setDate(dateFormat.parse((String) jt_Reservas.getValueAt(seleccion, 4).toString()));
             if (((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual) && lb_estadoCobro.getText().equals("Cobrado")) {
 
-              //  btn_Eliminar.setEnabled(true);
+                //  btn_Eliminar.setEnabled(true);
                 btn_Cobrar.setEnabled(false);
                 btn_Modificar.setEnabled(false);
             } else if (lb_estadoCobro.getText().equals("Pendiente")) {
-              //  btn_Eliminar.setEnabled(false);
+                //  btn_Eliminar.setEnabled(false);
                 btn_Cobrar.setEnabled(true);
                 btn_Modificar.setEnabled(true);
             }
@@ -762,7 +762,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
     private void jt_nombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreFocusLost
         cft.formFocusLostJTextField(jt_nombre, "Ingresar Nombre");
-       // cft.formFocusLostJTextField(cb_Habitacion);
+        // cft.formFocusLostJTextField(cb_Habitacion);
     }//GEN-LAST:event_jt_nombreFocusLost
 
     private void jt_nombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_nombreMouseClicked
@@ -785,7 +785,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 DesktopNotify.showDesktopMessage("Error", "REVISAR CAMPOS OBLIGATORIOS", DesktopNotify.ERROR);
 
             } else {
-                
+
                 cr.insertReservacion(jt_nombre.getText(), String.valueOf(cb_Habitacion.getSelectedItem()), dateFormat.format(jd_Ingreso.getDate()), dateFormat.format(jd_Salida.getDate()), Principal.User, "Pendiente");
                 ch.updateHabitacion(String.valueOf(cb_Habitacion.getSelectedItem()), "Reservado");
                 NewTable = new DefaultTableModel();
@@ -886,7 +886,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                         if (ale.validarError == 1) {
                             cr.deleteReservacion(Integer.valueOf(lb_Id.getText()));
                             ch.updateHabitacion(String.valueOf(cb_Habitacion.getSelectedItem()), "Disponible");
-                          
+
                             tamañoTabla();
                             NewTable = new DefaultTableModel();
                             cTabla();
@@ -950,11 +950,11 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     }//GEN-LAST:event_jt_BuscarMouseClicked
 
     private void jt_BuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyReleased
-       
+
     }//GEN-LAST:event_jt_BuscarKeyReleased
 
     private void jt_BuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_BuscarKeyTyped
- jt_Reservas.setModel(cr.tablaReservaciones(jt_Buscar));
+        jt_Reservas.setModel(cr.tablaReservaciones(jt_Buscar));
         tamañoTabla();
 
     }//GEN-LAST:event_jt_BuscarKeyTyped
