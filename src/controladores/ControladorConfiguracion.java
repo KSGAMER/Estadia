@@ -34,7 +34,7 @@ public class ControladorConfiguracion {
     private String password;
 
     //Se declara una variable que contiene la ruta del archivo de configuración
-    private File fichero = new File("src/configuraciones/Configuracion.json");
+    private File fichero = new File("Configuracion.json");
     //Constructor que inicializa las variables
     public ControladorConfiguracion() {
         try {
