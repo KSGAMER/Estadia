@@ -67,7 +67,6 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jt_ReservasMouseClicked"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable()&#xa;&#xa;{&#xa;    @Override&#xa;&#xa;    public Component prepareRenderer (TableCellRenderer renderer, int rowIndex, int columnIndex){&#xa;        Component component = super.prepareRenderer(renderer, rowIndex, columnIndex);&#xa;        Object value = getModel().getValueAt(rowIndex,columnIndex);&#xa;&#xa;        if(columnIndex == 4){&#xa;            if(value.equals(fechaActual)){&#xa;                component.setBackground(Color.RED);&#xa;            }&#xa;        }else if(columnIndex == 5){&#xa;            if(value.equals(&quot;Pendiente&quot;)){&#xa;                component.setBackground(Color.ORANGE);&#xa;            }else if(value.equals(&quot;Cobrado&quot;)){&#xa;                component.setBackground(Color.RED);&#xa;            }&#xa;        }else if(columnIndex == 1 || columnIndex == 2 || columnIndex == 3){&#xa;            component.setBackground(Color.WHITE);&#xa;            component.setForeground(Color.BLACK);&#xa;        }&#xa;&#xa;        return component;&#xa;    }&#xa;}&#xa;&#xa;"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
             </Component>
@@ -927,7 +926,7 @@
         <Component class="javax.swing.JLabel" name="jLabel19">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
+              <Font name="Tahoma" size="14" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>

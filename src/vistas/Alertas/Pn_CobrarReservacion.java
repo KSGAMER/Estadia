@@ -6,6 +6,8 @@
 package vistas.Alertas;
 
 import Utilerias.AWTUtilities;
+import Utilerias.ColorearFilaxEstado;
+import Utilerias.ColorearFilaxFecha;
 import controladores.ControladorCFDI;
 import controladores.ControladorClientes;
 import controladores.ControladorCobros;
@@ -28,6 +30,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import objetos.ObjetoTipoPago;
 import vistas.Pn_Reservaciones;
+
 import vistas.Principal;
 
 /**
@@ -62,7 +65,9 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
     int dias;
     //NECESARIO PARA EL USO DE LA NOTIFICACION DINAMICA EN CLIENTES PARA FACTURA
     Frame principal;
-
+//FIN DE NECESARIO
+    Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
+    String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(now);
     /**
      * Creates new form Pn_SeleccionClientes
      */
@@ -321,21 +326,20 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
         }
     }
 
-    /*
-    private Boolean validarSeleccion() {
-        Boolean val = true;
-        if (!(cb_TipoPago.getSelectedIndex() == 0)) {
-
-            lb_errorCFDI.setForeground(new Color(84, 110, 122));
-        } else {
-
-            lb_errorCFDI.setForeground(Color.RED);
-
-            val = false;
-        }
-        return val;
-
-    }*/
+   
+        //ESTE METODO SE ENCARGA DE CAMBIAR EL COLOR DE DE 2 CELDAS EN ESPECIFICO DEPENDIENDO DEL 
+   //DE , SI LA FECHA ES IGUAL A LA ACTUAL Y SI EL ESTADO DE COBRO ES EL ESTABLECDO EN LAS CLASES 
+    //ColoreaFilacFecha y ColorearFilaxEstado
+private void pintarCeldas(){
+    //SE ENCARGA DE COLOREAR LA FILA 4, QUE CORRESPONDE A LA FECHA FINAL DE LA RESERVACION 
+    ColorearFilaxFecha filaFecha = new ColorearFilaxFecha(4,fechaActual);
+    reservacion.jt_Reservas.getColumnModel().getColumn(4).setCellRenderer(filaFecha);
+    //SE ENCARGA DE COLOREAR LA FILA , QUE CORRESPONDE AL ESTADO DE COBRO DE LA RESERVACION 
+    ColorearFilaxEstado filas = new ColorearFilaxEstado(5);
+    reservacion.jt_Reservas.getColumnModel().getColumn(5).setCellRenderer(filas);
+    
+    
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1526,6 +1530,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                         cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), lb_rfc.getText(), jt_email.getText(), Principal.User, lb_razonSocial.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Con Factura");
                         cr.updateReservacion(lb_nombreCliente.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Cobrado", Integer.valueOf(lb_FolioReservaciones.getText()));
                         reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
+                        pintarCeldas();
                         Cerrar();
 //si el validador es igual a 2 significa que se da por terminada toda la reservacion y de igual manera se realiza el 
 //cobro de la misma, lo que automaticamente , elimina la reservacion y actualiza el estado de la habitacion a limpieza
@@ -1545,6 +1550,7 @@ public class Pn_CobrarReservacion extends javax.swing.JDialog {
                         cco.insertCobro(Double.valueOf(jt_MontoACobrar.getText()), String.valueOf(cb_TipoPago.getSelectedItem()), "----", "----", Principal.User, "----", lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Sin Factura");
                         cr.updateReservacion(lb_nombreCliente.getText(), lb_NombreHabitacion.getText(), lb_FechaIngreso.getText(), lb_FechaSalida.getText(), "Cobrado", Integer.valueOf(lb_FolioReservaciones.getText()));
                         reservacion.jt_Reservas.setModel(cr.tablaReservaciones());
+                        pintarCeldas();
                         Cerrar();
 
                     } else if (ValidarCobrar == 2) {

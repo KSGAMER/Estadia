@@ -17,7 +17,6 @@ import controladores.ControladorReservaciones;
 import controladores.ValidadorDePrivilegios.*;
 import ds.desktop.notify.DesktopNotify;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
@@ -31,11 +30,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import objetos.ObjetoCategoria;
 import objetos.ObjetoHabitacion;
-
+import Utilerias.ColorearFilaxEstado;
+import Utilerias.ColorearFilaxFecha;
 /**
  *
  * @author fenix
@@ -108,8 +107,9 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         RowApariencia();
         //FIN
         //CARGA LOS VALORES EN LA TABLA
-        cTabla();
+        cTabla();//este metodo contiene 1 extra para la coloracion de las celdas 
         //FIN
+       
         //ASIGNA TAMAÑOS DE ANCHURA A LAS COLUMNAS
         tamañoTabla();
         //FIN
@@ -138,7 +138,10 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
     public void cTabla() {
         jt_Reservas.setModel(cr.tablaReservaciones());
         jt_t_registros.setText(String.valueOf(jt_Reservas.getRowCount()));
-        RowApariencia();
+            //ESTE METODO SE ENCARGA DE CAMBIAR EL COLOR DE DE 2 CELDAS EN ESPECIFICO DEPENDIENDO DEL 
+   //DE , SI LA FECHA ES IGUAL A LA ACTUAL Y SI EL ESTADO DE COBRO ES EL ESTABLECDO EN LAS CLASES 
+    //ColoreaFilacFecha y ColorearFilaxEstado
+         pintarCeldas();
     }
 
     private void tamañoTabla() {
@@ -151,10 +154,25 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         columnModel.getColumn(5).setPreferredWidth(50);
 
     }
+    //ESTE METODO SE ENCARGA DE CAMBIAR EL COLOR DE DE 2 CELDAS EN ESPECIFICO DEPENDIENDO DEL 
+   //DE , SI LA FECHA ES IGUAL A LA ACTUAL Y SI EL ESTADO DE COBRO ES EL ESTABLECDO EN LAS CLASES 
+    //ColoreaFilacFecha y ColorearFilaxEstado
+private void pintarCeldas(){
+    //SE ENCARGA DE COLOREAR LA FILA 4, QUE CORRESPONDE A LA FECHA FINAL DE LA RESERVACION 
+    ColorearFilaxFecha filaFecha = new ColorearFilaxFecha(4,fechaActual);
+    jt_Reservas.getColumnModel().getColumn(4).setCellRenderer(filaFecha);
+    //SE ENCARGA DE COLOREAR LA FILA , QUE CORRESPONDE AL ESTADO DE COBRO DE LA RESERVACION 
+    ColorearFilaxEstado filas = new ColorearFilaxEstado(5);
+    jt_Reservas.getColumnModel().getColumn(5).setCellRenderer(filas);
+    
+    
+}
 
     private void datosIniciales() {
+        btn_Ingresar.setEnabled(true);
         btn_Cobrar.setEnabled(false);
-        //btn_Eliminar.setEnabled(false);
+        btn_Modificar.setEnabled(false);
+        btn_Eliminar.setEnabled(false);
         jt_nombre.setText("Ingresar Nombre");
         cb_Habitacion.setSelectedIndex(0);
         jd_Ingreso.setCalendar(null);
@@ -252,35 +270,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jt_Reservas = new javax.swing.JTable()
-
-        {
-            @Override
-
-            public Component prepareRenderer (TableCellRenderer renderer, int rowIndex, int columnIndex){
-                Component component = super.prepareRenderer(renderer, rowIndex, columnIndex);
-                Object value = getModel().getValueAt(rowIndex,columnIndex);
-
-                if(columnIndex == 4){
-                    if(value.equals(fechaActual)){
-                        component.setBackground(Color.RED);
-                    }
-                }else if(columnIndex == 5){
-                    if(value.equals("Pendiente")){
-                        component.setBackground(Color.ORANGE);
-                    }else if(value.equals("Cobrado")){
-                        component.setBackground(Color.RED);
-                    }
-                }else if(columnIndex == 1 || columnIndex == 2 || columnIndex == 3){
-                    component.setBackground(Color.WHITE);
-                    component.setForeground(Color.BLACK);
-                }
-
-                return component;
-            }
-        }
-
-        ;
+        jt_Reservas = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jt_nombre = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
@@ -731,7 +721,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
         jLabel17.setText("ESTADOS DE COLOR ");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, -1, 30));
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("NOTA:");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 500, -1, 30));
@@ -765,11 +755,13 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
             jd_Salida.setDate(dateFormat.parse((String) jt_Reservas.getValueAt(seleccion, 4).toString()));
             if (((String) jt_Reservas.getValueAt(seleccion, 4).toString()).equals(fechaActual) && lb_estadoCobro.getText().equals("Cobrado")) {
 
-                //  btn_Eliminar.setEnabled(true);
+               btn_Eliminar.setEnabled(true);
+                btn_Ingresar.setEnabled(false);
                 btn_Cobrar.setEnabled(false);
                 btn_Modificar.setEnabled(false);
             } else if (lb_estadoCobro.getText().equals("Pendiente")) {
-                //  btn_Eliminar.setEnabled(false);
+                btn_Eliminar.setEnabled(true);
+                btn_Ingresar.setEnabled(false);
                 btn_Cobrar.setEnabled(true);
                 btn_Modificar.setEnabled(true);
             }
@@ -811,6 +803,7 @@ public class Pn_Reservaciones extends javax.swing.JPanel {
                 cTabla();
                 datosIniciales();
                 tamañoTabla();
+                
                 
             }
 
