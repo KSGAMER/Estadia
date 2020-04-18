@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"PORT":"1433","DATABASE":"Estadia","PASSWORD":"1234","SERVER":"localhost","AUTH":"false","INSTANCE":"fenix","USER":"Fenix"}
+=======
+{"PORT":"0","DATABASE":"","PASSWORD":"","SERVER":"","AUTH":"","INSTANCE":"","USER":""}
+>>>>>>> 46f048d23929c0ef6186e2288c5acf9b8533f72d
