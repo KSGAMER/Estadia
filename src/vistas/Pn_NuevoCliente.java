@@ -21,7 +21,7 @@ import objetos.ObjetoCFDI;
 
 /**
  *
- * @author RojeruSan
+ * @author FENIX
  */
 public class Pn_NuevoCliente extends javax.swing.JPanel {
 //NECESARIO PARA FUNCIONES DE ESTE MODULO 

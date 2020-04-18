@@ -2,6 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+AUTOR FENIX
  */
 package vistas;
 
@@ -21,14 +22,6 @@ import java.awt.event.ItemEvent;
 import javax.swing.table.DefaultTableModel;
 
 
-/*
-    NOTA: SE DEBE CONFIGURAR GMAIL PARA PERMITIR EL ACCESO A APLICACIONES MENOS SEGURAS
-    PASOS:
-   (1)ICONO DE GMAIL
-   (2)CLICK EN "MI CUENTA"
-   (3)CLICK EN "INICIO DE SESIÓN Y SEGURIDAD"
-   (4)ACTIVAR "PERMITIR EL ACCESO DE APLICACIONES MENOS SEGURAS"
- */
 public class Pn_Inventario extends javax.swing.JPanel {
 
     private ControladorFormularioTab cft = new ControladorFormularioTab();

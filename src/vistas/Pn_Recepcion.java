@@ -25,7 +25,7 @@ import objetos.ObjetoPiso;
 
 /**
  *
- * @author RojeruSan
+ * @author FENIX
  */
 public class Pn_Recepcion extends javax.swing.JPanel {
 

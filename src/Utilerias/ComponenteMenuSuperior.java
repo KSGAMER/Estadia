@@ -26,9 +26,7 @@ public class ComponenteMenuSuperior extends javax.swing.JPanel {
        
     }
      public JPanel ComponenteMenuSuperior(String menuName,int Separacion, ActionListener act) {
-    
-   //ImageIcon Icon = new ImageIcon(getClass().getResource("/Imagenes/calendar.png"));
-    
+
        //MODIFICACIONES DEL BOTON VISUALES
      
     //  lbAccesos.setIcon(Icon);

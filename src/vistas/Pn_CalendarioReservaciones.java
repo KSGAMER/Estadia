@@ -33,7 +33,7 @@ import objetos.ObjetoReservacion;
 
 /**
  *
- * @author RojeruSan
+ * @author Fenix
  */
 public class Pn_CalendarioReservaciones extends javax.swing.JPanel {
 

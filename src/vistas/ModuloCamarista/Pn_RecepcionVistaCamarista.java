@@ -24,7 +24,7 @@ import objetos.ObjetoPiso;
 
 /**
  *
- * @author RojeruSan
+ * @author FENIX
  */
 public class Pn_RecepcionVistaCamarista extends javax.swing.JPanel {
 

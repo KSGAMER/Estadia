@@ -25,15 +25,6 @@ import javax.swing.table.DefaultTableModel;
 import objetos.ObjetoHabitacion;
 import objetos.ObjetoProducto;
 
-
-/*
-    NOTA: SE DEBE CONFIGURAR GMAIL PARA PERMITIR EL ACCESO A APLICACIONES MENOS SEGURAS
-    PASOS:
-   (1)ICONO DE GMAIL
-   (2)CLICK EN "MI CUENTA"
-   (3)CLICK EN "INICIO DE SESIÓN Y SEGURIDAD"
-   (4)ACTIVAR "PERMITIR EL ACCESO DE APLICACIONES MENOS SEGURAS"
- */
 public class Pn_InventarioPorHabitacion extends javax.swing.JPanel {
 
     private ControladorProductos cpro = new ControladorProductos();

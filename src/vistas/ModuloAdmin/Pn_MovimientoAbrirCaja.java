@@ -24,14 +24,7 @@ import vistas.Alertas.Pn_Alert_Eliminar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import objetos.ObjetoCaja;
-/*
-    NOTA: SE DEBE CONFIGURAR GMAIL PARA PERMITIR EL ACCESO A APLICACIONES MENOS SEGURAS
-    PASOS:
-   (1)ICONO DE GMAIL
-   (2)CLICK EN "MI CUENTA"
-   (3)CLICK EN "INICIO DE SESIÓN Y SEGURIDAD"
-   (4)ACTIVAR "PERMITIR EL ACCESO DE APLICACIONES MENOS SEGURAS"
- */
+
 public class Pn_MovimientoAbrirCaja extends javax.swing.JPanel {
 
     ControladorUsuarios cuser = new ControladorUsuarios();

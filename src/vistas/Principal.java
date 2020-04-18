@@ -23,7 +23,7 @@ import vistas.ModuloCamarista.Pn_RecepcionVistaCamarista;
 
 /**
  *
- * @
+ * @ FENIX
  */
 public class Principal extends javax.swing.JFrame implements Runnable {
     //se isa en la validacion de cajas abiertas para que el sistema no se pueda cerrar 
