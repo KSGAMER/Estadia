@@ -53,7 +53,7 @@ public class ModeloReportes extends BD {
         Object[] fila = new Object[2];
         try {
             //Se instancia la conexión a la base de datos y se pasa la consulta preparada
-            this.st = conectar().prepareStatement("SELECT h.Nombre, COUNT(h.Nombre) as Reservado FROM Habitacion h INNER JOIN Reservacion r on r.IdHabitacion = h.IdHabitacion group by h.Nombre");
+            this.st = conectar().prepareStatement("SELECT h.Nombre, COUNT(h.Nombre) as Reservado FROM Habitacion h INNER JOIN Cobro r on r.IdHabitacion = h.IdHabitacion group by h.Nombre");
             //Se ejecuta el Query
             this.rs = st.executeQuery();
             //Se iteran los resultados
@@ -141,7 +141,7 @@ public class ModeloReportes extends BD {
         Object[] fila = new Object[3];
         try {
             //Se instancia la conexión a la base de datos pasando la consulta preparada
-            this.st = conectar().prepareStatement("SELECT TOP 15 COUNT(r.FechaIngreso) as Reservaciones, h.Nombre as Habitacion, CONVERT(DATE, r.FechaIngreso, 103) as Fecha FROM Reservacion r INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion GROUP BY CONVERT(DATE, FechaIngreso, 103), h.Nombre ORDER BY CONVERT(DATE, FechaIngreso, 103) DESC");
+            this.st = conectar().prepareStatement("SELECT TOP 15 COUNT(r.FechaIngreso) as Reservaciones, h.Nombre as Habitacion, CONVERT(DATE, r.FechaIngreso, 103) as Fecha FROM Cobro r INNER JOIN Habitacion h on h.IdHabitacion = r.IdHabitacion GROUP BY CONVERT(DATE, FechaIngreso, 103), h.Nombre ORDER BY CONVERT(DATE, FechaIngreso, 103) DESC");
             //Se ejecuta el Query
             this.rs = st.executeQuery();
             //Se iteran los resultados
@@ -200,7 +200,7 @@ public class ModeloReportes extends BD {
         Object[] fila = new Object[2];
         try {
             //Se instancia la conexión a base de datos pasando la consulta preparada
-            this.st = conectar().prepareStatement("SELECT top 2 CONVERT(DATE, r.FechaIngreso, 103) as Fecha, COUNT(r.FechaIngreso) as Reservacion FROM Reservacion r GROUP BY CONVERT(DATE, r.FechaIngreso, 103) ORDER BY CONVERT(DATE, r.FechaIngreso, 103) DESC");
+            this.st = conectar().prepareStatement("SELECT top 2 CONVERT(DATE, r.FechaIngreso, 103) as Fecha, COUNT(r.FechaIngreso) as Reservacion FROM Cobro r GROUP BY CONVERT(DATE, r.FechaIngreso, 103) ORDER BY CONVERT(DATE, r.FechaIngreso, 103) DESC");
             //Se ejecuta el Query
             this.rs = st.executeQuery();
             //Se iteran los resultados
