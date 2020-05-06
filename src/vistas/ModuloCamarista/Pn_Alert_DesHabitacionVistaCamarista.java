@@ -7,6 +7,7 @@ package vistas.ModuloCamarista;
 
 import Utilerias.AWTUtilities;
 import controladores.ControladorEscritura;
+import controladores.ControladorEstatusHabitaciones;
 import controladores.ControladorFormularioTab;
 import controladores.ControladorHabitaciones;
 import controladores.ControladorIncidencias;
@@ -18,6 +19,8 @@ import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import objetos.ObjetoEstadoHabitacion;
 import vistas.Principal;
 
 /**
@@ -26,6 +29,7 @@ import vistas.Principal;
  */
 public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
 
+    ControladorEstatusHabitaciones ceh = new ControladorEstatusHabitaciones();
     private ControladorHabitaciones ch = new ControladorHabitaciones();
     private ControladorIncidencias cin = new ControladorIncidencias();
     private Timer timer = null;
@@ -51,7 +55,8 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         AWTUtilities.setOpaque(this, false);
         centrarPantalla();
         datosIniciales();
-
+        ceh.tablaEstadoHabiaciones();
+        cargarStatus();
         //para ajustar el tecto al tamaño del jtextarea
         jta_observaciones.setLineWrap(true);
         //FIN
@@ -95,7 +100,15 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
         }
         return val;
     }
+    private void cargarStatus() {
+        DefaultComboBoxModel cb = new DefaultComboBoxModel();
+        cb.addElement("Seleccionar Estatus");
+        for (ObjetoEstadoHabitacion campos : ceh.selectEstadoHabitacion()) {
 
+            cb.addElement(campos.getNombre());
+        }
+        cb_status.setModel(cb);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -350,7 +363,7 @@ public class Pn_Alert_DesHabitacionVistaCamarista extends javax.swing.JDialog {
 
         cb_status.setBackground(new java.awt.Color(84, 110, 122));
         cb_status.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estatus", "Disponible", "Limpieza" }));
+        cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estatus" }));
         cb_status.setBorder(null);
         cb_status.setFocusable(false);
         jPanel1.add(cb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 220, -1));
