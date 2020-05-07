@@ -59,9 +59,9 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
         }
     }
 
-    //Método que carga las habitaciones y pintandolas dependiendo del estado en el que se encuentren
-    public void cargarRecepcion(JPanel contenedor, Color disponible, Color reservado, Color limpieza, Color estilo, int idPiso, String estatus) {
-        //Se remueve el contenido del panel
+      //Método que carga las habitaciones y pintandolas dependiendo del estado en el que se encuentren
+    public void cargarRecepcion(JPanel contenedor, Color disponible, Color reservado, Color limpieza, Color mantenimiento, Color estilo, int idPiso, String estatus) {
+       //Se remueve el contenido del panel
         contenedor.removeAll();
         //Se recorre las recepciones
         for (ObjetoRecepcion objetoRecepcion : selectRecepcion()) {
@@ -119,6 +119,22 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                             }, limpieza));
                             break;
                         }
+                              //Si el estado es igual a "Mantenimiento" prosigue
+                        case "Mantenimiento": {
+                            //Se agrega al contenedor un nuevo componente con los datos previamente cargados y mostrando el estado "Limpieza"
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.setVisible(true);
+                                }
+                            }, mantenimiento));
+                            break;
+                        }
                     }
                     //Si la bandera es igual a cualquiera de los id del piso prosigue
                 } else if (idPiso == objetoRecepcion.getIdPiso()) {
@@ -171,6 +187,22 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
+                            break;
+                        }
+                                    //Si el estado es igual a "Mantenimiento" prosigue
+                        case "Mantenimiento": {
+                            //Se agrega al contenedor un nuevo componente con los datos previamente cargados y mostrando el estado "Limpieza"
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.setVisible(true);
+                                }
+                            }, mantenimiento));
                             break;
                         }
                     }
@@ -229,6 +261,22 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                             }, limpieza));
                             break;
                         }
+                                    //Si el estado es igual a "Mantenimiento" prosigue
+                        case "Mantenimiento": {
+                            //Se agrega al contenedor un nuevo componente con los datos previamente cargados y mostrando el estado "Limpieza"
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.setVisible(true);
+                                }
+                            }, mantenimiento));
+                            break;
+                        }
                     }
                     //Si la bandera es igual a quiera de los id de piso prosigue
                 } else if (idPiso == objetoRecepcion.getIdPiso()) {
@@ -280,6 +328,22 @@ public class ControladorRecepcionesCamarista extends ModeloRecepciones {
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
+                            break;
+                        }
+                                    //Si el estado es igual a "Mantenimiento" prosigue
+                        case "Mantenimiento": {
+                            //Se agrega al contenedor un nuevo componente con los datos previamente cargados y mostrando el estado "Limpieza"
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DesHabitacionVistaCamarista aleDesc = new Pn_Alert_DesHabitacionVistaCamarista(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.setVisible(true);
+                                }
+                            }, mantenimiento));
                             break;
                         }
                     }
