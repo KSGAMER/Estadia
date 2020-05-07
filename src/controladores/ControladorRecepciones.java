@@ -60,7 +60,7 @@ public class ControladorRecepciones extends ModeloRecepciones {
     }
 
     //Método que carga las habitaciones y pintandolas dependiendo del estado en el que se encuentren
-    public void cargarRecepcion(JPanel contenedor, Color disponible, Color reservado, Color limpieza, Color estilo, int idPiso, String estatus) {
+    public void cargarRecepcion(JPanel contenedor, Color disponible, Color reservado, Color limpieza, Color mantenimiento, Color estilo, int idPiso, String estatus) {
         //Se remueve el contenido del panel
         contenedor.removeAll();
         //Se recorre las recepciones
@@ -128,6 +128,23 @@ public class ControladorRecepciones extends ModeloRecepciones {
                             }, limpieza));
                             break;
                         }
+                        case "Mantenimiento": {
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
+                                    aleDesc.validarCambioEstado();
+                                    aleDesc.setVisible(true);
+                                }
+                            }, mantenimiento));
+                            break;
+                        }
                     }
                     //Si la bandera es igual a cualquiera de los id del piso prosigue
                 } else if (idPiso == objetoRecepcion.getIdPiso()) {
@@ -188,6 +205,23 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
+                            break;
+                        }
+                        case "Mantenimiento": {
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
+                                    aleDesc.validarCambioEstado();
+                                    aleDesc.setVisible(true);
+                                }
+                            }, mantenimiento));
                             break;
                         }
                     }
@@ -255,6 +289,23 @@ public class ControladorRecepciones extends ModeloRecepciones {
                             }, limpieza));
                             break;
                         }
+                        case "Mantenimiento": {
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
+                                    aleDesc.validarCambioEstado();
+                                    aleDesc.setVisible(true);
+                                }
+                            }, mantenimiento));
+                            break;
+                        }
                     }
                     //Si la bandera es igual a quiera de los id de piso prosigue
                 } else if (idPiso == objetoRecepcion.getIdPiso()) {
@@ -315,6 +366,23 @@ public class ControladorRecepciones extends ModeloRecepciones {
                                     aleDesc.setVisible(true);
                                 }
                             }, limpieza));
+                            break;
+                        }
+                        case "Mantenimiento": {
+                            contenedor.add(new ComponenteRecepcion().ComponenteRecepcionDatos(objetoRecepcion.getNombre(), objetoRecepcion.getCategoria(), objetoRecepcion.getEstatusHabitacion(), String.valueOf(objetoRecepcion.getPrecioSugerido()), String.valueOf(objetoRecepcion.getPrecioxHora()), new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent ae) {
+                                    //NECESARIO PARA MOSTRAR LA DESCRIPCION DE LAS HABITACIONES EN OTRA VENTANA
+                                    Pn_Alert_DescripcionHabitacion aleDesc = new Pn_Alert_DescripcionHabitacion(Principal, true);
+                                    aleDesc.lb_NombreHabitacion.setText(objetoRecepcion.getNombre());
+                                    aleDesc.lb_Estado.setText(objetoRecepcion.getEstatusHabitacion());
+                                    aleDesc.lb_NombreCategoria.setText(objetoRecepcion.getCategoria());
+                                    aleDesc.jta_observaciones.setText(objetoRecepcion.getDescripcion());
+                                    aleDesc.validarExistenciaIncidencias(objetoRecepcion.getNombre());
+                                    aleDesc.validarCambioEstado();
+                                    aleDesc.setVisible(true);
+                                }
+                            }, mantenimiento));
                             break;
                         }
                     }

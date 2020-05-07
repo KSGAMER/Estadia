@@ -42,6 +42,7 @@ public class Pn_Recepcion extends javax.swing.JPanel {
     private Color disponible = new Color(40, 180, 99);
     private Color reservado = new Color(255, 153, 0);
     private Color limpieza = new Color(211, 18, 18);
+    private Color mantenimiento = Color.decode("#C0C0C0");
     private Color estilo = new Color(174, 182, 191);
     //Se declara la variable para identificar los pisos
     private int idPiso = 0;
@@ -78,7 +79,7 @@ public class Pn_Recepcion extends javax.swing.JPanel {
 
     public void actualizacionReservas() {
         //Se ejecuta el método para generar los componentes pasando el panel que contendra los componentes, los coloresm el filtrado del piso, la categoria para filtrar, agrega los componentes automaticamente 
-        cr.cargarRecepcion(pn_VistaReservaciones, disponible, reservado, limpieza, estilo, idPiso, cb_Categoria.getSelectedItem().toString());
+        cr.cargarRecepcion(pn_VistaReservaciones, disponible, reservado, limpieza, mantenimiento, estilo, idPiso, cb_Categoria.getSelectedItem().toString());
     }
 
     public void actualizaMenuPiso() {
