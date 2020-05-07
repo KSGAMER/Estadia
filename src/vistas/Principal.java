@@ -657,7 +657,7 @@ public class Principal extends javax.swing.JFrame implements Runnable {
         RecepcionCamarista = new MenuItem(iconActualizarRecepcion, "Actualizar", 35, general, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-             //   new CambiaPanel(pnlPrincipal, new Pn_RecepcionVistaCamarista());
+               new CambiaPanel(pnlPrincipal, new Pn_RecepcionVistaCamarista());
             }
         });
         CalendarioReservas = new MenuItem(iconCalendario, "Calendario", 35, general, new ActionListener() {

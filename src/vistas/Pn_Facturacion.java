@@ -482,7 +482,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jPanel3.add(lb_Destinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 34, 400, -1));
 
         jt_Asunto.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
-        jt_Asunto.setForeground(new java.awt.Color(153, 153, 153));
+        jt_Asunto.setForeground(new java.awt.Color(51, 51, 255));
         jt_Asunto.setText("Datos de Facturación");
         jt_Asunto.setBorder(null);
         jt_Asunto.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -538,7 +538,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel18.setText("Telefono");
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 50, -1));
 
-        jt_telefono.setForeground(new java.awt.Color(153, 153, 153));
+        jt_telefono.setForeground(new java.awt.Color(51, 51, 255));
         jt_telefono.setText("Telefono");
         jt_telefono.setBorder(null);
         jt_telefono.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -571,7 +571,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         Celular2.setText("Correo Electronico (Email)");
         jPanel3.add(Celular2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 140, -1));
 
-        jt_email.setForeground(new java.awt.Color(153, 153, 153));
+        jt_email.setForeground(new java.awt.Color(51, 51, 255));
         jt_email.setText("Email");
         jt_email.setBorder(null);
         jt_email.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -643,7 +643,7 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jPanel3.add(Celular1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 190, -1));
 
         jta_observaciones.setColumns(20);
-        jta_observaciones.setForeground(new java.awt.Color(153, 153, 153));
+        jta_observaciones.setForeground(new java.awt.Color(51, 51, 255));
         jta_observaciones.setRows(5);
         jta_observaciones.setText("Ingresar Observaciones");
         jta_observaciones.setBorder(null);
@@ -714,10 +714,10 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel19.setText("Fecha final");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 100, 30));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("NINGUN CAMPO \"EDITABLE\" PODRÁ ESTAR VACIO");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 490, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 510, -1, 40));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -739,8 +739,8 @@ public class Pn_Facturacion extends javax.swing.JPanel {
         jLabel10.setText("El asunto puede dejarse por default o editarse en preferencia");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 450, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 153, 153));
         jLabel11.setText("El campo de telefono , email del cliente y observaciones son editables ");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, -1, -1));
 
